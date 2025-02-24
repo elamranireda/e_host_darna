@@ -1,0 +1,120 @@
+[
+  {
+    "type":"dropdown",
+    "label":"Votre arrivée",
+    "icon":"mat:directions_walk",
+    "children":[
+      {
+        "type":"link",
+        "label":"Coordonnées",
+        "icon": "mat:mail_outline",
+        "route":"/home/bb_4556/arrival/contact"
+      },
+      {
+        "type":"link",
+        "icon": "mat:access_time",
+        "label":"Tranche horaire",
+        "route":"/home/:id/arrival/checkin"
+      },
+      {
+        "type":"link",
+        "icon": "mat:directions",
+        "label":"Itinéraire et transports",
+        "route":"/home/:id/arrival/itinerary"
+      },
+      {
+        "type":"link",
+        "icon": "mat:local_parking",
+        "label":"Parkings",
+        "route":"/home/:id/arrival/parking"
+      },
+      {
+        "type":"link",
+        "label":"Formalités d'arrivée",
+        "icon":"mat:playlist_add_check",
+        "route":"/home/:id/arrival/checkin"
+      },
+      {
+        "type":"link",
+        "label":"Arrivée tardive",
+        "icon": "mat:alarm",
+        "route":"/apps/help-center/faq"
+      },
+      {
+        "type":"link",
+        "label":"Règles de la maison",
+        "icon":"mat:home",
+        "route":"/apps/help-center/faq"
+      }
+    ]
+  },
+  {
+    "type":"dropdown",
+    "label":"Services sur place",
+    "icon":"mat:room_service",
+    "children":[
+      {
+        "type":"link",
+        "label":"Wi-Fi",
+        "route":"/apps/chat"
+      },
+      {
+        "type":"link",
+        "label":"Télévision",
+        "route":"/apps/mail/inbox"
+      },
+      {
+        "type":"link",
+        "label":"Blanchisserie",
+        "route":"/apps/mail/drafts"
+      },
+      {
+        "type":"link",
+        "label":"Linge de toilette",
+        "route":"/apps/mail/sent"
+      },
+      {
+        "type":"link",
+        "label":"Oreillers Supplémentaires",
+        "route":"/apps/mail/important",
+        "icon":"mat:room_service"
+      }
+    ]
+  },
+  {
+    "type":"link",
+    "label":"Tourisme",
+    "route":"/apps/mail/important",
+    "icon":"mat:explore",
+    "routerLinkActiveOptions":{
+      "exact":true
+    }
+  },
+  {
+    "type":"link",
+    "label":"Manger aux environs",
+    "route":"/apps/aio-table",
+    "icon":"mat:restaurant",
+    "routerLinkActiveOptions":{
+      "exact":true
+    }
+  },
+  {
+    "type":"link",
+    "label":"Urgences",
+    "route":"/apps/editor",
+    "icon":"mat:help",
+    "routerLinkActiveOptions":{
+      "exact":true
+    }
+  },
+  {
+    "type":"link",
+    "label":"Votre départ",
+    "route":"/apps/help-center/guides",
+    "icon":"mat:explore",
+    "routerLinkActiveOptions":{
+      "exact":true
+    }
+  }
+]

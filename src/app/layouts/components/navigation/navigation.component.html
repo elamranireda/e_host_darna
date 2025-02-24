@@ -1,7 +1,7 @@
 <div class="border-b">
   <div class="navigation flex items-center container">
     <vex-navigation-item
-      *ngFor="let item of items$ | async"
+      *ngFor="let item of navigationConfigStore.items()"
       [item]="item"></vex-navigation-item>
   </div>
 </div>

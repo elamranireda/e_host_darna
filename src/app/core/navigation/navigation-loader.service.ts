@@ -1,12 +1,15 @@
-import { Injectable } from '@angular/core';
-import { VexLayoutService } from '@vex/services/vex-layout.service';
-import { NavigationItem } from './navigation-item.interface';
-import { BehaviorSubject, Observable } from 'rxjs';
+import {Injectable} from '@angular/core';
+import {VexLayoutService} from '@vex/services/vex-layout.service';
+import {NavigationItem} from './navigation-item.interface';
+import {BehaviorSubject, Observable} from 'rxjs';
+import {HttpClient} from "@angular/common/http";
 
 @Injectable({
   providedIn: 'root'
 })
 export class NavigationLoaderService {
+  private onfigUrl = 'assets/navigation-config.json';
+
   private readonly _items: BehaviorSubject<NavigationItem[]> =
     new BehaviorSubject<NavigationItem[]>([]);
 
@@ -14,25 +17,10 @@ export class NavigationLoaderService {
     return this._items.asObservable();
   }
 
-  constructor(private readonly layoutService: VexLayoutService) {
-    this.loadNavigation();
+  constructor(private readonly layoutService: VexLayoutService, private http: HttpClient) {
   }
 
-  loadNavigation(): void {
-    this._items.next([
-      {
-        type: 'subheading',
-        label: 'Dashboards',
-        children: [
-          {
-            type: 'link',
-            label: 'Analytics',
-            route: '/',
-            icon: 'mat:insights',
-            routerLinkActiveOptions: { exact: true }
-          }
-        ]
-      },
-    ]);
+  loadNavigation(pathId: string): Observable<NavigationItem[]> {
+    return this.http.get<NavigationItem[]>(`${this.onfigUrl}?pathId=${pathId}`);
   }
 }

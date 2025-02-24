@@ -52,7 +52,7 @@
   <vex-scrollbar class="flex-1 flex flex-col">
     <div class="pt-6 flex-1">
       <vex-sidenav-item
-        *ngFor="let item of items$ | async; trackBy: trackByRoute"
+        *ngFor="let item of navigationConfigStore.items(); trackBy: trackByRoute"
         [item]="item"
         [level]="0"></vex-sidenav-item>
     </div>
