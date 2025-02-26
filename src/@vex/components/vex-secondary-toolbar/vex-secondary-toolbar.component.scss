@@ -1,5 +1,4 @@
 .secondary-toolbar {
-  @apply backdrop-blur border-b shadow-b;
   background: var(--vex-secondary-toolbar-background);
   height: var(--vex-secondary-toolbar-height);
   margin-top: calc(var(--vex-secondary-toolbar-height) * -1);

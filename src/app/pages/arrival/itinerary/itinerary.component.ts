@@ -4,8 +4,6 @@ import {fadeInRight400ms} from '@vex/animations/fade-in-right.animation';
 import {RouterLink, RouterLinkActive, RouterOutlet} from '@angular/router';
 import {CommonModule, NgFor} from '@angular/common';
 import {MatTabsModule} from '@angular/material/tabs';
-import {VexSecondaryToolbarComponent} from "@vex/components/vex-secondary-toolbar/vex-secondary-toolbar.component";
-import {VexBreadcrumbsComponent} from "@vex/components/vex-breadcrumbs/vex-breadcrumbs.component";
 import {MatIconModule} from "@angular/material/icon";
 import {MatButtonModule} from "@angular/material/button";
 
@@ -16,7 +14,7 @@ import {MatButtonModule} from "@angular/material/button";
   styleUrls: ['./itinerary.component.scss'],
   animations: [scaleIn400ms, fadeInRight400ms],
   standalone: true,
-  imports: [MatTabsModule, NgFor, RouterLinkActive, RouterLink, RouterOutlet, CommonModule, VexSecondaryToolbarComponent, VexBreadcrumbsComponent, MatIconModule, MatButtonModule]
+  imports: [MatTabsModule, NgFor, RouterLinkActive, RouterLink, RouterOutlet, CommonModule, MatIconModule, MatButtonModule]
 })
 export class ItineraryComponent implements OnInit {
 

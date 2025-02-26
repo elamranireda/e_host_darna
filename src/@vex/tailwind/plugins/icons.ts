@@ -56,6 +56,12 @@ export default plugin(({ addUtilities }: PluginAPI): void => {
       height: '3rem',
       width: '3rem',
       'line-height': '3rem'
+    },
+    '.icon-6xl, .icon-6xl svg': {
+      'font-size': '4rem',
+      height: '4rem',
+      width: '4rem',
+      'line-height': '4rem'
     }
   });
 });

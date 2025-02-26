@@ -53,6 +53,7 @@
     "type":"dropdown",
     "label":"Services sur place",
     "icon":"mat:room_service",
+    "route":"/bb_4556/services",
     "children":[
       {
         "type":"link",

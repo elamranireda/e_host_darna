@@ -1,15 +1,16 @@
-import {Component, inject} from '@angular/core';
+import {Component, effect, inject, OnInit} from '@angular/core';
 import {AsyncPipe, NgClass, NgFor} from '@angular/common';
-import {NavigationItem} from '../../../core/navigation/navigation-item.interface';
+import {NavigationDropdown, NavigationItem} from '../../../core/navigation/navigation-item.interface';
 import {MatIconModule} from "@angular/material/icon";
 import {MatRippleModule} from "@angular/material/core";
-import {RouterLink, RouterLinkActive} from "@angular/router";
+import {Router, RouterLink, RouterLinkActive} from "@angular/router";
 import {stagger40ms} from "@vex/animations/stagger.animation";
 import {fadeInUp400ms} from "@vex/animations/fade-in-up.animation";
 import {SidenavItemComponent} from "../sidenav/sidenav-item/sidenav-item.component";
 import {NavigationItemComponent} from "../navigation/navigation-item/navigation-item.component";
 import {NavigationConfigStore} from "../../../core/stores/navigation-config.store";
 import {MenuNavigationItemComponent} from "../navigation/menu-navigation-item/menu-navigation-item.component";
+import {find} from "rxjs";
 
 @Component({
   selector: 'navigation-menu',
@@ -19,12 +20,20 @@ import {MenuNavigationItemComponent} from "../navigation/menu-navigation-item/me
   standalone: true,
   imports: [NgFor, AsyncPipe, MatIconModule, MatRippleModule, RouterLinkActive, NgClass, RouterLink, SidenavItemComponent, NavigationItemComponent, MenuNavigationItemComponent]
 })
-export class NavigationMenuComponent {
+export class NavigationMenuComponent implements  OnInit {
   readonly navigationConfigStore = inject(NavigationConfigStore);
   items!: NavigationItem[];
 
-  constructor() {
-
-    this.items = this.navigationConfigStore.items();
+  constructor(private router: Router) {
+    effect(() => {
+      const selectedMenu = this.navigationConfigStore.items().find(item => item.type === 'dropdown' && this.router.url.includes(item.route ?? 'unknown')  && item.children) as NavigationDropdown;
+      console.log(selectedMenu)
+      this.items = selectedMenu ? selectedMenu?.children || [] : this.navigationConfigStore.items();
+    })
   }
+
+  ngOnInit(): void {
+
+
+    }
 }
