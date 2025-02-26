@@ -16,6 +16,10 @@ export const appRoutes: VexRoutes = [
           import(
             './pages/home/home.component'
             ).then((m) => m.HomeComponent)
+      },
+      {
+        path: 'arrival',
+        loadChildren: () => import('./pages/arrival/arrival.routes')
       }
     ]
   }

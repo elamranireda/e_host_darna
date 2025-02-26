@@ -1,0 +1,16 @@
+{
+  "HELLO": "Hello",
+  "WELCOME": "Welcome to e-conciergerie !",
+  "LANGUAGES": {
+    "EN": "English",
+    "FR": "French"
+  },
+  "FAQ": {
+    "TITLE": "Still have questions?",
+    "SUBTITLE": "A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart.",
+    "CONTACT": {
+      "TEL": "Call us anytime for a quick solution",
+      "EMAIL": "Send us a mail to resolve your issue"
+    }
+  }
+}

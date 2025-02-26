@@ -1,0 +1,16 @@
+{
+  "HELLO": "Bonjour",
+  "WELCOME": "Bienvenue sur la e-conciergerie !",
+  "LANGUAGES": {
+    "EN": "Anglais",
+    "FR": "Français"
+  },
+  "FAQ": {
+    "TITLE": "Vous avez encore des questions ?",
+    "SUBTITLE": "Une merveilleuse sérénité s'est emparée de toute mon âme, à l'image de ces douces matinées de printemps dont je profite de tout mon cœur.",
+    "CONTACT": {
+      "TEL": "Appelez-nous à tout moment pour une solution rapide",
+      "EMAIL": "Envoyez-nous un mail pour résoudre votre problème"
+    }
+  }
+}

@@ -1,0 +1,37 @@
+{
+    "id": "1fb734ec-5b6e-4a74-b9f3-8e853154a55e",
+    "name": "smartbnb",
+    "description": "Bienvenue chez SMARTBNB, nous sommes heureux de vous accueillir. Pour tout connaître de nos services, n'hésitez pas à consulter ce guide, et pour toute autre question, n'hésitez pas à venir nous voir à la réception de l'hôtel. Toute l'équipe de votre SMARTBNB, vous souhaite un excellent séjour !",
+    "coverImage": "assets/img/demo/landscapes.webp",
+    "avatar": "assets/img/avatars/100.jpg",
+    "address": {
+      "street": "Complexe La Perle de Cabo",
+      "city": "Cabo Negro",
+      "state": "tangier",
+      "postalCode": "",
+      "country": "Maroc"
+    },
+    "location": {
+      "latitude": "35.65364414604545",
+      "longitude": "-5.29497703182904"
+    },
+    "checkInInfo": {
+      "checkInStart": "15:00",
+      "checkInEnd": "00:00",
+      "checkOutTime": "11:00",
+      "accessInstructions": "",
+      "parkingInstructions": "",
+      "wifiInstructions": "",
+      "amenities": [],
+      "houseRules": [],
+      "emergencyContacts": [
+        {
+          "category": "string",
+          "name": "string",
+          "phone": "string",
+          "email": "string"
+        }
+      ]
+    }
+}
+

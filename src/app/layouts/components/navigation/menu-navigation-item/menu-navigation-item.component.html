@@ -1,0 +1,78 @@
+<a
+  *ngIf="isLink(item) && !isFunction(item.route)"
+  #rla="routerLinkActive"
+  [ngClass]="{
+            'border-primary-600 bg-primary-600/10': rla.isActive,
+            'hover:bg-primary-600': !rla.isActive,
+            'hover:text-white': !rla.isActive
+          }"
+  [routerLink]="item.route"
+  class="border h-full p-6 text-center p-12( transition duration-400 ease-out-swift cursor-pointer relative text-dark flex flex-col items-center justify-center "
+  matRipple
+  routerLinkActive>
+  <mat-icon
+    [class.text-inherit]="!rla.isActive"
+    [class.text-primary-600]="rla.isActive"
+    [svgIcon]="item.icon ?? ''"
+    class="transition duration-400 ease-out-swift icon-3xl"></mat-icon>
+  <h5 class="subtitle mb-0 mt-4">{{ item.label }}</h5>
+  <span
+    *ngIf="item.badge"
+    [ngClass]="[item.badge.bgClass, item.badge.textClass]"
+    class="vex-sidenav-item__badge"
+  >{{ item.badge.value }}</span
+  >
+</a>
+
+<a
+  *ngIf="isLink(item) && isFunction(item.route)"
+  #rla="routerLinkActive"
+  [ngClass]="{
+            'border-primary-600 bg-primary-600/10': rla.isActive,
+            'hover:bg-primary-600': !rla.isActive,
+            'hover:text-white': !rla.isActive
+          }"
+  [routerLink]="item.route()"
+  class="border h-full p-6 text-center p-12( transition duration-400 ease-out-swift cursor-pointer relative text-dark flex flex-col items-center justify-center "
+  matRipple
+  routerLinkActive>
+  <mat-icon
+    [class.text-inherit]="!rla.isActive"
+    [class.text-primary-600]="rla.isActive"
+    [svgIcon]="item.icon ?? ''"
+    class="transition duration-400 ease-out-swift icon-3xl"></mat-icon>
+  <h5 class="subtitle mb-0 mt-4">{{ item.label }}</h5>
+  <span
+    *ngIf="item.badge"
+    [ngClass]="[item.badge.bgClass, item.badge.textClass]"
+    class="vex-sidenav-item__badge"
+  >{{ item.badge.value }}</span
+  >
+</a>
+
+<a
+  *ngIf="isDropdown(item)"
+  [routerLink]="item.route"
+  #rla="routerLinkActive"
+  [ngClass]="{
+            'border-primary-600 bg-primary-600/10': rla.isActive,
+            'hover:bg-primary-600': !rla.isActive,
+            'hover:text-white': !rla.isActive
+          }"
+  class="border h-full p-6 text-center p-12( transition duration-400 ease-out-swift cursor-pointer relative text-dark flex flex-col items-center justify-center "
+  matRipple
+  routerLinkActive>
+  <mat-icon
+    [class.text-inherit]="!rla.isActive"
+    [class.text-primary-600]="rla.isActive"
+    [svgIcon]="item.icon ?? ''"
+    class="transition duration-400 ease-out-swift icon-3xl"></mat-icon>
+  <h5 class="subtitle mb-0 mt-4">{{ item.label }}</h5>
+  <span
+    *ngIf="item.badge"
+    [ngClass]="[item.badge.bgClass, item.badge.textClass]"
+    class="vex-sidenav-item__badge"
+  >{{ item.badge.value }}</span
+  >
+</a>
+

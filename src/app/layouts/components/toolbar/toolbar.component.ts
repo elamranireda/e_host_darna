@@ -1,30 +1,25 @@
-import {
-  Component,
-  DestroyRef,
-  ElementRef,
-  HostBinding,
-  inject,
-  OnInit
-} from '@angular/core';
-import { VexLayoutService } from '@vex/services/vex-layout.service';
-import { VexConfigService } from '@vex/config/vex-config.service';
-import { filter, map, startWith, switchMap } from 'rxjs/operators';
-import { NavigationService } from '../../../core/navigation/navigation.service';
-import { VexPopoverService } from '@vex/components/vex-popover/vex-popover.service';
-import { MegaMenuComponent } from './mega-menu/mega-menu.component';
-import { Observable, of } from 'rxjs';
-import { NavigationComponent } from '../navigation/navigation.component';
-import { ToolbarUserComponent } from './toolbar-user/toolbar-user.component';
-import { ToolbarNotificationsComponent } from './toolbar-notifications/toolbar-notifications.component';
-import { NavigationItemComponent } from '../navigation/navigation-item/navigation-item.component';
-import { MatMenuModule } from '@angular/material/menu';
-import { NavigationEnd, Router, RouterLink } from '@angular/router';
-import { AsyncPipe, NgClass, NgFor, NgIf } from '@angular/common';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
-import { NavigationItem } from '../../../core/navigation/navigation-item.interface';
-import { checkRouterChildsData } from '@vex/utils/check-router-childs-data';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import {Component, DestroyRef, ElementRef, HostBinding, inject, OnInit} from '@angular/core';
+import {VexLayoutService} from '@vex/services/vex-layout.service';
+import {VexConfigService} from '@vex/config/vex-config.service';
+import {filter, map, startWith, switchMap} from 'rxjs/operators';
+import {NavigationService} from '../../../core/navigation/navigation.service';
+import {VexPopoverService} from '@vex/components/vex-popover/vex-popover.service';
+import {MegaMenuComponent} from './mega-menu/mega-menu.component';
+import {Observable, of} from 'rxjs';
+import {NavigationComponent} from '../navigation/navigation.component';
+import {ToolbarUserComponent} from './toolbar-user/toolbar-user.component';
+import {ToolbarNotificationsComponent} from './toolbar-notifications/toolbar-notifications.component';
+import {NavigationItemComponent} from '../navigation/navigation-item/navigation-item.component';
+import {MatMenuModule} from '@angular/material/menu';
+import {NavigationEnd, Router, RouterLink} from '@angular/router';
+import {AsyncPipe, NgClass, NgFor, NgIf} from '@angular/common';
+import {MatIconModule} from '@angular/material/icon';
+import {MatButtonModule} from '@angular/material/button';
+import {NavigationItem} from '../../../core/navigation/navigation-item.interface';
+import {checkRouterChildsData} from '@vex/utils/check-router-childs-data';
+import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
+import {TranslatePipe} from "@ngx-translate/core";
+import {LanguageService} from "@vex/services/language-service";
 
 @Component({
   selector: 'vex-toolbar',
@@ -43,7 +38,8 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
     ToolbarNotificationsComponent,
     ToolbarUserComponent,
     NavigationComponent,
-    AsyncPipe
+    AsyncPipe,
+    TranslatePipe
   ]
 })
 export class ToolbarComponent implements OnInit {
@@ -81,8 +77,22 @@ export class ToolbarComponent implements OnInit {
     private readonly configService: VexConfigService,
     private readonly navigationService: NavigationService,
     private readonly popoverService: VexPopoverService,
-    private readonly router: Router
-  ) {}
+    private readonly router: Router,
+    private languageService: LanguageService
+  ) {
+  }
+
+  changeLanguage(lang: string) {
+    this.languageService.changeLanguage(lang);
+  }
+
+  getCurrentLanguageInfo(): string {
+    return this.languageService.getCurrentLanguageInfo()
+  }
+
+  getSupportedLanguages(): string[] {
+    return this.languageService.getSupportedLanguages().filter(lang => lang !== this.getCurrentLanguageInfo());
+  }
 
   ngOnInit() {
     this.router.events

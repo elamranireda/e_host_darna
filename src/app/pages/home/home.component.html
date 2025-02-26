@@ -1,4 +1,64 @@
-<div class="pt-6 flex-1">
+<vex-secondary-toolbar current="{{'WELCOME' | translate}} ">
+
+  <vex-breadcrumbs
+    [crumbs]="['WELCOME' | translate ]"
+    class="flex-auto"></vex-breadcrumbs>
+
+  <!--<button class="ml-2" color="primary" mat-icon-button type="button">
+    <mat-icon svgIcon="mat:more_vert"></mat-icon>
+  </button>-->
+</vex-secondary-toolbar>
+<div class="container py-6">
+  <!-- Affichage d'un loader tant que les données ne sont pas chargées -->
+  <div *ngIf="propertyStrore.loading()" class="text-center py-6">
+    Chargement des informations de l'hôtel...
+  </div>
+  <!-- Affichage du contenu dès que les données sont chargées -->
+  <div *ngIf="propertyStrore.property() ">
+    <div class="bg-foreground  overflow-hidden">
+      <div class="h-64 relative overflow-hidden">
+        <img
+          class="w-full h-full object-cover"
+          [src]="propertyStrore.property()?.coverImage"
+          defaultImage="assets/img/demo/landscape.jpg"
+          alt="Image de couverture de l'hôtel"/>
+        <div
+          class="absolute bg-black opacity-25 top-0 right-0 bottom-0 left-0 w-full h-full z-0">
+        </div>
+
+        <img
+          class="avatar h-24 w-24 absolute top-6 ltr:left-4 rtl:right-4 sm:hidden"
+          [src]="propertyStrore.property()?.avatar"
+          defaultImage="assets/img/avatars/default.jpg"
+          alt="Avatar de l'hôtel"/>
+      </div>
+
+      <div class="z-10 relative -mt-16 px-6 flex items-center">
+        <img
+          @scaleIn
+          class="avatar h-24 w-24  flex-none align-start hidden sm:block border-2 border-white"
+          [src]="propertyStrore.property()?.avatar"
+          defaultImage="assets/img/avatars/default.jpg"
+          alt="Avatar de l'hôtel"/>
+
+        <div class="max-w-full flex-auto sm:ltr:ml-6 sm:rtl:mr-6">
+          <div class="h-16 flex items-end">
+            <h1 @fadeInRight class="headline text-white pb-2 mb-2">
+              {{ propertyStrore.property()?.name }}
+            </h1>
+          </div>
+        </div>
+      </div>
+      <div class="p-4">
+        <h3 class="body-2 m-0 select-none">{{ propertyStrore.property()?.description }}</h3>
+
+      </div>
+    </div>
+      <div class="text-center pt-1 pb-24 header">
+        <navigation-menu></navigation-menu>
+      </div>
+  </div>
 </div>
-<router-outlet></router-outlet>
+<vex-faq></vex-faq>
+
 

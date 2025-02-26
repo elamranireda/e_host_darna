@@ -1,43 +1,41 @@
-import {NavigationItem} from "../navigation/navigation-item.interface";
 import {getState, patchState, signalStore, signalStoreFeature, withHooks, withMethods, withState} from '@ngrx/signals';
-import {NavigationLoaderService} from "../navigation/navigation-loader.service";
 import {effect, inject} from "@angular/core";
 import {rxMethod} from "@ngrx/signals/rxjs-interop";
 import {of, pipe, tap,} from "rxjs";
 import {switchMap} from "rxjs/operators";
+import {Property} from "../interfaces/property.interfac";
+import {PropertyService} from "./property.service";
 
-export interface NavigationConfigState {
-  items: NavigationItem[];
+export interface PropertyState {
+  property: Property | null;
   loading: boolean;
   error: any;
 }
 
 
-const initialState: NavigationConfigState = {
-
-  items: [],
+const initialState: PropertyState = {
+  property: null,
   loading: false,
   error: null
 
 }
 
-export const NavigationConfigStore = signalStore(
+export const PropertyStore = signalStore(
   {providedIn: 'root'},
   withState(initialState),
-  withMethods((store, navigationService = inject(NavigationLoaderService)) => ({
+  withMethods((store, propertyService = inject(PropertyService)) => ({
     reset() {
       patchState(store, initialState);
     },
-    getNavigationConfigFromApi: rxMethod<{path: string, lang:string}>(
+    getPropertyDetails: rxMethod<string>(
       pipe(
         tap(() => patchState(store, {loading: true})),
-        switchMap((input) => {
-          console.log(store.items().length)
-          if (store.items().length > 0) return of(null);
-          return navigationService.loadNavigation(input.path, input.lang).pipe(
+        switchMap((propertyId) => {
+          if (store.property()) return of(null);
+          return propertyService.getProperty(propertyId).pipe(
             tap({
-              next: (items: NavigationItem[]) => {
-                patchState(store, {loading: false, items: [...store.items(), ...items]})
+              next: (item: Property) => {
+                patchState(store, {loading: false, property: {...store.property(), ...item}})
               },
               error: (error: any) => {
                 patchState(store, {loading: false, error});
@@ -60,7 +58,7 @@ export function withIpponLogging() {
         effect(() => {
           // The effect is re-executed on state change.
           const state = getState(store);
-          console.log('navigation items state', state);
+          console.log('Property state', state);
         });
       },
     }),

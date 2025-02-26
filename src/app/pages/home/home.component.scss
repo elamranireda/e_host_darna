@@ -1,0 +1,10 @@
+.vex-sidenav-item__badge {
+  flex: none;
+  border-radius: 9999px;
+  font-size: 11px;
+  line-height: 20px;
+  padding: 0 7px;
+  text-align: center;
+  font-weight: 700;
+  @apply ms-2;
+}

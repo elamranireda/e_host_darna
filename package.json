@@ -32,6 +32,8 @@
     "@ngrx/store": "^13.0.2",
     "@ngx-loading-bar/core": "^6.0.2",
     "@ngx-loading-bar/router": "^6.0.2",
+    "@ngx-translate/core": "^16.0.4",
+    "@ngx-translate/http-loader": "^16.0.1",
     "angular-calendar": "~0.31.0",
     "apexcharts": "~3.44.0",
     "date-fns": "~2.30.0",

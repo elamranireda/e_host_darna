@@ -3,36 +3,37 @@
     "type":"dropdown",
     "label":"Votre arrivée",
     "icon":"mat:directions_walk",
+    "route":"/bb_4556/arrival",
     "children":[
       {
         "type":"link",
         "label":"Coordonnées",
         "icon": "mat:mail_outline",
-        "route":"/home/bb_4556/arrival/contact"
+        "route":"/bb_4556/arrival/contact"
       },
       {
         "type":"link",
         "icon": "mat:access_time",
         "label":"Tranche horaire",
-        "route":"/home/:id/arrival/checkin"
+        "route":"/bb_4556/arrival/checkin"
       },
       {
         "type":"link",
         "icon": "mat:directions",
         "label":"Itinéraire et transports",
-        "route":"/home/:id/arrival/itinerary"
+        "route":"/bb_4556/arrival/itinerary"
       },
       {
         "type":"link",
         "icon": "mat:local_parking",
         "label":"Parkings",
-        "route":"/home/:id/arrival/parking"
+        "route":"/bb_4556/arrival/parking"
       },
       {
         "type":"link",
         "label":"Formalités d'arrivée",
         "icon":"mat:playlist_add_check",
-        "route":"/home/:id/arrival/checkin"
+        "route":"/bb_4556/arrival/checkin"
       },
       {
         "type":"link",

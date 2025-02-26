@@ -121,7 +121,7 @@
 
     <div class="px-1">
       <button [matMenuTriggerFor]="languageMenu" mat-icon-button type="button">
-        <mat-icon svgIcon="flag:united-states"></mat-icon>
+        <mat-icon svgIcon="flag:{{getCurrentLanguageInfo()}}"></mat-icon>
       </button>
     </div>
 
@@ -134,14 +134,11 @@
       overlapTrigger="false"
       xPosition="before"
       yPosition="below">
-      <button mat-menu-item>
-        <mat-icon svgIcon="flag:united-states"></mat-icon>
-        <span>English</span>
-      </button>
 
-      <button mat-menu-item>
-        <mat-icon svgIcon="flag:germany"></mat-icon>
-        <span>German</span>
+
+      <button *ngFor="let lang of getSupportedLanguages()" mat-menu-item (click)="changeLanguage(lang)" >
+        <mat-icon svgIcon="flag:{{lang}}"></mat-icon>
+        <span>{{'LANGUAGES.'+lang.toUpperCase() | translate }}</span>
       </button>
     </mat-menu>
   </div>
