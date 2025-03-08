@@ -1,3 +1,80 @@
-<div class="container py-6">
-  <p> menu Formalités d'arrivée</p>
+<div *ngIf="accessInstructions() as item" class="flex flex-col md:flex-row md:items-start">
+  <div class="flex-auto">
+    <app-widget-assistant *ngIf="item.messages" [item]="item.messages" class="sm:col-span-2"></app-widget-assistant>
+    <h2 class="title mt-6 mb-4 flex items-center">
+    <span
+      @scaleIn
+      class="w-10 h-10 rounded-full text-primary-600 mr-3 flex items-center justify-center bg-primary-600/10">
+      <mat-icon class="icon-sm" svgIcon="mat:vertical_split"></mat-icon>
+    </span>
+      <span @fadeInRight class="block">{{item.title}}</span>
+    </h2>
+
+    <div @fadeInUp class="card overflow-hidden">
+<mat-vertical-stepper #verticalStepper="matVerticalStepper" [linear]="true">
+  <ng-template matStepperIcon="edit">
+    <mat-icon svgIcon="mat:done_all"></mat-icon>
+  </ng-template>
+
+  <ng-template matStepperIcon="done">
+    <mat-icon svgIcon="mat:done_all"></mat-icon>
+
+  </ng-template>
+
+  <mat-step *ngFor="let instruction of item.instructions">
+    <ng-template matStepLabel>{{instruction.title}}</ng-template>
+    <vex-profile-timeline-entry
+      [videoUrl]="instruction.videoUrl"
+      [imageUrls]="instruction.images">
+      <p [innerHTML]="instruction.description" class="pt-1">
+      </p>
+      <div *ngFor="let i of instruction?.list" class="mt-4 flex items-center">
+        <mat-icon class="mr-2" svgIcon="mat:check_circle"></mat-icon>
+        <span class="body-2 cursor-pointer">{{i}}</span>
+      </div>
+      <div *ngIf="instruction?.methodeType === AccessMethodeTypeEnum.KEY_BOX" class="py-4">
+        <mat-form-field>
+          <mat-label>Code</mat-label>
+          <input [type]="inputType" matInput required [value]="instruction?.codeAccess?.code ?? ''" />
+          <button
+            (click)="togglePassword()"
+            mat-icon-button
+            matIconSuffix
+            type="button">
+            <mat-icon *ngIf="visible" svgIcon="mat:visibility"></mat-icon>
+            <mat-icon *ngIf="!visible" svgIcon="mat:visibility_off"></mat-icon>
+          </button>
+        </mat-form-field>
+      </div>
+    </vex-profile-timeline-entry>
+  </mat-step>
+</mat-vertical-stepper>
+    </div>
+  </div>
+<div
+  class="flex-none max-w-unset md:max-w-xs w-full md:ltr:ml-6 md:rtl:mr-6 mt-6 md:mt-0">
+  <div class="bg-foreground overflow-hidden">
+    <div class="px-6 py-4 border-b">
+      <h2 class="title m-0">Check-in contact</h2>
+    </div>
+
+    <div class="px-6 py-3">
+      <div *ngFor="let contact of item.checkinContacts" class="py-3 flex items-center">
+        <div
+          @scaleIn
+          class="w-10 h-10 rounded-full bg-primary-600/10 text-primary-600 ltr:mr-3 rtl:ml-3 flex items-center justify-center">
+          <mat-icon *ngIf="contact.icon" class="icon-sm" [svgIcon]="contact.icon"></mat-icon>
+        </div>
+
+        <div @fadeInRight>
+          <p class="m-0 body-1">{{contact.value}}</p>
+          <p class="m-0 caption text-hint">{{contact.label}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
 </div>

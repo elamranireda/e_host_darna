@@ -1,0 +1,34 @@
+import { Component, Input, OnInit } from '@angular/core';
+import { MatIconModule } from '@angular/material/icon';
+import { MatRippleModule } from '@angular/material/core';
+import {NgForOf, NgIf, NgOptimizedImage} from '@angular/common';
+import {DomSanitizer, SafeResourceUrl} from "@angular/platform-browser";
+import {stagger40ms} from "@vex/animations/stagger.animation";
+import {scaleIn400ms} from "@vex/animations/scale-in.animation";
+
+@Component({
+  selector: 'vex-profile-timeline-entry',
+  templateUrl: './social-timeline-entry.component.html',
+  styleUrls: ['./social-timeline-entry.component.scss'],
+  animations: [stagger40ms, scaleIn400ms],
+  standalone: true,
+  imports: [NgIf, MatRippleModule, MatIconModule, NgForOf, NgOptimizedImage]
+})
+export class SocialTimelineEntryComponent implements OnInit {
+  @Input() avatarUrl!: string;
+  @Input() name!: string;
+  @Input() time?: string;
+  @Input() videoUrl?: string | undefined;
+  @Input() imageUrls?: string[];
+  @Input() likes!: string;
+  @Input() comments!: string;
+
+  safeLink: SafeResourceUrl = "";
+  constructor(private sanitizer: DomSanitizer) {
+
+  }
+
+  ngOnInit(): void {
+    if (this.videoUrl) this.safeLink = this.sanitizer.bypassSecurityTrustResourceUrl(this.videoUrl)
+  }
+}

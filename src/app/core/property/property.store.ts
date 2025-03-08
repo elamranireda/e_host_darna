@@ -1,5 +1,14 @@
-import {getState, patchState, signalStore, signalStoreFeature, withHooks, withMethods, withState} from '@ngrx/signals';
-import {effect, inject} from "@angular/core";
+import {
+  getState,
+  patchState,
+  signalStore,
+  signalStoreFeature,
+  withComputed,
+  withHooks,
+  withMethods,
+  withState
+} from '@ngrx/signals';
+import {computed, effect, inject} from "@angular/core";
 import {rxMethod} from "@ngrx/signals/rxjs-interop";
 import {of, pipe, tap,} from "rxjs";
 import {switchMap} from "rxjs/operators";
@@ -48,7 +57,10 @@ export const PropertyStore = signalStore(
     ),
 
   })),
-  withIpponLogging()
+  withIpponLogging(),
+  withComputed((store) => ({
+    accessInstructions: computed(() => store.property()?.checkInInfo.accessInstructions ?? null)
+  }))
 );
 
 export function withIpponLogging() {

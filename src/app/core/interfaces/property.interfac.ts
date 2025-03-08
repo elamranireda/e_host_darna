@@ -1,6 +1,9 @@
+import {AccessInstructions} from "./access-instruction-item.interface";
+
 export interface Property {
   id: string;
   name: string;
+  hostId: string;
   description: string;
   coverImage: string;
   avatar: string;
@@ -31,15 +34,10 @@ export interface Property {
       email: string;
     }[]
   };
-
-
-
+  createdAt: string;
+  updatedAt: string;
 }
 
-export interface AccessInstructions {
-  documents: string[];
-
-}
 
 export interface WifiInstructions {
   name: string;

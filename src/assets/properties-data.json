@@ -1,37 +1,119 @@
 {
-    "id": "1fb734ec-5b6e-4a74-b9f3-8e853154a55e",
-    "name": "smartbnb",
-    "description": "Bienvenue chez SMARTBNB, nous sommes heureux de vous accueillir. Pour tout connaître de nos services, n'hésitez pas à consulter ce guide, et pour toute autre question, n'hésitez pas à venir nous voir à la réception de l'hôtel. Toute l'équipe de votre SMARTBNB, vous souhaite un excellent séjour !",
-    "coverImage": "assets/img/demo/landscapes.webp",
-    "avatar": "assets/img/avatars/100.jpg",
-    "address": {
-      "street": "Complexe La Perle de Cabo",
-      "city": "Cabo Negro",
-      "state": "tangier",
-      "postalCode": "",
-      "country": "Maroc"
-    },
-    "location": {
-      "latitude": "35.65364414604545",
-      "longitude": "-5.29497703182904"
-    },
-    "checkInInfo": {
-      "checkInStart": "15:00",
-      "checkInEnd": "00:00",
-      "checkOutTime": "11:00",
-      "accessInstructions": "",
-      "parkingInstructions": "",
-      "wifiInstructions": "",
-      "amenities": [],
-      "houseRules": [],
-      "emergencyContacts": [
+  "id": "1fb734ec-5b6e-4a74-b9f3-8e853154a55e",
+  "name": "smartbnb",
+  "description": "Bienvenue chez SMARTBNB, nous sommes heureux de vous accueillir. Pour tout connaître de nos services, n'hésitez pas à consulter ce guide, et pour toute autre question, n'hésitez pas à venir nous voir à la réception de l'hôtel. Toute l'équipe de votre SMARTBNB, vous souhaite un excellent séjour !",
+  "coverImage": "assets/img/demo/landscapes.webp",
+  "avatar": "assets/img/avatars/100.jpg",
+  "address": {
+    "street": "Complexe La Perle de Cabo",
+    "city": "Cabo Negro",
+    "state": "tangier",
+    "postalCode": "",
+    "country": "Maroc"
+  },
+  "location": {
+    "latitude": "35.65364414604545",
+    "longitude": "-5.29497703182904"
+  },
+  "checkInInfo": {
+    "checkInStart": "15:00",
+    "checkInEnd": "00:00",
+    "checkOutTime": "11:00",
+    "accessInstructions": {
+      "title": "Instructions d'accès",
+      "status": "PENDING",
+      "messages": {
+        "title": "A lire attentivement!",
+        "subtitle": "Vous étes sur le point de faire votre check-in.",
+        "items": [
+          {
+            "order": 1,
+            "value": "Vous devez impérativement présenter votre acte de mariage et votre identité aux agents de sécurité au niveau de la porte principale"
+          },
+          {
+            "order": 2,
+            "value": "Le check-in commence après 15h, toute arrivée tardive ou avant le temps doit etre signalée au préalable"
+          }
+        ]
+      },
+      "documents": [
+      ],
+      "instructions": [
         {
-          "category": "string",
-          "name": "string",
-          "phone": "string",
-          "email": "string"
+          "step": 1,
+          "title": "Vérification d'Identité",
+          "description": "<h4 style=\"color: #5e9ca0;\"><span style=\"color: #000000;\"><strong>Lors de votre check-in à la porte principale de la résidence, vous devez pr&eacute;senter les documents suivants</strong></span></h4></p>",
+          "needToCheck": false,
+          "list": [ "Pièce d'identité", "Acte de mariage"],
+          "videoUrl": "https://player.vimeo.com/video/253905163"
+        },
+        {
+          "step": 3,
+          "title": "Instructions d'Arrivée",
+          "description": "L'appartement se sirue au niveau de l'immeuble 14 appartement 14 au 2ème étage, une fois à l'immeuble, vous prenez l'ascenseur et vous descendez au 2ème étage l'appartement se trouve à votre gauche. Veillez suivre les images ou la video ci-dessous pour plus de détails",
+          "videoUrl": "https://player.vimeo.com/video/253905163",
+          "images": ["assets/img/demo/landscape.webp", "assets/img/demo/landscape.webp"]
+        },
+        {
+          "step": 2,
+          "title": "Accès au Logement",
+          "description": "L'appartement se sirue au niveau de l'immeuble 14 appartement 14 au 2ème étage, une fois à l'immeuble, vous prenez l'ascenseur et vous descendez au 2ème étage l'appartement se trouve à votre gauche. Veillez suivre les images ci-dessous pour plus de détails",
+          "videoUrl": "",
+          "methodeType": "KEY_BOX",
+          "codeAccess": {
+            "code": "1991",
+            "expiresAt": "",
+            "status": "ACTIVE"
+          }
+        }
+      ],
+      "checkinContacts": [
+        {
+          "order": 2,
+          "value": "+1 (930) 502-3182",
+          "type": "PHONE",
+          "icon": "mat:phone",
+          "label": "Téléphone"
+        },
+        {
+          "order": 1,
+          "value": "+1 (930) 502-3182",
+          "type": "WHATSAPP",
+          "icon": "logo:whatsapp",
+          "label": "Whatsaap Usually available"
+        },
+        {
+          "order": 3,
+          "value": "david.smith@example.com",
+          "type": "EMAIL",
+          "icon": "mat:mail",
+          "label": "Urgences uniquement"
         }
       ]
+    },
+    "parkingInstructions": "",
+    "wifiInstructions": "",
+    "amenities": [],
+    "houseRules": [],
+    "emergencyContacts": [
+      {
+        "category": "string",
+        "name": "string",
+        "phone": "string",
+        "email": "string"
+      }
+    ]
+  },
+  "wifiInstructions": "",
+  "amenities": [],
+  "houseRules": [],
+  "emergencyContacts": [
+    {
+      "category": "string",
+      "name": "string",
+      "phone": "string",
+      "email": "string"
     }
+  ]
 }
 
