@@ -26,6 +26,13 @@ import {MatInputModule} from "@angular/material/input";
 import {UntypedFormControl} from "@angular/forms";
 import {AccessInstructionsService} from "../../../core/access-instructions/access-instructions.service";
 import { TranslatePipe } from '@ngx-translate/core';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { Clipboard } from '@angular/cdk/clipboard';
+import { trigger, transition, style, animate } from '@angular/animations';
+import { DatePipe } from '@angular/common';
 
 // Interface pour les éléments de galerie
 export interface GalleryItem {
@@ -36,19 +43,64 @@ export interface GalleryItem {
   order: number;
 }
 
+// Clé pour le stockage local de la progression
+const CHECKIN_PROGRESS_KEY = 'checkin-progress';
+
 @Component({
   selector: 'ehost-home',
   templateUrl: './checkin.component.html',
   styleUrls: ['./checkin.component.scss'],
-  animations: [fadeInUp400ms, fadeInRight400ms, scaleIn400ms, stagger40ms, stagger80ms],
+  animations: [
+    fadeInUp400ms, 
+    fadeInRight400ms, 
+    scaleIn400ms, 
+    stagger40ms, 
+    stagger80ms,
+    trigger('fadeInSlideUp', [
+      transition(':enter', [
+        style({ opacity: 0, transform: 'translateY(20px)' }),
+        animate('300ms ease-out', style({ opacity: 1, transform: 'translateY(0)' }))
+      ])
+    ])
+  ],
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [MatTabsModule, NgFor, RouterLinkActive, RouterLink, RouterOutlet, CommonModule, MatIconModule, MatButtonModule, MatRippleModule, MatStepperModule, WidgetAssistantComponent, MatInputModule, SocialTimelineEntryComponent, TranslatePipe]
+  imports: [
+    MatTabsModule, 
+    NgFor, 
+    RouterLinkActive, 
+    RouterLink, 
+    RouterOutlet, 
+    CommonModule, 
+    MatIconModule, 
+    MatButtonModule, 
+    MatRippleModule, 
+    MatStepperModule, 
+    WidgetAssistantComponent, 
+    MatInputModule, 
+    SocialTimelineEntryComponent, 
+    TranslatePipe, 
+    MatSnackBarModule,
+    MatTooltipModule,
+    MatProgressBarModule,
+    MatProgressSpinnerModule,
+    DatePipe
+  ]
 })
 export class CheckinComponent implements OnInit {
   selectCtrl: UntypedFormControl = new UntypedFormControl();
   inputType = 'password';
   visible = false;
+
+  // Variables pour la gestion d'erreurs
+  hasError = false;
+  errorMessage = '';
+  retryFunction: (() => void) | null = null;
+
+  // Variable pour le suivi de progression
+  totalSteps = 0;
+  currentStep = 0;
+  checkInComplete = false;
 
   @ViewChild('verticalStepper') verticalStepper!: MatStepper;
   
@@ -60,11 +112,16 @@ export class CheckinComponent implements OnInit {
   lightboxOpen = false;
   currentImageIndex = 0;
   currentInstructionKey = '';
+
+  // Préchargement des images
+  private preloadedImages: HTMLImageElement[] = [];
   
   readonly propertyStore = inject(PropertyStore);
   readonly accessInstructions = this.propertyStore.accessInstructions;
   private accessInstructionsService = inject(AccessInstructionsService);
   private document = inject(DOCUMENT);
+  private snackBar = inject(MatSnackBar);
+  private clipboard = inject(Clipboard);
 
   // Helper methods to use in the template
   isAccessModeItem = this.accessInstructionsService.isAccessModeItem.bind(this.accessInstructionsService);
@@ -74,7 +131,9 @@ export class CheckinComponent implements OnInit {
   // Expose the sorted instructions for use in the template
   getSortedInstructions(instructions: AccessInstructions | null): AccessInstructionItem[] {
     if (!instructions) return [];
-    return this.accessInstructionsService.getAllInstructionsSorted(instructions);
+    const sortedInstructions = this.accessInstructionsService.getAllInstructionsSorted(instructions);
+    this.totalSteps = sortedInstructions.length;
+    return sortedInstructions;
   }
   
   // Get instructions of specific types, already sorted
@@ -97,6 +156,8 @@ export class CheckinComponent implements OnInit {
   selectStep(index: number): void {
     if (this.verticalStepper) {
       this.verticalStepper.selectedIndex = index;
+      this.currentStep = index + 1;
+      this.saveProgress();
     }
   }
 
@@ -104,18 +165,163 @@ export class CheckinComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    // Initialiser l'écouteur pour les changements d'étape
+    this.initStepChangeListener();
+    
+    // Charger la progression sauvegardée
+    this.loadSavedProgress();
+    
+    // Précharger les images des instructions
+    this.preloadAllImages();
+  }
+
+  // Initialise l'écouteur pour les changements d'étape
+  private initStepChangeListener(): void {
+    // Attendre que le stepper soit initialisé
+    setTimeout(() => {
+      if (this.verticalStepper) {
+        this.verticalStepper.selectionChange.subscribe(event => {
+          this.currentStep = event.selectedIndex + 1;
+          this.saveProgress();
+        });
+      }
+    }, 0);
+  }
+
+  // Charge la progression sauvegardée
+  private loadSavedProgress(): void {
+    try {
+      const savedProgress = localStorage.getItem(CHECKIN_PROGRESS_KEY);
+      if (savedProgress) {
+        const { propertyId, step } = JSON.parse(savedProgress);
+        if (propertyId === this.propertyStore.property()?.id) {
+          // Attendre que le stepper soit initialisé
+          setTimeout(() => {
+            if (this.verticalStepper) {
+              this.verticalStepper.selectedIndex = step;
+              this.currentStep = step + 1;
+              this.cd.markForCheck();
+            }
+          }, 0);
+        }
+      }
+    } catch (error) {
+      console.error('Erreur lors du chargement de la progression:', error);
+      localStorage.removeItem(CHECKIN_PROGRESS_KEY);
+    }
+  }
+
+  // Sauvegarde la progression actuelle
+  @HostListener('window:beforeunload')
+  saveProgress(): void {
+    try {
+      if (this.propertyStore.property() && this.verticalStepper) {
+        localStorage.setItem(CHECKIN_PROGRESS_KEY, JSON.stringify({
+          propertyId: this.propertyStore.property()?.id,
+          step: this.verticalStepper.selectedIndex
+        }));
+      }
+    } catch (error) {
+      console.error('Erreur lors de la sauvegarde de la progression:', error);
+    }
+  }
+
+  // Précharge toutes les images des instructions
+  private preloadAllImages(): void {
+    const instructions = this.accessInstructions();
+    if (!instructions) return;
+
+    const allInstructions = this.getSortedInstructions(instructions);
+    allInstructions.forEach(instruction => {
+      if (instruction.images && instruction.images.length > 0) {
+        instruction.images.forEach(imageSrc => {
+          const img = new Image();
+          img.src = imageSrc;
+          this.preloadedImages.push(img);
+        });
+      }
+    });
+  }
+
+  // Copie le texte dans le presse-papiers
+  copyToClipboard(text: string | undefined): void {
+    if (!text) return;
+    
+    const success = this.clipboard.copy(text);
+    if (success) {
+      this.snackBar.open('Code copié dans le presse-papiers', 'Fermer', {
+        duration: 3000,
+        horizontalPosition: 'center',
+        verticalPosition: 'bottom',
+      });
+    } else {
+      this.snackBar.open('Échec de la copie', 'Fermer', {
+        duration: 3000,
+      });
+    }
+  }
+
+  // Formate la date d'expiration
+  formatExpiryDate(dateStr: string | undefined): string {
+    if (!dateStr) return 'Non spécifié';
+    
+    try {
+      const date = new Date(dateStr);
+      return new DatePipe(this.document.defaultView?.navigator.language || 'fr')
+        .transform(date, 'dd MMMM yyyy à HH:mm') || dateStr;
+    } catch (error) {
+      return dateStr;
+    }
+  }
+
+  // Calcule le pourcentage de complétion
+  getCompletionPercentage(): number {
+    if (this.totalSteps === 0) return 0;
+    if (this.checkInComplete) return 100;
+    
+    const currentStep = this.currentStep;
+    return Math.round((currentStep / this.totalSteps) * 100);
+  }
+
+  // Action de complétion du check-in
+  completeCheckin(): void {
+    this.checkInComplete = true;
+    localStorage.removeItem(CHECKIN_PROGRESS_KEY);
+    
+    this.snackBar.open('Check-in terminé avec succès!', 'Fermer', {
+      duration: 5000,
+      panelClass: 'success-snackbar'
+    });
+    
+    // Redirection ou autre action après complétion
+  }
+
+  // Méthode pour réessayer une opération en cas d'erreur
+  retryOperation(): void {
+    this.hasError = false;
+    this.errorMessage = '';
+    
+    if (this.retryFunction) {
+      this.retryFunction();
+    }
   }
 
   togglePassword() {
     if (this.visible) {
       this.inputType = 'password';
       this.visible = false;
-      this.cd.markForCheck();
     } else {
       this.inputType = 'text';
       this.visible = true;
-      this.cd.markForCheck();
+      
+      // Auto-masquage après 10 secondes pour la sécurité
+      setTimeout(() => {
+        this.inputType = 'password';
+        this.visible = false;
+        this.cd.markForCheck();
+      }, 10000);
     }
+    this.cd.markForCheck();
   }
 
   protected readonly AccessMethodTypeEnum = AccessMethodTypeEnum;
@@ -218,7 +424,27 @@ export class CheckinComponent implements OnInit {
     if (this.document?.body) {
       this.document.body.style.overflow = 'hidden';
     }
+    
+    // Précharger les images adjacentes pour une navigation fluide
+    this.preloadAdjacentImages();
+    
     this.cd.markForCheck();
+  }
+  
+  // Précharge les images adjacentes à l'image actuellement affichée
+  private preloadAdjacentImages(): void {
+    const items = this.getAllGalleryItems();
+    if (items.length <= 1) return;
+    
+    const nextIndex = (this.currentImageIndex + 1) % items.length;
+    const prevIndex = (this.currentImageIndex - 1 + items.length) % items.length;
+    
+    // Préchargement des images suivante et précédente
+    const nextImg = new Image();
+    nextImg.src = items[nextIndex].src;
+    
+    const prevImg = new Image();
+    prevImg.src = items[prevIndex].src;
   }
   
   // Fermer la galerie lightbox
@@ -242,6 +468,9 @@ export class CheckinComponent implements OnInit {
     } else {
       this.currentImageIndex = (this.currentImageIndex + 1) % itemsCount;
     }
+    
+    // Précharger les images adjacentes pour une navigation fluide
+    setTimeout(() => this.preloadAdjacentImages(), 0);
     
     this.cd.markForCheck();
   }

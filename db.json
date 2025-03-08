@@ -1,0 +1,229 @@
+{
+  "properties": [
+    {
+      "id": "1fb734ec-5b6e-4a74-b9f3-8e853154a55e",
+      "name": "Hôtel Luxe Marina",
+      "type": "hotel",
+      "description": "Bienvenue dans notre hôtel 5 étoiles avec vue imprenable sur la marina. Notre personnel est à votre disposition 24h/24 pour rendre votre séjour inoubliable.",
+      "coverImage": "assets/img/demo/landscapes.webp",
+      "avatar": "assets/img/avatars/100.jpg",
+      "address": {
+        "street": "12 Avenue des Palmiers",
+        "city": "Tanger",
+        "state": "Tanger-Tétouan-Al Hoceïma",
+        "postalCode": "90000",
+        "country": "Maroc"
+      },
+      "location": {
+        "latitude": "35.7633",
+        "longitude": "-5.8039"
+      },
+      "checkInInfo": {
+        "checkInStart": "14:00",
+        "checkInEnd": "23:00",
+        "checkOutTime": "12:00",
+        "accessInstructions": {
+          "title": "Instructions d'accès - Hôtel",
+          "status": "PENDING",
+          "messages": {
+            "title": "Bienvenue à l'Hôtel Luxe Marina!",
+            "subtitle": "Votre chambre est prête pour votre arrivée.",
+            "items": [
+              {
+                "order": 1,
+                "value": "Veuillez vous présenter à la réception avec votre pièce d'identité et le numéro de confirmation de réservation"
+              },
+              {
+                "order": 2,
+                "value": "Notre personnel est à votre disposition 24h/24 pour toute assistance"
+              }
+            ]
+          },
+          "documents": [
+            {
+              "label": "Pièce d'identité",
+              "documentType": "CNI",
+              "status": "PENDING"
+            }
+          ],
+          "instructions": [
+            {
+              "step": 1,
+              "title": "Vérification d'Identité",
+              "description": "<h4>Lors de votre arrivée à l'hôtel, veuillez présenter les documents suivants à la réception</h4>",
+              "needToCheck": true,
+              "checkLink": "https://example.com/verify-identity",
+              "list": ["Pièce d'identité", "Confirmation de réservation"],
+              "videoUrl": "",
+              "type": "IDENTITY_CHECK"
+            },
+            {
+              "step": 2,
+              "title": "Récupération des Clés",
+              "description": "Présentez-vous à la réception de l'hôtel qui se trouve au rez-de-chaussée, à droite de l'entrée principale. Notre personnel vous remettra les clés de votre chambre après vérification de votre identité.",
+              "videoUrl": "https://player.vimeo.com/video/253905163",
+              "methodType": "KEY",
+              "type": "ACCESS_MODE"
+            },
+            {
+              "step": 3,
+              "title": "Accès à la Chambre",
+              "description": "Votre chambre se trouve au 4ème étage, accessible par l'ascenseur central. Suivez les indications dans le couloir pour trouver votre chambre numéro 412.",
+              "videoUrl": "",
+              "images": ["assets/img/demo/landscape.webp", "assets/img/demo/landscape.webp"],
+              "type": "ARRIVAL_INSTRUCTION"
+            }
+          ],
+          "checkinContacts": [
+            {
+              "order": 1,
+              "value": "+212 539 123 456",
+              "type": "PHONE",
+              "icon": "mat:phone",
+              "label": "Réception 24h/24"
+            },
+            {
+              "order": 2,
+              "value": "+212 661 789 012",
+              "type": "WHATSAPP",
+              "icon": "logo:whatsapp",
+              "label": "Conciergerie WhatsApp"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "2ac845fd-6c7f-5b85-c0a4-9f964265b66f",
+      "name": "Villa Oceania",
+      "type": "villa",
+      "description": "Magnifique villa avec piscine privée et vue sur l'océan. Parfaite pour des vacances en famille ou entre amis dans un cadre idyllique.",
+      "coverImage": "assets/img/demo/landscapes.webp",
+      "avatar": "assets/img/avatars/101.jpg",
+      "address": {
+        "street": "Route de Malabata",
+        "city": "Tanger",
+        "state": "Tanger-Tétouan-Al Hoceïma",
+        "postalCode": "90000",
+        "country": "Maroc"
+      },
+      "location": {
+        "latitude": "35.7922",
+        "longitude": "-5.7656"
+      },
+      "checkInInfo": {
+        "checkInStart": "15:00",
+        "checkInEnd": "20:00",
+        "checkOutTime": "10:00",
+        "accessInstructions": {
+          "title": "Instructions d'accès - Villa",
+          "status": "PENDING",
+          "messages": {
+            "title": "Bienvenue à la Villa Oceania!",
+            "subtitle": "Voici comment accéder à votre location de vacances en toute autonomie.",
+            "items": [
+              {
+                "order": 1,
+                "value": "La villa est équipée d'une key box sécurisée pour récupérer les clés"
+              },
+              {
+                "order": 2,
+                "value": "Veuillez respecter les heures d'arrivée et de départ"
+              }
+            ]
+          },
+          "documents": [
+            {
+              "label": "Pièce d'identité",
+              "documentType": "CNI",
+              "status": "PENDING"
+            }
+          ],
+          "instructions": [
+            {
+              "step": 1,
+              "title": "Accès à la Propriété",
+              "description": "<h4>La villa est située dans un domaine privé avec un gardien à l'entrée</h4><p>Présentez-vous à l'entrée du domaine 'Les Jardins de Malabata' et donnez le code #2468 au gardien pour qu'il vous laisse entrer.</p>",
+              "videoUrl": "https://player.vimeo.com/video/253905163",
+              "list": ["Code d'accès domaine: 2468", "Le gardien est présent 24h/24"],
+              "type": "ARRIVAL_INSTRUCTION"
+            },
+            {
+              "step": 2,
+              "title": "Récupération des Clés",
+              "description": "Vous trouverez une key box sécurisée à droite de la porte d'entrée principale. Utilisez le code ci-dessous pour l'ouvrir et récupérer les clés de la villa.",
+              "videoUrl": "https://player.vimeo.com/video/253905164",
+              "methodType": "KEY_BOX",
+              "codeAccess": {
+                "code": "3579",
+                "expiresAt": "2023-12-31T23:59:59Z",
+                "status": "ACTIVE"
+              },
+              "images": ["assets/img/demo/landscape.webp"],
+              "type": "ACCESS_MODE"
+            },
+            {
+              "step": 3,
+              "title": "Accès à la Piscine",
+              "description": "La piscine privée se trouve à l'arrière de la villa. Pour activer l'éclairage et le chauffage, utilisez le panneau de contrôle situé près de la cuisine extérieure.",
+              "images": ["assets/img/demo/landscape.webp", "assets/img/demo/landscape.webp"],
+              "type": "ARRIVAL_INSTRUCTION"
+            }
+          ],
+          "checkinContacts": [
+            {
+              "order": 1,
+              "value": "+212 661 234 567",
+              "type": "PHONE",
+              "icon": "mat:phone",
+              "label": "Gestionnaire local"
+            },
+            {
+              "order": 2,
+              "value": "+212 661 234 567",
+              "type": "WHATSAPP",
+              "icon": "logo:whatsapp",
+              "label": "Support WhatsApp"
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "comments": [
+    { 
+      "id": "1", 
+      "text": "Superbe établissement, service impeccable!", 
+      "propertyId": "1fb734ec-5b6e-4a74-b9f3-8e853154a55e",
+      "author": "Jean Dupont",
+      "rating": 5,
+      "date": "2023-02-15T14:30:00Z"
+    },
+    { 
+      "id": "2", 
+      "text": "Vue magnifique et personnel attentionné", 
+      "propertyId": "1fb734ec-5b6e-4a74-b9f3-8e853154a55e",
+      "author": "Marie Leclerc",
+      "rating": 4,
+      "date": "2023-03-10T09:15:00Z"
+    },
+    { 
+      "id": "3", 
+      "text": "La piscine est encore plus belle que sur les photos!", 
+      "propertyId": "2ac845fd-6c7f-5b85-c0a4-9f964265b66f",
+      "author": "Laurent Martin",
+      "rating": 5,
+      "date": "2023-04-22T16:45:00Z"
+    }
+  ],
+  "profile": {
+    "name": "e-host darna",
+    "description": "Plateforme de conciergerie électronique pour les hôtels et locations de vacances",
+    "version": "1.0.0",
+    "contact": {
+      "email": "contact@e-host-darna.com",
+      "phone": "+212 5XX XXX XXX",
+      "website": "https://www.e-host-darna.com"
+    }
+  }
+} 

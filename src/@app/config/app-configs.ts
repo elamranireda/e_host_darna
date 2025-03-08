@@ -27,7 +27,7 @@ const baseConfig: AppConfig = {
     }
   },
   direction: 'ltr',
-  imgSrc: '//app-landing.visurel.com/assets/img/layouts/apollo.png',
+  imgSrc: 'assets/img/layouts/apollo.png',
   layout: 'horizontal',
   boxed: false,
   sidenav: {
@@ -63,7 +63,7 @@ export const appConfigs: AppConfigs = {
     id: AppConfigName.poseidon,
     name: 'Poseidon',
     bodyClass: 'app-layout-poseidon',
-    imgSrc: '//app-landing.visurel.com/assets/img/layouts/poseidon.png',
+    imgSrc: 'assets/img/layouts/poseidon.png',
     sidenav: {
       user: {
         visible: true
@@ -82,7 +82,7 @@ export const appConfigs: AppConfigs = {
     id: AppConfigName.hermes,
     name: 'Hermes',
     bodyClass: 'app-layout-hermes',
-    imgSrc: '//app-landing.visurel.com/assets/img/layouts/hermes.png',
+    imgSrc: 'assets/img/layouts/hermes.png',
     layout: 'vertical',
     boxed: true,
     sidenav: {
@@ -104,7 +104,7 @@ export const appConfigs: AppConfigs = {
     id: AppConfigName.ares,
     name: 'Ares',
     bodyClass: 'app-layout-ares',
-    imgSrc: '//app-landing.visurel.com/assets/img/layouts/ares.png',
+    imgSrc: 'assets/img/layouts/ares.png',
     sidenav: {
       user: {
         visible: false
@@ -127,7 +127,7 @@ export const appConfigs: AppConfigs = {
     id: AppConfigName.zeus,
     name: 'Zeus',
     bodyClass: 'app-layout-zeus',
-    imgSrc: '//app-landing.visurel.com/assets/img/layouts/zeus.png',
+    imgSrc: 'assets/img/layouts/zeus.png',
     sidenav: {
       state: 'collapsed'
     }
@@ -136,7 +136,7 @@ export const appConfigs: AppConfigs = {
     id: AppConfigName.ikaros,
     name: 'Ikaros',
     bodyClass: 'app-layout-ikaros',
-    imgSrc: '//app-landing.visurel.com/assets/img/layouts/ikaros.png',
+    imgSrc: 'assets/img/layouts/ikaros.png',
     layout: 'vertical',
     boxed: true,
     sidenav: {

@@ -9,10 +9,12 @@ import {environment} from "../../../environments/environment";
 })
 
 export class PropertyService {
-  // URL dynamique basée sur l'environnement
-  private apiUrl = environment.production 
-    ? `${environment.jsonUrl}/properties-data.json` 
-    : `${environment.apiUrl}/properties`;
+  // URL API pour accéder aux propriétés
+  private baseUrl = environment.production 
+    ? `${environment.jsonUrl}` 
+    : 'http://localhost:3000';
+  
+  private propertiesEndpoint = `${this.baseUrl}/properties`;
 
   constructor(private http: HttpClient) {
   }
@@ -29,13 +31,13 @@ export class PropertyService {
           }
           return property;
         }),
-        delay(1000),
+        delay(500),
         catchError(this.handleError<Property>('getProperty'))
       );
     } else {
       // Utiliser l'API mock en développement
-      return this.http.get<Property>(`${this.apiUrl}/${id}`).pipe(
-        delay(1000),
+      return this.http.get<Property>(`${this.propertiesEndpoint}/${id}`).pipe(
+        delay(500),
         catchError(this.handleError<Property>('getProperty'))
       );
     }
@@ -43,8 +45,8 @@ export class PropertyService {
 
   // Récupérer toutes les propriétés
   getAllProperties(): Observable<Property[]> {
-    return this.http.get<Property[]>(`${this.apiUrl}`).pipe(
-      delay(1000),
+    return this.http.get<Property[]>(this.propertiesEndpoint).pipe(
+      delay(500),
       catchError(this.handleError<Property[]>('getAllProperties', []))
     );
   }
@@ -55,13 +57,13 @@ export class PropertyService {
       // En production, filtrer manuellement le fichier JSON
       return this.http.get<Property[]>(`${environment.jsonUrl}/properties-data.json`).pipe(
         map(properties => properties.filter(p => p.type === type)),
-        delay(1000),
+        delay(500),
         catchError(this.handleError<Property[]>('getPropertiesByType', []))
       );
     } else {
       // En dev, utiliser l'API mock avec le paramètre type
-      return this.http.get<Property[]>(`${this.apiUrl}?type=${type}`).pipe(
-        delay(1000),
+      return this.http.get<Property[]>(`${this.propertiesEndpoint}?type=${type}`).pipe(
+        delay(500),
         catchError(this.handleError<Property[]>('getPropertiesByType', []))
       );
     }
@@ -80,16 +82,32 @@ export class PropertyService {
           property.name.toLowerCase().includes(term.toLowerCase()) || 
           property.description.toLowerCase().includes(term.toLowerCase())
         )),
-        delay(1000),
+        delay(500),
         catchError(this.handleError<Property[]>('searchProperties', []))
       );
     } else {
       // En dev, utiliser l'API mock avec q pour la recherche
-      return this.http.get<Property[]>(`${this.apiUrl}?q=${term}`).pipe(
-        delay(1000),
+      return this.http.get<Property[]>(`${this.propertiesEndpoint}?q=${term}`).pipe(
+        delay(500),
         catchError(this.handleError<Property[]>('searchProperties', []))
       );
     }
+  }
+
+  // Récupérer les commentaires d'une propriété
+  getPropertyComments(propertyId: string): Observable<any[]> {
+    return this.http.get<any[]>(`${this.baseUrl}/comments?propertyId=${propertyId}`).pipe(
+      delay(500),
+      catchError(this.handleError<any[]>('getPropertyComments', []))
+    );
+  }
+
+  // Récupérer les informations du profil
+  getProfile(): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/profile`).pipe(
+      delay(500),
+      catchError(this.handleError<any>('getProfile', {}))
+    );
   }
 
   handleError<T>(operation = 'operation', result?: T) {

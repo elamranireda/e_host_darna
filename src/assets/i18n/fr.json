@@ -20,24 +20,34 @@
   },
   "ACCESS": {
     "CODE": "Code",
-    "SMART_LOCK_CODE": "Code de la serrure connectée"
+    "SMART_LOCK_CODE": "Code de la serrure connectée",
+    "CODE_EXPIRY": "Date d'expiration",
+    "COPY_CODE": "Copier le code"
   },
   "IDENTITY": {
     "VERIFY": "Vérifier l'identité"
   },
   "NAVIGATION": {
     "PREVIOUS": "Précédent",
-    "NEXT": "Suivant"
+    "NEXT": "Suivant",
+    "JUMP_TO": "Accès rapide"
   },
   "CHECKIN": {
-    "CONTACT_TITLE": "Check-in contact",
-    "STEP": "Étape"
+    "CONTACT_TITLE": "Contact pour le check-in",
+    "STEP": "Étape",
+    "COMPLETE": "Terminer le check-in"
   },
   "MEDIA": {
     "SHOW_IMAGES": "Voir les images",
     "SHOW_VIDEO": "Voir la vidéo",
     "IMAGES": "Images",
     "STEP": "Étape",
-    "FOLLOW_SEQUENCE": "Suivez les étapes dans l'ordre indiqué"
+    "FOLLOW_SEQUENCE": "Suivez les étapes dans l'ordre indiqué",
+    "CLOSE_GALLERY": "Fermer la galerie"
+  },
+  "COMMON": {
+    "LOADING": "Chargement en cours...",
+    "ERROR_OCCURRED": "Une erreur est survenue",
+    "RETRY": "Réessayer"
   }
 }

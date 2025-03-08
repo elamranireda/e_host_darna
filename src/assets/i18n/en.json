@@ -20,24 +20,34 @@
   },
   "ACCESS": {
     "CODE": "Code",
-    "SMART_LOCK_CODE": "Smart lock code"
+    "SMART_LOCK_CODE": "Smart lock code",
+    "CODE_EXPIRY": "Expiration date",
+    "COPY_CODE": "Copy code"
   },
   "IDENTITY": {
     "VERIFY": "Verify identity"
   },
   "NAVIGATION": {
     "PREVIOUS": "Previous",
-    "NEXT": "Next"
+    "NEXT": "Next",
+    "JUMP_TO": "Quick access"
   },
   "CHECKIN": {
     "CONTACT_TITLE": "Check-in contact",
-    "STEP": "Step"
+    "STEP": "Step",
+    "COMPLETE": "Complete check-in"
   },
   "MEDIA": {
     "SHOW_IMAGES": "View images",
     "SHOW_VIDEO": "Watch video",
     "IMAGES": "Images",
     "STEP": "Step",
-    "FOLLOW_SEQUENCE": "Follow the steps in the indicated order"
+    "FOLLOW_SEQUENCE": "Follow the steps in the indicated order",
+    "CLOSE_GALLERY": "Close gallery"
+  },
+  "COMMON": {
+    "LOADING": "Loading...",
+    "ERROR_OCCURRED": "An error occurred",
+    "RETRY": "Retry"
   }
 }
