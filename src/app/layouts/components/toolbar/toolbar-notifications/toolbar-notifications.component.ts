@@ -6,13 +6,13 @@ import {
   OnInit,
   ViewChild
 } from '@angular/core';
-import { VexPopoverService } from '@vex/components/vex-popover/vex-popover.service';
+import { AppPopoverService } from '@app/components/app-popover/app-popover.service';
 import { ToolbarNotificationsDropdownComponent } from './toolbar-notifications-dropdown/toolbar-notifications-dropdown.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 
 @Component({
-  selector: 'vex-toolbar-notifications',
+  selector: 'app-toolbar-notifications',
   templateUrl: './toolbar-notifications.component.html',
   styleUrls: ['./toolbar-notifications.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -26,7 +26,7 @@ export class ToolbarNotificationsComponent implements OnInit {
   dropdownOpen: boolean = false;
 
   constructor(
-    private popover: VexPopoverService,
+    private popover: AppPopoverService,
     private cd: ChangeDetectorRef
   ) {}
 

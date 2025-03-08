@@ -5,8 +5,8 @@ import {
   OnInit
 } from '@angular/core';
 import { MenuItem } from '../interfaces/menu-item.interface';
-import { trackById } from '@vex/utils/track-by';
-import { VexPopoverRef } from '@vex/components/vex-popover/vex-popover-ref';
+import { trackById } from '@app/utils/track-by';
+import { AppPopoverRef } from '@app/components/app-popover/app-popover-ref';
 import { RouterLink } from '@angular/router';
 import { MatRippleModule } from '@angular/material/core';
 import { NgClass, NgFor, NgIf } from '@angular/common';
@@ -23,7 +23,7 @@ export interface OnlineStatus {
 }
 
 @Component({
-  selector: 'vex-toolbar-user-dropdown',
+  selector: 'app-toolbar-user-dropdown',
   templateUrl: './toolbar-user-dropdown.component.html',
   styleUrls: ['./toolbar-user-dropdown.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -109,7 +109,7 @@ export class ToolbarUserDropdownComponent implements OnInit {
 
   constructor(
     private cd: ChangeDetectorRef,
-    private popoverRef: VexPopoverRef<ToolbarUserDropdownComponent>
+    private popoverRef: AppPopoverRef<ToolbarUserDropdownComponent>
   ) {}
 
   ngOnInit() {}

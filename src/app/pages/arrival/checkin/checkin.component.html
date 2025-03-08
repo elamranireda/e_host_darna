@@ -23,7 +23,7 @@
 
   <mat-step *ngFor="let instruction of item.instructions">
     <ng-template matStepLabel>{{instruction.title}}</ng-template>
-    <vex-profile-timeline-entry
+    <app-social-timeline-entry
       [videoUrl]="instruction.videoUrl"
       [imageUrls]="instruction.images">
       <p [innerHTML]="instruction.description" class="pt-1">
@@ -46,7 +46,7 @@
           </button>
         </mat-form-field>
       </div>
-    </vex-profile-timeline-entry>
+    </app-social-timeline-entry>
   </mat-step>
 </mat-vertical-stepper>
     </div>

@@ -1,13 +1,13 @@
 import type { Config } from 'tailwindcss';
 import defaultTheme from 'tailwindcss/defaultTheme';
 import colors from 'tailwindcss/colors';
-import addThemesPlugin, { VexThemes } from './src/@vex/tailwind/plugins/themes';
-import addIconsPlugin from './src/@vex/tailwind/plugins/icons';
+import addThemesPlugin, { AppThemes } from './src/@app/tailwind/plugins/themes';
+import addIconsPlugin from './src/@app/tailwind/plugins/icons';
 import chroma from 'chroma-js';
 import { PluginUtils } from 'tailwindcss/types/config';
 import addTypographyPlugin from '@tailwindcss/typography';
 
-export const themes: VexThemes = {
+export const themes: AppThemes = {
   default: {
     colors: {
       primary: {
@@ -228,26 +228,26 @@ export default {
         transparent: 'transparent'
       },
       backgroundColor: {
-        base: 'rgb(var(--vex-background-background-rgb) / <alpha-value>)',
-        foreground: 'rgb(var(--vex-background-card-rgb) / <alpha-value>)',
-        'app-bar': 'rgb(var(--vex-background-app-bar-rgb) / <alpha-value>)',
-        hover: 'var(--vex-background-hover)'
+        base: 'rgb(var(--app-background-background-rgb) / <alpha-value>)',
+        foreground: 'rgb(var(--app-background-card-rgb) / <alpha-value>)',
+        'app-bar': 'rgb(var(--app-background-app-bar-rgb) / <alpha-value>)',
+        hover: 'var(--app-background-hover)'
       },
       borderColor: {
-        DEFAULT: 'var(--vex-foreground-divider)',
-        divider: 'var(--vex-foreground-divider)'
+        DEFAULT: 'var(--app-foreground-divider)',
+        divider: 'var(--app-foreground-divider)'
       },
       borderRadius: {
         none: '0px',
-        xs: 'calc(var(--vex-border-radius) * 0.25)',
-        sm: 'calc(var(--vex-border-radius) * 0.5)',
-        DEFAULT: 'var(--vex-border-radius)',
-        md: 'calc(var(--vex-border-radius) * 1.25)',
-        lg: 'calc(var(--vex-border-radius) * 1.5)',
-        xl: 'calc(var(--vex-border-radius) * 1.75)',
-        '2xl': 'calc(var(--vex-border-radius) * 2)',
+        xs: 'calc(var(--app-border-radius) * 0.25)',
+        sm: 'calc(var(--app-border-radius) * 0.5)',
+        DEFAULT: 'var(--app-border-radius)',
+        md: 'calc(var(--app-border-radius) * 1.25)',
+        lg: 'calc(var(--app-border-radius) * 1.5)',
+        xl: 'calc(var(--app-border-radius) * 1.75)',
+        '2xl': 'calc(var(--app-border-radius) * 2)',
         full: '9999px',
-        button: 'var(--vex-button-border-radius)'
+        button: 'var(--app-button-border-radius)'
       },
       boxShadow: {
         b: '0 10px 30px 0 rgba(82,63,104,.06)'
@@ -261,10 +261,10 @@ export default {
         '2xs': '0.625rem'
       },
       textColor: ({ colors }: PluginUtils) => ({
-        default: 'rgb(var(--vex-foreground-text-rgb) / <alpha-value>)',
+        default: 'rgb(var(--app-foreground-text-rgb) / <alpha-value>)',
         secondary:
-          'rgb(var(--vex-foreground-secondary-text-rgb) / <alpha-value>)',
-        hint: 'rgb(var(--vex-foreground-hint-text-rgb) / <alpha-value>)'
+          'rgb(var(--app-foreground-secondary-text-rgb) / <alpha-value>)',
+        hint: 'rgb(var(--app-foreground-hint-text-rgb) / <alpha-value>)'
       }),
       minWidth: ({ theme }: PluginUtils) => ({
         ...theme('spacing')

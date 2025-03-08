@@ -1,15 +1,15 @@
 :host {
-  background: var(--vex-toolbar-background);
+  background: var(--app-toolbar-background);
   box-sizing: border-box;
   display: block;
   white-space: nowrap;
   width: 100%;
-  z-index: var(--vex-toolbar-z-index);
+  z-index: var(--app-toolbar-z-index);
   @apply backdrop-blur border-b;
 }
 
 .toolbar {
-  height: var(--vex-toolbar-height);
+  height: var(--app-toolbar-height);
 }
 
 a {

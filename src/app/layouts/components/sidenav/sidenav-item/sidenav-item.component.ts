@@ -15,7 +15,7 @@ import {
   NavigationItem,
   NavigationLink
 } from '../../../../core/navigation/navigation-item.interface';
-import { dropdownAnimation } from '@vex/animations/dropdown.animation';
+import { dropdownAnimation } from '@app/animations/dropdown.animation';
 import {
   NavigationEnd,
   Router,
@@ -31,7 +31,7 @@ import { NgClass, NgFor, NgIf } from '@angular/common';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
-  selector: 'vex-sidenav-item',
+  selector: 'app-sidenav-item',
   templateUrl: './sidenav-item.component.html',
   styleUrls: ['./sidenav-item.component.scss'],
   animations: [dropdownAnimation],

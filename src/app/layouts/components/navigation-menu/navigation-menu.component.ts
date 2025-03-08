@@ -4,8 +4,8 @@ import {NavigationDropdown, NavigationItem} from '../../../core/navigation/navig
 import {MatIconModule} from "@angular/material/icon";
 import {MatRippleModule} from "@angular/material/core";
 import {Router, RouterLink, RouterLinkActive} from "@angular/router";
-import {stagger40ms} from "@vex/animations/stagger.animation";
-import {fadeInUp400ms} from "@vex/animations/fade-in-up.animation";
+import {stagger40ms} from "@app/animations/stagger.animation";
+import {fadeInUp400ms} from "@app/animations/fade-in-up.animation";
 import {SidenavItemComponent} from "../sidenav/sidenav-item/sidenav-item.component";
 import {NavigationItemComponent} from "../navigation/navigation-item/navigation-item.component";
 import {NavigationConfigStore} from "../../../core/stores/navigation-config.store";

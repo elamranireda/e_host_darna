@@ -7,7 +7,7 @@ import { NavigationItem } from '../../../core/navigation/navigation-item.interfa
 import {NavigationConfigStore} from "../../../core/stores/navigation-config.store";
 
 @Component({
-  selector: 'vex-navigation',
+  selector: 'app-navigation',
   templateUrl: './navigation.component.html',
   styleUrls: ['./navigation.component.scss'],
   standalone: true,

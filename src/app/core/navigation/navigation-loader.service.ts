@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {VexLayoutService} from '@vex/services/vex-layout.service';
+import {AppLayoutService} from '@app/services/app-layout.service';
 import {NavigationItem} from './navigation-item.interface';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
@@ -17,7 +17,7 @@ export class NavigationLoaderService {
     return this._items.asObservable();
   }
 
-  constructor(private readonly layoutService: VexLayoutService, private http: HttpClient) {
+  constructor(private readonly layoutService: AppLayoutService, private http: HttpClient) {
   }
 
   loadNavigation(pathId: string, lang: string): Observable<NavigationItem[]> {

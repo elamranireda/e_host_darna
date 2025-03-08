@@ -1,8 +1,8 @@
 import { LayoutComponent } from './layouts/layout/layout.component';
-import { VexRoutes } from '@vex/interfaces/vex-route.interface';
+import { AppRoutes } from '@app/interfaces/app-route.interface';
 import {NavigationConfigResolver} from "./core/navigation/navigation-config.resolver";
 
-export const appRoutes: VexRoutes = [
+export const appRoutes: AppRoutes = [
   {
     path: ':id',
     component: LayoutComponent,

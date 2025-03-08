@@ -7,7 +7,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatDividerModule } from '@angular/material/divider';
 
 @Component({
-  selector: 'vex-quickpanel',
+  selector: 'app-quickpanel',
   templateUrl: './quickpanel.component.html',
   styleUrls: ['./quickpanel.component.scss'],
   standalone: true,

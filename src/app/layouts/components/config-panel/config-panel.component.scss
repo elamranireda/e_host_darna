@@ -40,7 +40,7 @@
   }
 
   .layout-image-overlay {
-    border-radius: var(--vex-border-radius);
+    border-radius: var(--app-border-radius);
     bottom: 0;
     height: 100%;
     left: 0;
@@ -58,7 +58,7 @@
   }
 }
 
-.vex-color-picker {
+.app-color-picker {
   user-select: none;
   @apply transition-all duration-400 ease-out-swift;
 

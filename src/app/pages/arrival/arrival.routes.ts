@@ -1,7 +1,7 @@
-import {VexRoutes} from '@vex/interfaces/vex-route.interface';
-import {ArrivalComponent} from "./arrival.component";
+import { AppRoutes } from '@app/interfaces/app-route.interface';
+import { ArrivalComponent } from './arrival.component';
 
-const routes: VexRoutes = [
+const routes: AppRoutes = [
   {
     path: '',
     component: ArrivalComponent,

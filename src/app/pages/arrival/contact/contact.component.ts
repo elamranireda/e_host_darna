@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {scaleIn400ms} from '@vex/animations/scale-in.animation';
-import {fadeInRight400ms} from '@vex/animations/fade-in-right.animation';
+import {scaleIn400ms} from '@app/animations/scale-in.animation';
+import {fadeInRight400ms} from '@app/animations/fade-in-right.animation';
 import {RouterLink, RouterLinkActive, RouterOutlet} from '@angular/router';
 import {CommonModule, NgFor} from '@angular/common';
 import {MatTabsModule} from '@angular/material/tabs';

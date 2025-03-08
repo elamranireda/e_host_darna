@@ -7,7 +7,7 @@ import {
   Inject,
   OnInit
 } from '@angular/core';
-import { VexLayoutService } from '@vex/services/vex-layout.service';
+import { AppLayoutService } from '@app/services/app-layout.service';
 import {
   MatSidenavContainer,
   MatSidenavModule
@@ -21,22 +21,22 @@ import {
 } from '@angular/router';
 import { filter, map, startWith, withLatestFrom } from 'rxjs/operators';
 import { combineLatest, Observable } from 'rxjs';
-import { checkRouterChildsData } from '@vex/utils/check-router-childs-data';
+import { checkRouterChildsData } from '@app/utils/check-router-childs-data';
 import { AsyncPipe, DOCUMENT, NgIf, NgTemplateOutlet } from '@angular/common';
-import { VexConfigService } from '@vex/config/vex-config.service';
+import { AppConfigService } from '@app/config/app-config.service';
 import { SearchComponent } from '../components/toolbar/search/search.component';
-import { VexProgressBarComponent } from '@vex/components/vex-progress-bar/vex-progress-bar.component';
-import { isNil } from '@vex/utils/is-nil';
+import { AppProgressBarComponent } from '@app/components/app-progress-bar/app-progress-bar.component';
+import { isNil } from '@app/utils/is-nil';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { VexConfig } from '@vex/config/vex-config.interface';
+import { AppConfig } from '@app/config/app-config.interface';
 
 @Component({
-  selector: 'vex-base-layout',
+  selector: 'app-base-layout',
   templateUrl: './base-layout.component.html',
   styleUrls: ['./base-layout.component.scss'],
   standalone: true,
   imports: [
-    VexProgressBarComponent,
+    AppProgressBarComponent,
     SearchComponent,
     MatSidenavModule,
     NgTemplateOutlet,
@@ -46,7 +46,7 @@ import { VexConfig } from '@vex/config/vex-config.interface';
   ]
 })
 export class BaseLayoutComponent implements OnInit, AfterViewInit {
-  config$: Observable<VexConfig> = this.configService.config$;
+  config$: Observable<AppConfig> = this.configService.config$;
 
   /**
    * Check if footer should be visible
@@ -100,8 +100,8 @@ export class BaseLayoutComponent implements OnInit, AfterViewInit {
   private readonly destroyRef: DestroyRef = inject(DestroyRef);
 
   constructor(
-    private readonly layoutService: VexLayoutService,
-    private readonly configService: VexConfigService,
+    private readonly layoutService: AppLayoutService,
+    private readonly configService: AppConfigService,
     private readonly router: Router,
     @Inject(DOCUMENT) private readonly document: Document
   ) {}

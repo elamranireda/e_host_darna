@@ -1,9 +1,9 @@
 import {Component, DestroyRef, ElementRef, HostBinding, inject, OnInit} from '@angular/core';
-import {VexLayoutService} from '@vex/services/vex-layout.service';
-import {VexConfigService} from '@vex/config/vex-config.service';
+import {AppLayoutService} from '@app/services/app-layout.service';
+
 import {filter, map, startWith, switchMap} from 'rxjs/operators';
 import {NavigationService} from '../../../core/navigation/navigation.service';
-import {VexPopoverService} from '@vex/components/vex-popover/vex-popover.service';
+import {AppPopoverService} from '@app/components/app-popover/app-popover.service';
 import {MegaMenuComponent} from './mega-menu/mega-menu.component';
 import {Observable, of} from 'rxjs';
 import {NavigationComponent} from '../navigation/navigation.component';
@@ -16,13 +16,14 @@ import {AsyncPipe, NgClass, NgFor, NgIf} from '@angular/common';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import {NavigationItem} from '../../../core/navigation/navigation-item.interface';
-import {checkRouterChildsData} from '@vex/utils/check-router-childs-data';
+import {checkRouterChildsData} from '@app/utils/check-router-childs-data';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {TranslatePipe} from "@ngx-translate/core";
-import {LanguageService} from "@vex/services/language-service";
+import {LanguageService} from "@app/services/language-service";
+import { AppConfigService } from '@app/config/app-config.service';
 
 @Component({
-  selector: 'vex-toolbar',
+  selector: 'app-toolbar',
   templateUrl: './toolbar.component.html',
   styleUrls: ['./toolbar.component.scss'],
   standalone: true,
@@ -73,10 +74,10 @@ export class ToolbarComponent implements OnInit {
   private readonly destroyRef: DestroyRef = inject(DestroyRef);
 
   constructor(
-    private readonly layoutService: VexLayoutService,
-    private readonly configService: VexConfigService,
+    private readonly layoutService: AppLayoutService,
+    private readonly configService: AppConfigService,
     private readonly navigationService: NavigationService,
-    private readonly popoverService: VexPopoverService,
+    private readonly popoverService: AppPopoverService,
     private readonly router: Router,
     private languageService: LanguageService
   ) {

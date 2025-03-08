@@ -7,7 +7,7 @@ import {
   OnInit,
   ViewChild
 } from '@angular/core';
-import { VexLayoutService } from '@vex/services/vex-layout.service';
+import { AppLayoutService } from '@app/services/app-layout.service';
 import { filter } from 'rxjs/operators';
 import { ReactiveFormsModule, UntypedFormControl } from '@angular/forms';
 import { SearchService } from './search.service';
@@ -17,7 +17,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
-  selector: 'vex-search',
+  selector: 'app-search',
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss'],
   standalone: true,
@@ -38,7 +38,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   private readonly destroyRef: DestroyRef = inject(DestroyRef);
 
   constructor(
-    private layoutService: VexLayoutService,
+    private layoutService: AppLayoutService,
     private searchService: SearchService
   ) {}
 

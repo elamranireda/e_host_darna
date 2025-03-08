@@ -1,6 +1,6 @@
 <div style="margin-bottom: 2rem;">
-<img style="float: left; height: 80px; width: unset; margin: 0;" src="/assets/img/logo/logo.svg" alt="Vex Logo"/>
-<h1 style="height: 80px; line-height: 80px; margin: 0 0 0 70px; font-weight: 800; border: none; font-size: 3rem;">VEX</h1>
+<img style="float: left; height: 80px; width: unset; margin: 0;" src="/assets/img/logo/logo.svg" alt="app Logo"/>
+<h1 style="height: 80px; line-height: 80px; margin: 0 0 0 70px; font-weight: 800; border: none; font-size: 3rem;">app</h1>
 </div>
 
 # Changelog
@@ -23,7 +23,7 @@
 
 - Improve theme handling: Allow easy changing of theme colors and consistent styling through a single configuration file for Angular Material colors and TailwindCSS colors.
 - Switch to Angular Standalone Components for better performance, smaller bundle size and better portability
-- Improve VEX providers and services: Allow easy customization of the layout, config and available themes using providers
+- Improve app providers and services: Allow easy customization of the layout, config and available themes using providers
 - Replace all manual subscription handling with @angular/core takeUntilDestroyed operator
 - Add prettier for consistent code formatting
 - Upgrade all dependencies to latest compatible versions
@@ -110,7 +110,7 @@
 
 We switched from ngx-take-until-destroy to ngneat/until-destroy (the successor of the first library available for Angular 10+) and there are adjustments needed. There's an easy migration script:
 
-1. `cd src` (into your /src folder in the vex-angular folder)
+1. `cd src` (into your /src folder in the app-angular folder)
 2. run `npx @ngneat/until-destroy --removeOnDestroy`
 
 A few occurences could still appear, because the automated script can't pick them up. Here's a step-by-step on how to manually adjust the entries:

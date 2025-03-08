@@ -3,11 +3,11 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatRippleModule } from '@angular/material/core';
 import {NgForOf, NgIf, NgOptimizedImage} from '@angular/common';
 import {DomSanitizer, SafeResourceUrl} from "@angular/platform-browser";
-import {stagger40ms} from "@vex/animations/stagger.animation";
-import {scaleIn400ms} from "@vex/animations/scale-in.animation";
+import {stagger40ms} from "@app/animations/stagger.animation";
+import {scaleIn400ms} from "@app/animations/scale-in.animation";
 
 @Component({
-  selector: 'vex-profile-timeline-entry',
+  selector: 'app-social-timeline-entry',
   templateUrl: './social-timeline-entry.component.html',
   styleUrls: ['./social-timeline-entry.component.scss'],
   animations: [stagger40ms, scaleIn400ms],

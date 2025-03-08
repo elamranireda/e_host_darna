@@ -95,9 +95,9 @@
     *ngIf="(isVerticalLayout$ | async) && (isNavbarInToolbar$ | async)"
     [class.hidden]="!(isDesktop$ | async)"
     class="px-6 flex-none flex items-center">
-    <vex-navigation-item
+    <app-navigation-item
       *ngFor="let item of navigationItems$ | async"
-      [item]="item"></vex-navigation-item>
+      [item]="item"></app-navigation-item>
   </div>
 
   <span class="flex-1"></span>
@@ -110,7 +110,7 @@
     </div>
 
     <div class="px-1">
-      <vex-toolbar-notifications></vex-toolbar-notifications>
+      <app-toolbar-notifications></app-toolbar-notifications>
     </div>
 
     <div class="px-1">
@@ -126,7 +126,7 @@
     </div>
 
     <div *ngIf="userVisible$ | async" class="px-1">
-      <vex-toolbar-user></vex-toolbar-user>
+      <app-toolbar-user></app-toolbar-user>
     </div>
 
     <mat-menu
@@ -144,6 +144,6 @@
   </div>
 </div>
 
-<vex-navigation
+<app-navigation
   *ngIf="(isVerticalLayout$ | async) && (isNavbarBelowToolbar$ | async)"
-  [class.hidden]="!(isDesktop$ | async)"></vex-navigation>
+  [class.hidden]="!(isDesktop$ | async)"></app-navigation>

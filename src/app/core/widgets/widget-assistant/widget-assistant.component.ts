@@ -2,7 +2,7 @@ import {Component, Input} from '@angular/core';
 import {MatIconModule} from '@angular/material/icon';
 import {NgClass, NgForOf, NgIf, NgOptimizedImage} from "@angular/common";
 import {MatButtonModule} from "@angular/material/button";
-import {scaleInOutAnimation} from "@vex/animations/scale-in-out.animation";
+import {scaleInOutAnimation} from "@app/animations/scale-in-out.animation";
 import {WidgetAssistant} from "../../interfaces/widget-assistant.interface";
 
 @Component({

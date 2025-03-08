@@ -7,7 +7,7 @@ import { MatRippleModule } from '@angular/material/core';
 @Component({
   standalone: true,
   imports: [CommonModule, MatIconModule, MatButtonModule, MatRippleModule],
-  selector: 'vex-search-modal',
+  selector: 'app-search-modal',
   template: `
     <div>
       <div class="flex items-center gap-4 px-6 py-3 border-b border-divider">

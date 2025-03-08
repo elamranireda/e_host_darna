@@ -6,7 +6,7 @@ import {
 import { filter, map, startWith } from 'rxjs/operators';
 import { NavigationEnd, Router, RouterLink } from '@angular/router';
 import { NavigationService } from '../../../../core/navigation/navigation.service';
-import { trackByRoute } from '@vex/utils/track-by';
+import { trackByRoute } from '@app/utils/track-by';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatRippleModule } from '@angular/material/core';
@@ -19,7 +19,7 @@ import {
 } from '@angular/common';
 
 @Component({
-  selector: 'vex-navigation-item',
+  selector: 'app-navigation-item',
   templateUrl: './navigation-item.component.html',
   styleUrls: ['./navigation-item.component.scss'],
   standalone: true,

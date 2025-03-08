@@ -1,24 +1,24 @@
 import {ChangeDetectionStrategy, Component, inject, Input} from '@angular/core';
 import {NavigationService} from '../../../core/navigation/navigation.service';
-import {VexLayoutService} from '@vex/services/vex-layout.service';
-import {VexConfigService} from '@vex/config/vex-config.service';
+import {AppLayoutService} from '@app/services/app-layout.service';
+import {AppConfigService} from '@app/config/app-config.service';
 import {map, startWith, switchMap} from 'rxjs/operators';
 import {NavigationItem} from '../../../core/navigation/navigation-item.interface';
-import {VexPopoverService} from '@vex/components/vex-popover/vex-popover.service';
 import {Observable, of} from 'rxjs';
 import {SidenavUserMenuComponent} from './sidenav-user-menu/sidenav-user-menu.component';
 import {MatDialog} from '@angular/material/dialog';
 import {SearchModalComponent} from './search-modal/search-modal.component';
 import {SidenavItemComponent} from './sidenav-item/sidenav-item.component';
-import {VexScrollbarComponent} from '@vex/components/vex-scrollbar/vex-scrollbar.component';
+import {AppScrollbarComponent} from '@app/components/app-scrollbar/app-scrollbar.component';
 import {MatRippleModule} from '@angular/material/core';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import {AsyncPipe, NgFor, NgIf} from '@angular/common';
 import {NavigationConfigStore} from "../../../core/stores/navigation-config.store";
+import { AppPopoverService } from '@app/components/app-popover/app-popover.service';
 
 @Component({
-  selector: 'vex-sidenav',
+  selector: 'app-sidenav',
   templateUrl: './sidenav.component.html',
   styleUrls: ['./sidenav.component.scss'],
   standalone: true,
@@ -28,7 +28,7 @@ import {NavigationConfigStore} from "../../../core/stores/navigation-config.stor
     MatButtonModule,
     MatIconModule,
     MatRippleModule,
-    VexScrollbarComponent,
+    AppScrollbarComponent,
     NgFor,
     SidenavItemComponent,
     AsyncPipe
@@ -59,9 +59,9 @@ export class SidenavComponent {
 
   constructor(
     private navigationService: NavigationService,
-    private layoutService: VexLayoutService,
-    private configService: VexConfigService,
-    private readonly popoverService: VexPopoverService,
+    private layoutService: AppLayoutService,
+    private configService: AppConfigService,
+    private readonly popoverService: AppPopoverService,
     private readonly dialog: MatDialog
   ) {
   }
@@ -113,7 +113,7 @@ export class SidenavComponent {
 
   openSearch(): void {
     this.dialog.open(SearchModalComponent, {
-      panelClass: 'vex-dialog-glossy',
+      panelClass: 'app-dialog-glossy',
       width: '100%',
       maxWidth: '600px'
     });

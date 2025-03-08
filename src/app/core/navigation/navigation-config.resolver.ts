@@ -2,7 +2,7 @@ import {inject, Injectable} from '@angular/core';
 import {ActivatedRouteSnapshot, Resolve} from "@angular/router";
 import {NavigationConfigStore} from "../stores/navigation-config.store";
 import {PropertyStore} from "../property/property.store";
-import {LanguageService} from "@vex/services/language-service";
+import {LanguageService} from "@app/services/language-service";
 
 @Injectable({
   providedIn: 'root'

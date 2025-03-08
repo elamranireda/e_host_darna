@@ -1,15 +1,15 @@
 <div style="margin-bottom: 2rem;">
-<img style="float: left; height: 80px; width: unset; margin: 0;" src="/assets/img/logo/logo.svg" alt="Vex Logo"/>
-<h1 style="height: 80px; line-height: 80px; margin: 0 0 0 70px; font-weight: 800; border: none; font-size: 3rem;">VEX</h1>
+<img style="float: left; height: 80px; width: unset; margin: 0;" src="/assets/img/logo/logo.svg" alt="app Logo"/>
+<h1 style="height: 80px; line-height: 80px; margin: 0 0 0 70px; font-weight: 800; border: none; font-size: 3rem;">app</h1>
 </div>
 
 # Introduction
 
-Vex is a Creative, Responsive Material Design Admin Template built with Angular 17+ and the Angular-CLI. It extends the
+app is a Creative, Responsive Material Design Admin Template built with Angular 17+ and the Angular-CLI. It extends the
 Material Design components built by the Angular team and it offers you everything you need to get started with your next
 CRM, CMS, Project Management, or other projects.
 
-Vex has **no dependency on jQuery or similiar libraries**, Angular's functionality is completely used.
+app has **no dependency on jQuery or similiar libraries**, Angular's functionality is completely used.
 
 Support is available through E-Mail ([themeforest@visurel.com](mailto:themeforest@visurel.com)). If you purchased the theme and love it, consider giving it a 5-star rating here on ThemeForest. It really helps pushing out more updates and adding more great features.
 
@@ -50,9 +50,9 @@ or
 
 and the package manager `npm` will do the rest.
 
-### Install Vex Dependencies
+### Install app Dependencies
 
-Navigate to the Vex folder and run `npm install` to install all dependencies required by Vex.
+Navigate to the app folder and run `npm install` to install all dependencies required by app.
 
 ## Start Development Server
 
@@ -64,17 +64,17 @@ If you want to create a build for a production environment you can simply run `n
 
 # Customization
 
-In this section you are going to learn how to customize Vex to be exactly the way you want it to be.
+In this section you are going to learn how to customize app to be exactly the way you want it to be.
 
 ## Configuration
 
-Configuring the Vex Layout to your needs is as easy as setting a simple object with the values you want, here's an example configuration which handles everything for you:
+Configuring the app Layout to your needs is as easy as setting a simple object with the values you want, here's an example configuration which handles everything for you:
 
 You can change these values even at run-time and the page will adjust to the changes.
 
 ```typescript
 const config = {
-  id: 'vex-default',
+  id: 'app-default',
   layout: 'horizontal',
   boxed: false,
   sidenav: {
@@ -120,12 +120,12 @@ Here's an example inside the AppComponent:
 
 ```typescript
 @Component({
-  selector: 'vex-root',
+  selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'vex';
+  title = 'app';
 
   constructor(private navigationService: NavigationService) {
     this.navigationService.items = [

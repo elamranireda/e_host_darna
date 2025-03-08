@@ -1,0 +1,16 @@
+@use '@angular/material' as mat;
+
+$density: -1;
+
+// Use the correct public mixins instead of private ones
+@include mat.form-field-density($density);
+@include mat.icon-button-density($density);
+@include mat.fab-density($density);
+@include mat.button-density($density);
+@include mat.list-density($density);
+@include mat.menu-density($density);
+@include mat.select-density($density);
+@include mat.table-density($density);
+@include mat.tabs-density($density);
+@include mat.toolbar-density($density);
+@include mat.tree-density($density);

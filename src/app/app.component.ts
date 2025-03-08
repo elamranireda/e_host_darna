@@ -4,7 +4,7 @@ import {TranslateService} from "@ngx-translate/core";
 import {DOCUMENT} from "@angular/common";
 
 @Component({
-  selector: 'vex-root',
+  selector: 'app-root',
   templateUrl: './app.component.html',
   standalone: true,
   imports: [RouterOutlet]

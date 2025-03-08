@@ -4,13 +4,13 @@ import {
   Component,
   OnInit
 } from '@angular/core';
-import { VexPopoverService } from '@vex/components/vex-popover/vex-popover.service';
+import { AppPopoverService } from '@app/components/app-popover/app-popover.service';
 import { ToolbarUserDropdownComponent } from './toolbar-user-dropdown/toolbar-user-dropdown.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatRippleModule } from '@angular/material/core';
 
 @Component({
-  selector: 'vex-toolbar-user',
+  selector: 'app-toolbar-user',
   templateUrl: './toolbar-user.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
@@ -20,7 +20,7 @@ export class ToolbarUserComponent implements OnInit {
   dropdownOpen: boolean = false;
 
   constructor(
-    private popover: VexPopoverService,
+    private popover: AppPopoverService,
     private cd: ChangeDetectorRef
   ) {}
 

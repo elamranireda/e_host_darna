@@ -1,11 +1,11 @@
 :host {
-  background: var(--vex-navigation-background);
+  background: var(--app-navigation-background);
   display: block;
-  height: var(--vex-navigation-height);
+  height: var(--app-navigation-height);
   position: relative;
   z-index: 200;
 }
 
 .navigation {
-  height: var(--vex-navigation-height);
+  height: var(--app-navigation-height);
 }

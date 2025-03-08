@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Notification } from '../interfaces/notification.interface';
 import { DateTime } from 'luxon';
-import { trackById } from '@vex/utils/track-by';
-import { VexDateFormatRelativePipe } from '@vex/pipes/vex-date-format-relative/vex-date-format-relative.pipe';
+import { trackById } from '@app/utils/track-by';
+import { AppDateFormatRelativePipe } from '@app/pipes/app-date-format-relative/app-date-format-relative.pipe';
 import { RouterLink } from '@angular/router';
 import { MatRippleModule } from '@angular/material/core';
 import { NgClass, NgFor } from '@angular/common';
@@ -11,7 +11,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
 
 @Component({
-  selector: 'vex-toolbar-notifications-dropdown',
+  selector: 'app-toolbar-notifications-dropdown',
   templateUrl: './toolbar-notifications-dropdown.component.html',
   styleUrls: ['./toolbar-notifications-dropdown.component.scss'],
   standalone: true,
@@ -23,7 +23,7 @@ import { MatButtonModule } from '@angular/material/button';
     MatRippleModule,
     RouterLink,
     NgClass,
-    VexDateFormatRelativePipe
+    AppDateFormatRelativePipe
   ]
 })
 export class ToolbarNotificationsDropdownComponent implements OnInit {

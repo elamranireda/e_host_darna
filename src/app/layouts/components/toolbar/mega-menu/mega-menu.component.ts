@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { VexPopoverRef } from '@vex/components/vex-popover/vex-popover-ref';
+import { AppPopoverRef } from '@app/components/app-popover/app-popover-ref';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
 import { NgFor } from '@angular/common';
@@ -17,7 +17,7 @@ export interface MegaMenuPage {
 }
 
 @Component({
-  selector: 'vex-mega-menu',
+  selector: 'app-mega-menu',
   templateUrl: './mega-menu.component.html',
   standalone: true,
   imports: [MatButtonModule, NgFor, RouterLink, MatIconModule]
@@ -99,7 +99,7 @@ export class MegaMenuComponent implements OnInit {
     }
   ];
 
-  constructor(private popoverRef: VexPopoverRef<MegaMenuComponent>) {}
+  constructor(private popoverRef: AppPopoverRef<MegaMenuComponent>) {}
 
   ngOnInit() {}
 

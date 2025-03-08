@@ -22,8 +22,8 @@
     ],
     "useDefineForClassFields": false,
     "paths": {
-      "@vex/*": [
-        "./src/@vex/*"
+      "@app/*": [
+        "./src/@app/*"
       ]
     }
   },

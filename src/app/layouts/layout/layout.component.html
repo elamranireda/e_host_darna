@@ -1,47 +1,47 @@
-<vex-base-layout *ngIf="config$ | async as config">
-  <vex-progress-bar></vex-progress-bar>
+<app-base-layout *ngIf="config$ | async as config">
+  <app-progress-bar></app-progress-bar>
 
-  <vex-search></vex-search>
+  <app-search></app-search>
 
-  <mat-sidenav-container class="vex-layout-sidenav-container">
+  <mat-sidenav-container class="app-layout-sidenav-container">
     <mat-sidenav
       (closedStart)="onSidenavClosed()"
       [disableClose]="!!(sidenavDisableClose$ | async)"
       [fixedInViewport]="!!(sidenavFixedInViewport$ | async)"
       [mode]="(sidenavMode$ | async) ?? 'side'"
       [opened]="!!(sidenavOpen$ | async)">
-      <vex-sidenav [collapsed]="!!(sidenavCollapsed$ | async)"></vex-sidenav>
+      <app-sidenav [collapsed]="!!(sidenavCollapsed$ | async)"></app-sidenav>
     </mat-sidenav>
 
     <mat-sidenav (closedStart)="onQuickpanelClosed()"
                  [opened]="!!(quickpanelOpen$ | async)"
-                 class="vex-layout-quickpanel"
+                 class="app-layout-quickpanel"
                  mode="over"
                  position="end">
-      <vex-quickpanel></vex-quickpanel>
+      <app-quickpanel></app-quickpanel>
     </mat-sidenav>
 
-    <mat-sidenav-content class="vex-layout-sidenav-content">
-      <vex-toolbar [class.dark]="config.layout === 'vertical'" class="vex-toolbar"></vex-toolbar>
+    <mat-sidenav-content class="app-layout-sidenav-content">
+      <app-toolbar [class.dark]="config.layout === 'vertical'" class="app-toolbar"></app-toolbar>
 
-      <main class="vex-layout-content">
+      <main class="app-layout-content">
         <router-outlet></router-outlet>
       </main>
 
-      <vex-footer *ngIf="config.footer.visible" class="vex-footer"></vex-footer>
+      <app-footer *ngIf="config.footer.visible" class="app-footer"></app-footer>
     </mat-sidenav-content>
   </mat-sidenav-container>
 
-  <vex-config-panel-toggle
-    (openConfig)="configpanel.open()"></vex-config-panel-toggle>
+  <app-config-panel-toggle
+    (openConfig)="configpanel.open()"></app-config-panel-toggle>
 
   <!-- CONFIGPANEL -->
-  <vex-sidebar
+  <app-sidebar
     #configpanel
     [invisibleBackdrop]="true"
     [opened]="!!(configPanelOpen$ | async)"
     position="right">
-    <vex-config-panel></vex-config-panel>
-  </vex-sidebar>
+    <app-config-panel></app-config-panel>
+  </app-sidebar>
   <!-- END CONFIGPANEL -->
-</vex-base-layout>
+</app-base-layout>
