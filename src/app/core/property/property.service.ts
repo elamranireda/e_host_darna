@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {catchError, delay, Observable, of} from "rxjs";
-import {Property} from "../interfaces/property.interfac";
+import {Property} from "../interfaces/property.interface";
 
 @Injectable({
   providedIn: 'root'

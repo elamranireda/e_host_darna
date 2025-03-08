@@ -12,5 +12,32 @@
       "TEL": "Appelez-nous à tout moment pour une solution rapide",
       "EMAIL": "Envoyez-nous un mail pour résoudre votre problème"
     }
+  },
+  "ACCESS_TYPE": {
+    "ACCESS": "(Accès)",
+    "IDENTITY": "(Identité)",
+    "ARRIVAL": "(Arrivée)"
+  },
+  "ACCESS": {
+    "CODE": "Code",
+    "SMART_LOCK_CODE": "Code de la serrure connectée"
+  },
+  "IDENTITY": {
+    "VERIFY": "Vérifier l'identité"
+  },
+  "NAVIGATION": {
+    "PREVIOUS": "Précédent",
+    "NEXT": "Suivant"
+  },
+  "CHECKIN": {
+    "CONTACT_TITLE": "Check-in contact",
+    "STEP": "Étape"
+  },
+  "MEDIA": {
+    "SHOW_IMAGES": "Voir les images",
+    "SHOW_VIDEO": "Voir la vidéo",
+    "IMAGES": "Images",
+    "STEP": "Étape",
+    "FOLLOW_SEQUENCE": "Suivez les étapes dans l'ordre indiqué"
   }
 }

@@ -12,7 +12,7 @@ import {computed, effect, inject} from "@angular/core";
 import {rxMethod} from "@ngrx/signals/rxjs-interop";
 import {of, pipe, tap,} from "rxjs";
 import {switchMap} from "rxjs/operators";
-import {Property} from "../interfaces/property.interfac";
+import {Property} from "../interfaces/property.interface";
 import {PropertyService} from "./property.service";
 
 export interface PropertyState {

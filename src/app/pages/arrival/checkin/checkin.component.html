@@ -11,7 +11,7 @@
     </h2>
 
     <div @fadeInUp class="card overflow-hidden">
-<mat-vertical-stepper #verticalStepper="matVerticalStepper" [linear]="true">
+<mat-vertical-stepper #verticalStepper="matVerticalStepper" [linear]="false" [selectedIndex]="0">
   <ng-template matStepperIcon="edit">
     <mat-icon svgIcon="mat:done_all"></mat-icon>
   </ng-template>
@@ -21,32 +21,198 @@
 
   </ng-template>
 
-  <mat-step *ngFor="let instruction of item.instructions">
-    <ng-template matStepLabel>{{instruction.title}}</ng-template>
-    <app-social-timeline-entry
-      [videoUrl]="instruction.videoUrl"
-      [imageUrls]="instruction.images">
-      <p [innerHTML]="instruction.description" class="pt-1">
-      </p>
-      <div *ngFor="let i of instruction?.list" class="mt-4 flex items-center">
-        <mat-icon class="mr-2" svgIcon="mat:check_circle"></mat-icon>
-        <span class="body-2 cursor-pointer">{{i}}</span>
+  <mat-step *ngFor="let instruction of getSortedInstructions(item); let i = index" [completed]="true" [editable]="true">
+    <ng-template matStepLabel>
+      {{instruction.title}} - {{ 'CHECKIN.STEP' | translate }} {{instruction.step}}
+      <small *ngIf="instruction.type === InstructionType.ACCESS_MODE" class="text-hint ml-2">{{ 'ACCESS_TYPE.ACCESS' | translate }}</small>
+      <small *ngIf="instruction.type === InstructionType.IDENTITY_CHECK" class="text-hint ml-2">{{ 'ACCESS_TYPE.IDENTITY' | translate }}</small>
+      <small *ngIf="instruction.type === InstructionType.ARRIVAL_INSTRUCTION" class="text-hint ml-2">{{ 'ACCESS_TYPE.ARRIVAL' | translate }}</small>
+    </ng-template>
+    <div class="mt-2 mb-4">
+      <div *ngIf="instruction.videoUrl && instruction.images && instruction.images.length > 0" 
+           class="flex justify-start mb-4 media-toggle">
+        <button mat-stroked-button color="primary" class="mr-2" 
+                [class.mat-accent]="!isShowingVideo(instruction)"
+                (click)="toggleMediaType(instruction, false)">
+          <mat-icon svgIcon="mat:photo_library"  class="mr-2"></mat-icon>
+          {{ 'MEDIA.SHOW_IMAGES' | translate }}
+        </button>
+        <button mat-stroked-button color="primary" 
+                [class.mat-accent]="isShowingVideo(instruction)"
+                (click)="toggleMediaType(instruction, true)">
+          <mat-icon  svgIcon="mat:videocam" class="mr-2"></mat-icon>
+          {{ 'MEDIA.SHOW_VIDEO' | translate }}
+        </button>
       </div>
-      <div *ngIf="instruction?.methodeType === AccessMethodeTypeEnum.KEY_BOX" class="py-4">
-        <mat-form-field>
-          <mat-label>Code</mat-label>
-          <input [type]="inputType" matInput required [value]="instruction?.codeAccess?.code ?? ''" />
-          <button
-            (click)="togglePassword()"
-            mat-icon-button
-            matIconSuffix
-            type="button">
-            <mat-icon *ngIf="visible" svgIcon="mat:visibility"></mat-icon>
-            <mat-icon *ngIf="!visible" svgIcon="mat:visibility_off"></mat-icon>
-          </button>
-        </mat-form-field>
-      </div>
-    </app-social-timeline-entry>
+    
+      <app-social-timeline-entry
+        [videoUrl]="shouldShowVideo(instruction) ? instruction.videoUrl : undefined"
+        [imageUrls]="undefined">
+        <p [innerHTML]="instruction.description" class="pt-1">
+        </p>
+        <div *ngFor="let i of instruction?.list" class="mt-4 flex items-center">
+          <mat-icon class="mr-2" svgIcon="mat:check_circle"></mat-icon>
+          <span class="body-2 cursor-pointer">{{i}}</span>
+        </div>
+        
+        <!-- Advanced Gallery Component -->
+        <div *ngIf="shouldShowImages(instruction) && instruction.images && instruction.images.length > 0" class="gallery-container mt-4">
+          <h4 class="gallery-title flex items-center mb-3">
+            <mat-icon svgIcon="mat:photo_library" class="mr-2"></mat-icon>
+            {{ 'MEDIA.IMAGES' | translate }}
+            <span class="text-hint text-sm ml-auto">{{ 'MEDIA.FOLLOW_SEQUENCE' | translate }}</span>
+          </h4>
+          
+          <!-- Image thumbnails grid with sequential numbering -->
+          <div class="thumbnails-grid grid grid-cols-3 sm:grid-cols-4 gap-2 mb-4">
+            <div *ngFor="let image of instruction.images; let i = index" 
+                 class="thumbnail-item relative cursor-pointer rounded overflow-hidden shadow-sm hover:shadow transition-all duration-200"
+                 (click)="openGallery(instruction, i)">
+                <img [src]="image" [alt]="'Image ' + (i+1)" class="w-full h-auto object-cover aspect-square">
+                <div class="step-indicator absolute top-2 left-2 w-6 h-6 rounded-full bg-primary-600 text-white flex items-center justify-center text-xs font-medium">
+                  {{i+1}}
+                </div>
+                <div class="thumbnail-overlay absolute inset-0 bg-black bg-opacity-20 opacity-0 hover:opacity-100 transition-opacity duration-200 flex items-center justify-center">
+                  <button mat-icon-button class="bg-white bg-opacity-75 rounded-full">
+                    <mat-icon svgIcon="mat:zoom_in"></mat-icon>
+                  </button>
+                </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Lightbox overlay -->
+        <div *ngIf="lightboxOpen" class="lightbox-overlay fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-90">
+          <div class="lightbox-container relative w-full h-full max-w-5xl mx-auto my-8 px-4">
+            <!-- Close button -->
+            <button (click)="closeGallery()" class="absolute top-4 right-4 z-10 bg-white rounded-full w-10 h-10 flex items-center justify-center shadow-lg">
+              <mat-icon svgIcon="mat:close"></mat-icon>
+            </button>
+            
+            <!-- Navigation buttons -->
+            <button *ngIf="hasMultipleGalleryItems()"
+                    (click)="navigate('prev')" 
+                    class="absolute left-4 top-1/2 transform -translate-y-1/2 z-10 bg-white rounded-full w-12 h-12 flex items-center justify-center shadow-lg">
+              <mat-icon svgIcon="mat:chevron_left"></mat-icon>
+            </button>
+            <button *ngIf="hasMultipleGalleryItems()"
+                    (click)="navigate('next')" 
+                    class="absolute right-4 top-1/2 transform -translate-y-1/2 z-10 bg-white rounded-full w-12 h-12 flex items-center justify-center shadow-lg">
+              <mat-icon svgIcon="mat:chevron_right"></mat-icon>
+            </button>
+            
+            <!-- Main image -->
+            <div class="lightbox-main h-full flex flex-col justify-center">
+              <div class="image-container flex-1 flex items-center justify-center overflow-hidden">
+                <img *ngIf="hasGalleryItems()"
+                     [src]="getCurrentImageSrc()" 
+                     [alt]="getCurrentImageTitle()"
+                     class="max-h-full max-w-full object-contain">
+              </div>
+              
+              <!-- Caption and sequence indicator -->
+              <div class="lightbox-caption mt-4 bg-white bg-opacity-10 p-4 rounded">
+                <div class="flex items-center mb-2">
+                  <span class="step-badge bg-primary-600 text-white px-3 py-1 rounded-full text-sm font-medium">
+                    {{ 'MEDIA.STEP' | translate }} {{currentImageIndex + 1}} / {{getGalleryItemsCount()}}
+                  </span>
+                  <h4 class="m-0 ml-3 text-white text-lg">
+                    {{getCurrentImageTitle()}}
+                  </h4>
+                </div>
+                <p class="text-white opacity-80 m-0">
+                  {{getCurrentImageDescription()}}
+                </p>
+              </div>
+              
+              <!-- Thumbnail strip -->
+              <div *ngIf="hasMultipleGalleryItems()" 
+                   class="thumbnail-strip flex overflow-x-auto py-4 mt-4 bg-white bg-opacity-5 rounded">
+                <div *ngFor="let item of getAllGalleryItems(); let i = index"
+                     class="mx-2 cursor-pointer"
+                     [class.opacity-50]="i !== currentImageIndex"
+                     [class.ring-2]="i === currentImageIndex"
+                     [class.ring-primary-500]="i === currentImageIndex"
+                     (click)="currentImageIndex = i">
+                  <div class="relative">
+                    <img [src]="item.thumb" [alt]="'Thumbnail ' + item.order" class="h-16 w-16 object-cover rounded">
+                    <div class="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-primary-600 text-white flex items-center justify-center text-xs">
+                      {{item.order}}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Access Mode Item section -->
+        <div *ngIf="isAccessModeItem(instruction)" class="py-4">
+          <ng-container [ngSwitch]="instruction.methodType">
+            <!-- Key Box -->
+            <div *ngSwitchCase="AccessMethodTypeEnum.KEY_BOX">
+              <mat-form-field>
+                <mat-label>{{ 'ACCESS.CODE' | translate }}</mat-label>
+                <input [type]="inputType" matInput required [value]="instruction?.codeAccess?.code ?? ''" />
+                <button
+                  (click)="togglePassword()"
+                  mat-icon-button
+                  matIconSuffix
+                  type="button">
+                  <mat-icon *ngIf="visible" svgIcon="mat:visibility"></mat-icon>
+                  <mat-icon *ngIf="!visible" svgIcon="mat:visibility_off"></mat-icon>
+                </button>
+              </mat-form-field>
+            </div>
+            
+            <!-- Smart Lock -->
+            <div *ngSwitchCase="AccessMethodTypeEnum.SMART_LOCK">
+              <mat-form-field>
+                <mat-label>{{ 'ACCESS.SMART_LOCK_CODE' | translate }}</mat-label>
+                <input [type]="inputType" matInput required [value]="instruction?.codeAccess?.code ?? ''" />
+                <button
+                  (click)="togglePassword()"
+                  mat-icon-button
+                  matIconSuffix
+                  type="button">
+                  <mat-icon *ngIf="visible" svgIcon="mat:visibility"></mat-icon>
+                  <mat-icon *ngIf="!visible" svgIcon="mat:visibility_off"></mat-icon>
+                </button>
+              </mat-form-field>
+            </div>
+          </ng-container>
+        </div>
+        
+        <!-- Identity Check Item section -->
+        <div *ngIf="isIdentityCheckItem(instruction) && instruction.needToCheck" class="py-4">
+          <a *ngIf="instruction.checkLink" 
+             [href]="instruction.checkLink" 
+             target="_blank" 
+             mat-raised-button 
+             color="primary">
+            {{ 'IDENTITY.VERIFY' | translate }}
+          </a>
+        </div>
+        
+        <!-- Arrival Instruction Item section -->
+        <div *ngIf="isArrivalInstructionItem(instruction)" class="py-4">
+          <!-- Specific content for arrival instructions if needed -->
+        </div>
+      </app-social-timeline-entry>
+    </div>
+    
+    <!-- Navigation buttons -->
+    <div class="flex justify-between mt-6">
+      <button mat-button matStepperPrevious *ngIf="i > 0">
+        <mat-icon class="mr-2" svgIcon="mat:arrow_back"></mat-icon>
+        {{ 'NAVIGATION.PREVIOUS' | translate }}
+      </button>
+      <div class="flex-grow"></div>
+      <button mat-button matStepperNext *ngIf="i < getSortedInstructions(item).length - 1">
+        {{ 'NAVIGATION.NEXT' | translate }}
+        <mat-icon class="ml-2" svgIcon="mat:arrow_forward"></mat-icon>
+      </button>
+    </div>
   </mat-step>
 </mat-vertical-stepper>
     </div>
@@ -55,7 +221,7 @@
   class="flex-none max-w-unset md:max-w-xs w-full md:ltr:ml-6 md:rtl:mr-6 mt-6 md:mt-0">
   <div class="bg-foreground overflow-hidden">
     <div class="px-6 py-4 border-b">
-      <h2 class="title m-0">Check-in contact</h2>
+      <h2 class="title m-0">{{ 'CHECKIN.CONTACT_TITLE' | translate }}</h2>
     </div>
 
     <div class="px-6 py-3">

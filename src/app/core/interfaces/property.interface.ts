@@ -1,4 +1,4 @@
-import {AccessInstructions} from "./access-instruction-item.interface";
+import {AccessInstructions} from "../access-instructions/access-instruction-item.interface";
 
 export interface Property {
   id: string;

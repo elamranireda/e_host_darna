@@ -12,5 +12,32 @@
       "TEL": "Call us anytime for a quick solution",
       "EMAIL": "Send us a mail to resolve your issue"
     }
+  },
+  "ACCESS_TYPE": {
+    "ACCESS": "(Access)",
+    "IDENTITY": "(Identity)",
+    "ARRIVAL": "(Arrival)"
+  },
+  "ACCESS": {
+    "CODE": "Code",
+    "SMART_LOCK_CODE": "Smart lock code"
+  },
+  "IDENTITY": {
+    "VERIFY": "Verify identity"
+  },
+  "NAVIGATION": {
+    "PREVIOUS": "Previous",
+    "NEXT": "Next"
+  },
+  "CHECKIN": {
+    "CONTACT_TITLE": "Check-in contact",
+    "STEP": "Step"
+  },
+  "MEDIA": {
+    "SHOW_IMAGES": "View images",
+    "SHOW_VIDEO": "Watch video",
+    "IMAGES": "Images",
+    "STEP": "Step",
+    "FOLLOW_SEQUENCE": "Follow the steps in the indicated order"
   }
 }
