@@ -17,6 +17,10 @@ import {PropertyService} from "./property.service";
 
 export interface PropertyState {
   property: Property | null;
+  properties: Property[];
+  filteredProperties: Property[];
+  selectedType: string | null;
+  searchTerm: string | null;
   loading: boolean;
   error: any;
 }
@@ -24,9 +28,12 @@ export interface PropertyState {
 
 const initialState: PropertyState = {
   property: null,
+  properties: [],
+  filteredProperties: [],
+  selectedType: null,
+  searchTerm: null,
   loading: false,
   error: null
-
 }
 
 export const PropertyStore = signalStore(
@@ -40,11 +47,11 @@ export const PropertyStore = signalStore(
       pipe(
         tap(() => patchState(store, {loading: true})),
         switchMap((propertyId) => {
-          if (store.property()) return of(null);
+          if (store.property() && store.property()?.id === propertyId) return of(null);
           return propertyService.getProperty(propertyId).pipe(
             tap({
               next: (item: Property) => {
-                patchState(store, {loading: false, property: {...store.property(), ...item}})
+                patchState(store, {loading: false, property: item})
               },
               error: (error: any) => {
                 patchState(store, {loading: false, error});
@@ -55,11 +62,92 @@ export const PropertyStore = signalStore(
         })
       )
     ),
-
+    getAllProperties: rxMethod<void>(
+      pipe(
+        tap(() => patchState(store, {loading: true})),
+        switchMap(() => {
+          return propertyService.getAllProperties().pipe(
+            tap({
+              next: (properties: Property[]) => {
+                patchState(store, {
+                  loading: false, 
+                  properties,
+                  filteredProperties: properties
+                });
+              },
+              error: (error: any) => {
+                patchState(store, {loading: false, error});
+                console.error(error);
+              },
+            })
+          )
+        })
+      )
+    ),
+    filterByType: rxMethod<string | null>(
+      pipe(
+        tap((type) => patchState(store, {loading: true, selectedType: type})),
+        switchMap((type) => {
+          if (!type) {
+            return propertyService.getAllProperties();
+          }
+          return propertyService.getPropertiesByType(type);
+        }),
+        tap({
+          next: (properties: Property[]) => {
+            patchState(store, {
+              loading: false,
+              filteredProperties: properties
+            });
+          },
+          error: (error: any) => {
+            patchState(store, {loading: false, error});
+            console.error(error);
+          },
+        })
+      )
+    ),
+    searchProperties: rxMethod<string | null>(
+      pipe(
+        tap((term) => patchState(store, {loading: true, searchTerm: term})),
+        switchMap((term) => {
+          if (!term) {
+            // Si un type est sélectionné, on maintient le filtre par type
+            if (store.selectedType()) {
+              return propertyService.getPropertiesByType(store.selectedType()!);
+            } else {
+              return propertyService.getAllProperties();
+            }
+          }
+          return propertyService.searchProperties(term);
+        }),
+        tap({
+          next: (properties: Property[]) => {
+            patchState(store, {
+              loading: false,
+              filteredProperties: properties
+            });
+          },
+          error: (error: any) => {
+            patchState(store, {loading: false, error});
+            console.error(error);
+          },
+        })
+      )
+    ),
   })),
   withIpponLogging(),
   withComputed((store) => ({
-    accessInstructions: computed(() => store.property()?.checkInInfo.accessInstructions ?? null)
+    accessInstructions: computed(() => store.property()?.checkInInfo.accessInstructions ?? null),
+    // Nouvelles propriétés calculées
+    propertyTypes: computed(() => {
+      const types = new Set<string>();
+      store.properties().forEach(property => {
+        if (property.type) types.add(property.type);
+      });
+      return Array.from(types);
+    }),
+    isFiltered: computed(() => !!store.selectedType() || !!store.searchTerm())
   }))
 );
 

@@ -3,7 +3,8 @@ import {AccessInstructions} from "../access-instructions/access-instruction-item
 export interface Property {
   id: string;
   name: string;
-  hostId: string;
+  type?: string;
+  hostId?: string;
   description: string;
   coverImage: string;
   avatar: string;
@@ -15,29 +16,37 @@ export interface Property {
     country: string;
   };
   location: {
-    latitude: number;
-    longitude: number;
+    latitude: string | number;
+    longitude: string | number;
   };
   checkInInfo: {
     checkInStart: string;
     checkInEnd: string;
     checkOutTime: string;
     accessInstructions: AccessInstructions;
-    parkingInstructions: ParikingInstructions;
-    wifiInstructions: WifiInstructions;
-    amenities: string[];
-    houseRules: string[];
-    emergencyContacts: {
+    parkingInstructions?: ParikingInstructions;
+    wifiInstructions?: WifiInstructions;
+    amenities?: string[];
+    houseRules?: string[];
+    emergencyContacts?: {
       category: string;
       name: string;
       phone: string;
       email: string;
     }[]
   };
-  createdAt: string;
-  updatedAt: string;
+  wifiInstructions?: string;
+  amenities?: string[];
+  houseRules?: string[];
+  emergencyContacts?: {
+    category: string;
+    name: string;
+    phone: string;
+    email: string;
+  }[];
+  createdAt?: string;
+  updatedAt?: string;
 }
-
 
 export interface WifiInstructions {
   name: string;
@@ -47,7 +56,6 @@ export interface WifiInstructions {
   free: boolean;
   cost: number;
   instructions: string;
-
 }
 
 export interface ParikingInstructions {
@@ -59,20 +67,19 @@ export interface ParikingInstructions {
   numberOfVehicles: number;
   photo: string;
   placeNumber: string;
-
 }
 
 export interface PropertyInstruction {
   id: string;
   name: string;
-title: string;
-category: 'appliance' | 'entertainment' | 'kitchen' | 'bathroom' | 'bedroom' | 'living-room' | 'outdoor' | 'other';
-steps: {
-  step: number;
-  instruction: string;
-  imageUrl?: string;
-}[];
-videoUrl?: string;
+  title: string;
+  category: 'appliance' | 'entertainment' | 'kitchen' | 'bathroom' | 'bedroom' | 'living-room' | 'outdoor' | 'other';
+  steps: {
+    step: number;
+    instruction: string;
+    imageUrl?: string;
+  }[];
+  videoUrl?: string;
 }
 
 export interface NearByPlace {
@@ -105,14 +112,14 @@ export interface NearByPlace {
 
 export interface MaintenanceRequest {
   id: string;
- title: string;
- description: string;
- category: 'plumbing' | 'electrical' | 'appliance' | 'heating' | 'cooling' | 'pest-control' | 'other';
- priority: 'low' | 'medium' | 'high';
- status: 'pending' | 'in-progress' | 'completed';
- images?: string[];
- createdAt: string;
- resolvedAt?: string;
- notes: string;
- rating: number;
+  title: string;
+  description: string;
+  category: 'plumbing' | 'electrical' | 'appliance' | 'heating' | 'cooling' | 'pest-control' | 'other';
+  priority: 'low' | 'medium' | 'high';
+  status: 'pending' | 'in-progress' | 'completed';
+  images?: string[];
+  createdAt: string;
+  resolvedAt?: string;
+  notes: string;
+  rating: number;
 }

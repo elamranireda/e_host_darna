@@ -1,0 +1,5 @@
+{
+  "/api/properties": "/",
+  "/api/properties/:id": "/:id",
+  "/api/properties/type/:type": "/?type=:type"
+} 

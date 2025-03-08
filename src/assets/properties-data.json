@@ -1,167 +1,494 @@
-{
-  "id": "1fb734ec-5b6e-4a74-b9f3-8e853154a55e",
-  "name": "smartbnb",
-  "description": "Bienvenue chez SMARTBNB, nous sommes heureux de vous accueillir. Pour tout connaître de nos services, n'hésitez pas à consulter ce guide, et pour toute autre question, n'hésitez pas à venir nous voir à la réception de l'hôtel. Toute l'équipe de votre SMARTBNB, vous souhaite un excellent séjour !",
-  "coverImage": "assets/img/demo/landscapes.webp",
-  "avatar": "assets/img/avatars/100.jpg",
-  "address": {
-    "street": "Complexe La Perle de Cabo",
-    "city": "Cabo Negro",
-    "state": "tangier",
-    "postalCode": "",
-    "country": "Maroc"
-  },
-  "location": {
-    "latitude": "35.65364414604545",
-    "longitude": "-5.29497703182904"
-  },
-  "checkInInfo": {
-    "checkInStart": "15:00",
-    "checkInEnd": "00:00",
-    "checkOutTime": "11:00",
-    "accessInstructions": {
-      "title": "Instructions d'accès",
-      "status": "PENDING",
-      "messages": {
-        "title": "A lire attentivement!",
-        "subtitle": "Vous étes sur le point de faire votre check-in.",
-        "items": [
+[
+  {
+    "id": "1fb734ec-5b6e-4a74-b9f3-8e853154a55e",
+    "name": "Hôtel Luxe Marina",
+    "type": "hotel",
+    "description": "Bienvenue dans notre hôtel 5 étoiles avec vue imprenable sur la marina. Notre personnel est à votre disposition 24h/24 pour rendre votre séjour inoubliable.",
+    "coverImage": "assets/img/demo/landscapes.webp",
+    "avatar": "assets/img/avatars/100.jpg",
+    "address": {
+      "street": "12 Avenue des Palmiers",
+      "city": "Tanger",
+      "state": "Tanger-Tétouan-Al Hoceïma",
+      "postalCode": "90000",
+      "country": "Maroc"
+    },
+    "location": {
+      "latitude": "35.7633",
+      "longitude": "-5.8039"
+    },
+    "checkInInfo": {
+      "checkInStart": "14:00",
+      "checkInEnd": "23:00",
+      "checkOutTime": "12:00",
+      "accessInstructions": {
+        "title": "Instructions d'accès - Hôtel",
+        "status": "PENDING",
+        "messages": {
+          "title": "Bienvenue à l'Hôtel Luxe Marina!",
+          "subtitle": "Votre chambre est prête pour votre arrivée.",
+          "items": [
+            {
+              "order": 1,
+              "value": "Veuillez vous présenter à la réception avec votre pièce d'identité et le numéro de confirmation de réservation"
+            },
+            {
+              "order": 2,
+              "value": "Notre personnel est à votre disposition 24h/24 pour toute assistance"
+            }
+          ]
+        },
+        "documents": [
+          {
+            "label": "Pièce d'identité",
+            "documentType": "CNI",
+            "status": "PENDING"
+          }
+        ],
+        "instructions": [
+          {
+            "step": 1,
+            "title": "Vérification d'Identité",
+            "description": "<h4>Lors de votre arrivée à l'hôtel, veuillez présenter les documents suivants à la réception</h4>",
+            "needToCheck": true,
+            "checkLink": "https://example.com/verify-identity",
+            "list": ["Pièce d'identité", "Confirmation de réservation"],
+            "videoUrl": "",
+            "type": "IDENTITY_CHECK"
+          },
+          {
+            "step": 2,
+            "title": "Récupération des Clés",
+            "description": "Présentez-vous à la réception de l'hôtel qui se trouve au rez-de-chaussée, à droite de l'entrée principale. Notre personnel vous remettra les clés de votre chambre après vérification de votre identité.",
+            "videoUrl": "https://player.vimeo.com/video/253905163",
+            "methodType": "KEY",
+            "type": "ACCESS_MODE"
+          },
+          {
+            "step": 3,
+            "title": "Accès à la Chambre",
+            "description": "Votre chambre se trouve au 4ème étage, accessible par l'ascenseur central. Suivez les indications dans le couloir pour trouver votre chambre numéro 412.",
+            "videoUrl": "",
+            "images": ["assets/img/demo/landscape.webp", "assets/img/demo/landscape.webp"],
+            "type": "ARRIVAL_INSTRUCTION"
+          }
+        ],
+        "checkinContacts": [
           {
             "order": 1,
-            "value": "Vous devez impérativement présenter votre acte de mariage et votre identité aux agents de sécurité au niveau de la porte principale"
+            "value": "+212 539 123 456",
+            "type": "PHONE",
+            "icon": "mat:phone",
+            "label": "Réception 24h/24"
           },
           {
             "order": 2,
-            "value": "Le check-in commence après 15h, toute arrivée tardive ou avant le temps doit etre signalée au préalable"
+            "value": "+212 661 789 012",
+            "type": "WHATSAPP",
+            "icon": "logo:whatsapp",
+            "label": "Conciergerie WhatsApp"
           }
         ]
-      },
-      "documents": [
-        {
-          "label": "Pièce d'identité",
-          "documentType": "CNI",
-          "status": "PENDING"
-        },
-        {
-          "label": "Acte de mariage",
-          "documentType": "ACTE_MARIAGE",
-          "status": "PENDING"
-        }
-      ],
-      "instructions": [
-        {
-          "step": 1,
-          "title": "Vérification d'Identité",
-          "description": "<h4 style=\"color: #5e9ca0;\"><span style=\"color: #000000;\"><strong>Lors de votre check-in à la porte principale de la résidence, vous devez pr&eacute;senter les documents suivants</strong></span></h4></p>",
-          "needToCheck": true,
-          "checkLink": "https://example.com/verify-identity",
-          "list": [ "Pièce d'identité", "Acte de mariage"],
-          "videoUrl": "https://player.vimeo.com/video/253905163",
-          "type": "IDENTITY_CHECK"
-        },
-        {
-          "step": 2,
-          "title": "Accès au Logement",
-          "description": "L'appartement se sirue au niveau de l'immeuble 14 appartement 14 au 2ème étage, une fois à l'immeuble, vous prenez l'ascenseur et vous descendez au 2ème étage l'appartement se trouve à votre gauche. Veillez suivre les images ci-dessous pour plus de détails",
-          "videoUrl": "",
-          "methodType": "KEY_BOX",
-          "codeAccess": {
-            "code": "1991",
-            "expiresAt": "2023-12-31T23:59:59Z",
-            "status": "ACTIVE"
-          },
-          "type": "ACCESS_MODE"
-        },
-        {
-          "step": 3,
-          "title": "Instructions d'Arrivée",
-          "description": "L'appartement se sirue au niveau de l'immeuble 14 appartement 14 au 2ème étage, une fois à l'immeuble, vous prenez l'ascenseur et vous descendez au 2ème étage l'appartement se trouve à votre gauche. Veillez suivre les images ou la video ci-dessous pour plus de détails",
-          "videoUrl": "https://player.vimeo.com/video/253905163",
-          "images": ["assets/img/demo/landscape.webp", "assets/img/demo/landscape.webp"],
-          "type": "ARRIVAL_INSTRUCTION"
-        },
-        {
-          "step": 4,
-          "title": "Accès à la piscine",
-          "description": "Pour accéder à la piscine, utilisez la serrure connectée à l'entrée du jardin. Votre code d'accès est valide pendant toute la durée de votre séjour.",
-          "videoUrl": "https://player.vimeo.com/video/253905164",
-          "methodType": "SMART_LOCK",
-          "codeAccess": {
-            "code": "5432",
-            "expiresAt": "2023-12-31T23:59:59Z",
-            "status": "ACTIVE"
-          },
-          "type": "ACCESS_MODE"
-        },
-        {
-          "step": 5,
-          "title": "Récupération des clés",
-          "description": "Si vous préférez utiliser des clés physiques, vous pouvez les récupérer auprès du gardien à l'entrée principale. Présentez votre pièce d'identité et le QR code de votre réservation.",
-          "videoUrl": "",
-          "methodType": "KEY",
-          "codeAccess": {
-            "code": "",
-            "expiresAt": "",
-            "status": "ACTIVE"
-          },
-          "type": "ACCESS_MODE"
-        },
-        {
-          "step": 6,
-          "title": "Parking & Stationnement",
-          "description": "Votre place de parking réservée est située au niveau -1, place numéro 14. Utilisez le même code que la porte principale pour accéder au garage.",
-          "images": ["assets/img/demo/landscape.webp"],
-          "list": ["Stationnement réservé", "Borne de recharge électrique disponible"],
-          "type": "ARRIVAL_INSTRUCTION"
-        }
-      ],
-      "checkinContacts": [
-        {
-          "order": 2,
-          "value": "+1 (930) 502-3182",
-          "type": "PHONE",
-          "icon": "mat:phone",
-          "label": "Téléphone"
-        },
-        {
-          "order": 1,
-          "value": "+1 (930) 502-3182",
-          "type": "WHATSAPP",
-          "icon": "logo:whatsapp",
-          "label": "Whatsaap Usually available"
-        },
-        {
-          "order": 3,
-          "value": "david.smith@example.com",
-          "type": "EMAIL",
-          "icon": "mat:mail",
-          "label": "Urgences uniquement"
-        }
-      ]
-    },
-    "parkingInstructions": "",
-    "wifiInstructions": "",
-    "amenities": [],
-    "houseRules": [],
-    "emergencyContacts": [
-      {
-        "category": "string",
-        "name": "string",
-        "phone": "string",
-        "email": "string"
       }
-    ]
-  },
-  "wifiInstructions": "",
-  "amenities": [],
-  "houseRules": [],
-  "emergencyContacts": [
-    {
-      "category": "string",
-      "name": "string",
-      "phone": "string",
-      "email": "string"
     }
-  ]
-}
+  },
+  {
+    "id": "2ac845fd-6c7f-5b85-c0a4-9f964265b66f",
+    "name": "Villa Oceania",
+    "type": "villa",
+    "description": "Magnifique villa avec piscine privée et vue sur l'océan. Parfaite pour des vacances en famille ou entre amis dans un cadre idyllique.",
+    "coverImage": "assets/img/demo/landscapes.webp",
+    "avatar": "assets/img/avatars/101.jpg",
+    "address": {
+      "street": "Route de Malabata",
+      "city": "Tanger",
+      "state": "Tanger-Tétouan-Al Hoceïma",
+      "postalCode": "90000",
+      "country": "Maroc"
+    },
+    "location": {
+      "latitude": "35.7922",
+      "longitude": "-5.7656"
+    },
+    "checkInInfo": {
+      "checkInStart": "15:00",
+      "checkInEnd": "20:00",
+      "checkOutTime": "10:00",
+      "accessInstructions": {
+        "title": "Instructions d'accès - Villa",
+        "status": "PENDING",
+        "messages": {
+          "title": "Bienvenue à la Villa Oceania!",
+          "subtitle": "Voici comment accéder à votre location de vacances en toute autonomie.",
+          "items": [
+            {
+              "order": 1,
+              "value": "La villa est équipée d'une key box sécurisée pour récupérer les clés"
+            },
+            {
+              "order": 2,
+              "value": "Veuillez respecter les heures d'arrivée et de départ"
+            }
+          ]
+        },
+        "documents": [
+          {
+            "label": "Pièce d'identité",
+            "documentType": "CNI",
+            "status": "PENDING"
+          }
+        ],
+        "instructions": [
+          {
+            "step": 1,
+            "title": "Accès à la Propriété",
+            "description": "<h4>La villa est située dans un domaine privé avec un gardien à l'entrée</h4><p>Présentez-vous à l'entrée du domaine 'Les Jardins de Malabata' et donnez le code #2468 au gardien pour qu'il vous laisse entrer.</p>",
+            "videoUrl": "https://player.vimeo.com/video/253905163",
+            "list": ["Code d'accès domaine: 2468", "Le gardien est présent 24h/24"],
+            "type": "ARRIVAL_INSTRUCTION"
+          },
+          {
+            "step": 2,
+            "title": "Récupération des Clés",
+            "description": "Vous trouverez une key box sécurisée à droite de la porte d'entrée principale. Utilisez le code ci-dessous pour l'ouvrir et récupérer les clés de la villa.",
+            "videoUrl": "https://player.vimeo.com/video/253905164",
+            "methodType": "KEY_BOX",
+            "codeAccess": {
+              "code": "3579",
+              "expiresAt": "2023-12-31T23:59:59Z",
+              "status": "ACTIVE"
+            },
+            "images": ["assets/img/demo/landscape.webp"],
+            "type": "ACCESS_MODE"
+          },
+          {
+            "step": 3,
+            "title": "Accès à la Piscine",
+            "description": "La piscine privée se trouve à l'arrière de la villa. Pour activer l'éclairage et le chauffage, utilisez le panneau de contrôle situé près de la cuisine extérieure.",
+            "images": ["assets/img/demo/landscape.webp", "assets/img/demo/landscape.webp"],
+            "type": "ARRIVAL_INSTRUCTION"
+          }
+        ],
+        "checkinContacts": [
+          {
+            "order": 1,
+            "value": "+212 661 234 567",
+            "type": "PHONE",
+            "icon": "mat:phone",
+            "label": "Gestionnaire local"
+          },
+          {
+            "order": 2,
+            "value": "+212 661 234 567",
+            "type": "WHATSAPP",
+            "icon": "logo:whatsapp",
+            "label": "Support WhatsApp"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "3bd956fe-7d8g-6c96-d1b5-0a075376c77g",
+    "name": "Gîte Rural Essaouira",
+    "type": "gite",
+    "description": "Authentique gîte rural à quelques kilomètres d'Essaouira. Immergez-vous dans la nature et découvrez la vie locale dans un cadre paisible.",
+    "coverImage": "assets/img/demo/landscapes.webp",
+    "avatar": "assets/img/avatars/102.jpg",
+    "address": {
+      "street": "Route des Arganiers",
+      "city": "Essaouira",
+      "state": "Marrakech-Safi",
+      "postalCode": "44000",
+      "country": "Maroc"
+    },
+    "location": {
+      "latitude": "31.5084",
+      "longitude": "-9.7703"
+    },
+    "checkInInfo": {
+      "checkInStart": "16:00",
+      "checkInEnd": "19:00",
+      "checkOutTime": "11:00",
+      "accessInstructions": {
+        "title": "Instructions d'accès - Gîte Rural",
+        "status": "PENDING",
+        "messages": {
+          "title": "Bienvenue au Gîte Rural Essaouira!",
+          "subtitle": "Notre hôte vous accueillera personnellement sur place.",
+          "items": [
+            {
+              "order": 1,
+              "value": "Veuillez contacter notre hôte 1h avant votre arrivée"
+            },
+            {
+              "order": 2,
+              "value": "L'accès au gîte se fait par une piste non goudronnée de 800m"
+            }
+          ]
+        },
+        "documents": [
+          {
+            "label": "Pièce d'identité",
+            "documentType": "CNI",
+            "status": "PENDING"
+          }
+        ],
+        "instructions": [
+          {
+            "step": 1,
+            "title": "Itinéraire d'Accès",
+            "description": "<h4>Comment trouver le gîte</h4><p>Depuis Essaouira, prenez la route N1 en direction de Marrakech. Après 12km, tournez à droite au panneau 'Coopérative d'Argan'. Suivez la piste sur 800m et vous arriverez au gîte.</p>",
+            "videoUrl": "",
+            "images": ["assets/img/demo/landscape.webp", "assets/img/demo/landscape.webp"],
+            "type": "ARRIVAL_INSTRUCTION"
+          },
+          {
+            "step": 2,
+            "title": "Rencontre avec l'Hôte",
+            "description": "Notre hôte, Ahmed, vous attendra sur place pour vous accueillir et vous remettre les clés. Il vous fera visiter le gîte et vous donnera des conseils sur les activités locales.",
+            "videoUrl": "",
+            "methodType": "KEY",
+            "images": ["assets/img/demo/landscape.webp"],
+            "type": "ACCESS_MODE"
+          },
+          {
+            "step": 3,
+            "title": "Informations Pratiques",
+            "description": "Le gîte fonctionne à l'énergie solaire. L'eau chaude est disponible de 6h à 22h. Le réseau mobile peut être limité mais une connexion WiFi par satellite est disponible.",
+            "list": ["Électricité solaire", "Eau de source", "WiFi par satellite"],
+            "type": "ARRIVAL_INSTRUCTION"
+          }
+        ],
+        "checkinContacts": [
+          {
+            "order": 1,
+            "value": "+212 662 345 678",
+            "type": "PHONE",
+            "icon": "mat:phone",
+            "label": "Ahmed (Français, Arabe)"
+          },
+          {
+            "order": 2,
+            "value": "+212 662 345 678",
+            "type": "WHATSAPP",
+            "icon": "logo:whatsapp",
+            "label": "WhatsApp préféré"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "4ce067gf-8e9h-7d07-e2c6-1b186487d88h",
+    "name": "Appartement Marina Bay",
+    "type": "appartement_complexe",
+    "description": "Appartement moderne dans un complexe résidentiel sécurisé avec accès à la plage, piscines communes et jardins luxuriants.",
+    "coverImage": "assets/img/demo/landscapes.webp",
+    "avatar": "assets/img/avatars/103.jpg",
+    "address": {
+      "street": "Complexe Marina Bay, Bloc C, Apt 304",
+      "city": "Agadir",
+      "state": "Souss-Massa",
+      "postalCode": "80000",
+      "country": "Maroc"
+    },
+    "location": {
+      "latitude": "30.4278",
+      "longitude": "-9.6058"
+    },
+    "checkInInfo": {
+      "checkInStart": "15:00",
+      "checkInEnd": "22:00",
+      "checkOutTime": "11:00",
+      "accessInstructions": {
+        "title": "Instructions d'accès - Appartement en Complexe",
+        "status": "PENDING",
+        "messages": {
+          "title": "Bienvenue à Marina Bay!",
+          "subtitle": "Votre appartement est équipé d'une serrure connectée pour un accès sans clé.",
+          "items": [
+            {
+              "order": 1,
+              "value": "Vous devez vous enregistrer à l'accueil du complexe avant d'accéder à l'appartement"
+            },
+            {
+              "order": 2,
+              "value": "Un dépôt de garantie de 1500 MAD sera demandé par carte bancaire"
+            }
+          ]
+        },
+        "documents": [
+          {
+            "label": "Pièce d'identité",
+            "documentType": "CNI",
+            "status": "PENDING"
+          },
+          {
+            "label": "Carte de crédit",
+            "documentType": "CREDIT_CARD",
+            "status": "PENDING"
+          }
+        ],
+        "instructions": [
+          {
+            "step": 1,
+            "title": "Enregistrement au Complexe",
+            "description": "<h4>Procédure d'enregistrement à la réception</h4><p>Présentez-vous à la réception principale du complexe Marina Bay (ouverte 24h/24) avec votre pièce d'identité et le code de réservation. Le personnel vous enregistrera et vous donnera un pass d'accès au complexe.</p>",
+            "needToCheck": true,
+            "checkLink": "https://example.com/verify-identity",
+            "list": ["Pièce d'identité", "Code de réservation: MB-304-XYZ"],
+            "videoUrl": "",
+            "type": "IDENTITY_CHECK"
+          },
+          {
+            "step": 2,
+            "title": "Accès à l'Appartement",
+            "description": "L'appartement se trouve dans le Bloc C, 3ème étage, appartement 304. Utilisez l'ascenseur central ou les escaliers. L'appartement est équipé d'une serrure connectée avec code.",
+            "videoUrl": "https://player.vimeo.com/video/253905165",
+            "methodType": "SMART_LOCK",
+            "codeAccess": {
+              "code": "2580",
+              "expiresAt": "2023-12-31T23:59:59Z",
+              "status": "ACTIVE"
+            },
+            "images": ["assets/img/demo/landscape.webp", "assets/img/demo/landscape.webp"],
+            "type": "ACCESS_MODE"
+          },
+          {
+            "step": 3,
+            "title": "Accès aux Installations Communes",
+            "description": "Le pass d'accès remis à la réception vous permet d'utiliser toutes les installations du complexe: piscines, spa, salle de sport et accès direct à la plage.",
+            "videoUrl": "",
+            "images": ["assets/img/demo/landscape.webp"],
+            "list": ["Horaires piscine: 7h-22h", "Spa: 10h-20h", "Salle de sport: 6h-23h"],
+            "type": "ARRIVAL_INSTRUCTION"
+          }
+        ],
+        "checkinContacts": [
+          {
+            "order": 1,
+            "value": "+212 528 234 567",
+            "type": "PHONE",
+            "icon": "mat:phone",
+            "label": "Réception du complexe"
+          },
+          {
+            "order": 2,
+            "value": "+212 663 456 789",
+            "type": "WHATSAPP",
+            "icon": "logo:whatsapp",
+            "label": "Gestionnaire de l'appartement"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "5df178hg-9f0i-8e18-f3d7-2c297598e99i",
+    "name": "Airbnb Médina Chefchaouen",
+    "type": "airbnb",
+    "description": "Charmante maison traditionnelle au cœur de la médina bleue de Chefchaouen. Décoration authentique et terrasse avec vue panoramique.",
+    "coverImage": "assets/img/demo/landscapes.webp",
+    "avatar": "assets/img/avatars/104.jpg",
+    "address": {
+      "street": "7 Derb Sidi Ahmed El Ouafi",
+      "city": "Chefchaouen",
+      "state": "Tanger-Tétouan-Al Hoceïma",
+      "postalCode": "91000",
+      "country": "Maroc"
+    },
+    "location": {
+      "latitude": "35.1691",
+      "longitude": "-5.2679"
+    },
+    "checkInInfo": {
+      "checkInStart": "14:00",
+      "checkInEnd": "18:00",
+      "checkOutTime": "11:00",
+      "accessInstructions": {
+        "title": "Instructions d'accès - Maison Médina",
+        "status": "PENDING",
+        "messages": {
+          "title": "Bienvenue dans votre maison bleue!",
+          "subtitle": "Voici comment accéder à votre logement dans la médina piétonne.",
+          "items": [
+            {
+              "order": 1,
+              "value": "La médina est piétonne, prévoyez de garer votre voiture au parking Bab Souk (payant)"
+            },
+            {
+              "order": 2,
+              "value": "Les ruelles de la médina peuvent être difficiles à naviguer, suivez précisément nos indications"
+            }
+          ]
+        },
+        "documents": [
+          {
+            "label": "Pièce d'identité",
+            "documentType": "CNI",
+            "status": "PENDING"
+          }
+        ],
+        "instructions": [
+          {
+            "step": 1,
+            "title": "Stationnement & Point de Rencontre",
+            "description": "<h4>Où garer votre voiture</h4><p>Garez votre voiture au parking Bab Souk (30 MAD/jour). Notre assistant Karim vous attendra à l'entrée du parking avec une pancarte à votre nom.</p>",
+            "videoUrl": "",
+            "images": ["assets/img/demo/landscape.webp"],
+            "list": ["Coordonnées parking: 35.169, -5.268", "Karim portera une casquette bleue"],
+            "type": "ARRIVAL_INSTRUCTION"
+          },
+          {
+            "step": 2,
+            "title": "Accès à la Maison",
+            "description": "Karim vous guidera à travers la médina jusqu'à la maison (environ 7 minutes à pied). Il vous expliquera le fonctionnement de la maison et vous remettra les clés.",
+            "videoUrl": "https://player.vimeo.com/video/253905166",
+            "methodType": "KEY",
+            "images": ["assets/img/demo/landscape.webp", "assets/img/demo/landscape.webp"],
+            "type": "ACCESS_MODE"
+          },
+          {
+            "step": 3,
+            "title": "En Cas d'Arrivée Tardive",
+            "description": "Si vous arrivez après 18h, une key box est disponible pour un auto check-in. Elle est située à droite de la porte bleue, dissimulée sous une plante grimpante.",
+            "videoUrl": "",
+            "methodType": "KEY_BOX",
+            "codeAccess": {
+              "code": "7412",
+              "expiresAt": "2023-12-31T23:59:59Z",
+              "status": "ACTIVE"
+            },
+            "images": ["assets/img/demo/landscape.webp"],
+            "type": "ACCESS_MODE"
+          }
+        ],
+        "checkinContacts": [
+          {
+            "order": 1,
+            "value": "+212 664 567 890",
+            "type": "PHONE",
+            "icon": "mat:phone",
+            "label": "Karim (Français, Arabe, Anglais)"
+          },
+          {
+            "order": 2,
+            "value": "+212 664 567 890",
+            "type": "WHATSAPP",
+            "icon": "logo:whatsapp",
+            "label": "WhatsApp (réponse rapide)"
+          },
+          {
+            "order": 3,
+            "value": "host@chefchaouen-home.com",
+            "type": "EMAIL",
+            "icon": "mat:mail",
+            "label": "Email (réponse sous 12h)"
+          }
+        ]
+      }
+    }
+  }
+]
 

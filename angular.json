@@ -56,6 +56,8 @@
               "lodash.debounce",
               "lodash.memoize",
               "lodash.throttle",
+              "lodash/debounce.js",
+              "lodash/throttle.js",
               "luxon",
               "quill",
               "seedrandom"
