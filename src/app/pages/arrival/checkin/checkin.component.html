@@ -29,19 +29,6 @@
     </div>
 
     <div @fadeInSlideUp class="card overflow-hidden">
-      <!-- Navigation rapide -->
-      <div class="quick-jump-nav bg-card p-4 rounded-lg shadow-sm mb-6 border-b">
-        <h4 class="body-2 mb-2">{{ 'NAVIGATION.JUMP_TO' | translate }}:</h4>
-        <div class="flex flex-wrap gap-2">
-          <button *ngFor="let step of getSortedInstructions(item); let i = index"
-                  mat-stroked-button 
-                  [color]="verticalStepper?.selectedIndex === i ? 'primary' : ''"
-                  (click)="selectStep(i)">
-            {{step.step}}. {{step.title | slice:0:15}}{{step.title.length > 15 ? '...' : ''}}
-          </button>
-        </div>
-      </div>
-
       <mat-vertical-stepper #verticalStepper="matVerticalStepper" [linear]="false" [selectedIndex]="0">
         <ng-template matStepperIcon="edit">
           <mat-icon svgIcon="mat:done_all"></mat-icon>
@@ -60,27 +47,21 @@
           </ng-template>
           
           <!-- Indicateur de progression -->
-          <div class="stepper-progress-indicator mb-4">
-            <div class="flex justify-between mb-2">
-              <span class="text-primary-600 font-medium">Étape {{instruction.step}}/{{totalSteps}}</span>
-              <span class="text-hint">{{getCompletionPercentage()}}% complété</span>
-            </div>
-            <mat-progress-bar [value]="getCompletionPercentage()" class="mb-2"></mat-progress-bar>
-          </div>
+          <!-- Suppression de la barre de progression -->
           
           <div class="mt-2 mb-4">
             <div *ngIf="instruction.videoUrl && instruction.images && instruction.images.length > 0" 
                 class="flex justify-start mb-4 media-toggle">
-              <div class="media-toggle flex rounded-lg overflow-hidden">
+              <div class="media-toggle w-full flex flex-col xs:flex-row rounded-lg overflow-hidden">
                 <button mat-flat-button [color]="!isShowingVideo(instruction) ? 'primary' : ''" 
-                        class="flex-1" (click)="toggleMediaType(instruction, false)">
-                  <mat-icon svgIcon="mat:photo_library" class="mr-2"></mat-icon>
-                  {{ 'MEDIA.SHOW_IMAGES' | translate }}
+                        class="flex-1 text-sm sm:text-base py-3 flex items-center justify-center" (click)="toggleMediaType(instruction, false)">
+                  <mat-icon svgIcon="mat:photo_library" class="mr-2 icon-sm sm:icon-md"></mat-icon>
+                  <span class="whitespace-nowrap">{{ 'MEDIA.SHOW_IMAGES' | translate }}</span>
                 </button>
                 <button mat-flat-button [color]="isShowingVideo(instruction) ? 'primary' : ''" 
-                        class="flex-1" (click)="toggleMediaType(instruction, true)">
-                  <mat-icon svgIcon="mat:videocam" class="mr-2"></mat-icon>
-                  {{ 'MEDIA.SHOW_VIDEO' | translate }}
+                        class="flex-1 text-sm sm:text-base py-3 flex items-center justify-center mt-2 xs:mt-0" (click)="toggleMediaType(instruction, true)">
+                  <mat-icon svgIcon="mat:videocam" class="mr-2 icon-sm sm:icon-md"></mat-icon>
+                  <span class="whitespace-nowrap">{{ 'MEDIA.SHOW_VIDEO' | translate }}</span>
                 </button>
               </div>
             </div>
@@ -100,7 +81,6 @@
                 <h4 class="gallery-title flex items-center mb-3">
                   <mat-icon svgIcon="mat:photo_library" class="mr-2"></mat-icon>
                   {{ 'MEDIA.IMAGES' | translate }}
-                  <span class="text-hint text-sm ml-auto">{{ 'MEDIA.FOLLOW_SEQUENCE' | translate }}</span>
                 </h4>
                 
                 <!-- Image thumbnails grid with sequential numbering -->
@@ -126,19 +106,21 @@
                 <div class="lightbox-container relative w-full h-full max-w-5xl mx-auto my-8 px-4">
                   <!-- Close button -->
                   <button (click)="closeGallery()" class="absolute top-4 right-4 z-10 bg-white rounded-full w-10 h-10 flex items-center justify-center shadow-lg" 
-                          >
+                          [attr.aria-label]="'MEDIA.CLOSE_GALLERY' | translate">
                     <mat-icon svgIcon="mat:close"></mat-icon>
                   </button>
                   
                   <!-- Navigation buttons -->
                   <button *ngIf="hasMultipleGalleryItems()"
                           (click)="navigate('prev')" 
-                          class="absolute left-4 top-1/2 transform -translate-y-1/2 z-10 bg-white rounded-full w-12 h-12 flex items-center justify-center shadow-lg">
+                          class="absolute left-4 top-1/2 transform -translate-y-1/2 z-10 bg-white rounded-full w-12 h-12 flex items-center justify-center shadow-lg"
+                          [attr.aria-label]="'NAVIGATION.PREVIOUS' | translate">
                     <mat-icon svgIcon="mat:chevron_left"></mat-icon>
                   </button>
                   <button *ngIf="hasMultipleGalleryItems()"
                           (click)="navigate('next')" 
-                          class="absolute right-4 top-1/2 transform -translate-y-1/2 z-10 bg-white rounded-full w-12 h-12 flex items-center justify-center shadow-lg">
+                          class="absolute right-4 top-1/2 transform -translate-y-1/2 z-10 bg-white rounded-full w-12 h-12 flex items-center justify-center shadow-lg"
+                          [attr.aria-label]="'NAVIGATION.NEXT' | translate">
                     <mat-icon svgIcon="mat:chevron_right"></mat-icon>
                   </button>
                   
@@ -189,13 +171,14 @@
               
               <!-- Access Mode Item section -->
               <div *ngIf="isAccessModeItem(instruction)" class="py-4">
-                <div class="access-code-container bg-primary-50 p-4 rounded-lg border-l-4 border-primary-500 my-4">
+                <!-- N'affiche le conteneur de code que si methodType n'est pas KEY -->
+                <div *ngIf="instruction?.methodType !== 'KEY'" class="access-code-container bg-primary-50 p-4 rounded-lg border-l-4 border-primary-500 my-4">
                   <div class="flex items-center justify-between">
                     <div class="flex items-center">
                       <mat-icon svgIcon="mat:vpn_key" class="text-primary-500 mr-2"></mat-icon>
                       <span class="font-medium">{{ 'ACCESS.CODE' | translate }}</span>
                     </div>
-                    <div class="code-display flex items-center">
+                    <div class="code-display px-2 flex items-center">
                       <span class="mr-4 font-mono text-xl tracking-wider" [class.blur-sm]="!visible">
                         {{instruction?.codeAccess?.code}}
                       </span>
@@ -210,10 +193,13 @@
                       </button>
                     </div>
                   </div>
-                  <div class="mt-2 text-hint text-sm">
+                  <!-- N'affiche la date d'expiration que si elle est spécifiée -->
+                  <div *ngIf="instruction?.codeAccess?.expiresAt" class="mt-2 text-hint text-sm">
                     <span>{{ 'ACCESS.CODE_EXPIRY' | translate }}: {{formatExpiryDate(instruction?.codeAccess?.expiresAt)}}</span>
                   </div>
                 </div>
+                
+                
               </div>
               
               <!-- Identity Check Item section -->
@@ -250,9 +236,9 @@
             </button>
             <button mat-raised-button color="accent"
                     *ngIf="i === getSortedInstructions(item).length - 1"
+                    class="complete-button whitespace-nowrap text-xs sm:text-sm"
                     (click)="completeCheckin()">
-              {{ 'CHECKIN.COMPLETE' | translate }}
-              <mat-icon class="ml-2" svgIcon="mat:check_circle"></mat-icon>
+              <span>{{ 'CHECKIN.COMPLETE' | translate }}</span>
             </button>
           </div>
           
@@ -266,6 +252,14 @@
               <div class="flex-grow flex justify-center items-center">
                 <span class="text-hint">{{instruction.step}}/{{getSortedInstructions(item).length}}</span>
               </div>
+              <!-- Bouton de complétion spécial pour la dernière étape sur mobile -->
+              <button *ngIf="i === getSortedInstructions(item).length - 1"
+                      mat-mini-fab
+                      color="accent"
+                      (click)="completeCheckin()"
+                      [attr.aria-label]="'CHECKIN.COMPLETE' | translate">
+                <mat-icon svgIcon="mat:check_circle"></mat-icon>
+              </button>
               <button mat-mini-fab matStepperNext 
                       *ngIf="i < getSortedInstructions(item).length - 1"
                       color="primary" aria-label="Next">

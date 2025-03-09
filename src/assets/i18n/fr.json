@@ -29,8 +29,7 @@
   },
   "NAVIGATION": {
     "PREVIOUS": "Précédent",
-    "NEXT": "Suivant",
-    "JUMP_TO": "Accès rapide"
+    "NEXT": "Suivant"
   },
   "CHECKIN": {
     "CONTACT_TITLE": "Contact pour le check-in",
