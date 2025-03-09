@@ -24,6 +24,7 @@ import { AccessCodeComponent } from '../access-code/access-code.component';
 import { MediaToggleComponent } from '../media-toggle/media-toggle.component';
 import { GalleryComponent } from '@app/components/gallery/gallery.component';
 import { GalleryItem } from '@app/interfaces/gallery-item.interface';
+import { InstructionTypeDirective } from '@app/directives/instruction-type.directive';
 
 @Component({
   selector: 'app-instruction-step',
@@ -41,7 +42,8 @@ import { GalleryItem } from '@app/interfaces/gallery-item.interface';
     StepNavigationComponent,
     AccessCodeComponent,
     MediaToggleComponent,
-    GalleryComponent
+    GalleryComponent,
+    InstructionTypeDirective
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })

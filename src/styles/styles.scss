@@ -1,0 +1,25 @@
+// Import des composants
+@import 'components/instruction-type';
+
+// Variables de couleurs
+:root {
+  // Couleurs principales
+  --color-primary: #1976d2;
+  --color-primary-rgb: 25, 118, 210;
+  --color-warn: #f44336;
+  --color-warn-rgb: 244, 67, 54;
+  --color-success: #4caf50;
+  --color-success-rgb: 76, 175, 80;
+
+  // Couleurs de fond
+  --color-background: #ffffff;
+  --color-surface: #fafafa;
+
+  // Couleurs de texte
+  --color-text: rgba(0, 0, 0, 0.87);
+  --color-text-secondary: rgba(0, 0, 0, 0.54);
+  --color-text-hint: rgba(0, 0, 0, 0.38);
+
+  // Couleurs de bordure
+  --color-border: rgba(0, 0, 0, 0.12);
+} 
