@@ -1,0 +1,55 @@
+// Styles for the image gallery
+.gallery-container {
+  .gallery-title {
+    color: var(--primary-600);
+  }
+  
+  .thumbnails-grid {
+    .thumbnail-item {
+      transition: transform 0.2s ease-in-out;
+      
+      &:hover {
+        transform: scale(1.03);
+      }
+    }
+  }
+}
+
+// Lightbox styles
+.lightbox-overlay {
+  backdrop-filter: blur(3px);
+}
+
+// Mobile navigation bar
+@media (max-width: 768px) {
+  .fixed.bottom-0 {
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+  }
+}
+
+// Media toggle buttons
+.media-toggle {
+  button {
+    transition: all 0.2s ease-in-out;
+  }
+}
+
+// Access code container styles
+.access-code-container {
+  transition: box-shadow 0.3s ease;
+  
+  &:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  }
+  
+  .code-display {
+    span {
+      transition: filter 0.3s ease;
+    }
+  }
+}
+
+:host {
+  display: block;
+  position: relative;
+} 

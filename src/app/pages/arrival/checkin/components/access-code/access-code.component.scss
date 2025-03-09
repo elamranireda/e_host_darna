@@ -1,0 +1,58 @@
+.access-code-container {
+  transition: all 0.3s ease-in-out;
+  
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+}
+
+.code-display {
+  span {
+    transition: filter 0.2s ease-in-out;
+    
+    &.blur-sm {
+      filter: blur(4px);
+    }
+  }
+  
+  button {
+    transition: all 0.2s ease-in-out;
+    
+    &:hover {
+      transform: scale(1.1);
+    }
+    
+    &:active {
+      transform: scale(0.95);
+    }
+  }
+}
+
+// Styles responsifs
+@media (max-width: 640px) {
+  .access-code-container {
+    .code-display {
+      span {
+        font-size: 1rem;
+      }
+    }
+  }
+}
+
+// Animation pour l'apparition
+:host {
+  display: block;
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+} 

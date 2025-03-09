@@ -1,0 +1,93 @@
+<!-- Grid de vignettes -->
+<div class="gallery-container" *ngIf="hasItems()">
+  <h4 class="gallery-title flex items-center mb-3">
+    <mat-icon svgIcon="mat:photo_library" class="mr-2"></mat-icon>
+    {{ 'GALLERY.TITLE' | translate }}
+  </h4>
+
+  <div class="thumbnails-grid" [style.grid-template-columns]="'repeat(' + gridCols + ', 1fr)'">
+    <div *ngFor="let item of items; let i = index" 
+        class="thumbnail-item"
+        [style.width.px]="thumbnailSize"
+        [style.height.px]="thumbnailSize"
+        (click)="openLightbox(i)">
+      <img [src]="item.thumb || item.src" 
+           [alt]="item.title || ('GALLERY.IMAGE' | translate) + ' ' + (i+1)"
+           loading="lazy"
+           class="thumbnail-image">
+      <div class="step-indicator">
+        {{item.order}}
+      </div>
+      <div class="thumbnail-overlay">
+        <button mat-icon-button 
+                class="zoom-button"
+                [attr.aria-label]="'GALLERY.ZOOM' | translate">
+          <mat-icon svgIcon="mat:zoom_in"></mat-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Lightbox -->
+<div *ngIf="lightboxOpen" class="lightbox-overlay" (click)="closeLightbox()">
+  <div class="lightbox-container" (click)="$event.stopPropagation()">
+    <!-- Bouton de fermeture -->
+    <button class="close-button" 
+            mat-icon-button
+            (click)="closeLightbox()"
+            [attr.aria-label]="'GALLERY.CLOSE' | translate">
+      <mat-icon svgIcon="mat:close"></mat-icon>
+    </button>
+
+    <!-- Boutons de navigation -->
+    <button *ngIf="hasMultipleItems()"
+            class="nav-button prev-button"
+            mat-icon-button
+            (click)="navigate('prev')"
+            [attr.aria-label]="'GALLERY.PREVIOUS' | translate">
+      <mat-icon svgIcon="mat:chevron_left"></mat-icon>
+    </button>
+    <button *ngIf="hasMultipleItems()"
+            class="nav-button next-button"
+            mat-icon-button
+            (click)="navigate('next')"
+            [attr.aria-label]="'GALLERY.NEXT' | translate">
+      <mat-icon svgIcon="mat:chevron_right"></mat-icon>
+    </button>
+
+    <!-- Image principale -->
+    <div class="main-image-container">
+      <img *ngIf="getCurrentItem()"
+           [src]="getCurrentItem()?.src"
+           [alt]="getCurrentItem()?.title || ('GALLERY.IMAGE' | translate)"
+           class="main-image">
+    </div>
+
+    <!-- Légende et indicateur de séquence -->
+    <div class="caption-container" *ngIf="getCurrentItem()">
+      <div class="sequence-indicator">
+        {{ 'GALLERY.IMAGE' | translate }} {{currentImageIndex + 1}} / {{getItemsCount()}}
+      </div>
+      <h3 class="image-title" *ngIf="getCurrentItem()?.title">
+        {{getCurrentItem()?.title}}
+      </h3>
+      <p class="image-description" *ngIf="getCurrentItem()?.description">
+        {{getCurrentItem()?.description}}
+      </p>
+    </div>
+
+    <!-- Bande de vignettes -->
+    <div class="thumbnail-strip" *ngIf="hasMultipleItems()">
+      <div *ngFor="let item of items; let i = index"
+           class="strip-thumbnail"
+           [class.active]="i === currentImageIndex"
+           (click)="currentImageIndex = i">
+        <img [src]="item.thumb || item.src" 
+             [alt]="'GALLERY.THUMBNAIL' | translate"
+             loading="lazy">
+        <div class="thumbnail-order">{{item.order}}</div>
+      </div>
+    </div>
+  </div>
+</div> 

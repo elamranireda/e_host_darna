@@ -37,7 +37,7 @@
     "COMPLETE": "Terminer le check-in"
   },
   "MEDIA": {
-    "SHOW_IMAGES": "Voir les images",
+    "SHOW_PHOTOS": "Voir les images",
     "SHOW_VIDEO": "Voir la vidéo",
     "IMAGES": "Images",
     "STEP": "Étape",
@@ -48,5 +48,14 @@
     "LOADING": "Chargement en cours...",
     "ERROR_OCCURRED": "Une erreur est survenue",
     "RETRY": "Réessayer"
+  },
+  "GALLERY": {
+    "TITLE": "Galerie d'images",
+    "CLOSE": "Fermer",
+    "PREVIOUS": "Image précédente",
+    "NEXT": "Image suivante",
+    "IMAGE": "Image",
+    "ZOOM": "Agrandir l'image",
+    "THUMBNAIL": "Miniature"
   }
 }

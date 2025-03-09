@@ -1,0 +1,37 @@
+<div class="access-code-container bg-primary-50 p-4 rounded-lg border-l-4 border-primary-500 my-4">
+  <!-- En-tête avec icône et titre -->
+  <div class="flex items-center justify-between">
+    <div class="flex items-center">
+      <mat-icon svgIcon="mat:vpn_key" class="text-primary-500 mr-2"></mat-icon>
+      <span class="font-medium">{{ 'ACCESS.CODE' | translate }}</span>
+    </div>
+    
+    <!-- Affichage du code avec contrôles -->
+    <div class="code-display px-2 flex items-center">
+      <span class="mr-4 font-mono text-xl tracking-wider" [class.blur-sm]="!visible">
+        {{codeAccess.code}}
+      </span>
+      
+      <!-- Bouton de visibilité -->
+      <button (click)="togglePassword()" 
+              mat-icon-button 
+              type="button"
+              [attr.aria-label]="visible ? 'Masquer le code' : 'Afficher le code'">
+        <mat-icon [svgIcon]="visible ? 'mat:visibility' : 'mat:visibility_off'"></mat-icon>
+      </button>
+      
+      <!-- Bouton de copie -->
+      <button mat-icon-button 
+              (click)="copyToClipboard(codeAccess.code)" 
+              matTooltip="{{ 'ACCESS.COPY_CODE' | translate }}"
+              class="ml-2">
+        <mat-icon svgIcon="mat:content_copy"></mat-icon>
+      </button>
+    </div>
+  </div>
+  
+  <!-- Date d'expiration -->
+  <div *ngIf="codeAccess.expiresAt" class="mt-2 text-hint text-sm">
+    <span>{{ 'ACCESS.CODE_EXPIRY' | translate }}: {{formatExpiryDate(codeAccess.expiresAt)}}</span>
+  </div>
+</div> 

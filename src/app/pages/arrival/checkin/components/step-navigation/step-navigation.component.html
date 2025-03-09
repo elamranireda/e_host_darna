@@ -1,0 +1,55 @@
+<!-- Navigation buttons for desktop -->
+<div class="flex justify-between mt-6 navigation-actions hidden md:flex">
+  <button mat-button 
+          *ngIf="canNavigatePrevious"
+          class="prev-button"
+          (click)="onPrevious()">
+    <mat-icon class="mr-2" svgIcon="mat:arrow_back"></mat-icon>
+    {{ 'NAVIGATION.PREVIOUS' | translate }}
+  </button>
+  <div class="flex-grow"></div>
+  <button mat-raised-button color="primary" 
+          *ngIf="canNavigateNext"
+          class="next-button"
+          (click)="onNext()">
+    {{ 'NAVIGATION.NEXT' | translate }}
+    <mat-icon class="ml-2" svgIcon="mat:arrow_forward"></mat-icon>
+  </button>
+  <button mat-raised-button color="accent"
+          *ngIf="isLastStep"
+          class="complete-button whitespace-nowrap text-xs sm:text-sm"
+          (click)="onComplete()">
+    <span>{{ 'CHECKIN.COMPLETE' | translate }}</span>
+  </button>
+</div>
+
+<!-- Navigation mobile (visible seulement sur mobile) -->
+<div class="fixed bottom-0 left-0 right-0 bg-background py-2 px-4 shadow-up z-10 md:hidden border-t">
+  <div class="flex justify-between navigation-actions">
+    <button mat-mini-fab 
+            *ngIf="canNavigatePrevious"
+            color="basic" 
+            aria-label="Previous"
+            (click)="onPrevious()">
+      <mat-icon svgIcon="mat:arrow_back"></mat-icon>
+    </button>
+    <div class="flex-grow flex justify-center items-center">
+      <span class="text-hint">{{currentIndex + 1}}/{{totalSteps}}</span>
+    </div>
+    <!-- Bouton de complétion spécial pour la dernière étape sur mobile -->
+    <button *ngIf="isLastStep"
+            mat-mini-fab
+            color="accent"
+            (click)="onComplete()"
+            [attr.aria-label]="'CHECKIN.COMPLETE' | translate">
+      <mat-icon svgIcon="mat:check_circle"></mat-icon>
+    </button>
+    <button mat-mini-fab  
+            *ngIf="canNavigateNext"
+            color="primary" 
+            aria-label="Next"
+            (click)="onNext()">
+      <mat-icon svgIcon="mat:arrow_forward"></mat-icon>
+    </button>
+  </div>
+</div> 

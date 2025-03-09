@@ -38,6 +38,8 @@ import { LoadingIndicatorComponent } from './components/loading-indicator/loadin
 import { effect } from '@angular/core';
 import { patchState } from '@ngrx/signals';
 import { HttpErrorResponse } from '@angular/common/http';
+import { InstructionStepComponent } from './components/instruction-step/instruction-step.component';
+import { ContactInfoComponent } from './components/contact-info/contact-info.component';
 
 // Interface pour les éléments de galerie
 export interface GalleryItem {
@@ -91,7 +93,9 @@ const CHECKIN_PROGRESS_KEY = 'checkin-progress';
     MatProgressSpinnerModule,
     DatePipe,
     LoadingIndicatorComponent,
-    ErrorMessageComponent
+    ErrorMessageComponent,
+    InstructionStepComponent,
+    ContactInfoComponent
   ]
 })
 export class CheckinComponent implements OnInit {
@@ -134,6 +138,20 @@ export class CheckinComponent implements OnInit {
   isAccessModeItem = this.accessInstructionsService.isAccessModeItem.bind(this.accessInstructionsService);
   isIdentityCheckItem = this.accessInstructionsService.isIdentityCheckItem.bind(this.accessInstructionsService);
   isArrivalInstructionItem = this.accessInstructionsService.isArrivalInstructionItem.bind(this.accessInstructionsService);
+  
+  // Méthode de navigation entre les étapes appelée par le composant InstructionStep
+  navigateStep(direction: 'prev' | 'next', currentIndex: number): void {
+    if (direction === 'prev' && currentIndex > 0) {
+      this.verticalStepper.previous();
+    } else if (direction === 'next' && currentIndex < this.getSortedInstructions(this.accessInstructions()).length - 1) {
+      this.verticalStepper.next();
+    }
+    
+    // Mettre à jour la progression
+    this.currentStep = this.verticalStepper.selectedIndex || 0;
+    this.saveProgress();
+    this.cd.markForCheck();
+  }
   
   // Expose the sorted instructions for use in the template
   getSortedInstructions(instructions: AccessInstructions | null): AccessInstructionItem[] {

@@ -1,0 +1,27 @@
+.contact-info-container {
+  border-radius: var(--border-radius);
+  box-shadow: var(--elevation-z1);
+  
+  .title {
+    font-weight: 500;
+  }
+  
+  .border-b {
+    border-bottom: 1px solid var(--foreground-divider);
+  }
+  
+  .rounded-full {
+    border-radius: 50%;
+  }
+  
+  .icon-sm {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+    line-height: 18px;
+  }
+}
+
+:host {
+  display: block;
+} 

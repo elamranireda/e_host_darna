@@ -1,0 +1,59 @@
+.navigation-actions {
+  button {
+    transition: all 0.2s ease-in-out;
+    
+    &:hover {
+      transform: translateY(-1px);
+    }
+    
+    &:active {
+      transform: translateY(0);
+    }
+  }
+}
+
+.shadow-up {
+  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+}
+
+// Styles spécifiques pour mobile
+@media (max-width: 767px) {
+  .navigation-actions {
+    button[mat-mini-fab] {
+      width: 40px;
+      height: 40px;
+      line-height: 40px;
+      
+      mat-icon {
+        font-size: 20px;
+        width: 20px;
+        height: 20px;
+        line-height: 20px;
+      }
+    }
+  }
+}
+
+// Animation pour les boutons de navigation
+.prev-button,
+.next-button,
+.complete-button {
+  opacity: 1;
+  transition: opacity 0.3s ease-in-out;
+  
+  &.ng-enter {
+    opacity: 0;
+  }
+  
+  &.ng-enter-active {
+    opacity: 1;
+  }
+  
+  &.ng-leave {
+    opacity: 1;
+  }
+  
+  &.ng-leave-active {
+    opacity: 0;
+  }
+} 

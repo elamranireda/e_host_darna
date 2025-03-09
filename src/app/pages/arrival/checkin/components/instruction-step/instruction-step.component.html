@@ -1,0 +1,95 @@
+<!-- Instruction Step Content -->
+<div class="mt-2 mb-4">
+  <!-- Media Toggle Component -->
+  <app-media-toggle
+    [isShowingVideo]="isShowingVideo()"
+    [hasImages]="!!instruction.images?.length"
+    [hasVideo]="!!instruction.videoUrl"
+    (mediaTypeChange)="toggleMediaType($event)">
+  </app-media-toggle>
+
+  <app-access-instruction-content
+    [videoUrl]="shouldShowVideo() ? instruction.videoUrl : undefined"
+    [imageUrls]="undefined">
+    <p [innerHTML]="instruction.description" class="pt-1">
+    </p>
+    <div *ngFor="let i of instruction?.list" class="mt-4 flex items-center">
+      <mat-icon class="mr-2" svgIcon="mat:check_circle"></mat-icon>
+      <span class="body-2 cursor-pointer">{{i}}</span>
+    </div>
+    
+    <!-- Gallery Component -->
+    <app-gallery *ngIf="shouldShowImages() && instruction.images && instruction.images.length > 0"
+                [items]="galleryItems"
+                [gridCols]="4"
+                [thumbnailSize]="150"
+                [lightboxOpen]="lightboxOpen"
+                (lightboxClosed)="closeGallery()">
+    </app-gallery>
+    
+    <!-- Access Mode Item section -->
+    <div *ngIf="isAccessModeItem(instruction)" class="py-4">
+      <!-- N'affiche le conteneur de code que si methodType n'est pas KEY -->
+      <app-access-code 
+        *ngIf="instruction.methodType !== AccessMethodTypeEnum.KEY"
+        [codeAccess]="instruction.codeAccess">
+      </app-access-code>
+    </div>
+    
+    <!-- Identity Check Item section -->
+    <div *ngIf="isIdentityCheckItem(instruction) && instruction.needToCheck" class="py-4">
+      <a *ngIf="instruction.checkLink" 
+        [href]="instruction.checkLink" 
+        target="_blank" 
+        mat-raised-button 
+        color="primary">
+        {{ 'IDENTITY.VERIFY' | translate }}
+      </a>
+    </div>
+    
+    <!-- Arrival Instruction Item section -->
+    <div *ngIf="isArrivalInstructionItem(instruction)" class="py-4">
+      <!-- Specific content for arrival instructions if needed -->
+    </div>
+  </app-access-instruction-content>
+</div>
+
+<!-- Step Navigation -->
+<app-step-navigation
+  [currentIndex]="index"
+  [totalSteps]="totalSteps"
+  [isLastStep]="isLastStep"
+  (navigate)="onNavigate($event)"
+  (complete)="onComplete()">
+</app-step-navigation>
+
+<!-- Navigation mobile (visible seulement sur mobile) -->
+<div class="fixed bottom-0 left-0 right-0 bg-background py-2 px-4 shadow-up z-10 md:hidden border-t">
+  <div class="flex justify-between navigation-actions">
+    <button mat-mini-fab 
+            *ngIf="index > 0"
+            color="basic" 
+            aria-label="Previous"
+            (click)="onNavigate('prev')">
+      <mat-icon svgIcon="mat:arrow_back"></mat-icon>
+    </button>
+    <div class="flex-grow flex justify-center items-center">
+      <span class="text-hint">{{index + 1}}/{{totalSteps}}</span>
+    </div>
+    <!-- Bouton de complétion spécial pour la dernière étape sur mobile -->
+    <button *ngIf="isLastStep"
+            mat-mini-fab
+            color="accent"
+            (click)="onComplete()"
+            [attr.aria-label]="'CHECKIN.COMPLETE' | translate">
+      <mat-icon svgIcon="mat:check_circle"></mat-icon>
+    </button>
+    <button mat-mini-fab  
+            *ngIf="!isLastStep"
+            color="primary" 
+            aria-label="Next"
+            (click)="onNavigate('next')">
+      <mat-icon svgIcon="mat:arrow_forward"></mat-icon>
+    </button>
+  </div>
+</div> 

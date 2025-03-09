@@ -1,0 +1,25 @@
+<div class="bg-foreground overflow-hidden contact-info-container">
+  <div class="px-6 py-4 border-b">
+    <h2 class="title m-0">{{ title | translate }}</h2>
+  </div>
+
+  <div class="px-6 py-3">
+    <div *ngFor="let contact of contacts" class="py-3 flex items-center">
+      <div
+        @scaleIn
+        class="w-10 h-10 rounded-full bg-primary-600/10 text-primary-600 ltr:mr-3 rtl:ml-3 flex items-center justify-center">
+        <mat-icon *ngIf="contact.icon" class="icon-sm" [svgIcon]="contact.icon"></mat-icon>
+      </div>
+
+      <div @fadeInRight>
+        <p class="m-0 body-1">{{contact.value}}</p>
+        <p class="m-0 caption text-hint">{{contact.label}}</p>
+      </div>
+    </div>
+    
+    <!-- Message si aucun contact n'est disponible -->
+    <div *ngIf="!contacts || contacts.length === 0" class="py-3 text-center text-hint">
+      {{ 'CHECKIN.NO_CONTACTS' | translate }}
+    </div>
+  </div>
+</div> 
