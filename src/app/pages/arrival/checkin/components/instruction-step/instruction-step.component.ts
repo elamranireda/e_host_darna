@@ -8,6 +8,7 @@ import { Clipboard } from '@angular/cdk/clipboard';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { inject } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 
 import { 
   AccessInstructionItem, 
@@ -70,6 +71,9 @@ export class InstructionStepComponent implements OnInit {
   private snackBar = inject(MatSnackBar);
   private clipboard = inject(Clipboard);
   
+  // Pour l'accès à partir du template
+  protected readonly sanitizer = inject(DomSanitizer);
+  
   constructor(private cd: ChangeDetectorRef) {}
   
   ngOnInit(): void {
@@ -81,6 +85,20 @@ export class InstructionStepComponent implements OnInit {
         description: this.instruction.description || '',
         order: index + 1
       }));
+    }
+    
+    // Définir l'état initial des médias en fonction de ce qui est disponible
+    const hasImages = !!this.instruction.images?.length;
+    const hasVideo = !!this.instruction.videoUrl;
+    
+    // Si uniquement la vidéo est disponible, l'afficher automatiquement
+    if (hasVideo && !hasImages) {
+      this.mediaState = true;
+    }
+    // Si uniquement les images sont disponibles ou si les deux types de médias sont disponibles,
+    // afficher les images par défaut
+    else {
+      this.mediaState = false;
     }
   }
   

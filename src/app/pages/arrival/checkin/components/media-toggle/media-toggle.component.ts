@@ -7,21 +7,20 @@ import { TranslateModule } from '@ngx-translate/core';
 @Component({
   selector: 'app-media-toggle',
   template: `
-    <div class="media-toggle-container" *ngIf="hasImages || hasVideo">
+    <div class="media-toggle-container" *ngIf="hasImages && hasVideo">
       <div class="media-toggle-buttons">
         <button mat-flat-button
                 [color]="isShowingVideo ? 'basic' : 'primary'"
                 [class.active]="!isShowingVideo"
-                (click)="showImages()"
-                [disabled]="!hasImages">
+                (click)="showImages()">
           <mat-icon svgIcon="mat:photo_library" class="icon-sm"></mat-icon>
           <span>{{ 'MEDIA.SHOW_PHOTOS' | translate }}</span>
         </button>
+        
         <button mat-flat-button
                 [color]="!isShowingVideo ? 'basic' : 'primary'"
                 [class.active]="isShowingVideo"
-                (click)="showVideo()"
-                [disabled]="!hasVideo">
+                (click)="showVideo()">
           <mat-icon svgIcon="mat:videocam" class="icon-sm"></mat-icon>
           <span>{{ 'MEDIA.SHOW_VIDEO' | translate }}</span>
         </button>
