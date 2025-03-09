@@ -83,7 +83,8 @@
       "PHONE": "Phone",
       "EMAIL": "Email",
       "LATITUDE": "Latitude",
-      "LONGITUDE": "Longitude"
+      "LONGITUDE": "Longitude",
+      "COORDINATES": "GPS Coordinates"
     }
   }
 }

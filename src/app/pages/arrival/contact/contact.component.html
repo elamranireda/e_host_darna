@@ -34,15 +34,18 @@
         </div>
         
         <!-- Coordonnées GPS -->
-        <div class="mb-4 text-sm text-gray-600">
-          <p [appClipboard]="property.location.latitude.toString()"
-             [clipboardTitle]="'CONTACT.CLIPBOARD.LATITUDE' | translate">
-            Latitude: {{ property.location.latitude }}
-          </p>
-          <p [appClipboard]="property.location.longitude.toString()"
-             [clipboardTitle]="'CONTACT.CLIPBOARD.LONGITUDE' | translate">
-            Longitude: {{ property.location.longitude }}
-          </p>
+        <div class="mb-4">
+          <h3 class="text-sm font-medium text-gray-700 mb-2">{{ 'CONTACT.CLIPBOARD.COORDINATES' | translate }}</h3>
+          <div [appClipboard]="property.location.latitude + ', ' + property.location.longitude"
+               [clipboardTitle]="'CONTACT.CLIPBOARD.COORDINATES' | translate"
+               class="p-2 rounded bg-gray-50 hover:bg-gray-100 transition-colors cursor-pointer text-sm text-gray-600">
+      
+            <div class="flex items-center gap-2 mt-1 text-xs text-gray-500">
+              <span>Latitude: {{ property.location.latitude }}</span>
+              <span>•</span>
+              <span>Longitude: {{ property.location.longitude }}</span>
+            </div>
+          </div>
         </div>
         
         <!-- Boutons d'action -->
