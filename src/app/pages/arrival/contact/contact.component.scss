@@ -67,6 +67,9 @@
 
 // Style pour les cartes
 .bg-white {
+  border: 0.75px solid #e0e0e0;
+  box-shadow: none;
+  border-radius: 8px;
   transition: transform 0.2s ease;
   
   &:hover {

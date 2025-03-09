@@ -18,7 +18,7 @@
     <!-- Colonne gauche -->
     <div class="space-y-6">
       <!-- Carte et Adresse -->
-      <div class="bg-white rounded-lg shadow-md p-4">
+      <div class="bg-foreground p-4">
         <h2 class="text-xl font-semibold mb-4 flex items-center">
           <mat-icon class="mr-2 text-primary" svgIcon="mat:location_on"></mat-icon>
           {{ 'CONTACT.ADDRESS' | translate }}
@@ -67,12 +67,67 @@
           </button>
         </div>
       </div>
+      
+      <!-- Section des réseaux sociaux -->
+      <div *ngIf="socialMedia && socialMedia.length > 0" class="bg-foreground p-4">
+        <h2 class="text-xl font-semibold mb-4 flex items-center">
+          <mat-icon class="mr-2 text-primary" svgIcon="mat:share"></mat-icon>
+          {{ 'CONTACT.SOCIAL_MEDIA' | translate }}
+        </h2>
+        
+        <div class="flex flex-col space-y-3">
+          <a *ngFor="let social of socialMedia" 
+             [href]="social.url" 
+             target="_blank" 
+             class="flex items-center p-2 hover:bg-gray-50 rounded-lg transition-colors">
+            <mat-icon class="mr-3 text-gray-700" svgIcon="logo:{{ social.icon }}"></mat-icon>
+            <span>{{ social.name }}</span>
+          </a>
+        </div>
+      </div>
+      
+      <!-- Section des heures d'ouverture -->
+      <div *ngIf="operatingHours" class="bg-foreground p-4">
+        <h2 class="text-xl font-semibold mb-4 flex items-center">
+          <mat-icon class="mr-2 text-primary" svgIcon="mat:access_time"></mat-icon>
+          {{ 'CONTACT.HOURS' | translate }}
+        </h2>
+        
+        <div class="space-y-4">
+          <!-- Réception -->
+          <div *ngIf="operatingHours.reception" class="flex items-start">
+            <mat-icon class="mr-3 text-gray-500" svgIcon="mat:home"></mat-icon>
+            <div>
+              <p class="text-sm text-gray-600">{{ 'CONTACT.RECEPTION' | translate }}</p>
+              <p class="font-medium">{{ operatingHours.reception }}</p>
+            </div>
+          </div>
+          
+          <!-- Check-in -->
+          <div *ngIf="operatingHours.checkin" class="flex items-start">
+            <mat-icon class="mr-3 text-gray-500" svgIcon="mat:login"></mat-icon>
+            <div>
+              <p class="text-sm text-gray-600">{{ 'CONTACT.CHECKIN' | translate }}</p>
+              <p class="font-medium">{{ operatingHours.checkin }}</p>
+            </div>
+          </div>
+          
+          <!-- Check-out -->
+          <div *ngIf="operatingHours.checkout" class="flex items-start">
+            <mat-icon class="mr-3 text-gray-500" svgIcon="mat:logout"></mat-icon>
+            <div>
+              <p class="text-sm text-gray-600">{{ 'CONTACT.CHECKOUT' | translate }}</p>
+              <p class="font-medium">{{ operatingHours.checkout }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     
     <!-- Colonne droite -->
     <div class="space-y-6">
       <!-- Section des informations de contact -->
-      <div class="bg-white rounded-lg shadow-md p-4">
+      <div class="bg-foreground p-4">
         <h2 class="text-xl font-semibold mb-4 flex items-center">
           <mat-icon class="mr-2 text-primary" svgIcon="mat:contact_phone"></mat-icon>
           {{ 'CONTACT.CONTACT_INFO' | translate }}
@@ -115,7 +170,7 @@
       </div>
       
       <!-- Section des langues -->
-      <div *ngIf="languages && languages.length > 0" class="bg-white rounded-lg shadow-md p-4">
+      <div *ngIf="languages && languages.length > 0" class="bg-foreground p-4">
         <h2 class="text-xl font-semibold mb-4 flex items-center">
           <mat-icon class="mr-2 text-primary" svgIcon="mat:translate"></mat-icon>
           {{ 'CONTACT.LANGUAGES' | translate }}
@@ -124,61 +179,6 @@
           <span *ngFor="let language of languages" class="px-3 py-1 bg-gray-100 rounded-full text-sm">
             {{ language }}
           </span>
-        </div>
-      </div>
-      
-      <!-- Section des réseaux sociaux -->
-      <div *ngIf="socialMedia && socialMedia.length > 0" class="bg-white rounded-lg shadow-md p-4">
-        <h2 class="text-xl font-semibold mb-4 flex items-center">
-          <mat-icon class="mr-2 text-primary" svgIcon="mat:share"></mat-icon>
-          {{ 'CONTACT.SOCIAL_MEDIA' | translate }}
-        </h2>
-        
-        <div class="flex flex-col space-y-3">
-          <a *ngFor="let social of socialMedia" 
-             [href]="social.url" 
-             target="_blank" 
-             class="flex items-center p-2 hover:bg-gray-50 rounded-lg transition-colors">
-            <mat-icon class="mr-3 text-gray-700" svgIcon="logo:{{ social.icon }}"></mat-icon>
-            <span>{{ social.name }}</span>
-          </a>
-        </div>
-      </div>
-      
-      <!-- Section des heures d'ouverture -->
-      <div *ngIf="operatingHours" class="bg-white rounded-lg shadow-md p-4">
-        <h2 class="text-xl font-semibold mb-4 flex items-center">
-          <mat-icon class="mr-2 text-primary" svgIcon="mat:access_time"></mat-icon>
-          {{ 'CONTACT.HOURS' | translate }}
-        </h2>
-        
-        <div class="space-y-4">
-          <!-- Réception -->
-          <div *ngIf="operatingHours.reception" class="flex items-start">
-            <mat-icon class="mr-3 text-gray-500" svgIcon="mat:home"></mat-icon>
-            <div>
-              <p class="text-sm text-gray-600">{{ 'CONTACT.RECEPTION' | translate }}</p>
-              <p class="font-medium">{{ operatingHours.reception }}</p>
-            </div>
-          </div>
-          
-          <!-- Check-in -->
-          <div *ngIf="operatingHours.checkin" class="flex items-start">
-            <mat-icon class="mr-3 text-gray-500" svgIcon="mat:login"></mat-icon>
-            <div>
-              <p class="text-sm text-gray-600">{{ 'CONTACT.CHECKIN' | translate }}</p>
-              <p class="font-medium">{{ operatingHours.checkin }}</p>
-            </div>
-          </div>
-          
-          <!-- Check-out -->
-          <div *ngIf="operatingHours.checkout" class="flex items-start">
-            <mat-icon class="mr-3 text-gray-500" svgIcon="mat:logout"></mat-icon>
-            <div>
-              <p class="text-sm text-gray-600">{{ 'CONTACT.CHECKOUT' | translate }}</p>
-              <p class="font-medium">{{ operatingHours.checkout }}</p>
-            </div>
-          </div>
         </div>
       </div>
     </div>
