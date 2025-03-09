@@ -491,6 +491,502 @@
           }
         }
       }
+    ],
+    
+    "navigation": [
+      {
+        "type":"dropdown",
+        "label":"Votre arrivée",
+        "icon":"mat:directions_walk",
+        "route":"/:id/arrival",
+        "children":[
+          {
+            "type":"link",
+            "label":"Coordonnées",
+            "icon": "mat:mail_outline",
+            "route":"/:id/arrival/contact"
+          },
+          {
+            "type":"link",
+            "icon": "mat:access_time",
+            "label":"Tranche horaire",
+            "route":"/:id/arrival/times"
+          },
+          {
+            "type":"link",
+            "icon": "mat:directions",
+            "label":"Itinéraire et transports",
+            "route":"/:id/arrival/itinerary"
+          },
+          {
+            "type":"link",
+            "icon": "mat:local_parking",
+            "label":"Parkings",
+            "route":"/:id/arrival/parking"
+          },
+          {
+            "type":"link",
+            "label":"Formalités d'arrivée",
+            "icon":"mat:playlist_add_check",
+            "route":"/:id/arrival/checkin"
+          },
+          {
+            "type":"link",
+            "label":"Arrivée tardive",
+            "icon": "mat:alarm",
+            "route":"/:id/arrival/late"
+          },
+          {
+            "type":"link",
+            "label":"Règles de la maison",
+            "icon":"mat:home",
+            "route":"/:id/arrival/rules"
+          }
+        ]
+      },
+      {
+        "type":"dropdown",
+        "label":"Services sur place",
+        "icon":"mat:room_service",
+        "route":"/:id/services",
+        "children":[
+          {
+            "type":"link",
+            "label":"Wi-Fi",
+            "route":"/:id/services/wifi"
+          },
+          {
+            "type":"link",
+            "label":"Animaux domestiques",
+            "route":"/:id/services/pets"
+          },
+          {
+            "type":"link",
+            "label":"Télévision",
+            "route":"/:id/services/television"
+          },
+          {
+            "type":"link",
+            "label":"Boissons",
+            "route":"/:id/services/drinks"
+          },
+          {
+          "type":"link",
+          "label":"Accès handicapés",
+          "route":"/:id/services/disabled"
+          },
+          {
+            "type":"link",
+            "label":"Petit-déjeuner",
+            "route":"/:id/services/breakfast"
+          },
+          {
+            "type":"link",
+            "label":"Ménage",
+            "route":"/:id/services/cleaning"
+          },
+          {
+            "type":"link",
+            "label":"Blanchisserie",
+            "route":"/:id/services/laundry"
+          },
+          {
+            "type":"link",
+            "label":"Linge de toilette",
+            "route":"/:id/services/towels"
+          },
+          {
+            "type":"link",
+            "label":"Oreillers Supplémentaires",
+            "route":"/:id/services/pillows"
+          },
+          {
+            "type":"link",
+            "label":"Climatisation",
+            "route":"/:id/services/air-conditioning"
+          },
+          {
+            "type":"link",
+            "label":"Chauffage",
+            "route":"/:id/services/heating"
+          },
+          {
+            "type":"link",
+            "label":"Sèche-cheveux",
+            "route":"/:id/services/hairdryer"
+          },
+          {
+            "type":"link",
+            "label":"Fer à repasser",
+            "route":"/:id/services/iron"
+          },
+          {
+            "type":"link",
+            "label":"Cintres",
+            "route":"/:id/services/hangers"
+          },
+          {
+            "type":"link",
+            "label":"Espace de travail",
+            "route":"/:id/services/workspace"
+          },
+          {
+            "type":"link",
+            "label":"Cuisine",
+            "route":"/:id/services/kitchen"
+          },
+          {
+            "type":"link",
+            "label":"Piscine",
+            "route":"/:id/services/pool"
+          },
+          {
+            "type":"link",
+            "label":"Jacuzzi",
+            "route":"/:id/services/jacuzzi"
+          },
+          {
+            "type":"link",
+            "label":"Sauna",
+            "route":"/:id/services/sauna"
+          },
+          {
+            "type":"link",
+            "label":"Salle de sport",
+            "route":"/:id/services/gym"
+          },
+          {
+            "type":"link",
+            "label":"Spa",
+            "route":"/:id/services/spa"
+          },
+          {
+            "type":"link",
+            "label":"Barbecue",
+            "route":"/:id/services/barbecue"
+          },
+          {
+            "type":"link",
+            "label":"Jardin",
+            "route":"/:id/services/garden"
+          },
+          {
+            "type":"link",
+            "label":"Terrasse",
+            "route":"/:id/services/terrace"
+          },
+          {
+            "type": "link",
+            "label": "Balcon",
+            "route": "/:id/services/balcony"
+          }
+        ]
+      },
+      {
+        "type":"link",
+        "label":"Tourisme",
+        "route":"/:id/tourisme",
+        "icon":"mat:explore",
+        "routerLinkActiveOptions":{
+          "exact":true
+        }
+      },
+      {
+        "type":"dropdown",
+        "label":"Loisirs aux environs",
+        "route":"/:id/leisures",
+        "icon":"mat:explore",
+        "children": [
+          {
+            "type": "link",
+            "label": "Culture",
+            "route": "/:id/leisures/culture",
+            "icon": "fa-theater-masks "
+          },
+          {
+            "type": "link",
+            "label": "Divertissement",
+            "route": "/:id/leisures/entertainment",
+            "icon": "fa-grin-stars"
+          },
+          {
+            "type": "link",
+            "label": "Relaxation",
+            "route": "/:id/leisures/relaxation",
+            "icon": "fa-grin-stars"
+          },
+          {
+            "type": "link",
+            "label": "Sports",
+            "route": "/:id/leisures/sports",
+            "icon": "mat:fitness_center"
+          }
+        ]
+      },
+      {
+        "type":"dropdown",
+        "label":"Commodités à proximité",
+        "route":"/:id/amenities",
+        "icon":"mat:explore",
+        "routerLinkActiveOptions":{
+          "exact":true
+        },
+        "children": [
+          {
+            "type": "link",
+            "label": "Lieux de culte",
+            "route": "/:id/amenities/worshipplaces",
+            "icon": "mat:church"
+          },
+          {
+            "type": "link",
+            "label": "Alimentation",
+            "route": "/:id/amenities/food",
+            "icon": "mat:restaurant"
+          },
+          {
+            "type": "link",
+            "label": "Shopping",
+            "route": "/:id/amenities/shopping",
+            "icon": "mat:shopping_cart"
+          },
+          {
+            "type": "link",
+            "label": "Santé",
+            "route": "/:id/amenities/health",
+            "icon": "mat:local_hospital"
+          },
+          {
+            "type": "link",
+            "label": "Services",
+            "route": "/:id/amenities/services",
+            "icon": "mat:build"
+          },
+          {
+            "type": "link",
+            "label": "Transports",
+            "route": "/:id/amenities/transports",
+            "icon": "mat:directions_bus"
+          },
+          {
+            "type": "link",
+            "label": "Banques",
+            "route": "/:id/amenities/banks",
+            "icon": "mat:account_balance"
+          },
+          {
+            "type": "link",
+            "label": "Poste",
+            "route": "/:id/amenities/post",
+            "icon": "mat:local_post_office"
+          },
+          {
+            "type": "link",
+            "label": "Pharmacies",
+            "route": "/:id/amenities/pharmacies",
+            "icon": "mat:local_pharmacy"
+          },
+          {
+            "type": "link",
+            "label": "Médecins",
+            "route": "/:id/amenities/doctors",
+            "icon": "mat:local_hospital"
+          },
+          {
+            "type": "link",
+            "label": "Hôpitaux",
+            "route": "/:id/amenities/hospitals",
+            "icon": "mat:local_hospital"
+          },
+          {
+            "type": "link",
+            "label": "Dentistes",
+            "route": "/:id/amenities/dentists",
+            "icon": "mat:local_hospital"
+          },
+          {
+            "type": "link",
+            "label": "Opticiens",
+            "route": "/:id/amenities/opticians",
+            "icon": "mat:local_hospital"
+          },
+          {
+            "type": "link",
+            "label": "Vétérinaires",
+            "route": "/:id/amenities/veterinaries",
+            "icon": "mat:local_hospital"
+          },
+          {
+            "type": "link",
+            "label": "Salons de coiffure",
+            "route": "/:id/amenities/hairdressers",
+            "icon": "mat:local_hospital"
+          },
+          {
+            "type": "link",
+            "label": "Salons de beauté",
+            "route": "/:id/amenities/beauty",
+            "icon": "mat:local_hospital"
+          },
+          {
+            "type": "link",
+            "label": "Salons de massage",
+            "route": "/:id/amenities/massage",
+            "icon": "mat:local_hospital"
+          }
+        ]
+      },
+      {
+        "type":"dropdown",
+        "label":"Manger aux environs",
+        "route":"/apps/aio-table",
+        "icon":"mat:restaurant",
+        "routerLinkActiveOptions":{
+          "exact":true
+        },
+        "children": [
+          {
+            "type": "link",
+            "label": "Restaurants",
+            "route": "/:id/restaurants",
+            "icon": "mat:restaurant"
+          },
+          {
+            "type": "link",
+            "label": "Fast-food",
+            "route": "/:id/fastfoods",
+            "icon": "mat:fastfood"
+          },
+          {
+            "type": "link",
+            "label": "Pizzerias",
+            "route": "/:id/pizzerias",
+            "icon": "mat:local_pizza"
+          },
+          {
+            "type": "link",
+            "label": "Crêperies",
+            "route": "/:id/creperies",
+            "icon": "mat:local_pizza"
+          },
+          {
+            "type": "link",
+            "label": "Kebabs",
+            "route": "/:id/kebabs",
+            "icon": "mat:local_pizza"
+          },
+          {
+            "type": "link",
+            "label": "Sandwicheries",
+            "route": "/:id/sandwicheries",
+            "icon": "mat:local_pizza"
+          },
+          {
+            "type": "link",
+            "label": "Salons de thé",
+            "route": "/:id/tearooms",
+            "icon": "mat:local_cafe"
+          },
+          {
+            "type": "link",
+            "label": "Bars",
+            "route": "/:id/bars",
+            "icon": "mat:local_bar"
+          },
+          {
+            "type": "link",
+            "label": "Cafés",
+            "route": "/:id/cafes",
+            "icon": "mat:local_cafe"
+          },
+          {
+            "type": "link",
+            "label": "Glaciers",
+            "route": "/:id/icecreams",
+            "icon": "mat:local_pizza"
+          },
+          {
+            "type": "link",
+            "label": "Boulangeries",
+            "route": "/:id/bakeries",
+            "icon": "mat:local_pizza"
+          },
+          {
+            "type": "link",
+            "label": "Pâtisseries",
+            "route": "/:id/pastries",
+            "icon": "mat:local_pizza"
+          }
+        ]
+      },
+      {
+        "type":"dropdown",
+        "label":"Urgences",
+        "route":"/apps/editor",
+        "icon":"mat:help",
+        "routerLinkActiveOptions":{
+          "exact":true
+        },
+        "children": [
+          {
+            "type": "link",
+            "label": "Police",
+            "route": "/:id/police",
+            "icon": "mat:local_police"
+          },
+          {
+            "type": "link",
+            "label": "Gendarmerie",
+            "route": "/:id/gendarmerie",
+            "icon": "mat:local_police"
+          },
+          {
+            "type": "link",
+            "label": "Pompiers",
+            "route": "/:id/firemen",
+            "icon": "mat:local_fire_department"
+          },
+          {
+            "type": "link",
+            "label": "Samu",
+            "route": "/:id/samu",
+            "icon": "mat:local_hospital"
+          },
+          {
+            "type": "link",
+            "label": "Urgences",
+            "route": "/:id/emergencies",
+            "icon": "mat:local_hospital"
+          },
+          {
+            "type": "link",
+            "label": "Médecins de garde",
+            "route": "/:id/doctors",
+            "icon": "mat:local_hospital"
+          },
+          {
+            "type": "link",
+            "label": "Pharmacies de garde",
+            "route": "/:id/pharmacies",
+            "icon": "mat:local_pharmacy"
+          },
+          {
+            "type": "link",
+            "label": "Vétérinaires de garde",
+            "route": "/:id/veterinaries",
+            "icon": "mat:local_hospital"
+          }
+        ]
+      },
+      {
+        "type":"link",
+        "label":"Votre départ",
+        "route":"/apps/help-center/guides",
+        "icon":"mat:explore",
+        "routerLinkActiveOptions":{
+          "exact":true
+        }
+      }
     ]
-  }
+}
   
