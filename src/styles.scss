@@ -28,3 +28,47 @@ html {
   // --app-color-warn: yellow;
   // --app-color-warn-contrast: black;
 }
+
+/* Styles pour la directive Clipboard */
+.can-copy {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  
+  &:hover {
+    color: #5c77ff; /* Couleur primaire au survol */
+    
+    .copy-icon {
+      opacity: 1;
+    }
+  }
+  
+  .copy-icon {
+    opacity: 0.5;
+    transition: opacity 0.2s ease;
+  }
+  
+  &.copy-success {
+    color: #4caf50; /* Vert pour indiquer le succès */
+    animation: pulse 0.5s;
+    
+    .copy-icon {
+      color: #4caf50;
+      opacity: 1;
+    }
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}

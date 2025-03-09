@@ -47,7 +47,8 @@
   "COMMON": {
     "LOADING": "Chargement en cours...",
     "ERROR_OCCURRED": "Une erreur est survenue",
-    "RETRY": "Réessayer"
+    "RETRY": "Réessayer",
+    "CLOSE": "Fermer"
   },
   "GALLERY": {
     "TITLE": "Galerie d'images",
@@ -57,5 +58,32 @@
     "IMAGE": "Image",
     "ZOOM": "Agrandir l'image",
     "THUMBNAIL": "Miniature"
+  },
+  "CONTACT": {
+    "LOADING": "Chargement des coordonnées...",
+    "ERROR": "Impossible de charger les informations de la propriété.",
+    "ADDRESS": "Adresse et Localisation",
+    "VIEW_ON_MAPS": "Voir sur Google Maps",
+    "DIRECTIONS": "Itinéraire",
+    "WAZE_NAVIGATION": "Naviguer avec Waze",
+    "LANGUAGES": "Langues parlées",
+    "HOURS": "Horaires",
+    "RECEPTION": "Réception",
+    "CHECKIN": "Check-in",
+    "CHECKOUT": "Check-out",
+    "CONTACT_INFO": "Contact",
+    "PHONE": "Téléphone",
+    "EMAIL": "Email",
+    "WEBSITE": "Site Internet",
+    "SOCIAL_MEDIA": "Réseaux sociaux",
+    "CLIPBOARD": {
+      "COPIED": "copié dans le presse-papier",
+      "COPY": "Copier",
+      "ADDRESS": "Adresse",
+      "PHONE": "Téléphone",
+      "EMAIL": "Email",
+      "LATITUDE": "Latitude",
+      "LONGITUDE": "Longitude"
+    }
   }
 }

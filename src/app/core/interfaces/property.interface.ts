@@ -44,6 +44,22 @@ export interface Property {
     phone: string;
     email: string;
   }[];
+  socialMedia?: {
+    name: string;
+    icon: string;
+    url: string;
+  }[];
+  languages?: string[];
+  operatingHours?: {
+    reception: string;
+    checkout: string;
+    checkin: string;
+  };
+  contactInfo?: {
+    phone: string;
+    email: string;
+    website: string;
+  };
   createdAt?: string;
   updatedAt?: string;
 }

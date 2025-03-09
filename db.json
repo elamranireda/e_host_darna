@@ -18,6 +18,22 @@
           "latitude": "35.7633",
           "longitude": "-5.8039"
         },
+        "socialMedia": [
+          { "name": "Facebook", "icon": "facebook", "url": "https://facebook.com/hotelluxemarina" },
+          { "name": "Instagram", "icon": "instagram", "url": "https://instagram.com/hotelluxemarina" },
+          { "name": "Twitter", "icon": "twitter", "url": "https://twitter.com/hotelluxemarina" }
+        ],
+        "languages": ["Français", "Anglais", "Arabe", "Espagnol"],
+        "operatingHours": {
+          "reception": "00:00 - 24:00",
+          "checkout": "12:00",
+          "checkin": "14:00 - 23:00"
+        },
+        "contactInfo": {
+          "phone": "+212 539 123 456",
+          "email": "contact@hotelluxemarina.com",
+          "website": "www.hotelluxemarina.com"
+        },
         "checkInInfo": {
           "checkInStart": "14:00",
           "checkInEnd": "23:00",
@@ -110,6 +126,21 @@
         "location": {
           "latitude": "35.7922",
           "longitude": "-5.7656"
+        },
+        "socialMedia": [
+          { "name": "Facebook", "icon": "facebook", "url": "https://facebook.com/villaoceania" },
+          { "name": "Instagram", "icon": "instagram", "url": "https://instagram.com/villaoceania" }
+        ],
+        "languages": ["Français", "Anglais", "Espagnol"],
+        "operatingHours": {
+          "reception": "09:00 - 19:00",
+          "checkout": "10:00",
+          "checkin": "15:00 - 20:00"
+        },
+        "contactInfo": {
+          "phone": "+212 661 234 567",
+          "email": "info@villaoceania.com",
+          "website": "www.villaoceania.com"
         },
         "checkInInfo": {
           "checkInStart": "15:00",
@@ -207,6 +238,22 @@
           "latitude": "31.5084",
           "longitude": "-9.7703"
         },
+        "socialMedia": [
+          { "name": "Facebook", "icon": "facebook", "url": "https://facebook.com/giteruralessaouira" },
+          { "name": "Instagram", "icon": "instagram", "url": "https://instagram.com/giteruralessaouira" },
+          { "name": "Pinterest", "icon": "pinterest", "url": "https://pinterest.com/giteruralessaouira" }
+        ],
+        "languages": ["Français", "Arabe", "Anglais"],
+        "operatingHours": {
+          "reception": "08:00 - 19:00",
+          "checkout": "11:00",
+          "checkin": "16:00 - 19:00"
+        },
+        "contactInfo": {
+          "phone": "+212 662 345 678",
+          "email": "contact@giteruralessaouira.com",
+          "website": "www.giteruralessaouira.com"
+        },
         "checkInInfo": {
           "checkInStart": "16:00",
           "checkInEnd": "19:00",
@@ -297,6 +344,22 @@
         "location": {
           "latitude": "30.4278",
           "longitude": "-9.6058"
+        },
+        "socialMedia": [
+          { "name": "Facebook", "icon": "facebook", "url": "https://facebook.com/marinabayagadir" },
+          { "name": "Instagram", "icon": "instagram", "url": "https://instagram.com/marinabayagadir" },
+          { "name": "Twitter", "icon": "twitter", "url": "https://twitter.com/marinabayagadir" }
+        ],
+        "languages": ["Français", "Anglais", "Arabe", "Allemand"],
+        "operatingHours": {
+          "reception": "00:00 - 24:00",
+          "checkout": "11:00",
+          "checkin": "15:00 - 22:00"
+        },
+        "contactInfo": {
+          "phone": "+212 528 456 789",
+          "email": "info@marinabayagadir.com",
+          "website": "www.marinabayagadir.com"
         },
         "checkInInfo": {
           "checkInStart": "15:00",
@@ -400,8 +463,24 @@
           "country": "Maroc"
         },
         "location": {
-          "latitude": "35.1691",
-          "longitude": "-5.2679"
+          "latitude": "35.1716",
+          "longitude": "-5.2680"
+        },
+        "socialMedia": [
+          { "name": "Airbnb", "icon": "airbnb", "url": "https://airbnb.com/rooms/mediachefchaouen" },
+          { "name": "Instagram", "icon": "instagram", "url": "https://instagram.com/mediachefchaouen" },
+          { "name": "Facebook", "icon": "facebook", "url": "https://facebook.com/mediachefchaouen" }
+        ],
+        "languages": ["Français", "Arabe", "Espagnol", "Anglais"],
+        "operatingHours": {
+          "reception": "09:00 - 18:00",
+          "checkout": "11:00",
+          "checkin": "14:00 - 18:00"
+        },
+        "contactInfo": {
+          "phone": "+212 664 567 890",
+          "email": "host@mediachefchaouen.com",
+          "website": "www.mediachefchaouen.com"
         },
         "checkInInfo": {
           "checkInStart": "14:00",
@@ -482,7 +561,7 @@
               },
               {
                 "order": 3,
-                "value": "host@chefchaouen-home.com",
+                "value": "host@mediachefchaouen.com",
                 "type": "EMAIL",
                 "icon": "mat:mail",
                 "label": "Email (réponse sous 12h)"

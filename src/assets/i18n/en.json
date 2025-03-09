@@ -47,6 +47,43 @@
   "COMMON": {
     "LOADING": "Loading...",
     "ERROR_OCCURRED": "An error occurred",
-    "RETRY": "Retry"
+    "RETRY": "Retry",
+    "CLOSE": "Close"
+  },
+  "GALLERY": {
+    "TITLE": "Image Gallery",
+    "CLOSE": "Close",
+    "PREVIOUS": "Previous image",
+    "NEXT": "Next image",
+    "IMAGE": "Image",
+    "ZOOM": "Zoom image",
+    "THUMBNAIL": "Thumbnail"
+  },
+  "CONTACT": {
+    "LOADING": "Loading contact information...",
+    "ERROR": "Unable to load property information.",
+    "ADDRESS": "Address and Location",
+    "VIEW_ON_MAPS": "View on Google Maps",
+    "DIRECTIONS": "Get Directions",
+    "WAZE_NAVIGATION": "Navigate with Waze",
+    "LANGUAGES": "Languages Spoken",
+    "HOURS": "Opening Hours",
+    "RECEPTION": "Reception",
+    "CHECKIN": "Check-in",
+    "CHECKOUT": "Check-out",
+    "CONTACT_INFO": "Contact",
+    "PHONE": "Phone",
+    "EMAIL": "Email",
+    "WEBSITE": "Website",
+    "SOCIAL_MEDIA": "Social Media",
+    "CLIPBOARD": {
+      "COPIED": "copied to clipboard",
+      "COPY": "Copy",
+      "ADDRESS": "Address",
+      "PHONE": "Phone",
+      "EMAIL": "Email",
+      "LATITUDE": "Latitude",
+      "LONGITUDE": "Longitude"
+    }
   }
 }

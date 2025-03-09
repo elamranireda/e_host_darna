@@ -1,9 +1,186 @@
-<div class="container py-6">
-  <!-- Affichage d'un loader tant que les données ne sont pas chargées -->
+<div>
+  <!-- Loader -->
   <div *ngIf="loading" class="text-center py-6">
-    Chargement des Coordonnées...
+    <mat-icon class="animate-spin text-primary text-3xl" svgIcon="mat:refresh"></mat-icon>
+    <p class="mt-2">{{ 'CONTACT.LOADING' | translate }}</p>
   </div>
 
-  <p>menu Coordonnées</p>
+  <!-- Contenu principal -->
+  <div *ngIf="!loading && property" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    
+    <!-- Colonne gauche -->
+    <div class="space-y-6">
+      <!-- Carte et Adresse -->
+      <div class="bg-white rounded-lg shadow-md p-4">
+        <h2 class="text-xl font-semibold mb-4 flex items-center">
+          <mat-icon class="mr-2 text-primary" svgIcon="mat:location_on"></mat-icon>
+          {{ 'CONTACT.ADDRESS' | translate }}
+        </h2>
+        
+        <!-- Carte interactive Google Maps -->
+        <div class="map-container mb-4 rounded-lg overflow-hidden">
+          <div #mapContainer style="width: 100%; height: 250px; border-radius: 8px;"></div>
+        </div>
+        
+        <!-- Adresse -->
+        <div class="mb-4">
+          <p class="font-medium">{{ property.name }}</p>
+          <p [appClipboard]="property.address.street + ', ' + property.address.postalCode + ' ' + property.address.city + ', ' + property.address.country"
+             [clipboardTitle]="'CONTACT.CLIPBOARD.ADDRESS' | translate">
+            {{ property.address.street }}
+          </p>
+          <p>{{ property.address.postalCode }} {{ property.address.city }}</p>
+          <p>{{ property.address.country }}</p>
+        </div>
+        
+        <!-- Coordonnées GPS -->
+        <div class="mb-4 text-sm text-gray-600">
+          <p [appClipboard]="property.location.latitude.toString()"
+             [clipboardTitle]="'CONTACT.CLIPBOARD.LATITUDE' | translate">
+            Latitude: {{ property.location.latitude }}
+          </p>
+          <p [appClipboard]="property.location.longitude.toString()"
+             [clipboardTitle]="'CONTACT.CLIPBOARD.LONGITUDE' | translate">
+            Longitude: {{ property.location.longitude }}
+          </p>
+        </div>
+        
+        <!-- Boutons d'action -->
+        <div class="flex flex-wrap gap-2">
+          <a [href]="getGoogleMapsLink()" target="_blank" class="btn-primary flex items-center">
+            <mat-icon class="mr-1" svgIcon="mat:map"></mat-icon> {{ 'CONTACT.VIEW_ON_MAPS' | translate }}
+          </a>
+          <button (click)="openDirections()" class="btn-outline flex items-center">
+            <mat-icon class="mr-1" svgIcon="mat:directions"></mat-icon> {{ 'CONTACT.DIRECTIONS' | translate }}
+          </button>
+          <button (click)="openWaze()" class="btn-waze flex items-center">
+            <mat-icon class="mr-1" svgIcon="logo:waze"></mat-icon> {{ 'CONTACT.WAZE_NAVIGATION' | translate }}
+          </button>
+        </div>
+      </div>
+      
+    
+      
 
+    
+    <!-- Colonne droite -->
+    <div class="space-y-6">
+      <!-- Section des informations de contact -->
+      <div class="bg-white rounded-lg shadow-md p-4">
+        <h2 class="text-xl font-semibold mb-4 flex items-center">
+          <mat-icon class="mr-2 text-primary" svgIcon="mat:contact_phone"></mat-icon>
+          {{ 'CONTACT.CONTACT_INFO' | translate }}
+        </h2>
+        
+        <div class="space-y-4">
+          <!-- Téléphone -->
+          <div *ngIf="contactInfo.phone" class="flex items-start">
+            <mat-icon class="mr-3 text-gray-500" svgIcon="mat:phone"></mat-icon>
+            <div>
+              <p class="text-sm text-gray-600">{{ 'CONTACT.PHONE' | translate }}</p>
+              <p class="font-medium" [appClipboard]="contactInfo.phone"
+                 [clipboardTitle]="'CONTACT.CLIPBOARD.PHONE' | translate">
+                {{ contactInfo.phone }}
+              </p>
+            </div>
+          </div>
+          
+          <!-- Email -->
+          <div *ngIf="contactInfo.email" class="flex items-start">
+            <mat-icon class="mr-3 text-gray-500" svgIcon="mat:email"></mat-icon>
+            <div>
+              <p class="text-sm text-gray-600">{{ 'CONTACT.EMAIL' | translate }}</p>
+              <p class="font-medium" [appClipboard]="contactInfo.email"
+                 [clipboardTitle]="'CONTACT.CLIPBOARD.EMAIL' | translate">
+                {{ contactInfo.email }}
+              </p>
+            </div>
+          </div>
+          
+          <!-- Site Web -->
+          <div *ngIf="contactInfo.website" class="flex items-start">
+            <mat-icon class="mr-3 text-gray-500" svgIcon="mat:language"></mat-icon>
+            <div>
+              <p class="text-sm text-gray-600">{{ 'CONTACT.WEBSITE' | translate }}</p>
+              <p class="font-medium">{{ contactInfo.website }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Section des langues -->
+      <div *ngIf="languages && languages.length > 0" class="bg-white rounded-lg shadow-md p-4">
+        <h2 class="text-xl font-semibold mb-4 flex items-center">
+          <mat-icon class="mr-2 text-primary" svgIcon="mat:translate"></mat-icon>
+          {{ 'CONTACT.LANGUAGES' | translate }}
+        </h2>
+        <div class="flex flex-wrap gap-2">
+          <span *ngFor="let language of languages" class="px-3 py-1 bg-gray-100 rounded-full text-sm">
+            {{ language }}
+          </span>
+        </div>
+      </div>
+      
+      <!-- Section des réseaux sociaux -->
+      <div *ngIf="socialMedia && socialMedia.length > 0" class="bg-white rounded-lg shadow-md p-4">
+        <h2 class="text-xl font-semibold mb-4 flex items-center">
+          <mat-icon class="mr-2 text-primary" svgIcon="mat:share"></mat-icon>
+          {{ 'CONTACT.SOCIAL_MEDIA' | translate }}
+        </h2>
+        
+        <div class="flex flex-col space-y-3">
+          <a *ngFor="let social of socialMedia" 
+             [href]="social.url" 
+             target="_blank" 
+             class="flex items-center p-2 hover:bg-gray-50 rounded-lg transition-colors">
+            <mat-icon class="mr-3 text-gray-700" svgIcon="logo:{{ social.icon }}"></mat-icon>
+            <span>{{ social.name }}</span>
+          </a>
+        </div>
+      </div>
+      
+      <!-- Section des heures d'ouverture -->
+      <div *ngIf="operatingHours" class="bg-white rounded-lg shadow-md p-4">
+        <h2 class="text-xl font-semibold mb-4 flex items-center">
+          <mat-icon class="mr-2 text-primary" svgIcon="mat:access_time"></mat-icon>
+          {{ 'CONTACT.HOURS' | translate }}
+        </h2>
+        
+        <div class="space-y-4">
+          <!-- Réception -->
+          <div *ngIf="operatingHours.reception" class="flex items-start">
+            <mat-icon class="mr-3 text-gray-500" svgIcon="mat:home"></mat-icon>
+            <div>
+              <p class="text-sm text-gray-600">{{ 'CONTACT.RECEPTION' | translate }}</p>
+              <p class="font-medium">{{ operatingHours.reception }}</p>
+            </div>
+          </div>
+          
+          <!-- Check-in -->
+          <div *ngIf="operatingHours.checkin" class="flex items-start">
+            <mat-icon class="mr-3 text-gray-500" svgIcon="mat:login"></mat-icon>
+            <div>
+              <p class="text-sm text-gray-600">{{ 'CONTACT.CHECKIN' | translate }}</p>
+              <p class="font-medium">{{ operatingHours.checkin }}</p>
+            </div>
+          </div>
+          
+          <!-- Check-out -->
+          <div *ngIf="operatingHours.checkout" class="flex items-start">
+            <mat-icon class="mr-3 text-gray-500" svgIcon="mat:logout"></mat-icon>
+            <div>
+              <p class="text-sm text-gray-600">{{ 'CONTACT.CHECKOUT' | translate }}</p>
+              <p class="font-medium">{{ operatingHours.checkout }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
+  <!-- Message d'erreur si aucune propriété -->
+  <div *ngIf="!loading && !property" class="bg-red-50 text-red-700 p-4 rounded-lg">
+    <p>{{ 'CONTACT.ERROR' | translate }}</p>
+  </div>
 </div>
