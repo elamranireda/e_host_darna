@@ -14,6 +14,7 @@ import { TranslateModule } from '@ngx-translate/core';
 export class ErrorMessageComponent {
   // Paramètre d'entrée pour le code d'erreur avec 500 comme valeur par défaut
   @Input() errorCode: string | number = 500;
+  @Input({required: false}) icon?: string;
   
   // Émetteur pour l'événement de réessai
   @Output() retry = new EventEmitter<void>();

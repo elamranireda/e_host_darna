@@ -1,6 +1,10 @@
 <div class="error-container w-full p-6 text-center">
-  <!-- Illustration d'erreur -->
-  <img src="assets/img/illustrations/under_constructions_1.svg" class="w-full max-w-lg mx-auto mb-6">
+  <ng-container *ngIf="errorCode === 404 else defaultIllustration">
+    <img src="assets/img/illustrations/not_found.svg" class="w-full max-w-lg mx-auto mb-6">
+  </ng-container>
+  <ng-template #defaultIllustration>
+    <img src="assets/img/illustrations/under_constructions_1.svg" class="w-full max-w-lg mx-auto mb-6">
+  </ng-template>
   
   <!-- Code d'erreur dynamique -->
   <h1 class="display-3 font-medium m-0">{{ errorCode }}</h1>

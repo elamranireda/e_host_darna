@@ -13,6 +13,8 @@ import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {LanguageService} from "@app/services/language-service";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
 import {ClipboardDirective} from "../../../shared/directives/clipboard.directive";
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { ErrorMessageComponent } from '../../../core/error-message/error-message.component';
 
 // Déclaration des types Google Maps pour éviter les erreurs TypeScript
 declare global {
@@ -38,11 +40,15 @@ declare global {
     MatButtonModule,
     TranslateModule,
     MatSnackBarModule,
-    ClipboardDirective
+    ClipboardDirective,
+    MatProgressSpinnerModule,
+    ErrorMessageComponent
   ]
 })
 export class ContactComponent implements OnInit, AfterViewInit {
   loading: boolean = true;
+  hasError: boolean = false;
+  errorMessage: string = '';
   property: Property | null = null;
   
   @ViewChild('mapContainer') mapContainer!: ElementRef;
@@ -79,14 +85,12 @@ export class ContactComponent implements OnInit, AfterViewInit {
   private languageService = inject(LanguageService);
 
   constructor() {
-    // Utiliser un effet pour détecter les changements dans le signal property
     effect(() => {
       const propertyData = this.propertyStore.property();
+      console.log('propertyData', propertyData);
       if (propertyData) {
         this.property = propertyData;
         this.loading = false;
-        
-        // Initialiser la carte après que les données soient chargées
         setTimeout(() => {
           this.initMap();
         }, 100);
@@ -95,18 +99,7 @@ export class ContactComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    // Get current property ID from route or localStorage
-    const propertyId = this.route.snapshot.paramMap.get('id') || 
-                        localStorage.getItem('currentPropertyId');
     
-    if (propertyId) {
-      this.propertyStore.getPropertyDetails(propertyId);
-    } else {
-      console.error('No property ID found');
-      this.loading = false;
-    }
-    
-    // Charger l'API Google Maps
     this.loadGoogleMapsScript();
   }
   
@@ -193,5 +186,12 @@ export class ContactComponent implements OnInit, AfterViewInit {
   // Get current language
   getCurrentLanguage(): string {
     return this.translateService.currentLang;
+  }
+
+  // Retry operation method
+  retryOperation(): void {
+    this.hasError = false; // Reset error state
+    this.loading = true; // Set loading to true while fetching data
+    this.ngOnInit(); // Call ngOnInit to retry fetching the property details
   }
 }

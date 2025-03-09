@@ -5,6 +5,13 @@
     <p class="mt-2">{{ 'CONTACT.LOADING' | translate }}</p>
   </div>
 
+  <!-- Affichage des erreurs -->
+  <app-error-message 
+    *ngIf="!loading && !property"
+    [errorCode]="404"
+    (retry)="retryOperation()">
+  </app-error-message>
+
   <!-- Contenu principal -->
   <div *ngIf="!loading && property" class="grid grid-cols-1 md:grid-cols-2 gap-6">
     
@@ -25,12 +32,11 @@
         <!-- Adresse -->
         <div class="mb-4">
           <p class="font-medium">{{ property.name }}</p>
-          <p [appClipboard]="property.address.street + ', ' + property.address.postalCode + ' ' + property.address.city + ', ' + property.address.country"
-             [clipboardTitle]="'CONTACT.CLIPBOARD.ADDRESS' | translate">
-            {{ property.address.street }}
-          </p>
-          <p>{{ property.address.postalCode }} {{ property.address.city }}</p>
-          <p>{{ property.address.country }}</p>
+          <div [appClipboard]="property.address.street + ', ' + property.address.postalCode + ' ' + property.address.city + ', ' + property.address.country"
+               [clipboardTitle]="'CONTACT.CLIPBOARD.ADDRESS' | translate"
+               class="p-2 rounded bg-gray-50 hover:bg-gray-100 transition-colors cursor-pointer text-sm text-gray-600">
+            {{ property.address.street }}, {{ property.address.postalCode }} {{ property.address.city }}, {{ property.address.country }}
+          </div>
         </div>
         
         <!-- Coordonnées GPS -->
@@ -39,8 +45,8 @@
           <div [appClipboard]="property.location.latitude + ', ' + property.location.longitude"
                [clipboardTitle]="'CONTACT.CLIPBOARD.COORDINATES' | translate"
                class="p-2 rounded bg-gray-50 hover:bg-gray-100 transition-colors cursor-pointer text-sm text-gray-600">
-      
-            <div class="flex items-center gap-2 mt-1 text-xs text-gray-500">
+        
+            <div class="flex items-center gap-2 mt-1 text-sm text-gray-500">
               <span>Latitude: {{ property.location.latitude }}</span>
               <span>•</span>
               <span>Longitude: {{ property.location.longitude }}</span>
@@ -61,10 +67,7 @@
           </button>
         </div>
       </div>
-      
-    
-      
-
+    </div>
     
     <!-- Colonne droite -->
     <div class="space-y-6">
@@ -178,12 +181,6 @@
           </div>
         </div>
       </div>
-      
     </div>
-  </div>
-  
-  <!-- Message d'erreur si aucune propriété -->
-  <div *ngIf="!loading && !property" class="bg-red-50 text-red-700 p-4 rounded-lg">
-    <p>{{ 'CONTACT.ERROR' | translate }}</p>
   </div>
 </div>
