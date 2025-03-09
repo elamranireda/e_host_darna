@@ -1,3 +1,46 @@
+// Styles pour la navigation mobile et desktop
+.mobile-nav-buttons {
+
+  button {
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+    
+    &[mat-mini-fab] {
+      width: 36px;
+      height: 36px;
+      
+      mat-icon {
+        font-size: 24px;
+        width: 24px;
+        height: 24px;
+      }
+    }
+    
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+    
+    &:active {
+      transform: translateY(0);
+    }
+  }
+}
+
+.navigation-actions {
+  
+  button {
+    transition: all 0.2s ease-in-out;
+    
+    &:hover {
+      transform: translateY(-1px);
+    }
+    
+    &:active {
+      transform: translateY(0);
+    }
+  }
+}
+
 // Styles for the image gallery
 .gallery-container {
   .gallery-title {
@@ -102,6 +145,15 @@
   backdrop-filter: blur(3px);
 }
 
+// Styles spécifiques pour assurer la visibilité de la navigation
+app-step-navigation {
+  display: block;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+  z-index: 5;
+  position: relative;
+}
+
 // Mobile navigation bar
 @media (max-width: 768px) {
   .fixed.bottom-0 {
@@ -120,6 +172,15 @@
       }
     }
   }
+  
+  app-step-navigation {
+    margin-bottom: 4rem; // Espace pour la navigation mobile fixée en bas
+  }
+  
+  .step-navigation-container {
+    margin-bottom: 3rem; // Plus d'espace en bas sur mobile
+  }
+
 }
 
 // Media toggle buttons

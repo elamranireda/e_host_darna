@@ -1,9 +1,5 @@
 <!-- Grid de vignettes -->
 <div class="gallery-container" *ngIf="hasItems()">
-  <h4 class="gallery-title flex items-center mb-3">
-    <mat-icon svgIcon="mat:photo_library" class="mr-2"></mat-icon>
-    {{ 'GALLERY.TITLE' | translate }}
-  </h4>
 
   <div class="thumbnails-grid" [style.grid-template-columns]="'repeat(' + gridCols + ', 1fr)'">
     <div *ngFor="let item of items; let i = index" 

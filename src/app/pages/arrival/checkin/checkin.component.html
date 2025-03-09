@@ -43,10 +43,7 @@
 
         <mat-step *ngFor="let instruction of getSortedInstructions(item); let i = index" [completed]="true" [editable]="true">
           <ng-template matStepLabel>
-            {{instruction.title}} - {{ 'CHECKIN.STEP' | translate }} {{instruction.step}}
-            <small *ngIf="instruction.type === InstructionType.ACCESS_MODE" class="text-hint ml-2">{{ 'ACCESS_TYPE.ACCESS' | translate }}</small>
-            <small *ngIf="instruction.type === InstructionType.IDENTITY_CHECK" class="text-hint ml-2">{{ 'ACCESS_TYPE.IDENTITY' | translate }}</small>
-            <small *ngIf="instruction.type === InstructionType.ARRIVAL_INSTRUCTION" class="text-hint ml-2">{{ 'ACCESS_TYPE.ARRIVAL' | translate }}</small>
+            {{instruction.title}}
           </ng-template>
           
           <!-- Utilisation du nouveau component InstructionStepComponent -->
