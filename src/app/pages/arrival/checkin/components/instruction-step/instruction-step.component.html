@@ -19,27 +19,30 @@
       <span class="body-2 cursor-pointer">{{i}}</span>
     </div>
     
-    <!-- Section des médias (vidéo ou galerie) -->
-    <div class="media-section py-4">
-      <!-- Vidéo (affichée si isShowingVideo est true) -->
+    <!-- Section des médias (vidéo ou galerie) - Style optimisé -->
+    <div class="media-section mt-4" [class.with-video]="isShowingVideo() && instruction.videoUrl">
+      <!-- Vidéo (affichée si isShowingVideo est true) - Avec ratio 16:9 et conteneur responsive -->
       <div *ngIf="isShowingVideo() && instruction.videoUrl" class="video-container">
-        <iframe 
-          width="100%" 
-          height="315" 
-          [src]="sanitizer.bypassSecurityTrustResourceUrl(instruction.videoUrl)" 
-          frameborder="0" 
-          allowfullscreen>
-        </iframe>
+        <div class="video-wrapper">
+          <iframe 
+            [src]="sanitizer.bypassSecurityTrustResourceUrl(instruction.videoUrl)" 
+            frameborder="0" 
+            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
+            allowfullscreen>
+          </iframe>
+        </div>
       </div>
       
-      <!-- Galerie (affichée si isShowingVideo est false) -->
-      <app-gallery *ngIf="!isShowingVideo() && instruction.images && instruction.images.length > 0"
-                  [items]="galleryItems"
-                  [gridCols]="4"
-                  [thumbnailSize]="150"
-                  [lightboxOpen]="lightboxOpen"
-                  (lightboxClosed)="closeGallery()">
-      </app-gallery>
+      <!-- Galerie (affichée si isShowingVideo est false) - Compact mode -->
+      <div class="gallery-container" *ngIf="!isShowingVideo() && instruction.images && instruction.images.length > 0">
+        <app-gallery
+          [items]="galleryItems"
+          [gridCols]="instruction.images.length > 3 ? 4 : instruction.images.length"
+          [thumbnailSize]="120"
+          [lightboxOpen]="lightboxOpen"
+          (lightboxClosed)="closeGallery()">
+        </app-gallery>
+      </div>
     </div>
     
     <!-- Access Mode Item section -->

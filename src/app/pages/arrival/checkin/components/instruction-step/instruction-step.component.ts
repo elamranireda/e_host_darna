@@ -71,8 +71,8 @@ export class InstructionStepComponent implements OnInit {
   private snackBar = inject(MatSnackBar);
   private clipboard = inject(Clipboard);
   
-  // Pour l'accès à partir du template
-  protected readonly sanitizer = inject(DomSanitizer);
+  // Pour l'accès à partir du template - rendre public
+  public sanitizer = inject(DomSanitizer);
   
   constructor(private cd: ChangeDetectorRef) {}
   
@@ -81,8 +81,8 @@ export class InstructionStepComponent implements OnInit {
       this.galleryItems = this.instruction.images.map((image, index) => ({
         src: image,
         thumb: image,
-        title: `${this.instruction.title} - Image ${index + 1}`,
-        description: this.instruction.description || '',
+        title: `Image ${index + 1}`,
+        description: '',
         order: index + 1
       }));
     }
