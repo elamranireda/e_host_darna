@@ -28,8 +28,8 @@ export class AppCheckinWelcomeComponent {
 }
 
 export interface AppCheckinWelcomeItem {
-  title: string;
-  subtitle: string;
+  title?: string;
+  subtitle?: string;
   icon?: string;
   colorClass?: string;
   items: {
