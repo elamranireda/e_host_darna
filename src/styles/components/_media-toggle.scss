@@ -1,0 +1,40 @@
+.media-toggle-container {
+  margin-bottom: 1rem;
+}
+
+.media-toggle-buttons {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+  
+  button {
+    &.active {
+      background-color: var(--color-primary);
+      color: white;
+    }
+    
+    &.mat-basic {
+      background-color: var(--color-surface);
+      color: var(--color-text);
+    }
+    
+    .icon-sm {
+      margin-right: 0.5rem;
+      font-size: 18px;
+      width: 18px;
+      height: 18px;
+      line-height: 18px;
+    }
+  }
+  
+  // Styles pour les écrans mobiles
+  @media (max-width: 640px) {
+    flex-direction: column;
+    width: 100%;
+    
+    button {
+      width: 100%;
+      margin-bottom: 0.5rem;
+    }
+  }
+} 

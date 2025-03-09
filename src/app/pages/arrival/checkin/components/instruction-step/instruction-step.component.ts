@@ -59,10 +59,10 @@ export class InstructionStepComponent implements OnInit {
   visible = false;
   inputType = 'password';
   
-  // État du média
-  private mediaState: boolean = false;
+  // État du média (vidéo ou images)
+  mediaState: boolean = false;
   
-  // État de la galerie
+  // Gestion de la galerie d'images
   galleryItems: GalleryItem[] = [];
   lightboxOpen: boolean = false;
   
@@ -86,11 +86,11 @@ export class InstructionStepComponent implements OnInit {
   
   // Méthodes de gestion des médias
   shouldShowVideo(): boolean {
-    return !!this.instruction.videoUrl && this.mediaState;
+    return this.isShowingVideo();
   }
   
   shouldShowImages(): boolean {
-    return !!this.instruction.images && this.instruction.images.length > 0;
+    return !this.isShowingVideo() && !!this.instruction.images && this.instruction.images.length > 0;
   }
   
   toggleMediaType(showVideo: boolean): void {

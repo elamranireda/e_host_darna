@@ -6,8 +6,28 @@ import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-media-toggle',
-  templateUrl: './media-toggle.component.html',
-  styleUrls: ['./media-toggle.component.scss'],
+  template: `
+    <div class="media-toggle-container" *ngIf="hasImages || hasVideo">
+      <div class="media-toggle-buttons">
+        <button mat-flat-button
+                [color]="isShowingVideo ? 'basic' : 'primary'"
+                [class.active]="!isShowingVideo"
+                (click)="showImages()"
+                [disabled]="!hasImages">
+          <mat-icon svgIcon="mat:photo_library" class="icon-sm"></mat-icon>
+          <span>{{ 'MEDIA.SHOW_PHOTOS' | translate }}</span>
+        </button>
+        <button mat-flat-button
+                [color]="!isShowingVideo ? 'basic' : 'primary'"
+                [class.active]="isShowingVideo"
+                (click)="showVideo()"
+                [disabled]="!hasVideo">
+          <mat-icon svgIcon="mat:videocam" class="icon-sm"></mat-icon>
+          <span>{{ 'MEDIA.SHOW_VIDEO' | translate }}</span>
+        </button>
+      </div>
+    </div>
+  `,
   standalone: true,
   imports: [
     CommonModule,
@@ -39,27 +59,18 @@ export class MediaToggleComponent {
   @Output() mediaTypeChange = new EventEmitter<boolean>();
 
   /**
-   * Vérifie si les boutons de basculement doivent être affichés
-   */
-  get shouldShowToggle(): boolean {
-    return this.hasImages && this.hasVideo;
-  }
-
-  /**
    * Bascule vers l'affichage des images
    */
   showImages(): void {
-    if (this.hasImages) {
-      this.mediaTypeChange.emit(false);
-    }
+    console.log('Showing images');
+    this.mediaTypeChange.emit(false);
   }
 
   /**
    * Bascule vers l'affichage de la vidéo
    */
   showVideo(): void {
-    if (this.hasVideo) {
-      this.mediaTypeChange.emit(true);
-    }
+    console.log('Showing video');
+    this.mediaTypeChange.emit(true);
   }
 } 

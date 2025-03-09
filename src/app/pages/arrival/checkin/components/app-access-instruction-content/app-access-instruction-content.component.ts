@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatRippleModule } from '@angular/material/core';
 import {NgForOf, NgIf, NgOptimizedImage} from '@angular/common';
@@ -14,7 +14,7 @@ import {scaleIn400ms} from "@app/animations/scale-in.animation";
   standalone: true,
   imports: [NgIf, MatRippleModule, MatIconModule, NgForOf, NgOptimizedImage]
 })
-export class AppAccessInstructionContentComponent implements OnInit {
+export class AppAccessInstructionContentComponent implements OnInit, OnChanges {
   @Input() avatarUrl!: string;
   @Input() name!: string;
   @Input() time?: string;
@@ -23,12 +23,26 @@ export class AppAccessInstructionContentComponent implements OnInit {
   @Input() likes!: string;
   @Input() comments!: string;
 
-  safeLink: SafeResourceUrl = "";
-  constructor(private sanitizer: DomSanitizer) {
-
-  }
+  safeLink: SafeResourceUrl | null = null;
+  
+  constructor(private sanitizer: DomSanitizer) {}
 
   ngOnInit(): void {
-    if (this.videoUrl) this.safeLink = this.sanitizer.bypassSecurityTrustResourceUrl(this.videoUrl)
+    this.updateSafeLink();
+  }
+  
+  ngOnChanges(changes: SimpleChanges): void {
+    // Mettre à jour le lien sécurisé quand videoUrl change
+    if (changes['videoUrl']) {
+      this.updateSafeLink();
+    }
+  }
+  
+  private updateSafeLink(): void {
+    if (this.videoUrl) {
+      this.safeLink = this.sanitizer.bypassSecurityTrustResourceUrl(this.videoUrl);
+    } else {
+      this.safeLink = null;
+    }
   }
 }

@@ -1,5 +1,5 @@
 <!-- Instruction Step Content -->
-<div class="mt-2 mb-4" [appInstructionType]="instruction.type">
+<div class="mt-2 mb-4">
   <!-- Media Toggle Component -->
   <app-media-toggle
     [isShowingVideo]="isShowingVideo()"
@@ -9,7 +9,7 @@
   </app-media-toggle>
 
   <app-access-instruction-content
-    [videoUrl]="shouldShowVideo() ? instruction.videoUrl : undefined"
+    [videoUrl]="isShowingVideo() && instruction.videoUrl ? instruction.videoUrl : undefined"
     [imageUrls]="undefined">
     <p [innerHTML]="instruction.description" class="pt-1">
     </p>
@@ -19,7 +19,7 @@
     </div>
     
     <!-- Gallery Component -->
-    <app-gallery *ngIf="shouldShowImages() && instruction.images && instruction.images.length > 0"
+    <app-gallery *ngIf="!isShowingVideo() && instruction.images && instruction.images.length > 0"
                 [items]="galleryItems"
                 [gridCols]="4"
                 [thumbnailSize]="150"
