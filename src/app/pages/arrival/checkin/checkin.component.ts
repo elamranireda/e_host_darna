@@ -7,11 +7,10 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {MatIconModule} from "@angular/material/icon";
 import {MatButtonModule} from "@angular/material/button";
 import {MatRippleModule} from "@angular/material/core";
-import {SocialTimelineEntryComponent} from "./components/social-timeline-entry/social-timeline-entry.component";
+import {AppAccessInstructionContentComponent} from "./components/app-access-instruction-content/app-access-instruction-content.component";
 import {fadeInUp400ms} from "@app/animations/fade-in-up.animation";
 import {stagger40ms, stagger80ms} from "@app/animations/stagger.animation";
 import {MatStepperModule, MatStepper} from "@angular/material/stepper";
-import {WidgetAssistantComponent} from "../../../core/widgets/widget-assistant/widget-assistant.component";
 import {
   AccessInstructions, 
   AccessMethodTypeEnum, 
@@ -29,10 +28,16 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { ErrorMessageComponent } from '../../../core/error-message/error-message.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { DatePipe } from '@angular/common';
+import { AppCheckinWelcomeComponent } from './components/app-checkin-welcome/app-checkin-welcome.component';
+import { LoadingIndicatorComponent } from './components/loading-indicator/loading-indicator.component';
+import { effect } from '@angular/core';
+import { patchState } from '@ngrx/signals';
+import { HttpErrorResponse } from '@angular/common/http';
 
 // Interface pour les éléments de galerie
 export interface GalleryItem {
@@ -76,15 +81,17 @@ const CHECKIN_PROGRESS_KEY = 'checkin-progress';
     MatButtonModule, 
     MatRippleModule, 
     MatStepperModule, 
-    WidgetAssistantComponent, 
+    AppCheckinWelcomeComponent, 
     MatInputModule, 
-    SocialTimelineEntryComponent, 
+    AppAccessInstructionContentComponent, 
     TranslatePipe, 
     MatSnackBarModule,
     MatTooltipModule,
     MatProgressBarModule,
     MatProgressSpinnerModule,
-    DatePipe
+    DatePipe,
+    LoadingIndicatorComponent,
+    ErrorMessageComponent
   ]
 })
 export class CheckinComponent implements OnInit {
@@ -161,17 +168,95 @@ export class CheckinComponent implements OnInit {
     }
   }
 
+  // Nouvelle propriété pour stocker le code d'erreur
+  errorCode: number = 500;
+
+  // Effet pour surveiller les erreurs du PropertyStore
+  errorEffect = effect(() => {
+    const error = this.propertyStore.error();
+    if (error) {
+      console.log('Erreur détectée dans le store');
+      this.hasError = true;
+      
+      // Extraire le code d'erreur si disponible
+      if (typeof error === 'object' && error !== null && 'code' in error) {
+        this.errorCode = error.code;
+      } else if (error instanceof HttpErrorResponse) {
+        this.errorCode = error.status;
+      } else {
+        // Code d'erreur par défaut si non spécifié
+        this.errorCode = 500;
+      }
+      
+      // Fonction de réessai
+      this.retryFunction = () => this.retryPropertyLoad();
+      this.cd.markForCheck();
+    } else {
+      // Réinitialiser l'état d'erreur si l'erreur est résolue
+      this.hasError = false;
+    }
+  });
+
+  // Méthode pour réessayer de charger les données de la propriété
+  private retryPropertyLoad(): void {
+    this.hasError = false;
+    const propertyId = this.getPropertyIdFromCurrentRoute();
+    if (propertyId) {
+      this.propertyStore.getPropertyDetails(propertyId);
+    }
+  }
+
   constructor(private cd: ChangeDetectorRef) {
+    // Vérifier la disponibilité du service dès l'initialisation
+    this.checkServiceAvailability();
+  }
+
+  /**
+   * Vérifie si le service json-server est disponible
+   * En cas d'échec, définit une erreur
+   */
+  private checkServiceAvailability(): void {
+    // Vérifier si json-server est accessible
+    fetch('http://localhost:3000/properties', { method: 'HEAD' })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Le service API n\'est pas disponible');
+        }
+      })
+      .catch(error => {
+        console.error('Erreur de connexion au serveur:', error);
+        this.hasError = true;
+        // Pour les erreurs de connexion, le code est 0
+        this.errorCode = 0;
+        this.retryFunction = () => {
+          this.checkServiceAvailability();
+          if (!this.hasError) {
+            const propertyId = this.getPropertyIdFromCurrentRoute();
+            if (propertyId) {
+              this.propertyStore.getPropertyDetails(propertyId);
+            }
+          }
+        };
+        this.cd.markForCheck();
+      });
   }
 
   ngOnInit(): void {
-    // Initialiser l'écouteur pour les changements d'étape
+    this.totalSteps = 0;
+    this.currentStep = 0;
+
+    // Initialisation des valeurs
+    if (this.accessInstructions()) {
+      this.totalSteps = this.getSortedInstructions(this.accessInstructions()).length;
+    }
+
+    // Écouter les changements d'étape
     this.initStepChangeListener();
-    
-    // Charger la progression sauvegardée
+
+    // Charger les données sauvegardées
     this.loadSavedProgress();
-    
-    // Précharger les images des instructions
+
+    // Précharger les images pour améliorer les performances
     this.preloadAllImages();
   }
 
@@ -296,14 +381,29 @@ export class CheckinComponent implements OnInit {
     // Redirection ou autre action après complétion
   }
 
-  // Méthode pour réessayer une opération en cas d'erreur
+  /**
+   * Fonction appelée lorsque l'utilisateur clique sur le bouton "Réessayer" dans le composant d'erreur
+   */
   retryOperation(): void {
-    this.hasError = false;
-    this.errorMessage = '';
+    console.log('retryOperation appelé');
     
+    // Réinitialiser l'état d'erreur
+    this.hasError = false;
+    
+    // Réinitialiser l'état d'erreur dans le store
+    this.propertyStore.setError(null);
+    
+    // Vérifier d'abord la disponibilité du service
+    this.checkServiceAvailability();
+    
+    // Exécuter la fonction de réessai si elle existe
     if (this.retryFunction) {
+      console.log('Exécution de la fonction de réessai');
       this.retryFunction();
     }
+    
+    // Forcer la détection de changements
+    this.cd.detectChanges();
   }
 
   togglePassword() {
@@ -551,5 +651,18 @@ export class CheckinComponent implements OnInit {
     if (!this.currentInstructionKey || !this.galleryItems) return [];
     return this.galleryItems.get(this.currentInstructionKey) || [];
   }
+
+  // Méthode utilitaire pour obtenir l'ID de la propriété depuis l'URL
+  private getPropertyIdFromCurrentRoute(): string | null {
+    const url = window.location.pathname;
+    const segments = url.split('/').filter(segment => segment.length > 0);
+    
+    if (segments.length >= 2) {
+      return segments[1]; // L'ID est généralement le deuxième segment après le segment de base
+    }
+    
+    return null;
+  }
 }
+
 

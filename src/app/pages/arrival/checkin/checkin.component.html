@@ -1,6 +1,13 @@
-<div *ngIf="accessInstructions() as item" class="flex flex-col md:flex-row md:items-start">
+<!-- Affichage des erreurs - PRIORITÉ ABSOLUE -->
+<app-error-message 
+  *ngIf="hasError"
+  [errorCode]="errorCode"
+  (retry)="retryOperation()">
+</app-error-message>
+
+<!-- Contenu principal - affiché uniquement s'il n'y a pas d'erreur -->
+<div *ngIf="!hasError && accessInstructions() as item" class="flex flex-col md:flex-row md:items-start">
   <div class="flex-auto">
-    <app-widget-assistant *ngIf="item.messages" [item]="item.messages" class="sm:col-span-2"></app-widget-assistant>
     <h2 class="title mt-6 mb-4 flex items-center">
     <span
       @scaleIn
@@ -16,19 +23,15 @@
       <p class="mt-4 text-hint">{{ 'COMMON.LOADING' | translate }}</p>
     </div>
 
-    <!-- Affichage des erreurs -->
-    <div *ngIf="hasError" class="error-container bg-warn-50 border-l-4 border-warn-500 p-4 rounded my-4">
-      <h4 class="text-warn-700 flex items-center">
-        <mat-icon svgIcon="mat:error" class="mr-2"></mat-icon>
-        {{ 'COMMON.ERROR_OCCURRED' | translate }}
-      </h4>
-      <p class="text-warn-600 mt-2">{{errorMessage}}</p>
-      <button mat-button color="warn" (click)="retryOperation()" class="mt-2">
-        {{ 'COMMON.RETRY' | translate }}
-      </button>
-    </div>
+    <!-- Message de bienvenue -->
+    <app-checkin-welcome 
+      *ngIf="!propertyStore.loading() && item.messages" 
+      [item]="item.messages" 
+      class="sm:col-span-2">
+    </app-checkin-welcome>
 
-    <div @fadeInSlideUp class="card overflow-hidden">
+    <!-- Contenu principal -->
+    <div *ngIf="!propertyStore.loading()" @fadeInSlideUp class="card overflow-hidden">
       <mat-vertical-stepper #verticalStepper="matVerticalStepper" [linear]="false" [selectedIndex]="0">
         <ng-template matStepperIcon="edit">
           <mat-icon svgIcon="mat:done_all"></mat-icon>
@@ -66,7 +69,7 @@
               </div>
             </div>
           
-            <app-social-timeline-entry
+            <app-access-instruction-content
               [videoUrl]="shouldShowVideo(instruction) ? instruction.videoUrl : undefined"
               [imageUrls]="undefined">
               <p [innerHTML]="instruction.description" class="pt-1">
@@ -217,7 +220,7 @@
               <div *ngIf="isArrivalInstructionItem(instruction)" class="py-4">
                 <!-- Specific content for arrival instructions if needed -->
               </div>
-            </app-social-timeline-entry>
+            </app-access-instruction-content>
           </div>
           
           <!-- Navigation buttons -->
@@ -271,7 +274,9 @@
       </mat-vertical-stepper>
     </div>
   </div>
-  <div
+  
+  <!-- Section des contacts -->
+  <div *ngIf="!propertyStore.loading()"
     class="flex-none max-w-unset md:max-w-xs w-full md:ltr:ml-6 md:rtl:mr-6 mt-6 md:mt-0">
     <div class="bg-foreground overflow-hidden">
       <div class="px-6 py-4 border-b">
@@ -294,4 +299,10 @@
       </div>
     </div>
   </div>
+</div>
+
+<!-- État de chargement global -->
+<div *ngIf="propertyStore.loading() && !hasError" class="flex flex-col items-center justify-center py-12">
+  <mat-spinner [diameter]="40"></mat-spinner>
+  <p class="mt-4 text-hint">{{ 'COMMON.LOADING' | translate }}</p>
 </div>

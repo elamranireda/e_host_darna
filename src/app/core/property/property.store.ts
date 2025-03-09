@@ -43,6 +43,9 @@ export const PropertyStore = signalStore(
     reset() {
       patchState(store, initialState);
     },
+    setError(error: any) {
+      patchState(store, { loading: false, error });
+    },
     getPropertyDetails: rxMethod<string>(
       pipe(
         tap(() => patchState(store, {loading: true})),
@@ -55,7 +58,7 @@ export const PropertyStore = signalStore(
               },
               error: (error: any) => {
                 patchState(store, {loading: false, error});
-                console.error(error);
+      
               },
             })
           )
@@ -77,7 +80,7 @@ export const PropertyStore = signalStore(
               },
               error: (error: any) => {
                 patchState(store, {loading: false, error});
-                console.error(error);
+          
               },
             })
           )
@@ -119,6 +122,7 @@ export const PropertyStore = signalStore(
               return propertyService.getAllProperties();
             }
           }
+   
           return propertyService.searchProperties(term);
         }),
         tap({

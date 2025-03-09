@@ -1,0 +1,29 @@
+<div class="error-container w-full p-6 text-center">
+  <!-- Illustration d'erreur -->
+  <img src="assets/img/illustrations/under_constructions_1.svg" class="w-full max-w-lg mx-auto mb-6">
+  
+  <!-- Code d'erreur dynamique -->
+  <h1 class="display-3 font-medium m-0">{{ errorCode }}</h1>
+  
+  <!-- Message d'erreur générique avec adaptation basée sur le code -->
+  <h2 class="title m-0 mt-3 max-w-lg mx-auto">
+    <ng-container *ngIf="errorCode === 404">
+      La ressource demandée est introuvable. Veuillez vérifier l'URL ou réessayer ultérieurement.
+    </ng-container>
+    <ng-container *ngIf="errorCode === 500">
+      Une erreur interne du serveur s'est produite. Veuillez réessayer ultérieurement.
+    </ng-container>
+    <ng-container *ngIf="errorCode === 0">
+      Impossible de se connecter au serveur. Veuillez vérifier votre connexion internet.
+    </ng-container>
+    <ng-container *ngIf="errorCode !== 404 && errorCode !== 500 && errorCode !== 0">
+      Une erreur inattendue s'est produite. Veuillez réessayer ultérieurement.
+    </ng-container>
+  </h2>
+  
+  <!-- Bouton de réessai -->
+  <button mat-raised-button color="primary" (click)="onRetry()" class="mt-6">
+    <mat-icon svgIcon="mat:refresh" class="mr-2"></mat-icon>
+    Réessayer
+  </button>
+</div>

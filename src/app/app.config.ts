@@ -2,7 +2,7 @@ import {ApplicationConfig, importProvidersFrom} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {appRoutes} from './app.routes';
 import {provideAnimations} from '@angular/platform-browser/animations';
-import {HttpClient, provideHttpClient, withInterceptorsFromDi} from '@angular/common/http';
+import {HttpClient, HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi} from '@angular/common/http';
 import {provideRouter, withInMemoryScrolling} from '@angular/router';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatBottomSheetModule} from '@angular/material/bottom-sheet';
@@ -15,6 +15,7 @@ import {appConfigs} from '@app/config/app-configs';
 import {provideQuillConfig} from 'ngx-quill';
 import {TranslateHttpLoader} from "@ngx-translate/http-loader";
 import {TranslateLoader, TranslateModule, TranslateService} from "@ngx-translate/core";
+import { ErrorInterceptor } from './core/interceptors/error-interceptor';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -22,7 +23,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideHttpClient(),
+    provideHttpClient(withInterceptorsFromDi()),
     importProvidersFrom(
       TranslateModule.forRoot(
         {
@@ -48,7 +49,12 @@ export const appConfig: ApplicationConfig = {
       })
     ),
     provideAnimations(),
-    provideHttpClient(withInterceptorsFromDi()),
+    // Fournir notre intercepteur d'erreur
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorInterceptor,
+      multi: true
+    },
 
     provideApp({
       /**

@@ -7,14 +7,14 @@ import {stagger40ms} from "@app/animations/stagger.animation";
 import {scaleIn400ms} from "@app/animations/scale-in.animation";
 
 @Component({
-  selector: 'app-social-timeline-entry',
-  templateUrl: './social-timeline-entry.component.html',
-  styleUrls: ['./social-timeline-entry.component.scss'],
+  selector: 'app-access-instruction-content',
+  templateUrl: './app-access-instruction-content.component.html',
+  styleUrls: ['./app-access-instruction-content.component.scss'],
   animations: [stagger40ms, scaleIn400ms],
   standalone: true,
   imports: [NgIf, MatRippleModule, MatIconModule, NgForOf, NgOptimizedImage]
 })
-export class SocialTimelineEntryComponent implements OnInit {
+export class AppAccessInstructionContentComponent implements OnInit {
   @Input() avatarUrl!: string;
   @Input() name!: string;
   @Input() time?: string;
