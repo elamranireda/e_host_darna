@@ -1,120 +1,135 @@
-<div class="onboarding-modal-overlay" *ngIf="isVisible">
-  <div class="onboarding-modal" [class.privacy-policy-view]="showPrivacyPolicy">
+<div class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50" *ngIf="isVisible">
+  <div class="bg-white dark:bg-gray-900 rounded-lg shadow-lg w-11/12 max-w-lg max-h-[90vh] overflow-hidden flex flex-col rtl:text-right" [class.max-w-xl]="showPrivacyPolicy" [class.h-[90vh]]="showPrivacyPolicy">
     <!-- Vue principale du formulaire d'onboarding -->
-    <div *ngIf="!showPrivacyPolicy" class="onboarding-modal-content">
-      <div class="onboarding-modal-header">
-        <h2>{{ getTranslation('ONBOARDING.WELCOME') }}</h2>
+    <div *ngIf="!showPrivacyPolicy" class="flex flex-col h-full w-full">
+      <div class="p-5 border-b border-gray-200 dark:border-gray-700">
+        <h2 class="text-xl font-semibold text-gray-800 dark:text-white m-0">{{ getTranslation('ONBOARDING.WELCOME') }}</h2>
       </div>
-      <div class="onboarding-modal-body">
-        <p>{{ getTranslation('ONBOARDING.INTRO_TEXT') }}</p>
+      <div class="p-5 flex-1 overflow-y-auto">
+        <p class="mb-5 text-gray-600 dark:text-gray-300">Afin de mieux vous servir durant votre séjour chez nous, veuillez s'il vous plaît indiquer ci-dessous le nom utilisé pour votre réservation.</p>
         
-        <div class="form-group">
-          <label for="firstName">{{ getTranslation('ONBOARDING.FIRST_NAME') }}</label>
-          <input 
-            type="text" 
-            id="firstName" 
-            [(ngModel)]="firstName" 
-            [class.is-invalid]="formSubmitted && !firstName"
-          >
-          <div class="error-message" *ngIf="formSubmitted && !firstName">
-            {{ getTranslation('ONBOARDING.FIRST_NAME_REQUIRED') }}
+        <!-- Nom et prénom sur la même ligne -->
+        <div class="flex flex-col sm:flex-row gap-4 mb-5">
+          <div class="flex-1">
+            <label for="firstName" class="block mb-2 font-medium text-gray-700 dark:text-gray-300">{{ getTranslation('ONBOARDING.FIRST_NAME') }}</label>
+            <input 
+              type="text" 
+              id="firstName" 
+              [(ngModel)]="firstName" 
+              class="w-full p-2.5 border border-gray-300 dark:border-gray-600 rounded-md text-base bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary-500"
+              [class.border-red-500]="formSubmitted && !firstName"
+            >
+            <div class="text-red-500 dark:text-red-400 text-sm mt-1" *ngIf="formSubmitted && !firstName">
+              {{ getTranslation('ONBOARDING.FIRST_NAME_REQUIRED') }}
+            </div>
+          </div>
+          
+          <div class="flex-1">
+            <label for="lastName" class="block mb-2 font-medium text-gray-700 dark:text-gray-300">{{ getTranslation('ONBOARDING.LAST_NAME') }}</label>
+            <input 
+              type="text" 
+              id="lastName" 
+              [(ngModel)]="lastName"
+              class="w-full p-2.5 border border-gray-300 dark:border-gray-600 rounded-md text-base bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary-500"
+              [class.border-red-500]="formSubmitted && !lastName"
+            >
+            <div class="text-red-500 dark:text-red-400 text-sm mt-1" *ngIf="formSubmitted && !lastName">
+              {{ getTranslation('ONBOARDING.LAST_NAME_REQUIRED') }}
+            </div>
           </div>
         </div>
         
-        <div class="form-group">
-          <label for="lastName">{{ getTranslation('ONBOARDING.LAST_NAME') }}</label>
-          <input 
-            type="text" 
-            id="lastName" 
-            [(ngModel)]="lastName"
-            [class.is-invalid]="formSubmitted && !lastName"
-          >
-          <div class="error-message" *ngIf="formSubmitted && !lastName">
-            {{ getTranslation('ONBOARDING.LAST_NAME_REQUIRED') }}
-          </div>
-        </div>
-        
-        <div class="form-group checkbox-group">
-          <div class="checkbox-container">
+        <div class="mb-4">
+          <div class="flex items-center">
             <input 
               type="checkbox" 
               id="geolocation" 
               [(ngModel)]="geolocationEnabled"
               (change)="requestGeolocationPermission()"
+              class="rtl:ml-2.5 ltr:mr-2.5 h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 dark:border-gray-600 rounded"
             >
-            <label for="geolocation">{{ getTranslation('ONBOARDING.ENABLE_GEOLOCATION') }}</label>
+            <label for="geolocation" class="text-gray-700 dark:text-gray-300">Activer la géolocalisation pour un meilleur guidage</label>
           </div>
-          <p class="checkbox-description">{{ getTranslation('ONBOARDING.GEOLOCATION_DESCRIPTION') }}</p>
         </div>
         
-        <div class="form-group checkbox-group">
-          <div class="checkbox-container">
+        <div class="mb-4">
+          <div class="flex items-center">
             <input 
               type="checkbox" 
               id="notifications" 
               [(ngModel)]="notificationsEnabled"
               (change)="requestNotificationPermission()"
+              class="rtl:ml-2.5 ltr:mr-2.5 h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 dark:border-gray-600 rounded"
             >
-            <label for="notifications">{{ getTranslation('ONBOARDING.ENABLE_NOTIFICATIONS') }}</label>
+            <label for="notifications" class="text-gray-700 dark:text-gray-300">Activer les notifications pour garder le contact</label>
           </div>
-          <p class="checkbox-description">{{ getTranslation('ONBOARDING.NOTIFICATIONS_DESCRIPTION') }}</p>
         </div>
         
-        <div class="form-group checkbox-group">
-          <div class="checkbox-container">
-            <input 
-              type="checkbox" 
-              id="privacyPolicy" 
-              [(ngModel)]="privacyPolicyAccepted"
-              [class.is-invalid]="formSubmitted && !privacyPolicyAccepted"
-            >
-            <label for="privacyPolicy">{{ getTranslation('ONBOARDING.ACCEPT_PRIVACY_POLICY') }}</label>
-          </div>
-          <div class="error-message" *ngIf="formSubmitted && !privacyPolicyAccepted">
-            {{ getTranslation('ONBOARDING.PRIVACY_POLICY_REQUIRED') }}
-          </div>
-          <p class="checkbox-description">
-            <a href="javascript:void(0)" (click)="showPrivacyPolicyContent()">{{ getTranslation('ONBOARDING.READ_PRIVACY_POLICY') }}</a>
+        <div class="mt-6">
+          <p class="text-gray-700 dark:text-gray-300">
+            En utilisant ce service, vous acceptez notre 
+            <a href="javascript:void(0)" (click)="showPrivacyPolicyContent()" class="text-primary-600 dark:text-primary-400 font-medium hover:underline">politique de confidentialité</a>
           </p>
+          <input 
+            type="hidden" 
+            [(ngModel)]="privacyPolicyAccepted"
+            [value]="true"
+          >
         </div>
       </div>
       
-      <div class="onboarding-modal-footer">
-        <button class="btn-primary" (click)="savePreferences()">
+      <div class="p-4 border-t border-gray-200 dark:border-gray-700 flex justify-end rtl:justify-start">
+        <button class="bg-primary-600 hover:bg-primary-700 text-white border-0 py-2.5 px-5 rounded-md text-base cursor-pointer transition-colors" (click)="savePreferences()">
           {{ getTranslation('ONBOARDING.SAVE') }}
         </button>
       </div>
     </div>
 
     <!-- Vue de la politique de confidentialité -->
-    <div *ngIf="showPrivacyPolicy" class="onboarding-modal-content">
-      <div class="onboarding-modal-header">
-        <h2>{{ getTranslation('ONBOARDING.PRIVACY_POLICY_TITLE') }}</h2>
+    <div *ngIf="showPrivacyPolicy" class="flex flex-col h-full w-full">
+      <div class="p-5 border-b border-gray-200 dark:border-gray-700">
+        <h2 class="text-xl font-semibold text-gray-800 dark:text-white m-0">{{ getTranslation('ONBOARDING.PRIVACY_POLICY_TITLE') }}</h2>
+        <!-- Bouton pour forcer l'activation du bouton retour (mode débogage) -->
+        <button *ngIf="debugMode" class="mt-2.5 py-1 px-2.5 bg-yellow-400 dark:bg-yellow-600 text-gray-800 dark:text-white border-0 rounded text-sm cursor-pointer hover:bg-yellow-500 dark:hover:bg-yellow-700" (click)="forceEnableBackButton()">
+          Forcer l'activation du bouton retour
+        </button>
       </div>
-      <div class="onboarding-modal-body privacy-policy-container" #privacyPolicyContent (scroll)="onPrivacyPolicyScroll($event)">
-        <div class="privacy-policy-content">
-          <h3>{{ getTranslation('ONBOARDING.PRIVACY_POLICY_SECTION_1_TITLE') }}</h3>
-          <p>{{ getTranslation('ONBOARDING.PRIVACY_POLICY_SECTION_1_CONTENT') }}</p>
+      <div class="p-5 flex-1 overflow-y-auto" #privacyPolicyContent (scroll)="onPrivacyPolicyScroll($event)">
+        <div>
+          <h3 class="text-lg font-medium text-gray-800 dark:text-white mt-6 mb-4">{{ getTranslation('ONBOARDING.PRIVACY_POLICY_SECTION_1_TITLE') }}</h3>
+          <p class="mb-5 leading-relaxed text-gray-600 dark:text-gray-300">{{ getTranslation('ONBOARDING.PRIVACY_POLICY_SECTION_1_CONTENT') }}</p>
           
-          <h3>{{ getTranslation('ONBOARDING.PRIVACY_POLICY_SECTION_2_TITLE') }}</h3>
-          <p>{{ getTranslation('ONBOARDING.PRIVACY_POLICY_SECTION_2_CONTENT') }}</p>
+          <h3 class="text-lg font-medium text-gray-800 dark:text-white mt-6 mb-4">{{ getTranslation('ONBOARDING.PRIVACY_POLICY_SECTION_2_TITLE') }}</h3>
+          <p class="mb-5 leading-relaxed text-gray-600 dark:text-gray-300">{{ getTranslation('ONBOARDING.PRIVACY_POLICY_SECTION_2_CONTENT') }}</p>
           
-          <h3>{{ getTranslation('ONBOARDING.PRIVACY_POLICY_SECTION_3_TITLE') }}</h3>
-          <p>{{ getTranslation('ONBOARDING.PRIVACY_POLICY_SECTION_3_CONTENT') }}</p>
+          <h3 class="text-lg font-medium text-gray-800 dark:text-white mt-6 mb-4">{{ getTranslation('ONBOARDING.PRIVACY_POLICY_SECTION_3_TITLE') }}</h3>
+          <p class="mb-5 leading-relaxed text-gray-600 dark:text-gray-300">{{ getTranslation('ONBOARDING.PRIVACY_POLICY_SECTION_3_CONTENT') }}</p>
           
-          <h3>{{ getTranslation('ONBOARDING.PRIVACY_POLICY_SECTION_4_TITLE') }}</h3>
-          <p>{{ getTranslation('ONBOARDING.PRIVACY_POLICY_SECTION_4_CONTENT') }}</p>
+          <h3 class="text-lg font-medium text-gray-800 dark:text-white mt-6 mb-4">{{ getTranslation('ONBOARDING.PRIVACY_POLICY_SECTION_4_TITLE') }}</h3>
+          <p class="mb-5 leading-relaxed text-gray-600 dark:text-gray-300">{{ getTranslation('ONBOARDING.PRIVACY_POLICY_SECTION_4_CONTENT') }}</p>
           
-          <h3>{{ getTranslation('ONBOARDING.PRIVACY_POLICY_SECTION_5_TITLE') }}</h3>
-          <p>{{ getTranslation('ONBOARDING.PRIVACY_POLICY_SECTION_5_CONTENT') }}</p>
+          <h3 class="text-lg font-medium text-gray-800 dark:text-white mt-6 mb-4">{{ getTranslation('ONBOARDING.PRIVACY_POLICY_SECTION_5_TITLE') }}</h3>
+          <p class="mb-5 leading-relaxed text-gray-600 dark:text-gray-300">{{ getTranslation('ONBOARDING.PRIVACY_POLICY_SECTION_5_CONTENT') }}</p>
           
-          <h3>{{ getTranslation('ONBOARDING.PRIVACY_POLICY_SECTION_6_TITLE') }}</h3>
-          <p>{{ getTranslation('ONBOARDING.PRIVACY_POLICY_SECTION_6_CONTENT') }}</p>
+          <h3 class="text-lg font-medium text-gray-800 dark:text-white mt-6 mb-4">{{ getTranslation('ONBOARDING.PRIVACY_POLICY_SECTION_6_TITLE') }}</h3>
+          <p class="mb-5 leading-relaxed text-gray-600 dark:text-gray-300">{{ getTranslation('ONBOARDING.PRIVACY_POLICY_SECTION_6_CONTENT') }}</p>
         </div>
       </div>
-      <div class="onboarding-modal-footer">
+      <div class="p-4 border-t border-gray-200 dark:border-gray-700 flex justify-end rtl:justify-start items-center flex-wrap">
+        <!-- Éléments de débogage -->
+        <div *ngIf="debugMode" class="flex items-center ltr:mr-auto rtl:ml-auto">
+          <!-- Bouton de test toujours actif -->
+          <button class="bg-gray-600 hover:bg-gray-700 dark:bg-gray-700 dark:hover:bg-gray-800 text-white border-0 py-2 px-4 rounded text-base cursor-pointer" (click)="hidePrivacyPolicy()">
+            Test Retour (toujours actif)
+          </button>
+          <!-- Affichage de l'état de lecture -->
+          <div class="ltr:ml-2.5 rtl:mr-2.5 text-sm text-gray-600 dark:text-gray-400 bg-gray-100 dark:bg-gray-800 py-1 px-2 rounded border border-gray-300 dark:border-gray-600">
+            Lecture complète: {{ hasReadPrivacyPolicy ? 'Oui' : 'Non' }}
+          </div>
+        </div>
+        
         <!-- Bouton retour normal -->
-        <button class="btn-secondary ml-2" [disabled]="!hasReadPrivacyPolicy" (click)="hidePrivacyPolicy()">
+        <button class="bg-gray-600 hover:bg-gray-700 dark:bg-gray-700 dark:hover:bg-gray-800 text-white border-0 py-2.5 px-5 rounded-md text-base cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed ltr:ml-2 rtl:mr-2" [disabled]="!hasReadPrivacyPolicy" (click)="hidePrivacyPolicy()">
           {{ getTranslation('ONBOARDING.BACK') }}
         </button>
       </div>

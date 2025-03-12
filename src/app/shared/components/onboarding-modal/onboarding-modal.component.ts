@@ -19,7 +19,7 @@ export class OnboardingModalComponent implements OnInit, AfterViewInit {
   lastName = '';
   geolocationEnabled = false;
   notificationsEnabled = false;
-  privacyPolicyAccepted = false;
+  privacyPolicyAccepted = true;
   formSubmitted = false;
   showPrivacyPolicy = false;
   hasReadPrivacyPolicy = false;
@@ -55,7 +55,7 @@ export class OnboardingModalComponent implements OnInit, AfterViewInit {
     this.formSubmitted = true;
     
     // Validate form
-    if (!this.firstName || !this.lastName || !this.privacyPolicyAccepted) {
+    if (!this.firstName || !this.lastName) {
       return;
     }
     
@@ -64,7 +64,7 @@ export class OnboardingModalComponent implements OnInit, AfterViewInit {
       lastName: this.lastName,
       geolocationEnabled: this.geolocationEnabled,
       notificationsEnabled: this.notificationsEnabled,
-      privacyPolicyAccepted: this.privacyPolicyAccepted,
+      privacyPolicyAccepted: true,
       onboardingCompleted: true
     });
     
