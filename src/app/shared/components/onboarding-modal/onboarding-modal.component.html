@@ -1,0 +1,123 @@
+<div class="onboarding-modal-overlay" *ngIf="isVisible">
+  <div class="onboarding-modal" [class.privacy-policy-view]="showPrivacyPolicy">
+    <!-- Vue principale du formulaire d'onboarding -->
+    <div *ngIf="!showPrivacyPolicy" class="onboarding-modal-content">
+      <div class="onboarding-modal-header">
+        <h2>{{ getTranslation('ONBOARDING.WELCOME') }}</h2>
+      </div>
+      <div class="onboarding-modal-body">
+        <p>{{ getTranslation('ONBOARDING.INTRO_TEXT') }}</p>
+        
+        <div class="form-group">
+          <label for="firstName">{{ getTranslation('ONBOARDING.FIRST_NAME') }}</label>
+          <input 
+            type="text" 
+            id="firstName" 
+            [(ngModel)]="firstName" 
+            [class.is-invalid]="formSubmitted && !firstName"
+          >
+          <div class="error-message" *ngIf="formSubmitted && !firstName">
+            {{ getTranslation('ONBOARDING.FIRST_NAME_REQUIRED') }}
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="lastName">{{ getTranslation('ONBOARDING.LAST_NAME') }}</label>
+          <input 
+            type="text" 
+            id="lastName" 
+            [(ngModel)]="lastName"
+            [class.is-invalid]="formSubmitted && !lastName"
+          >
+          <div class="error-message" *ngIf="formSubmitted && !lastName">
+            {{ getTranslation('ONBOARDING.LAST_NAME_REQUIRED') }}
+          </div>
+        </div>
+        
+        <div class="form-group checkbox-group">
+          <div class="checkbox-container">
+            <input 
+              type="checkbox" 
+              id="geolocation" 
+              [(ngModel)]="geolocationEnabled"
+              (change)="requestGeolocationPermission()"
+            >
+            <label for="geolocation">{{ getTranslation('ONBOARDING.ENABLE_GEOLOCATION') }}</label>
+          </div>
+          <p class="checkbox-description">{{ getTranslation('ONBOARDING.GEOLOCATION_DESCRIPTION') }}</p>
+        </div>
+        
+        <div class="form-group checkbox-group">
+          <div class="checkbox-container">
+            <input 
+              type="checkbox" 
+              id="notifications" 
+              [(ngModel)]="notificationsEnabled"
+              (change)="requestNotificationPermission()"
+            >
+            <label for="notifications">{{ getTranslation('ONBOARDING.ENABLE_NOTIFICATIONS') }}</label>
+          </div>
+          <p class="checkbox-description">{{ getTranslation('ONBOARDING.NOTIFICATIONS_DESCRIPTION') }}</p>
+        </div>
+        
+        <div class="form-group checkbox-group">
+          <div class="checkbox-container">
+            <input 
+              type="checkbox" 
+              id="privacyPolicy" 
+              [(ngModel)]="privacyPolicyAccepted"
+              [class.is-invalid]="formSubmitted && !privacyPolicyAccepted"
+            >
+            <label for="privacyPolicy">{{ getTranslation('ONBOARDING.ACCEPT_PRIVACY_POLICY') }}</label>
+          </div>
+          <div class="error-message" *ngIf="formSubmitted && !privacyPolicyAccepted">
+            {{ getTranslation('ONBOARDING.PRIVACY_POLICY_REQUIRED') }}
+          </div>
+          <p class="checkbox-description">
+            <a href="javascript:void(0)" (click)="showPrivacyPolicyContent()">{{ getTranslation('ONBOARDING.READ_PRIVACY_POLICY') }}</a>
+          </p>
+        </div>
+      </div>
+      
+      <div class="onboarding-modal-footer">
+        <button class="btn-primary" (click)="savePreferences()">
+          {{ getTranslation('ONBOARDING.SAVE') }}
+        </button>
+      </div>
+    </div>
+
+    <!-- Vue de la politique de confidentialité -->
+    <div *ngIf="showPrivacyPolicy" class="onboarding-modal-content">
+      <div class="onboarding-modal-header">
+        <h2>{{ getTranslation('ONBOARDING.PRIVACY_POLICY_TITLE') }}</h2>
+      </div>
+      <div class="onboarding-modal-body privacy-policy-container" #privacyPolicyContent (scroll)="onPrivacyPolicyScroll($event)">
+        <div class="privacy-policy-content">
+          <h3>{{ getTranslation('ONBOARDING.PRIVACY_POLICY_SECTION_1_TITLE') }}</h3>
+          <p>{{ getTranslation('ONBOARDING.PRIVACY_POLICY_SECTION_1_CONTENT') }}</p>
+          
+          <h3>{{ getTranslation('ONBOARDING.PRIVACY_POLICY_SECTION_2_TITLE') }}</h3>
+          <p>{{ getTranslation('ONBOARDING.PRIVACY_POLICY_SECTION_2_CONTENT') }}</p>
+          
+          <h3>{{ getTranslation('ONBOARDING.PRIVACY_POLICY_SECTION_3_TITLE') }}</h3>
+          <p>{{ getTranslation('ONBOARDING.PRIVACY_POLICY_SECTION_3_CONTENT') }}</p>
+          
+          <h3>{{ getTranslation('ONBOARDING.PRIVACY_POLICY_SECTION_4_TITLE') }}</h3>
+          <p>{{ getTranslation('ONBOARDING.PRIVACY_POLICY_SECTION_4_CONTENT') }}</p>
+          
+          <h3>{{ getTranslation('ONBOARDING.PRIVACY_POLICY_SECTION_5_TITLE') }}</h3>
+          <p>{{ getTranslation('ONBOARDING.PRIVACY_POLICY_SECTION_5_CONTENT') }}</p>
+          
+          <h3>{{ getTranslation('ONBOARDING.PRIVACY_POLICY_SECTION_6_TITLE') }}</h3>
+          <p>{{ getTranslation('ONBOARDING.PRIVACY_POLICY_SECTION_6_CONTENT') }}</p>
+        </div>
+      </div>
+      <div class="onboarding-modal-footer">
+        <!-- Bouton retour normal -->
+        <button class="btn-secondary ml-2" [disabled]="!hasReadPrivacyPolicy" (click)="hidePrivacyPolicy()">
+          {{ getTranslation('ONBOARDING.BACK') }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div> 

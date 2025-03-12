@@ -2,12 +2,13 @@ import {Component, Inject, OnInit, Renderer2} from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import {TranslateService} from "@ngx-translate/core";
 import {DOCUMENT} from "@angular/common";
+import { OnboardingModalComponent } from './shared/components/onboarding-modal/onboarding-modal.component';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   standalone: true,
-  imports: [RouterOutlet]
+  imports: [RouterOutlet, OnboardingModalComponent]
 })
 export class AppComponent implements  OnInit {
   static fontLoaded: boolean;

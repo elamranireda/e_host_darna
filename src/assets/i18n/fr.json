@@ -86,5 +86,35 @@
       "LONGITUDE": "Longitude",
       "COORDINATES": "Coordonnées GPS"
     }
+  },
+  "ONBOARDING": {
+    "WELCOME": "Bienvenue sur l'application !",
+    "INTRO_TEXT": "Veuillez fournir vos informations et préférences pour commencer.",
+    "FIRST_NAME": "Prénom",
+    "LAST_NAME": "Nom",
+    "FIRST_NAME_REQUIRED": "Le prénom est requis",
+    "LAST_NAME_REQUIRED": "Le nom est requis",
+    "ENABLE_GEOLOCATION": "Activer la géolocalisation",
+    "GEOLOCATION_DESCRIPTION": "Permettre à l'application d'accéder à votre position pour fournir des services personnalisés.",
+    "ENABLE_NOTIFICATIONS": "Activer les notifications",
+    "NOTIFICATIONS_DESCRIPTION": "Recevez des mises à jour importantes et des alertes de l'application.",
+    "ACCEPT_PRIVACY_POLICY": "J'accepte la politique de confidentialité",
+    "PRIVACY_POLICY_REQUIRED": "Vous devez accepter la politique de confidentialité pour continuer",
+    "READ_PRIVACY_POLICY": "Lire la politique de confidentialité",
+    "SAVE": "Enregistrer et continuer",
+    "BACK": "Retour",
+    "PRIVACY_POLICY_TITLE": "Politique de Confidentialité",
+    "PRIVACY_POLICY_SECTION_1_TITLE": "Introduction",
+    "PRIVACY_POLICY_SECTION_1_CONTENT": "Cette politique de confidentialité explique comment nous collectons, utilisons, divulguons et protégeons vos informations lorsque vous utilisez notre application. Veuillez lire attentivement cette politique de confidentialité. Si vous n'êtes pas d'accord avec les termes de cette politique de confidentialité, veuillez ne pas accéder à l'application.",
+    "PRIVACY_POLICY_SECTION_2_TITLE": "Collecte de vos informations",
+    "PRIVACY_POLICY_SECTION_2_CONTENT": "Nous pouvons collecter des informations vous concernant de diverses manières. Les informations que nous pouvons collecter via l'Application comprennent : Données personnelles : Informations personnellement identifiables, telles que votre nom, que vous nous fournissez volontairement lorsque vous choisissez de participer à diverses activités liées à l'Application. Données dérivées : Informations que nos serveurs collectent automatiquement lorsque vous accédez à l'Application, telles que votre adresse IP, type de navigateur, système d'exploitation, heures d'accès et les pages que vous avez consultées directement avant et après avoir accédé à l'Application. Informations de géolocalisation : Nous pouvons demander l'accès ou l'autorisation de suivre les informations basées sur la localisation de votre appareil mobile, soit en continu, soit lorsque vous utilisez l'Application, pour fournir des services basés sur la localisation. Si vous souhaitez modifier notre accès ou nos autorisations, vous pouvez le faire dans les paramètres de votre appareil. Accès à l'appareil mobile : Nous pouvons demander l'accès ou l'autorisation à certaines fonctionnalités de votre appareil mobile, y compris les notifications de votre appareil mobile et d'autres fonctionnalités. Si vous souhaitez modifier notre accès ou nos autorisations, vous pouvez le faire dans les paramètres de votre appareil.",
+    "PRIVACY_POLICY_SECTION_3_TITLE": "Utilisation de vos informations",
+    "PRIVACY_POLICY_SECTION_3_CONTENT": "Disposer d'informations précises à votre sujet nous permet de vous offrir une expérience fluide, efficace et personnalisée. Plus précisément, nous pouvons utiliser les informations collectées à votre sujet via l'Application pour : Créer et gérer votre compte. Vous proposer de la publicité ciblée, des coupons et des promotions. Vous envoyer des e-mails concernant votre compte ou votre commande. Permettre les communications entre utilisateurs. Exécuter et gérer les achats, les commandes, les paiements et autres transactions liées à l'Application. Générer un profil personnel à votre sujet pour rendre vos futures visites sur l'Application plus personnalisées. Augmenter l'efficacité et le fonctionnement de l'Application. Surveiller et analyser l'utilisation et les tendances pour améliorer votre expérience avec l'Application. Vous informer des mises à jour de l'Application. Vous proposer de nouveaux produits, services et/ou recommandations. Effectuer d'autres activités commerciales selon les besoins. Demander des commentaires et vous contacter au sujet de votre utilisation de l'Application. Résoudre les litiges et résoudre les problèmes. Répondre aux demandes de produits et de service client. Vous envoyer une newsletter.",
+    "PRIVACY_POLICY_SECTION_4_TITLE": "Divulgation de vos informations",
+    "PRIVACY_POLICY_SECTION_4_CONTENT": "Nous pouvons partager les informations que nous avons collectées à votre sujet dans certaines situations. Vos informations peuvent être divulguées comme suit : Par la loi ou pour protéger les droits : Si nous pensons que la divulgation d'informations vous concernant est nécessaire pour répondre à un processus légal, pour enquêter ou remédier à d'éventuelles violations de nos politiques, ou pour protéger les droits, la propriété et la sécurité d'autrui, nous pouvons partager vos informations comme autorisé ou requis par toute loi, règle ou réglementation applicable. Fournisseurs de services tiers : Nous pouvons partager vos informations avec des tiers qui fournissent des services pour nous ou en notre nom, y compris le traitement des paiements, l'analyse des données, la livraison d'e-mails, les services d'hébergement, le service client et l'assistance marketing. Communications marketing : Avec votre consentement, ou avec la possibilité de retirer votre consentement, nous pouvons partager vos informations avec des tiers à des fins de marketing, comme le permet la loi.",
+    "PRIVACY_POLICY_SECTION_5_TITLE": "Sécurité de vos informations",
+    "PRIVACY_POLICY_SECTION_5_CONTENT": "Nous utilisons des mesures de sécurité administratives, techniques et physiques pour aider à protéger vos informations personnelles. Bien que nous ayons pris des mesures raisonnables pour sécuriser les informations personnelles que vous nous fournissez, sachez que malgré nos efforts, aucune mesure de sécurité n'est parfaite ou impénétrable, et aucune méthode de transmission de données ne peut être garantie contre toute interception ou autre type d'utilisation abusive. Toute information divulguée en ligne est vulnérable à l'interception et à l'utilisation abusive par des parties non autorisées. Par conséquent, nous ne pouvons pas garantir une sécurité complète si vous fournissez des informations personnelles.",
+    "PRIVACY_POLICY_SECTION_6_TITLE": "Contactez-nous",
+    "PRIVACY_POLICY_SECTION_6_CONTENT": "Si vous avez des questions ou des commentaires concernant cette politique de confidentialité, veuillez nous contacter à : support@example.com"
   }
 }

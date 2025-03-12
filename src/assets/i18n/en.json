@@ -86,5 +86,35 @@
       "LONGITUDE": "Longitude",
       "COORDINATES": "GPS Coordinates"
     }
+  },
+  "ONBOARDING": {
+    "WELCOME": "Welcome to the application!",
+    "INTRO_TEXT": "Please provide your information and preferences to get started.",
+    "FIRST_NAME": "First Name",
+    "LAST_NAME": "Last Name",
+    "FIRST_NAME_REQUIRED": "First name is required",
+    "LAST_NAME_REQUIRED": "Last name is required",
+    "ENABLE_GEOLOCATION": "Enable Geolocation",
+    "GEOLOCATION_DESCRIPTION": "Allow the app to access your location to provide personalized services.",
+    "ENABLE_NOTIFICATIONS": "Enable Notifications",
+    "NOTIFICATIONS_DESCRIPTION": "Receive important updates and alerts from the application.",
+    "ACCEPT_PRIVACY_POLICY": "I accept the Privacy Policy",
+    "PRIVACY_POLICY_REQUIRED": "You must accept the Privacy Policy to continue",
+    "READ_PRIVACY_POLICY": "Read Privacy Policy",
+    "SAVE": "Save and Continue",
+    "BACK": "Back",
+    "PRIVACY_POLICY_TITLE": "Privacy Policy",
+    "PRIVACY_POLICY_SECTION_1_TITLE": "Introduction",
+    "PRIVACY_POLICY_SECTION_1_CONTENT": "This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our application. Please read this privacy policy carefully. If you do not agree with the terms of this privacy policy, please do not access the application.",
+    "PRIVACY_POLICY_SECTION_2_TITLE": "Collection of Your Information",
+    "PRIVACY_POLICY_SECTION_2_CONTENT": "We may collect information about you in a variety of ways. The information we may collect via the Application includes: Personal Data: Personally identifiable information, such as your name, that you voluntarily give to us when choosing to participate in various activities related to the Application. Derivative Data: Information our servers automatically collect when you access the Application, such as your IP address, browser type, operating system, access times, and the pages you have viewed directly before and after accessing the Application. Geo-Location Information: We may request access or permission to track location-based information from your mobile device, either continuously or while you are using the Application, to provide location-based services. If you wish to change our access or permissions, you may do so in your device's settings. Mobile Device Access: We may request access or permission to certain features from your mobile device, including your mobile device's notifications, and other features. If you wish to change our access or permissions, you may do so in your device's settings.",
+    "PRIVACY_POLICY_SECTION_3_TITLE": "Use of Your Information",
+    "PRIVACY_POLICY_SECTION_3_CONTENT": "Having accurate information about you permits us to provide you with a smooth, efficient, and customized experience. Specifically, we may use information collected about you via the Application to: Create and manage your account. Deliver targeted advertising, coupons, and promotions to you. Email you regarding your account or order. Enable user-to-user communications. Fulfill and manage purchases, orders, payments, and other transactions related to the Application. Generate a personal profile about you to make future visits to the Application more personalized. Increase the efficiency and operation of the Application. Monitor and analyze usage and trends to improve your experience with the Application. Notify you of updates to the Application. Offer new products, services, and/or recommendations to you. Perform other business activities as needed. Request feedback and contact you about your use of the Application. Resolve disputes and troubleshoot problems. Respond to product and customer service requests. Send you a newsletter.",
+    "PRIVACY_POLICY_SECTION_4_TITLE": "Disclosure of Your Information",
+    "PRIVACY_POLICY_SECTION_4_CONTENT": "We may share information we have collected about you in certain situations. Your information may be disclosed as follows: By Law or to Protect Rights: If we believe the release of information about you is necessary to respond to legal process, to investigate or remedy potential violations of our policies, or to protect the rights, property, and safety of others, we may share your information as permitted or required by any applicable law, rule, or regulation. Third-Party Service Providers: We may share your information with third parties that perform services for us or on our behalf, including payment processing, data analysis, email delivery, hosting services, customer service, and marketing assistance. Marketing Communications: With your consent, or with an opportunity for you to withdraw consent, we may share your information with third parties for marketing purposes, as permitted by law.",
+    "PRIVACY_POLICY_SECTION_5_TITLE": "Security of Your Information",
+    "PRIVACY_POLICY_SECTION_5_CONTENT": "We use administrative, technical, and physical security measures to help protect your personal information. While we have taken reasonable steps to secure the personal information you provide to us, please be aware that despite our efforts, no security measures are perfect or impenetrable, and no method of data transmission can be guaranteed against any interception or other type of misuse. Any information disclosed online is vulnerable to interception and misuse by unauthorized parties. Therefore, we cannot guarantee complete security if you provide personal information.",
+    "PRIVACY_POLICY_SECTION_6_TITLE": "Contact Us",
+    "PRIVACY_POLICY_SECTION_6_CONTENT": "If you have questions or comments about this Privacy Policy, please contact us at: support@example.com"
   }
 }
