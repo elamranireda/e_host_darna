@@ -1,0 +1,47 @@
+::ng-deep .mat-mdc-card {
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
+  transition: transform 0.3s, box-shadow 0.3s;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1) !important;
+  }
+}
+
+::ng-deep [dir="rtl"] {
+  .me-2 {
+    margin-left: 0.5rem !important;
+    margin-right: 0 !important;
+  }
+  
+  .text-end {
+    text-align: left !important;
+  }
+  
+  .mat-mdc-list-item {
+    direction: rtl;
+  }
+}
+
+.text-yellow-600 {
+  color: #D97706;
+}
+
+.text-primary {
+  color: var(--color-primary);
+}
+
+.mat-mdc-list-item {
+  height: auto !important;
+  padding: 16px 0 !important;
+}
+
+button.mat-mdc-raised-button {
+  border-radius: 30px;
+  transition: all 0.3s;
+  
+  &:hover {
+    transform: scale(1.05);
+  }
+}

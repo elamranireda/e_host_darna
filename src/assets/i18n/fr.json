@@ -49,7 +49,17 @@
     "LOADING": "Chargement en cours...",
     "ERROR_OCCURRED": "Une erreur est survenue",
     "RETRY": "Réessayer",
-    "CLOSE": "Fermer"
+    "CLOSE": "Fermer",
+    "LANGUAGES": {
+      "FRENCH": "Français",
+      "ENGLISH": "Anglais",
+      "ARABIC": "Arabe"
+    },
+    "ERROR": {
+      "TITLE": "Une erreur est survenue",
+      "MESSAGE": "Impossible de charger les données (Erreur {{code}})",
+      "RETRY": "Réessayer"
+    }
   },
   "GALLERY": {
     "TITLE": "Galerie d'images",
@@ -117,5 +127,132 @@
     "PRIVACY_POLICY_SECTION_5_CONTENT": "Nous utilisons des mesures de sécurité administratives, techniques et physiques pour aider à protéger vos informations personnelles. Bien que nous ayons pris des mesures raisonnables pour sécuriser les informations personnelles que vous nous fournissez, sachez que malgré nos efforts, aucune mesure de sécurité n'est parfaite ou impénétrable, et aucune méthode de transmission de données ne peut être garantie contre toute interception ou autre type d'utilisation abusive. Toute information divulguée en ligne est vulnérable à l'interception et à l'utilisation abusive par des parties non autorisées. Par conséquent, nous ne pouvons pas garantir une sécurité complète si vous fournissez des informations personnelles.",
     "PRIVACY_POLICY_SECTION_6_TITLE": "Contactez-nous",
     "PRIVACY_POLICY_SECTION_6_CONTENT": "Si vous avez des questions ou des commentaires concernant cette politique de confidentialité, veuillez nous contacter à : support@example.com"
+  },
+  "TRANSPORT": {
+    "TITLE": "Itinéraire et Transports",
+    "DISTANCE": "Distance",
+    "BUDGET": "Budget estimé",
+    "TIME": "Temps estimé",
+    "GPS": {
+      "TITLE": "Navigation GPS en temps réel",
+      "SUBTITLE": "Utilisez ces applications pour vous guider vers votre destination",
+      "GOOGLE_MAPS": "Google Maps",
+      "WAZE": "Waze"
+    },
+    "AIRPORTS": {
+      "TITLE": "Aéroports à proximité",
+      "SUBTITLE": "Liste des aéroports les plus proches avec estimations de budget",
+      "AIRPORT1": {
+        "NAME": "Aéroport International de Casablanca Mohammed V",
+        "DISTANCE": "30 km",
+        "BUDGET": "150-250 MAD",
+        "TIME": "45 min"
+      },
+      "AIRPORT2": {
+        "NAME": "Aéroport de Rabat-Salé",
+        "DISTANCE": "85 km",
+        "BUDGET": "400-500 MAD",
+        "TIME": "1h30"
+      }
+    },
+    "TRAIN_STATIONS": {
+      "TITLE": "Gares ferroviaires à proximité",
+      "SUBTITLE": "Liste des gares les plus proches avec estimations de budget",
+      "STATION1": {
+        "NAME": "Gare de Casa-Port",
+        "DISTANCE": "5 km",
+        "BUDGET": "30-50 MAD",
+        "TIME": "15 min"
+      },
+      "STATION2": {
+        "NAME": "Gare de Casa-Voyageurs",
+        "DISTANCE": "8 km",
+        "BUDGET": "40-60 MAD",
+        "TIME": "20 min"
+      }
+    },
+    "BUS_STOPS": {
+      "TITLE": "Arrêts de bus à proximité",
+      "SUBTITLE": "Liste des arrêts de bus les plus proches avec estimations de budget",
+      "STOP1": {
+        "NAME": "Arrêt Central - Avenue Hassan II",
+        "DISTANCE": "1.2 km",
+        "BUDGET": "4-6 MAD",
+        "TIME": "5 min"
+      },
+      "STOP2": {
+        "NAME": "Arrêt Place Mohammed V",
+        "DISTANCE": "2 km",
+        "BUDGET": "4-6 MAD",
+        "TIME": "8 min"
+      }
+    },
+    "APPS": {
+      "TITLE": "Applications de transport disponibles",
+      "SUBTITLE": "Applications de transport disponibles dans la région",
+      "APP1": {
+        "NAME": "Careem",
+        "BUDGET": "40-80 MAD",
+        "TIME": "10-15 min"
+      },
+      "APP2": {
+        "NAME": "Yassir",
+        "BUDGET": "35-75 MAD",
+        "TIME": "10-15 min"
+      }
+    },
+    "TAXI": {
+      "TITLE": "Contacts de taxis de confiance",
+      "SUBTITLE": "Liste des chauffeurs recommandés dans la région",
+      "CONTACT1": {
+        "NAME": "Mohammed Taxi Service",
+        "PHONE": "+212 661-234567"
+      },
+      "CONTACT2": {
+        "NAME": "Taxi Casablanca Premium",
+        "PHONE": "+212 662-345678"
+      }
+    },
+    "BOOKING": {
+      "BUTTON": "Réserver une course",
+      "CONFIRMATION": "Votre demande de réservation a été envoyée. Vous serez contacté rapidement pour confirmation."
+    }
+  },
+  "PARKING": {
+    "TITLE": "Stationnement",
+    "SUBTITLE": "Options de stationnement disponibles pour votre séjour",
+    "AVAILABLE": "Disponible",
+    "UNAVAILABLE": "Indisponible",
+    "RESERVE": "Réserver",
+    "PAID": "Payant",
+    "FREE": "Gratuit",
+    "NO_SPOTS": {
+      "TITLE": "Aucune place de stationnement disponible",
+      "MESSAGE": "Il n'y a actuellement aucune place de stationnement disponible pour cette propriété."
+    },
+    "RESERVATION": {
+      "CONFIRMATION": "Demande de réservation envoyée ! Vous recevrez une confirmation sous peu."
+    },
+    "SPOT1": {
+      "NAME": "Parking Souterrain Résidence",
+      "TYPE": "Parking couvert sécurisé",
+      "HOURS": "Accès 24h/24 et 7j/7",
+      "RATE": "100 MAD/jour",
+      "DESCRIPTION": "Parking souterrain sécurisé avec accès par badge. Place réservée et numérotée, avec caméras de surveillance."
+    },
+    "SPOT2": {
+      "NAME": "Parking Extérieur Résidence",
+      "TYPE": "Parking extérieur",
+      "HOURS": "Accès 24h/24 et 7j/7",
+      "RATE": "70 MAD/jour",
+      "DESCRIPTION": "Parking extérieur dans l'enceinte de la résidence, surveillé par gardien. Places numérotées."
+    },
+    "SPOT3": {
+      "NAME": "Stationnement Public",
+      "TYPE": "Parking de rue",
+      "HOURS": "Aucune restriction",
+      "RATE": "Gratuit",
+      "DESCRIPTION": "Stationnement public disponible dans la rue adjacente à la résidence. Non surveillé, places non garanties selon disponibilité."
+    }
   }
 }

@@ -1,0 +1,56 @@
+<svg
+    width="200"
+    height="200"
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+>
+    <rect width="24" height="24" fill="white"/>
+    <path
+        d="M5 19H19"
+        stroke="black"
+        stroke-width="2"
+        stroke-linecap="round"
+    />
+    <path
+        d="M3 16H21"
+        stroke="black"
+        stroke-width="2"
+        stroke-linecap="round"
+    />
+    <path
+        d="M6 16V10C6 9.46957 6.21071 8.96086 6.58579 8.58579L9.17157 6H14.8284L17.4142 8.58579C17.7893 8.96086 18 9.46957 18 10V16"
+        stroke="black"
+        stroke-width="2"
+    />
+    <circle
+        cx="8"
+        cy="17"
+        r="1"
+        fill="black"
+    />
+    <circle
+        cx="16"
+        cy="17"
+        r="1"
+        fill="black"
+    />
+    <rect
+        x="15"
+        y="2"
+        width="4"
+        height="4"
+        fill="black"
+    />
+    <text
+        x="16.5"
+        y="5.5"
+        font-size="3"
+        fill="white"
+        text-anchor="middle"
+        font-family="Arial, sans-serif"
+        font-weight="bold"
+    >
+        P
+    </text>
+</svg>

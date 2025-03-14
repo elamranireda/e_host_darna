@@ -1,17 +1,17 @@
 {
   "HELLO": "Hello",
-  "WELCOME": "Welcome to e-conciergerie !",
+  "WELCOME": "Welcome to e-concierge!",
   "LANGUAGES": {
     "EN": "English",
     "FR": "French",
     "AR": "Arabic"
   },
   "FAQ": {
-    "TITLE": "Still have questions?",
+    "TITLE": "You still have questions?",
     "SUBTITLE": "A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart.",
     "CONTACT": {
       "TEL": "Call us anytime for a quick solution",
-      "EMAIL": "Send us a mail to resolve your issue"
+      "EMAIL": "Send us an email to solve your problem"
     }
   },
   "ACCESS_TYPE": {
@@ -22,7 +22,7 @@
   "ACCESS": {
     "CODE": "Code",
     "SMART_LOCK_CODE": "Smart lock code",
-    "CODE_EXPIRY": "Expiration date",
+    "CODE_EXPIRY": "Expiry date",
     "COPY_CODE": "Copy code"
   },
   "IDENTITY": {
@@ -33,23 +33,33 @@
     "NEXT": "Next"
   },
   "CHECKIN": {
-    "CONTACT_TITLE": "Check-in contact",
+    "CONTACT_TITLE": "Contact for check-in",
     "STEP": "Step",
     "COMPLETE": "Complete check-in"
   },
   "MEDIA": {
     "SHOW_PHOTOS": "View images",
-    "SHOW_VIDEO": "Watch video",
+    "SHOW_VIDEO": "View video",
     "IMAGES": "Images",
     "STEP": "Step",
-    "FOLLOW_SEQUENCE": "Follow the steps in the indicated order",
+    "FOLLOW_SEQUENCE": "Follow the steps in the specified order",
     "CLOSE_GALLERY": "Close gallery"
   },
   "COMMON": {
     "LOADING": "Loading...",
-    "ERROR_OCCURRED": "An error occurred",
+    "ERROR_OCCURRED": "An error has occurred",
     "RETRY": "Retry",
-    "CLOSE": "Close"
+    "CLOSE": "Close",
+    "LANGUAGES": {
+      "FRENCH": "French",
+      "ENGLISH": "English",
+      "ARABIC": "Arabic"
+    },
+    "ERROR": {
+      "TITLE": "An error occurred",
+      "MESSAGE": "Unable to load data (Error {{code}})",
+      "RETRY": "Retry"
+    }
   },
   "GALLERY": {
     "TITLE": "Image Gallery",
@@ -61,14 +71,14 @@
     "THUMBNAIL": "Thumbnail"
   },
   "CONTACT": {
-    "LOADING": "Loading contact information...",
+    "LOADING": "Loading coordinates...",
     "ERROR": "Unable to load property information.",
     "ADDRESS": "Address and Location",
     "VIEW_ON_MAPS": "View on Google Maps",
-    "DIRECTIONS": "Get Directions",
+    "DIRECTIONS": "Directions",
     "WAZE_NAVIGATION": "Navigate with Waze",
-    "LANGUAGES": "Languages Spoken",
-    "HOURS": "Opening Hours",
+    "LANGUAGES": "Languages spoken",
+    "HOURS": "Hours",
     "RECEPTION": "Reception",
     "CHECKIN": "Check-in",
     "CHECKOUT": "Check-out",
@@ -96,19 +106,19 @@
     "FIRST_NAME_REQUIRED": "First name is required",
     "LAST_NAME_REQUIRED": "Last name is required",
     "ENABLE_GEOLOCATION": "Enable Geolocation",
-    "GEOLOCATION_DESCRIPTION": "Allow the app to access your location to provide personalized services.",
+    "GEOLOCATION_DESCRIPTION": "Allow the application to access your location to provide personalized services.",
     "ENABLE_NOTIFICATIONS": "Enable Notifications",
     "NOTIFICATIONS_DESCRIPTION": "Receive important updates and alerts from the application.",
-    "ACCEPT_PRIVACY_POLICY": "I accept the Privacy Policy",
-    "PRIVACY_POLICY_REQUIRED": "You must accept the Privacy Policy to continue",
-    "READ_PRIVACY_POLICY": "Read Privacy Policy",
-    "SAVE": "Save and Continue",
+    "ACCEPT_PRIVACY_POLICY": "I accept the privacy policy",
+    "PRIVACY_POLICY_REQUIRED": "You must accept the privacy policy to continue",
+    "READ_PRIVACY_POLICY": "Read privacy policy",
+    "SAVE": "Save and continue",
     "BACK": "Back",
     "PRIVACY_POLICY_TITLE": "Privacy Policy",
     "PRIVACY_POLICY_SECTION_1_TITLE": "Introduction",
-    "PRIVACY_POLICY_SECTION_1_CONTENT": "This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our application. Please read this privacy policy carefully. If you do not agree with the terms of this privacy policy, please do not access the application.",
+    "PRIVACY_POLICY_SECTION_1_CONTENT": "This privacy policy explains how we collect, use, disclose, and safeguard your information when you use our application. Please read this privacy policy carefully. If you do not agree with the terms of this privacy policy, please do not access the application.",
     "PRIVACY_POLICY_SECTION_2_TITLE": "Collection of Your Information",
-    "PRIVACY_POLICY_SECTION_2_CONTENT": "We may collect information about you in a variety of ways. The information we may collect via the Application includes: Personal Data: Personally identifiable information, such as your name, that you voluntarily give to us when choosing to participate in various activities related to the Application. Derivative Data: Information our servers automatically collect when you access the Application, such as your IP address, browser type, operating system, access times, and the pages you have viewed directly before and after accessing the Application. Geo-Location Information: We may request access or permission to track location-based information from your mobile device, either continuously or while you are using the Application, to provide location-based services. If you wish to change our access or permissions, you may do so in your device's settings. Mobile Device Access: We may request access or permission to certain features from your mobile device, including your mobile device's notifications, and other features. If you wish to change our access or permissions, you may do so in your device's settings.",
+    "PRIVACY_POLICY_SECTION_2_CONTENT": "We may collect information about you in a variety of ways. The information we may collect via the Application includes: Personal Data: Personally identifiable information, such as your name, that you voluntarily give to us when you choose to participate in various activities related to the Application. Derivative Data: Information our servers automatically collect when you access the Application, such as your IP address, browser type, operating system, access times, and the pages you have viewed directly before and after accessing the Application. Geo-Location Information: We may request access or permission to track location-based information from your mobile device, either continuously or while you are using the Application, to provide location-based services. If you wish to change our access or permissions, you may do so in your device's settings. Mobile Device Access: We may request access or permission to certain features from your mobile device, including your mobile device's notifications and other features. If you wish to change our access or permissions, you may do so in your device's settings.",
     "PRIVACY_POLICY_SECTION_3_TITLE": "Use of Your Information",
     "PRIVACY_POLICY_SECTION_3_CONTENT": "Having accurate information about you permits us to provide you with a smooth, efficient, and customized experience. Specifically, we may use information collected about you via the Application to: Create and manage your account. Deliver targeted advertising, coupons, and promotions to you. Email you regarding your account or order. Enable user-to-user communications. Fulfill and manage purchases, orders, payments, and other transactions related to the Application. Generate a personal profile about you to make future visits to the Application more personalized. Increase the efficiency and operation of the Application. Monitor and analyze usage and trends to improve your experience with the Application. Notify you of updates to the Application. Offer new products, services, and/or recommendations to you. Perform other business activities as needed. Request feedback and contact you about your use of the Application. Resolve disputes and troubleshoot problems. Respond to product and customer service requests. Send you a newsletter.",
     "PRIVACY_POLICY_SECTION_4_TITLE": "Disclosure of Your Information",
@@ -116,6 +126,133 @@
     "PRIVACY_POLICY_SECTION_5_TITLE": "Security of Your Information",
     "PRIVACY_POLICY_SECTION_5_CONTENT": "We use administrative, technical, and physical security measures to help protect your personal information. While we have taken reasonable steps to secure the personal information you provide to us, please be aware that despite our efforts, no security measures are perfect or impenetrable, and no method of data transmission can be guaranteed against any interception or other type of misuse. Any information disclosed online is vulnerable to interception and misuse by unauthorized parties. Therefore, we cannot guarantee complete security if you provide personal information.",
     "PRIVACY_POLICY_SECTION_6_TITLE": "Contact Us",
-    "PRIVACY_POLICY_SECTION_6_CONTENT": "If you have questions or comments about this Privacy Policy, please contact us at: support@example.com"
+    "PRIVACY_POLICY_SECTION_6_CONTENT": "If you have questions or comments about this privacy policy, please contact us at: support@example.com"
+  },
+  "TRANSPORT": {
+    "TITLE": "Itinerary & Transportation",
+    "DISTANCE": "Distance",
+    "BUDGET": "Estimated Budget",
+    "TIME": "Estimated Time",
+    "GPS": {
+      "TITLE": "Real-time GPS Navigation",
+      "SUBTITLE": "Use these apps to guide you to your destination",
+      "GOOGLE_MAPS": "Google Maps",
+      "WAZE": "Waze"
+    },
+    "AIRPORTS": {
+      "TITLE": "Nearby Airports",
+      "SUBTITLE": "List of closest airports with budget estimates",
+      "AIRPORT1": {
+        "NAME": "Casablanca Mohammed V International Airport",
+        "DISTANCE": "30 km",
+        "BUDGET": "150-250 MAD",
+        "TIME": "45 min"
+      },
+      "AIRPORT2": {
+        "NAME": "Rabat-Salé Airport",
+        "DISTANCE": "85 km",
+        "BUDGET": "400-500 MAD",
+        "TIME": "1h30"
+      }
+    },
+    "TRAIN_STATIONS": {
+      "TITLE": "Nearby Train Stations",
+      "SUBTITLE": "List of closest train stations with budget estimates",
+      "STATION1": {
+        "NAME": "Casa-Port Station",
+        "DISTANCE": "5 km",
+        "BUDGET": "30-50 MAD",
+        "TIME": "15 min"
+      },
+      "STATION2": {
+        "NAME": "Casa-Voyageurs Station",
+        "DISTANCE": "8 km",
+        "BUDGET": "40-60 MAD",
+        "TIME": "20 min"
+      }
+    },
+    "BUS_STOPS": {
+      "TITLE": "Nearby Bus Stops",
+      "SUBTITLE": "List of closest bus stops with budget estimates",
+      "STOP1": {
+        "NAME": "Central Stop - Hassan II Avenue",
+        "DISTANCE": "1.2 km",
+        "BUDGET": "4-6 MAD",
+        "TIME": "5 min"
+      },
+      "STOP2": {
+        "NAME": "Mohammed V Square Stop",
+        "DISTANCE": "2 km",
+        "BUDGET": "4-6 MAD",
+        "TIME": "8 min"
+      }
+    },
+    "APPS": {
+      "TITLE": "Available Transportation Apps",
+      "SUBTITLE": "Transportation apps available in the region",
+      "APP1": {
+        "NAME": "Careem",
+        "BUDGET": "40-80 MAD",
+        "TIME": "10-15 min"
+      },
+      "APP2": {
+        "NAME": "Yassir",
+        "BUDGET": "35-75 MAD",
+        "TIME": "10-15 min"
+      }
+    },
+    "TAXI": {
+      "TITLE": "Trusted Taxi Contacts",
+      "SUBTITLE": "List of recommended drivers in the area",
+      "CONTACT1": {
+        "NAME": "Mohammed Taxi Service",
+        "PHONE": "+212 661-234567"
+      },
+      "CONTACT2": {
+        "NAME": "Casablanca Premium Taxi",
+        "PHONE": "+212 662-345678"
+      }
+    },
+    "BOOKING": {
+      "BUTTON": "Book a Ride",
+      "CONFIRMATION": "Your booking request has been sent. You will be contacted shortly for confirmation."
+    }
+  },
+  "PARKING": {
+    "TITLE": "Parking",
+    "SUBTITLE": "Available parking options for your stay",
+    "AVAILABLE": "Available",
+    "UNAVAILABLE": "Unavailable",
+    "RESERVE": "Reserve",
+    "PAID": "Paid",
+    "FREE": "Free",
+    "NO_SPOTS": {
+      "TITLE": "No parking spots available",
+      "MESSAGE": "There are currently no parking spots available for this property."
+    },
+    "RESERVATION": {
+      "CONFIRMATION": "Reservation request sent! You will receive a confirmation shortly."
+    },
+    "SPOT1": {
+      "NAME": "Residence Underground Parking",
+      "TYPE": "Secure covered parking",
+      "HOURS": "24/7 access",
+      "RATE": "100 MAD/day",
+      "DESCRIPTION": "Secure underground parking with badge access. Reserved and numbered spot, with surveillance cameras."
+    },
+    "SPOT2": {
+      "NAME": "Residence Outdoor Parking",
+      "TYPE": "Outdoor parking",
+      "HOURS": "24/7 access",
+      "RATE": "70 MAD/day",
+      "DESCRIPTION": "Outdoor parking within the residence compound, guarded by security. Numbered spots."
+    },
+    "SPOT3": {
+      "NAME": "Public Parking",
+      "TYPE": "Street parking",
+      "HOURS": "No restrictions",
+      "RATE": "Free",
+      "DESCRIPTION": "Public parking available on the street adjacent to the residence. Not guarded, spots not guaranteed based on availability."
+    }
   }
 }

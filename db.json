@@ -106,6 +106,50 @@
                 "label": "Conciergerie WhatsApp"
               }
             ]
+          },
+          "parkingInstructions": {
+            "generalInstructions": "L'hôtel propose plusieurs options de stationnement pour nos clients. La réservation préalable est recommandée pendant la haute saison.",
+            "spots": [
+              {
+                "id": "hotel-p1",
+                "name": "Parking Souterrain Premium",
+                "type": "Parking couvert sécurisé",
+                "spotNumber": "Niveau -1",
+                "hours": "Accès 24h/24 et 7j/7",
+                "rate": "150 MAD/jour",
+                "isPaid": true,
+                "description": "Notre parking souterrain premium offre un accès direct à l'hôtel par ascenseur. Service voiturier disponible sur demande.",
+                "available": true,
+                "photo": "assets/img/illustrations/parking-underground.svg",
+                "icon": "local_parking"
+              },
+              {
+                "id": "hotel-p2",
+                "name": "Parking Extérieur Hôtel",
+                "type": "Parking extérieur surveillé",
+                "spotNumber": "Zone A",
+                "hours": "Accès 24h/24 et 7j/7",
+                "rate": "100 MAD/jour",
+                "isPaid": true,
+                "description": "Parking extérieur dans l'enceinte de l'hôtel avec surveillance permanente et caméras de sécurité.",
+                "available": true,
+                "photo": "assets/img/illustrations/parking-outdoor.svg",
+                "icon": "local_parking"
+              },
+              {
+                "id": "hotel-p3",
+                "name": "Stationnement Public Marina",
+                "type": "Parking public",
+                "spotNumber": "Zone Marina",
+                "hours": "08:00 - 22:00",
+                "rate": "5 MAD/heure",
+                "isPaid": true,
+                "description": "Parking public situé à 200m de l'hôtel, près de la marina. Non surveillé, places selon disponibilité.",
+                "available": true,
+                "photo": "assets/img/illustrations/parking-street.svg",
+                "icon": "local_parking"
+              }
+            ]
           }
         }
       },
@@ -217,6 +261,37 @@
                 "label": "Support WhatsApp"
               }
             ]
+          },
+          "parkingInstructions": {
+            "generalInstructions": "La villa dispose d'un parking privé pouvant accueillir jusqu'à 3 véhicules. Aucune réservation préalable n'est nécessaire.",
+            "spots": [
+              {
+                "id": "villa-p1",
+                "name": "Garage Privé Villa",
+                "type": "Garage couvert",
+                "spotNumber": "G-01",
+                "hours": "Accès 24h/24 et 7j/7",
+                "rate": "14 euro",
+                "isPaid": true,
+                "description": "Garage couvert pouvant accueillir 2 véhicules avec accès direct à la villa. Télécommande fournie à l'arrivée.",
+                "available": false,
+                "photo": "assets/img/illustrations/parking-underground.svg",
+                "icon": "garage"
+              },
+              {
+                "id": "villa-p2",
+                "name": "Allée Privée Villa",
+                "type": "Stationnement extérieur privé",
+                "spotNumber": "E-01",
+                "hours": "Accès 24h/24 et 7j/7",
+                "rate": "Inclus dans la location",
+                "isPaid": false,
+                "description": "Allée privée devant la villa pouvant accueillir 1 véhicule supplémentaire.",
+                "available": true,
+                "photo": "assets/img/illustrations/parking-outdoor.svg",
+                "icon": "local_parking"
+              }
+            ]
           }
         }
       },
@@ -226,7 +301,7 @@
         "type": "gite",
         "description": "Authentique gîte rural à quelques kilomètres d'Essaouira. Immergez-vous dans la nature et découvrez la vie locale dans un cadre paisible.",
         "coverImage": "assets/img/demo/landscape.webp",
-        "avatar": "assets/img/avatars/102.jpg",
+        "avatar": "assets/img/avatars/102.svg",
         "address": {
           "street": "Route des Arganiers",
           "city": "Essaouira",
@@ -324,6 +399,24 @@
                 "label": "WhatsApp préféré"
               }
             ]
+          },
+          "parkingInstructions": {
+            "generalInstructions": "Le stationnement est gratuit et non surveillé sur le terrain du gîte. L'accès peut être difficile pour les véhicules bas en raison du chemin non goudronné.",
+            "spots": [
+              {
+                "id": "gite-p1",
+                "name": "Parking du Gîte",
+                "type": "Parking en terre",
+                "spotNumber": "Non attribué",
+                "hours": "Accès 24h/24 et 7j/7",
+                "rate": "Gratuit",
+                "isPaid": false,
+                "description": "Zone de stationnement en terre battue pouvant accueillir jusqu'à 5 véhicules. Chemin d'accès non goudronné, déconseillé aux véhicules à faible garde au sol.",
+                "available": true,
+                "photo": "assets/img/illustrations/parking-outdoor.svg",
+                "icon": "local_parking"
+              }
+            ]
           }
         }
       },
@@ -333,7 +426,7 @@
         "type": "appartement_complexe",
         "description": "Appartement moderne dans un complexe résidentiel sécurisé avec accès à la plage, piscines communes et jardins luxuriants.",
         "coverImage": "assets/img/demo/landscape.webp",
-        "avatar": "assets/img/avatars/103.jpg",
+        "avatar": "assets/img/avatars/103.svg",
         "address": {
           "street": "Complexe Marina Bay, Bloc C, Apt 304",
           "city": "Agadir",
@@ -565,6 +658,131 @@
                 "type": "EMAIL",
                 "icon": "mat:mail",
                 "label": "Email (réponse sous 12h)"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "property-special",
+        "name": "Riad Médina Fès",
+        "type": "riad",
+        "description": "Authentique riad au cœur de la médina de Fès, alliant charme traditionnel et confort moderne.",
+        "coverImage": "assets/img/demo/landscape.webp",
+        "avatar": "assets/img/avatars/103.jpg",
+        "address": {
+          "street": "12 Derb El Miter",
+          "city": "Fès",
+          "state": "Fès-Meknès",
+          "postalCode": "30000",
+          "country": "Maroc"
+        },
+        "location": {
+          "latitude": "34.0371",
+          "longitude": "-4.9998"
+        },
+        "checkInInfo": {
+          "checkInStart": "14:00",
+          "checkInEnd": "20:00",
+          "checkOutTime": "11:00",
+          "accessInstructions": [],
+          "parkingInstructions": {
+            "generalInstructions": "La médina étant piétonne, aucun stationnement n'est disponible directement au riad. Plusieurs options sont disponibles à proximité. Notre équipe peut organiser un service de portage des bagages depuis les parkings jusqu'au riad.",
+            "spots": [
+              {
+                "id": "riad-p1",
+                "name": "Parking Ain Azliten",
+                "type": "Parking gardé",
+                "spotNumber": "Non attribué",
+                "hours": "24h/24 et 7j/7",
+                "rate": "30 MAD/jour",
+                "isPaid": true,
+                "description": "Parking gardé jour et nuit situé à l'entrée de la médina, à 7 minutes à pied du riad. Bon éclairage nocturne et surveillance permanente.",
+                "available": true,
+                "photo": "assets/img/illustrations/parking-outdoor.svg",
+                "icon": "local_parking"
+              },
+              {
+                "id": "riad-p2",
+                "name": "Parking Bab Boujloud",
+                "type": "Parking public",
+                "spotNumber": "Non attribué",
+                "hours": "24h/24",
+                "rate": "20 MAD/jour",
+                "isPaid": true,
+                "description": "Parking public situé près de la porte Bab Boujloud, à 12 minutes à pied du riad. Option la moins chère mais souvent complet pendant la haute saison.",
+                "available": true,
+                "photo": "assets/img/illustrations/parking-street.svg",
+                "icon": "local_parking"
+              },
+              {
+                "id": "riad-p3",
+                "name": "Service Voiturier",
+                "type": "Service premium",
+                "spotNumber": "N/A",
+                "hours": "Sur réservation",
+                "rate": "100 MAD/jour",
+                "isPaid": true,
+                "description": "Notre service voiturier récupère votre véhicule à votre arrivée et le gare dans un parking sécurisé. Le véhicule vous est restitué à la fin de votre séjour à l'heure convenue.",
+                "available": true,
+                "photo": "assets/img/illustrations/parking-underground.svg",
+                "icon": "directions_car"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "property-unavailable",
+        "name": "Appartement Centre Rabat",
+        "type": "apartment",
+        "description": "Appartement moderne au centre de Rabat, proche des transports et commerces.",
+        "coverImage": "assets/img/demo/landscape.webp",
+        "avatar": "assets/img/avatars/104.jpg",
+        "address": {
+          "street": "15 Avenue Mohammed V",
+          "city": "Rabat",
+          "state": "Rabat-Salé-Kénitra",
+          "postalCode": "10000",
+          "country": "Maroc"
+        },
+        "location": {
+          "latitude": "34.0209",
+          "longitude": "-6.8416"
+        },
+        "checkInInfo": {
+          "checkInStart": "15:00",
+          "checkInEnd": "21:00",
+          "checkOutTime": "11:00",
+          "accessInstructions": [],
+          "parkingInstructions": {
+            "generalInstructions": "Le stationnement dans le centre de Rabat est difficile. Nous vous recommandons d'utiliser les transports en commun ou les taxis pour vos déplacements.",
+            "spots": [
+              {
+                "id": "apt-p1",
+                "name": "Garage de l'immeuble",
+                "type": "Parking souterrain",
+                "spotNumber": "B-12",
+                "hours": "Accès 24h/24 avec badge",
+                "rate": "120 MAD/jour",
+                "isPaid": true,
+                "description": "Place de parking en sous-sol de l'immeuble. Accès par badge magnétique fourni à l'arrivée.",
+                "available": false,
+                "photo": "assets/img/illustrations/parking-underground.svg",
+                "icon": "local_parking"
+              },
+              {
+                "id": "apt-p2",
+                "name": "Parking Hassan",
+                "type": "Parking public couvert",
+                "spotNumber": "Non attribué",
+                "hours": "7h00 - 23h00",
+                "rate": "5 MAD/heure",
+                "isPaid": true,
+                "description": "Parking public à 400m de l'appartement. Attention: fermé entre 23h et 7h du matin.",
+                "available": true,
+                "photo": "assets/img/illustrations/parking-outdoor.svg",
+                "icon": "local_parking"
               }
             ]
           }

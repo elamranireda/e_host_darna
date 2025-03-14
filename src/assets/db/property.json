@@ -1,0 +1,341 @@
+{
+  "properties": [
+    {
+      "id": "property-1",
+      "name": "Villa Darna",
+      "type": "villa",
+      "description": "Une villa luxueuse au cœur de la médina avec une vue imprenable sur l'océan",
+      "address": {
+        "street": "12 Rue des Orangers",
+        "city": "Casablanca",
+        "postalCode": "20000",
+        "country": "Maroc"
+      },
+      "location": {
+        "latitude": 33.5731,
+        "longitude": -7.5898
+      },
+      "checkInInfo": {
+        "checkInTime": "14:00",
+        "checkOutTime": "11:00",
+        "accessInstructions": [
+          {
+            "type": "keycode",
+            "description": "La porte d'entrée est équipée d'un clavier à code. Votre code est 2580#",
+            "details": "Appuyez sur le bouton vert puis entrez le code 2580 suivi de #",
+            "priority": 1
+          },
+          {
+            "type": "key",
+            "description": "Une clé de secours est disponible dans la boîte à clés à l'arrière de la maison",
+            "details": "La boîte à clés se trouve près de la porte de service. Le code est 1234",
+            "priority": 2
+          }
+        ],
+        "parkingInstructions": {
+          "generalInstructions": "La villa dispose de plusieurs options de stationnement. Veuillez vous garer uniquement dans les espaces désignés pour éviter des frais supplémentaires.",
+          "spots": [
+            {
+              "id": "p1",
+              "name": "Parking Souterrain Résidence",
+              "type": "Parking couvert sécurisé",
+              "spotNumber": "A-12",
+              "hours": "Accès 24h/24 et 7j/7",
+              "rate": "100 MAD/jour",
+              "isPaid": true,
+              "description": "Parking souterrain sécurisé avec accès par badge. Place réservée et numérotée, avec caméras de surveillance.",
+              "available": true,
+              "photo": "assets/img/illustrations/parking-underground.jpg",
+              "icon": "local_parking"
+            },
+            {
+              "id": "p2",
+              "name": "Parking Extérieur Résidence",
+              "type": "Parking extérieur",
+              "spotNumber": "B-05",
+              "hours": "Accès 24h/24 et 7j/7",
+              "rate": "70 MAD/jour",
+              "isPaid": true,
+              "description": "Parking extérieur dans l'enceinte de la résidence, surveillé par gardien. Places numérotées.",
+              "available": true,
+              "photo": "assets/img/illustrations/parking-outdoor.jpg",
+              "icon": "local_parking"
+            },
+            {
+              "id": "p3",
+              "name": "Stationnement Public",
+              "type": "Parking de rue",
+              "spotNumber": "C-23",
+              "hours": "Aucune restriction",
+              "rate": "Gratuit",
+              "isPaid": false,
+              "description": "Stationnement public disponible dans la rue adjacente à la résidence. Non surveillé, places non garanties selon disponibilité.",
+              "available": true,
+              "photo": "assets/img/illustrations/parking-street.jpg",
+              "icon": "local_parking"
+            }
+          ]
+        },
+        "wifiInstructions": {
+          "networkName": "Villa_Darna_WiFi",
+          "password": "DarnaGuest2023",
+          "extraDetails": "Le signal est plus fort dans le salon et sur la terrasse"
+        }
+      },
+      "amenities": [
+        "wifi",
+        "pool",
+        "airConditioning",
+        "kitchen",
+        "parking"
+      ],
+      "images": [
+        {
+          "url": "assets/img/properties/villa-darna-1.jpg",
+          "alt": "Vue de la façade de la Villa Darna",
+          "isPrimary": true
+        },
+        {
+          "url": "assets/img/properties/villa-darna-2.jpg",
+          "alt": "Salon spacieux avec vue sur la mer",
+          "isPrimary": false
+        }
+      ]
+    },
+    {
+      "id": "property-2",
+      "name": "Appartement Moderne Marrakech",
+      "type": "apartment",
+      "description": "Appartement contemporain dans un quartier prisé de Marrakech, à deux pas de la place Jemaa el-Fna",
+      "address": {
+        "street": "24 Avenue Mohammed VI",
+        "city": "Marrakech",
+        "postalCode": "40000",
+        "country": "Maroc"
+      },
+      "location": {
+        "latitude": 31.6295,
+        "longitude": -7.9811
+      },
+      "checkInInfo": {
+        "checkInTime": "15:00",
+        "checkOutTime": "11:00",
+        "accessInstructions": [
+          {
+            "type": "smartlock",
+            "description": "L'appartement est équipé d'une serrure connectée. Utilisez l'application mobile pour déverrouiller la porte",
+            "details": "Téléchargez l'application 'SmartAccess' et utilisez le code QR fourni dans votre email de confirmation",
+            "priority": 1
+          }
+        ],
+        "parkingInstructions": {
+          "generalInstructions": "L'immeuble dispose d'un parking souterrain réservé aux résidents. Une place vous est attribuée pour la durée de votre séjour.",
+          "spots": [
+            {
+              "id": "apt-p1",
+              "name": "Parking Souterrain Immeuble",
+              "type": "Parking souterrain résident",
+              "spotNumber": "R-42",
+              "hours": "Accès 24h/24 avec badge",
+              "rate": "Inclus dans la location",
+              "isPaid": false,
+              "description": "Parking souterrain de l'immeuble avec place numérotée. Accès par badge magnétique fourni avec les clés.",
+              "available": true,
+              "photo": "assets/img/illustrations/parking-underground.jpg",
+              "icon": "local_parking"
+            },
+            {
+              "id": "apt-p2",
+              "name": "Parking Public Koutoubia",
+              "type": "Parking public surveillé",
+              "spotNumber": "Non attribué",
+              "hours": "24h/24 et 7j/7",
+              "rate": "30 MAD/jour",
+              "isPaid": true,
+              "description": "Parking public surveillé à 300m de l'immeuble. Option recommandée pour un second véhicule.",
+              "available": true,
+              "photo": "assets/img/illustrations/parking-outdoor.jpg",
+              "icon": "local_parking"
+            }
+          ]
+        },
+        "wifiInstructions": {
+          "networkName": "Marrakech_Apt_WiFi",
+          "password": "MarrakechStay2023",
+          "extraDetails": "Fibre optique haute vitesse. Convient pour le télétravail."
+        }
+      },
+      "amenities": [
+        "wifi",
+        "airConditioning",
+        "kitchen",
+        "parking",
+        "elevator"
+      ],
+      "images": [
+        {
+          "url": "assets/img/properties/apartment-marrakech-1.jpg",
+          "alt": "Salon moderne avec vue sur la ville",
+          "isPrimary": true
+        },
+        {
+          "url": "assets/img/properties/apartment-marrakech-2.jpg",
+          "alt": "Cuisine équipée avec bar",
+          "isPrimary": false
+        }
+      ]
+    },
+    {
+      "id": "property-3",
+      "name": "Chalet Montagne Ifrane",
+      "type": "chalet",
+      "description": "Chalet en bois authentique dans la forêt d'Ifrane, parfait pour un séjour en montagne été comme hiver",
+      "address": {
+        "street": "Route de Michlifen",
+        "city": "Ifrane",
+        "postalCode": "53000",
+        "country": "Maroc"
+      },
+      "location": {
+        "latitude": 33.5165,
+        "longitude": -5.1054
+      },
+      "checkInInfo": {
+        "checkInTime": "16:00",
+        "checkOutTime": "10:00",
+        "accessInstructions": [
+          {
+            "type": "key",
+            "description": "Les clés sont disponibles auprès du garde forestier à l'entrée du domaine",
+            "details": "Présentez-vous au poste de garde à l'entrée du domaine avec votre confirmation de réservation",
+            "priority": 1
+          }
+        ],
+        "parkingInstructions": {
+          "generalInstructions": "Un parking privé est disponible devant le chalet. En hiver, des chaînes à neige peuvent être nécessaires pour accéder au domaine.",
+          "spots": [
+            {
+              "id": "chalet-p1",
+              "name": "Parking Privé Chalet",
+              "type": "Parking extérieur privé",
+              "spotNumber": "Devant le chalet",
+              "hours": "Accès 24h/24 et 7j/7",
+              "rate": "Inclus dans la location",
+              "isPaid": false,
+              "description": "Espace de stationnement privé pouvant accueillir jusqu'à 3 véhicules devant le chalet. Non couvert, prévoir une protection en cas de neige.",
+              "available": true,
+              "photo": "assets/img/illustrations/parking-outdoor.jpg",
+              "icon": "local_parking"
+            }
+          ]
+        },
+        "wifiInstructions": {
+          "networkName": "Chalet_Ifrane_WiFi",
+          "password": "MountainStay2023",
+          "extraDetails": "Connexion par satellite, peut être instable en cas de forte neige"
+        }
+      },
+      "amenities": [
+        "wifi",
+        "fireplace",
+        "kitchen",
+        "parking",
+        "heater"
+      ],
+      "images": [
+        {
+          "url": "assets/img/properties/chalet-ifrane-1.jpg",
+          "alt": "Chalet en bois dans la forêt enneigée",
+          "isPrimary": true
+        },
+        {
+          "url": "assets/img/properties/chalet-ifrane-2.jpg",
+          "alt": "Intérieur chaleureux avec cheminée",
+          "isPrimary": false
+        }
+      ]
+    },
+    {
+      "id": "property-4",
+      "name": "Riad Traditionnel Essaouira",
+      "type": "riad",
+      "description": "Authentique riad restauré au cœur de la médina d'Essaouira, mêlant charme traditionnel et confort moderne",
+      "address": {
+        "street": "7 Derb Laalouj",
+        "city": "Essaouira",
+        "postalCode": "44000",
+        "country": "Maroc"
+      },
+      "location": {
+        "latitude": 31.5125,
+        "longitude": -9.7698
+      },
+      "checkInInfo": {
+        "checkInTime": "14:00",
+        "checkOutTime": "12:00",
+        "accessInstructions": [
+          {
+            "type": "meetandgreet",
+            "description": "Notre équipe vous accueillera à la porte de Bab Marrakech pour vous accompagner jusqu'au riad",
+            "details": "Veuillez nous contacter 1h avant votre arrivée au +212 661-234567",
+            "priority": 1
+          }
+        ],
+        "parkingInstructions": {
+          "generalInstructions": "La médina étant piétonne, aucun stationnement n'est disponible à proximité immédiate du riad. Plusieurs options sont disponibles aux portes de la médina.",
+          "spots": [
+            {
+              "id": "riad-p1",
+              "name": "Parking Bab Marrakech",
+              "type": "Parking gardé",
+              "spotNumber": "Non attribué",
+              "hours": "24h/24 et 7j/7",
+              "rate": "25 MAD/jour",
+              "isPaid": true,
+              "description": "Parking gardé situé à la porte Bab Marrakech, à 5 minutes à pied du riad. Service de porteurs disponible (20 MAD).",
+              "available": true,
+              "photo": "assets/img/illustrations/parking-outdoor.jpg",
+              "icon": "local_parking"
+            },
+            {
+              "id": "riad-p2",
+              "name": "Parking Bab Doukkala",
+              "type": "Parking gardé",
+              "spotNumber": "Non attribué",
+              "hours": "24h/24 et 7j/7",
+              "rate": "20 MAD/jour",
+              "isPaid": true,
+              "description": "Parking gardé situé à la porte Bab Doukkala, à 8 minutes à pied du riad. Moins cher mais plus éloigné.",
+              "available": true,
+              "photo": "assets/img/illustrations/parking-street.jpg",
+              "icon": "local_parking"
+            }
+          ]
+        },
+        "wifiInstructions": {
+          "networkName": "Riad_Essaouira_WiFi",
+          "password": "MedinaStay2023",
+          "extraDetails": "Signal disponible dans toutes les chambres et sur la terrasse"
+        }
+      },
+      "amenities": [
+        "wifi",
+        "breakfast",
+        "terrace",
+        "airConditioning"
+      ],
+      "images": [
+        {
+          "url": "assets/img/properties/riad-essaouira-1.jpg",
+          "alt": "Patio central avec fontaine",
+          "isPrimary": true
+        },
+        {
+          "url": "assets/img/properties/riad-essaouira-2.jpg",
+          "alt": "Terrasse avec vue sur la médina",
+          "isPrimary": false
+        }
+      ]
+    }
+  ]
+} 

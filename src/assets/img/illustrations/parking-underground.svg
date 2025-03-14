@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500">
+  <!-- Background -->
+  <rect width="800" height="500" fill="#2c3e50"/>
+  
+  <!-- Underground parking structure -->
+  <rect x="50" y="100" width="700" height="350" fill="#34495e" rx="5"/>
+  
+  <!-- Parking spots -->
+  <rect x="80" y="150" width="180" height="280" fill="#3498db" opacity="0.2"/>
+  <rect x="300" y="150" width="180" height="280" fill="#3498db" opacity="0.2"/>
+  <rect x="520" y="150" width="180" height="280" fill="#3498db" opacity="0.2"/>
+  
+  <!-- Parking lines -->
+  <line x1="260" y1="150" x2="260" y2="430" stroke="#ecf0f1" stroke-width="4"/>
+  <line x1="480" y1="150" x2="480" y2="430" stroke="#ecf0f1" stroke-width="4"/>
+  
+  <!-- Horizontal parking lines -->
+  <line x1="80" y1="220" x2="700" y2="220" stroke="#ecf0f1" stroke-width="2"/>
+  <line x1="80" y1="290" x2="700" y2="290" stroke="#ecf0f1" stroke-width="2"/>
+  <line x1="80" y1="360" x2="700" y2="360" stroke="#ecf0f1" stroke-width="2"/>
+  
+  <!-- Parking icons -->
+  <g transform="translate(170, 185)" fill="#ecf0f1">
+    <path d="M9,1.5H15V18H12V12H9A4.5,4.5 0 0,1 4.5,7.5A4.5,4.5 0 0,1 9,3M9,6A1.5,1.5 0 0,0 7.5,7.5A1.5,1.5 0 0,0 9,9H12V6H9Z"/>
+  </g>
+  <g transform="translate(390, 185)" fill="#ecf0f1">
+    <path d="M9,1.5H15V18H12V12H9A4.5,4.5 0 0,1 4.5,7.5A4.5,4.5 0 0,1 9,3M9,6A1.5,1.5 0 0,0 7.5,7.5A1.5,1.5 0 0,0 9,9H12V6H9Z"/>
+  </g>
+  <g transform="translate(610, 185)" fill="#ecf0f1">
+    <path d="M9,1.5H15V18H12V12H9A4.5,4.5 0 0,1 4.5,7.5A4.5,4.5 0 0,1 9,3M9,6A1.5,1.5 0 0,0 7.5,7.5A1.5,1.5 0 0,0 9,9H12V6H9Z"/>
+  </g>
+  
+  <!-- Pillars -->
+  <rect x="80" y="150" width="20" height="20" fill="#7f8c8d"/>
+  <rect x="80" y="290" width="20" height="20" fill="#7f8c8d"/>
+  <rect x="80" y="430" width="20" height="20" fill="#7f8c8d"/>
+  <rect x="700" y="150" width="20" height="20" fill="#7f8c8d"/>
+  <rect x="700" y="290" width="20" height="20" fill="#7f8c8d"/>
+  <rect x="700" y="430" width="20" height="20" fill="#7f8c8d"/>
+  
+  <!-- Security cameras -->
+  <circle cx="400" cy="120" r="10" fill="#e74c3c"/>
+  <circle cx="200" cy="120" r="10" fill="#e74c3c"/>
+  <circle cx="600" cy="120" r="10" fill="#e74c3c"/>
+  
+  <!-- Parking title -->
+  <text x="400" y="80" font-family="Arial" font-size="30" fill="#ecf0f1" text-anchor="middle">UNDERGROUND PARKING</text>
+  
+  <!-- Security indication -->
+  <text x="400" y="470" font-family="Arial" font-size="20" fill="#ecf0f1" text-anchor="middle">SECURED 24/7 - CCTV MONITORED</text>
+  
+  <!-- Cars silhouettes -->
+  <rect x="100" y="320" width="140" height="70" rx="10" fill="#95a5a6"/>
+  <rect x="320" y="180" width="140" height="70" rx="10" fill="#16a085"/>
+  <rect x="540" y="250" width="140" height="70" rx="10" fill="#8e44ad"/>
+</svg> 

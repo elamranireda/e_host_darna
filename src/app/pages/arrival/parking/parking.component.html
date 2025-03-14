@@ -1,3 +1,135 @@
-<div class="container py-6">
- <p>menu parkings</p>
+<div class="container mx-auto px-4 py-6" [dir]="isRtl ? 'rtl' : 'ltr'">
+  <!-- Error component -->
+  <div *ngIf="hasError" class="flex flex-col items-center justify-center py-12">
+    <div class="text-center">
+      <mat-icon svgIcon="mat:error_outline" class="text-red-500 text-8xl mb-6"></mat-icon>
+      <h2 class="text-2xl font-bold mb-4">{{ 'COMMON.ERROR.TITLE' | translate }}</h2>
+      <p class="text-gray-600 mb-6">{{ 'COMMON.ERROR.MESSAGE' | translate: {code: errorCode} }}</p>
+      <button 
+        (click)="retryOperation()" 
+        mat-raised-button 
+        color="primary" 
+        class="px-6 py-2 rounded">
+        <mat-icon svgIcon="mat:refresh" class="mr-2"></mat-icon>
+        {{ 'COMMON.ERROR.RETRY' | translate }}
+      </button>
+    </div>
+  </div>
+
+  <!-- Main content - shown only if no error -->
+  <div *ngIf="!hasError" class="parking-container">
+    <!-- Loading state -->
+    <div *ngIf="propertyStore.loading()" class="flex justify-center items-center h-64">
+      <mat-spinner diameter="48"></mat-spinner>
+      <p class="ml-4 text-gray-600">{{ 'COMMON.LOADING' | translate }}</p>
+    </div>
+
+    <!-- Content when loaded -->
+    <div *ngIf="!propertyStore.loading()" class="parking-content" [@scaleIn]="''" [@fadeInRight]="''">
+      <h1 class="text-3xl font-bold mb-6 text-primary">{{ 'PARKING.TITLE' | translate }}</h1>
+      
+      <!-- General instructions if available -->
+      <div *ngIf="getGeneralInstructions()" class="bg-blue-50 p-4 rounded-lg mb-6 border-l-4 border-blue-500">
+        <div class="flex items-start">
+          <mat-icon svgIcon="mat:info" class="text-blue-500 mr-2 mt-0.5"></mat-icon>
+          <p class="text-blue-800" [innerHTML]="getGeneralInstructions()"></p>
+        </div>
+      </div>
+  
+      <!-- Parking spots grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <mat-card *ngFor="let spot of getParkingSpots()" class="hover:shadow-lg transition-shadow duration-300">
+          <!-- Header with image -->
+          <div class="relative h-48 overflow-hidden rounded-t">
+            <img *ngIf="spot.photo" [src]="spot.photo" [alt]="spot.name" class="w-full h-full object-cover">
+            <div *ngIf="!spot.photo" class="w-full h-full bg-gray-200 flex items-center justify-center">
+              <mat-icon [svgIcon]="'mat:' + (spot.icon || 'local_parking')" class="text-gray-400 text-6xl"></mat-icon>
+            </div>
+            
+            <!-- Availability badge -->
+            <div 
+              class="absolute top-4 right-4 py-1 px-3 rounded-full text-white text-sm font-bold shadow-md" 
+              [ngClass]="{'bg-green-500': spot.available, 'bg-red-500': !spot.available}">
+              {{ spot.available ? ('PARKING.AVAILABLE' | translate) : ('PARKING.UNAVAILABLE' | translate) }}
+            </div>
+          </div>
+          
+          <mat-card-content class="p-4">
+            <div class="flex items-center mb-2">
+              <mat-icon [svgIcon]="'mat:' + (spot.icon || 'local_parking')" class="text-primary mr-3 flex-shrink-0"></mat-icon>
+              <h2 class="text-xl font-semibold">{{ spot.name }}</h2>
+            </div>
+            
+            <p class="text-gray-600 mb-4">{{ spot.type }}</p>
+            
+            <mat-divider class="mb-4"></mat-divider>
+            
+            <!-- Details -->
+            <div class="grid grid-cols-1 gap-3 mb-4">
+              <!-- Numéro de place -->
+              <div class="flex items-center" *ngIf="spot.spotNumber">
+                <mat-icon svgIcon="mat:pin" class="text-gray-500 mr-3 flex-shrink-0"></mat-icon>
+                <div class="flex items-center">
+                  <span class="text-gray-700 mr-2">{{ getSpotNumberLabel() }}:</span>
+                  <span class="bg-green-500 text-white px-3 py-1 rounded-full text-sm font-medium">{{ spot.spotNumber }}</span>
+                </div>
+              </div>
+              
+              <!-- Horaires -->
+              <div class="flex items-center">
+                <mat-icon svgIcon="mat:schedule" class="text-gray-500 mr-3 flex-shrink-0"></mat-icon>
+                <div class="flex items-center">
+                  <span class="text-gray-700 mr-2">{{ getAccessLabel() }}:</span>
+                  <span class="bg-green-500 text-white px-3 py-1 rounded-full text-sm font-medium">{{ spot.hours }}</span>
+                </div>
+              </div>
+              
+              <!-- Tarif -->
+              <div class="flex items-center">
+                <mat-icon svgIcon="mat:{{ spot.isPaid ? 'payments' : 'money_off' }}" class="text-gray-500 mr-3 flex-shrink-0"></mat-icon>
+                <div class="flex items-center">
+                  <span class="text-gray-700 mr-2">{{ getPriceLabel() }}:</span>
+                  <span class="bg-{{ spot.isPaid ? 'orange-100 text-orange-800' : 'green-100 text-green-800' }} px-3 py-1 rounded-full text-sm font-medium">{{ spot.rate }}</span>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Description -->
+            <p class="text-gray-700 mb-4">{{ spot.description }}</p>
+          </mat-card-content>
+          
+          <mat-card-actions class="p-4 pt-0">
+            <!-- Bouton de réservation uniquement si payant et disponible -->
+            <button 
+              *ngIf="spot.isPaid && spot.available"
+              mat-raised-button 
+              color="primary" 
+              class="w-full" 
+              (click)="reserveSpot(spot.id)">
+              <mat-icon svgIcon="mat:bookmark" class="mr-2"></mat-icon>
+              {{ 'PARKING.RESERVE' | translate }} {{ spot.rate }}
+            </button>
+            
+            <!-- Parking indisponible - bouton désactivé -->
+            <button 
+              *ngIf="!spot.available"
+              mat-stroked-button 
+              color="warn" 
+              class="w-full" 
+              disabled>
+              <mat-icon svgIcon="mat:do_not_disturb" class="mr-2"></mat-icon>
+              {{ 'PARKING.UNAVAILABLE' | translate }}
+            </button>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+      
+      <!-- No parking spots available message -->
+      <div *ngIf="getParkingSpots().length === 0" class="text-center py-12">
+        <mat-icon svgIcon="mat:no_crash" class="text-gray-400 text-6xl mb-4"></mat-icon>
+        <h3 class="text-xl font-semibold text-gray-600 mb-2">{{ 'PARKING.NO_SPOTS.TITLE' | translate }}</h3>
+        <p class="text-gray-500">{{ 'PARKING.NO_SPOTS.MESSAGE' | translate }}</p>
+      </div>
+    </div>
+  </div>
 </div>

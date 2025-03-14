@@ -24,7 +24,7 @@ export interface Property {
     checkInEnd: string;
     checkOutTime: string;
     accessInstructions: AccessInstructions;
-    parkingInstructions?: ParikingInstructions;
+    parkingInstructions?: ParkingInstructions;
     wifiInstructions?: WifiInstructions;
     amenities?: string[];
     houseRules?: string[];
@@ -74,6 +74,26 @@ export interface WifiInstructions {
   instructions: string;
 }
 
+export interface ParkingInstructions {
+  spots: ParkingSpot[];
+  generalInstructions?: string;
+}
+
+export interface ParkingSpot {
+  id: string;
+  name: string;
+  type: string;
+  spotNumber: string;
+  hours: string;
+  rate: string;
+  isPaid: boolean;
+  description: string;
+  available: boolean;
+  photo: string;
+  icon?: string;
+}
+
+// Gardons l'ancienne interface pour la rétrocompatibilité avec le reste du code
 export interface ParikingInstructions {
   type: string;
   free: boolean;

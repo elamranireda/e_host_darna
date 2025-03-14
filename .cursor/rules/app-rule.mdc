@@ -7,4 +7,7 @@ Tout code généré doit :
 
 Supporter le mode RTL.
 Implémenter les traductions par défaut (pas de texte statique).
+Réutiliser le CSS du thème défini (éviter toute redéfinition sauf en cas de besoin).
 Utiliser le thème CSS déjà défini sur l'application avec Tailwind, afin d'éviter les implémentations multiples.
+Ne pas ajouter de custom CSS dans les fichiers SCSS. Utiliser uniquement des classes Tailwind directement dans le HTML.
+toujours implemer mat-icon avec svgIcon
