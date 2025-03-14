@@ -1,0 +1,10 @@
+---
+description: rule a appliquer quand je génére  du code css ou html
+globs: 
+alwaysApply: true
+---
+Tout code généré doit :
+
+Supporter le mode RTL.
+Implémenter les traductions par défaut (pas de texte statique).
+Utiliser le thème CSS déjà défini sur l'application avec Tailwind, afin d'éviter les implémentations multiples.

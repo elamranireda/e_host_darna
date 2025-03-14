@@ -3,7 +3,8 @@
   "WELCOME": "Bienvenue sur la e-conciergerie !",
   "LANGUAGES": {
     "EN": "Anglais",
-    "FR": "Français"
+    "FR": "Français",
+    "AR": "Arabe"
   },
   "FAQ": {
     "TITLE": "Vous avez encore des questions ?",

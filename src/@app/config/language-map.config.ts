@@ -1,9 +1,10 @@
 export interface LanguageInfo {
   flag: string;
-name: string;
+  name: string;
 }
 
-type LanguageMap = {  [key: string]: LanguageInfo;};
+type LanguageMap = { [key: string]: LanguageInfo; };
+
 export const LANGUAGE_MAP: LanguageMap = {
   en: {
     flag: 'en',
@@ -13,4 +14,8 @@ export const LANGUAGE_MAP: LanguageMap = {
     flag: 'fr',
     name: 'FR',
   },
+  ar: {
+    flag: 'ar',
+    name: 'AR',
+  }
 }

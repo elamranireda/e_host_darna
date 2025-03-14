@@ -33,15 +33,12 @@ export class OnboardingModalComponent implements OnInit, AfterViewInit {
   ) {}
 
   ngOnInit(): void {
-    // Check if onboarding is already completed
+    // Vérifier si l'onboarding est déjà complété via le service
     if (!this.userPreferencesStore.isOnboardingCompleted()) {
       this.isVisible = true;
     }
     
-    // Ensure translations are loaded
-    this.translateService.setDefaultLang('en');
-    const browserLang = this.translateService.getBrowserLang();
-    this.translateService.use(browserLang?.match(/en|fr/) ? browserLang : 'en');
+    // Note: Pas besoin d'initialiser les traductions ici car c'est déjà fait dans AppComponent
   }
   
   ngAfterViewInit(): void {

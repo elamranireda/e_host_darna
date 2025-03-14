@@ -3,6 +3,12 @@ import { RouterOutlet } from '@angular/router';
 import {TranslateService} from "@ngx-translate/core";
 import {DOCUMENT} from "@angular/common";
 import { OnboardingModalComponent } from './shared/components/onboarding-modal/onboarding-modal.component';
+import {AppConfigService} from "@app/config/app-config.service";
+import {
+  getSupportedLanguageCodes,
+  isRtlLanguage,
+  languageConfig
+} from "@app/config/language.config";
 
 @Component({
   selector: 'app-root',
@@ -10,13 +16,36 @@ import { OnboardingModalComponent } from './shared/components/onboarding-modal/o
   standalone: true,
   imports: [RouterOutlet, OnboardingModalComponent]
 })
-export class AppComponent implements  OnInit {
+export class AppComponent implements OnInit {
   static fontLoaded: boolean;
-  constructor(private translate: TranslateService,    @Inject(DOCUMENT) private document: Document,
-              private renderer: Renderer2) {
-    translate.setDefaultLang('en');
+  
+  constructor(
+    private translate: TranslateService,
+    @Inject(DOCUMENT) private document: Document,
+    private renderer: Renderer2,
+    private configService: AppConfigService
+  ) {
+    // Définir les langues disponibles depuis la configuration
+    translate.addLangs(getSupportedLanguageCodes());
+    translate.setDefaultLang(languageConfig.defaultLanguage);
+    
+    // Détecter la langue du navigateur
     const browserLang = translate.getBrowserLang();
-    translate.use(browserLang?.match(/en|fr/) ? browserLang : 'en');
+    const supportedLangs = getSupportedLanguageCodes();
+    
+    // Utiliser la langue du navigateur si elle est prise en charge, sinon utiliser la langue par défaut
+    const userLang = browserLang && supportedLangs.includes(browserLang) 
+      ? browserLang 
+      : languageConfig.defaultLanguage;
+    
+    translate.use(userLang);
+    
+    // Si la langue est RTL, activer automatiquement le mode RTL
+    if (isRtlLanguage(userLang)) {
+      this.configService.updateConfig({
+        direction: 'rtl'
+      });
+    }
   }
 
   ngOnInit() {
