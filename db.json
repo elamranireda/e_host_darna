@@ -5,7 +5,7 @@
         "name": "Hôtel Luxe Marina",
         "type": "hotel",
         "description": "Bienvenue dans notre hôtel 5 étoiles avec vue imprenable sur la marina. Notre personnel est à votre disposition 24h/24 pour rendre votre séjour inoubliable.",
-        "coverImage": "assets/img/demo/landscapes.webp",
+        "coverImage": "assets/img/demo/landscape.webp",
         "avatar": "assets/img/avatars/100.jpg",
         "address": {
           "street": "12 Avenue des Palmiers",
@@ -114,8 +114,8 @@
         "name": "Villa Oceania",
         "type": "villa",
         "description": "Magnifique villa avec piscine privée et vue sur l'océan. Parfaite pour des vacances en famille ou entre amis dans un cadre idyllique.",
-        "coverImage": "assets/img/demo/landscapes.webp",
-        "avatar": "assets/img/avatars/101.jpg",
+        "coverImage": "assets/img/demo/landscape.webp",
+        "avatar": "assets/img/avatars/1.jpg",
         "address": {
           "street": "Route de Malabata",
           "city": "Tanger",
@@ -225,7 +225,7 @@
         "name": "Gîte Rural Essaouira",
         "type": "gite",
         "description": "Authentique gîte rural à quelques kilomètres d'Essaouira. Immergez-vous dans la nature et découvrez la vie locale dans un cadre paisible.",
-        "coverImage": "assets/img/demo/landscapes.webp",
+        "coverImage": "assets/img/demo/landscape.webp",
         "avatar": "assets/img/avatars/102.jpg",
         "address": {
           "street": "Route des Arganiers",
@@ -332,7 +332,7 @@
         "name": "Appartement Marina Bay",
         "type": "appartement_complexe",
         "description": "Appartement moderne dans un complexe résidentiel sécurisé avec accès à la plage, piscines communes et jardins luxuriants.",
-        "coverImage": "assets/img/demo/landscapes.webp",
+        "coverImage": "assets/img/demo/landscape.webp",
         "avatar": "assets/img/avatars/103.jpg",
         "address": {
           "street": "Complexe Marina Bay, Bloc C, Apt 304",
@@ -453,7 +453,7 @@
         "name": "Airbnb Médina Chefchaouen",
         "type": "airbnb",
         "description": "Charmante maison traditionnelle au cœur de la médina bleue de Chefchaouen. Décoration authentique et terrasse avec vue panoramique.",
-        "coverImage": "assets/img/demo/landscapes.webp",
+        "coverImage": "assets/img/demo/landscape.webp",
         "avatar": "assets/img/avatars/104.jpg",
         "address": {
           "street": "7 Derb Sidi Ahmed El Ouafi",
