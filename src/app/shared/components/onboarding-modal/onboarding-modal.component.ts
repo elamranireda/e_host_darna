@@ -140,6 +140,22 @@ export class OnboardingModalComponent implements OnInit, AfterViewInit {
     }
   }
   
+  // Méthode pour calculer le pourcentage de défilement
+  getScrollPercentage(): number {
+    if (!this.privacyPolicyContent || !this.privacyPolicyContent.nativeElement) {
+      return 0;
+    }
+    
+    const element = this.privacyPolicyContent.nativeElement;
+    if (element.scrollHeight <= element.clientHeight) {
+      return 100; // Si le contenu est plus petit que le conteneur, on considère qu'il est entièrement visible
+    }
+    
+    const scrollPosition = element.scrollTop;
+    const maxScroll = element.scrollHeight - element.clientHeight;
+    return Math.min(100, Math.max(0, (scrollPosition / maxScroll) * 100));
+  }
+  
   // Méthode pour obtenir les traductions
   getTranslation(key: string): string {
     return this.translateService.instant(key) || key;
