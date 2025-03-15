@@ -162,6 +162,18 @@ export class ItineraryComponent implements OnInit {
     window.open('https://www.waze.com/ul?ll=YOUR_DESTINATION_COORDINATES&navigate=yes', '_blank');
   }
   
+  openDirectionsTo(destinationName: string): void {
+    // Translate the destination name to get actual location name if it's a translation key
+    const destination = this.translateService.instant(destinationName);
+    
+    // Assuming you have the property coordinates in your service or component
+    // If not, you can use the name directly for Google Maps search
+    const encodedDestination = encodeURIComponent(destination);
+    
+    // Open Google Maps with directions to the specified location
+    window.open(`https://www.google.com/maps/dir/?api=1&destination=${encodedDestination}`, '_blank');
+  }
+  
   bookRide(): void {
     // Open booking dialog or redirect to booking page
     alert(this.translateService.instant('TRANSPORT.BOOKING.CONFIRMATION'));

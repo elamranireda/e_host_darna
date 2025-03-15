@@ -1,21 +1,20 @@
-<div class="container py-6" [dir]="isRtl ? 'rtl' : 'ltr'">
+<div class="container mx-auto py-6 px-4 sm:px-6" [dir]="isRtl ? 'rtl' : 'ltr'">
   <h2 class="text-primary font-bold text-2xl mb-6">{{ 'TRANSPORT.TITLE' | translate }}</h2>
   
   <!-- GPS Navigation Section -->
-  <mat-card class="mb-6">
-    <mat-card-header>
-      <mat-icon mat-card-avatar>navigation</mat-icon>
+  <mat-card class="mb-6 overflow-hidden">
+    <mat-card-header class="bg-primary bg-opacity-5 p-4">
+      <mat-icon svgIcon="mat:navigation" mat-card-avatar class="text-primary"></mat-icon>
       <mat-card-title>{{ 'TRANSPORT.GPS.TITLE' | translate }}</mat-card-title>
-      <mat-card-subtitle>{{ 'TRANSPORT.GPS.SUBTITLE' | translate }}</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content class="p-4">
-      <div class="flex flex-wrap items-center justify-center gap-4">
+      <div class="flex flex-wrap items-center justify-center sm:justify-start gap-3">
         <button mat-raised-button color="primary" (click)="openGoogleMaps()" class="px-4 py-2 flex items-center">
-          <mat-icon class="me-2">map</mat-icon>
+          <mat-icon svgIcon="mat:map" class="me-2"></mat-icon>
           {{ 'TRANSPORT.GPS.GOOGLE_MAPS' | translate }}
         </button>
         <button mat-raised-button color="accent" (click)="openWaze()" class="px-4 py-2 flex items-center">
-          <mat-icon class="me-2">navigation</mat-icon>
+          <mat-icon svgIcon="mat:navigation" class="me-2"></mat-icon>
           {{ 'TRANSPORT.GPS.WAZE' | translate }}
         </button>
       </div>
@@ -23,150 +22,207 @@
   </mat-card>
   
   <!-- Airports Section -->
-  <mat-card class="mb-6">
-    <mat-card-header>
-      <mat-icon mat-card-avatar>flight</mat-icon>
+  <mat-card *ngIf="airports && airports.length > 0" class="mb-6 overflow-hidden">
+    <mat-card-header class="bg-primary bg-opacity-5 p-4">
+      <mat-icon svgIcon="mat:flight" mat-card-avatar class="text-primary"></mat-icon>
       <mat-card-title>{{ 'TRANSPORT.AIRPORTS.TITLE' | translate }}</mat-card-title>
-      <mat-card-subtitle>{{ 'TRANSPORT.AIRPORTS.SUBTITLE' | translate }}</mat-card-subtitle>
     </mat-card-header>
-    <mat-card-content>
-      <mat-list>
-        <ng-container *ngFor="let airport of airports; let last = last">
-          <mat-list-item>
-            <div class="flex w-full justify-between items-center flex-wrap md:flex-nowrap">
+    <mat-card-content class="p-0">
+      <div class="divide-y">
+        <div *ngFor="let airport of airports" class="p-4 hover:bg-gray-50">
+          <div class="flex flex-col md:flex-row md:justify-between md:items-center gap-3">
+            <div class="flex items-start gap-3">
+              <mat-icon svgIcon="mat:flight" class="text-primary mt-1 hidden sm:block"></mat-icon>
               <div>
-                <h3 class="font-medium">{{ airport.name | translate }}</h3>
-                <p class="text-gray-600">{{ 'TRANSPORT.DISTANCE' | translate }}: {{ airport.distance | translate }}</p>
-              </div>
-              <div class="text-end">
-                <p class="text-primary">{{ 'TRANSPORT.BUDGET' | translate }}: {{ airport.estimatedBudget | translate }}</p>
-                <p>{{ 'TRANSPORT.TIME' | translate }}: {{ airport.estimatedTime | translate }}</p>
+                <h3 class="font-normal">{{ airport.name | translate }}</h3>
+                <a *ngIf="airport.distance" 
+                   (click)="openDirectionsTo(airport.name)" 
+                   class="text-gray-600 mt-1 flex items-center cursor-pointer hover:text-primary">
+                  <mat-icon svgIcon="mat:directions" class="text-sm me-1"></mat-icon>
+                  {{ 'TRANSPORT.DISTANCE' | translate }}: {{ airport.distance | translate }}
+                </a>
               </div>
             </div>
-          </mat-list-item>
-          <mat-divider *ngIf="!last"></mat-divider>
-        </ng-container>
-      </mat-list>
+            <div class="flex flex-col gap-2 text-end">
+              <p *ngIf="airport.estimatedBudget" class="text-sm text-gray-500">
+                {{ 'TRANSPORT.BUDGET' | translate }}
+              </p>
+              <p *ngIf="airport.estimatedBudget" class="text-primary font-medium">
+                {{ airport.estimatedBudget | translate }}
+              </p>
+              <p *ngIf="airport.estimatedTime" class="text-sm text-gray-500">
+                {{ 'TRANSPORT.TIME' | translate }}
+              </p>
+              <p *ngIf="airport.estimatedTime" class="font-medium">
+                {{ airport.estimatedTime | translate }}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
     </mat-card-content>
   </mat-card>
   
   <!-- Train Stations Section -->
-  <mat-card class="mb-6">
-    <mat-card-header>
-      <mat-icon mat-card-avatar>train</mat-icon>
+  <mat-card *ngIf="trainStations && trainStations.length > 0" class="mb-6 overflow-hidden">
+    <mat-card-header class="bg-primary bg-opacity-5 p-4">
+      <mat-icon svgIcon="mat:train" mat-card-avatar class="text-primary"></mat-icon>
       <mat-card-title>{{ 'TRANSPORT.TRAIN_STATIONS.TITLE' | translate }}</mat-card-title>
-      <mat-card-subtitle>{{ 'TRANSPORT.TRAIN_STATIONS.SUBTITLE' | translate }}</mat-card-subtitle>
     </mat-card-header>
-    <mat-card-content>
-      <mat-list>
-        <ng-container *ngFor="let station of trainStations; let last = last">
-          <mat-list-item>
-            <div class="flex w-full justify-between items-center flex-wrap md:flex-nowrap">
+    <mat-card-content class="p-0">
+      <div class="divide-y">
+        <div *ngFor="let station of trainStations" class="p-4 hover:bg-gray-50">
+          <div class="flex flex-col md:flex-row md:justify-between md:items-center gap-3">
+            <div class="flex items-start gap-3">
+              <mat-icon svgIcon="mat:train" class="text-primary mt-1 hidden sm:block"></mat-icon>
               <div>
-                <h3 class="font-medium">{{ station.name | translate }}</h3>
-                <p class="text-gray-600">{{ 'TRANSPORT.DISTANCE' | translate }}: {{ station.distance | translate }}</p>
-              </div>
-              <div class="text-end">
-                <p class="text-primary">{{ 'TRANSPORT.BUDGET' | translate }}: {{ station.estimatedBudget | translate }}</p>
-                <p>{{ 'TRANSPORT.TIME' | translate }}: {{ station.estimatedTime | translate }}</p>
+                <h3 class="font-normal">{{ station.name | translate }}</h3>
+                <a *ngIf="station.distance" 
+                   (click)="openDirectionsTo(station.name)" 
+                   class="text-gray-600 mt-1 flex items-center cursor-pointer hover:text-primary">
+                  <mat-icon svgIcon="mat:directions" class="text-sm me-1"></mat-icon>
+                  {{ 'TRANSPORT.DISTANCE' | translate }}: {{ station.distance | translate }}
+                </a>
               </div>
             </div>
-          </mat-list-item>
-          <mat-divider *ngIf="!last"></mat-divider>
-        </ng-container>
-      </mat-list>
+            <div class="flex flex-col gap-2 text-end">
+              <p *ngIf="station.estimatedBudget" class="text-sm text-gray-500">
+                {{ 'TRANSPORT.BUDGET' | translate }}
+              </p>
+              <p *ngIf="station.estimatedBudget" class="text-primary font-medium">
+                {{ station.estimatedBudget | translate }}
+              </p>
+              <p *ngIf="station.estimatedTime" class="text-sm text-gray-500">
+                {{ 'TRANSPORT.TIME' | translate }}
+              </p>
+              <p *ngIf="station.estimatedTime" class="font-medium">
+                {{ station.estimatedTime | translate }}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
     </mat-card-content>
   </mat-card>
   
   <!-- Bus Stops Section -->
-  <mat-card class="mb-6">
-    <mat-card-header>
-      <mat-icon mat-card-avatar>directions_bus</mat-icon>
+  <mat-card *ngIf="busStops && busStops.length > 0" class="mb-6 overflow-hidden">
+    <mat-card-header class="bg-primary bg-opacity-5 p-4">
+      <mat-icon svgIcon="mat:directions_bus" mat-card-avatar class="text-primary"></mat-icon>
       <mat-card-title>{{ 'TRANSPORT.BUS_STOPS.TITLE' | translate }}</mat-card-title>
-      <mat-card-subtitle>{{ 'TRANSPORT.BUS_STOPS.SUBTITLE' | translate }}</mat-card-subtitle>
     </mat-card-header>
-    <mat-card-content>
-      <mat-list>
-        <ng-container *ngFor="let stop of busStops; let last = last">
-          <mat-list-item>
-            <div class="flex w-full justify-between items-center flex-wrap md:flex-nowrap">
+    <mat-card-content class="p-0">
+      <div class="divide-y">
+        <div *ngFor="let stop of busStops" class="p-4 hover:bg-gray-50">
+          <div class="flex flex-col md:flex-row md:justify-between md:items-center gap-3">
+            <div class="flex items-start gap-3">
+              <mat-icon svgIcon="mat:directions_bus" class="text-primary mt-1 hidden sm:block"></mat-icon>
               <div>
-                <h3 class="font-medium">{{ stop.name | translate }}</h3>
-                <p class="text-gray-600">{{ 'TRANSPORT.DISTANCE' | translate }}: {{ stop.distance | translate }}</p>
-              </div>
-              <div class="text-end">
-                <p class="text-primary">{{ 'TRANSPORT.BUDGET' | translate }}: {{ stop.estimatedBudget | translate }}</p>
-                <p>{{ 'TRANSPORT.TIME' | translate }}: {{ stop.estimatedTime | translate }}</p>
+                <h3 class="font-normal">{{ stop.name | translate }}</h3>
+                <a *ngIf="stop.distance" 
+                   (click)="openDirectionsTo(stop.name)" 
+                   class="text-gray-600 mt-1 flex items-center cursor-pointer hover:text-primary">
+                  <mat-icon svgIcon="mat:directions" class="text-sm me-1"></mat-icon>
+                  {{ 'TRANSPORT.DISTANCE' | translate }}: {{ stop.distance | translate }}
+                </a>
               </div>
             </div>
-          </mat-list-item>
-          <mat-divider *ngIf="!last"></mat-divider>
-        </ng-container>
-      </mat-list>
+            <div class="flex flex-col gap-2 text-end">
+              <p *ngIf="stop.estimatedBudget" class="text-sm text-gray-500">
+                {{ 'TRANSPORT.BUDGET' | translate }}
+              </p>
+              <p *ngIf="stop.estimatedBudget" class="text-primary font-medium">
+                {{ stop.estimatedBudget | translate }}
+              </p>
+              <p *ngIf="stop.estimatedTime" class="text-sm text-gray-500">
+                {{ 'TRANSPORT.TIME' | translate }}
+              </p>
+              <p *ngIf="stop.estimatedTime" class="font-medium">
+                {{ stop.estimatedTime | translate }}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
     </mat-card-content>
   </mat-card>
   
   <!-- Transport Apps Section -->
-  <mat-card class="mb-6">
-    <mat-card-header>
-      <mat-icon mat-card-avatar>smartphone</mat-icon>
+  <mat-card *ngIf="transportApps && transportApps.length > 0" class="mb-6 overflow-hidden">
+    <mat-card-header class="bg-primary bg-opacity-5 p-4">
+      <mat-icon svgIcon="mat:smartphone" mat-card-avatar class="text-primary"></mat-icon>
       <mat-card-title>{{ 'TRANSPORT.APPS.TITLE' | translate }}</mat-card-title>
-      <mat-card-subtitle>{{ 'TRANSPORT.APPS.SUBTITLE' | translate }}</mat-card-subtitle>
     </mat-card-header>
-    <mat-card-content>
-      <mat-list>
-        <ng-container *ngFor="let app of transportApps; let last = last">
-          <mat-list-item>
-            <div class="flex w-full justify-between items-center flex-wrap md:flex-nowrap">
+    <mat-card-content class="p-0">
+      <div class="divide-y">
+        <div *ngFor="let app of transportApps" class="p-4 hover:bg-gray-50">
+          <div class="flex flex-col md:flex-row md:justify-between md:items-center gap-3">
+            <div class="flex items-start gap-3">
+              <mat-icon svgIcon="mat:smartphone" class="text-primary mt-1 hidden sm:block"></mat-icon>
               <div>
-                <h3 class="font-medium">{{ app.name | translate }}</h3>
-              </div>
-              <div class="text-end">
-                <p class="text-primary">{{ 'TRANSPORT.BUDGET' | translate }}: {{ app.estimatedBudget | translate }}</p>
-                <p>{{ 'TRANSPORT.TIME' | translate }}: {{ app.estimatedTime | translate }}</p>
+                <h3 class="font-normal">{{ app.name | translate }}</h3>
               </div>
             </div>
-          </mat-list-item>
-          <mat-divider *ngIf="!last"></mat-divider>
-        </ng-container>
-      </mat-list>
+            <div class="flex flex-col gap-2 text-end">
+              <p *ngIf="app.estimatedBudget" class="text-sm text-gray-500">
+                {{ 'TRANSPORT.BUDGET' | translate }}
+              </p>
+              <p *ngIf="app.estimatedBudget" class="text-primary font-medium">
+                {{ app.estimatedBudget | translate }}
+              </p>
+              <p *ngIf="app.estimatedTime" class="text-sm text-gray-500">
+                {{ 'TRANSPORT.TIME' | translate }}
+              </p>
+              <p *ngIf="app.estimatedTime" class="font-medium">
+                {{ app.estimatedTime | translate }}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
     </mat-card-content>
   </mat-card>
   
   <!-- Taxi Contacts Section -->
-  <mat-card class="mb-6">
-    <mat-card-header>
-      <mat-icon mat-card-avatar>local_taxi</mat-icon>
+  <mat-card *ngIf="taxiContacts && taxiContacts.length > 0" class="mb-6 overflow-hidden">
+    <mat-card-header class="bg-primary bg-opacity-5 p-4">
+      <mat-icon svgIcon="mat:local_taxi" mat-card-avatar class="text-primary"></mat-icon>
       <mat-card-title>{{ 'TRANSPORT.TAXI.TITLE' | translate }}</mat-card-title>
-      <mat-card-subtitle>{{ 'TRANSPORT.TAXI.SUBTITLE' | translate }}</mat-card-subtitle>
     </mat-card-header>
-    <mat-card-content>
-      <mat-list>
-        <ng-container *ngFor="let contact of taxiContacts; let last = last">
-          <mat-list-item>
-            <div class="flex w-full justify-between items-center flex-wrap md:flex-nowrap">
+    <mat-card-content class="p-0">
+      <div class="divide-y">
+        <div *ngFor="let contact of taxiContacts" class="p-4 hover:bg-gray-50">
+          <div class="flex flex-col sm:flex-row justify-between items-start gap-3">
+            <div class="flex items-start gap-3">
+              <mat-icon svgIcon="mat:local_taxi" class="text-primary mt-1 hidden sm:block"></mat-icon>
               <div>
-                <h3 class="font-medium">{{ contact.name | translate }}</h3>
-                <p class="text-gray-600">
-                  <mat-icon class="text-sm align-middle">phone</mat-icon> {{ contact.phone | translate }}
+                <h3 class="font-normal">{{ contact.name | translate }}</h3>
+                <p *ngIf="contact.phone" class="mt-2 flex items-center text-gray-700">
+                  <mat-icon svgIcon="mat:phone" class="text-primary text-sm me-2"></mat-icon>
+                  {{ contact.phone | translate }}
                 </p>
-                <p class="text-yellow-600">
-                  <mat-icon class="text-sm align-middle">star</mat-icon> {{ contact.rating }}/5
-                </p>
-                <div class="mt-1">
-                  <span *ngFor="let lang of contact.languages" class="text-xs me-2 px-2 py-1 bg-gray-200 rounded-full">
-                    {{ lang | translate }}
-                  </span>
+                <div *ngIf="contact.rating" class="mt-2 flex items-center">
+                  <mat-icon svgIcon="mat:star" class="text-yellow-600 me-1"></mat-icon>
+                  {{ contact.rating }}/5
                 </div>
               </div>
             </div>
-          </mat-list-item>
-          <mat-divider *ngIf="!last"></mat-divider>
-        </ng-container>
-      </mat-list>
+            <div *ngIf="contact.languages && contact.languages.length > 0" class="bg-gray-50 rounded p-3 w-full sm:w-auto">
+              <p class="mb-2 text-sm text-gray-500">{{ 'COMMON.LANGUAGES_SPOKEN' | translate }}:</p>
+              <div class="flex flex-wrap gap-2">
+                <span *ngFor="let lang of contact.languages" 
+                      class="inline-flex items-center px-2 py-1 rounded-full text-xs bg-primary bg-opacity-10 text-primary">
+                  {{ lang | translate }}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </mat-card-content>
-    <mat-card-actions class="p-4">
-      <button mat-raised-button color="primary" (click)="bookRide()" class="w-full">
+    <mat-card-actions class="p-4 bg-gray-50">
+      <button mat-raised-button color="primary" (click)="bookRide()" class="w-full sm:w-auto px-4 py-2">
+        <mat-icon svgIcon="mat:taxi_alert" class="me-2"></mat-icon>
         {{ 'TRANSPORT.BOOKING.BUTTON' | translate }}
       </button>
     </mat-card-actions>
