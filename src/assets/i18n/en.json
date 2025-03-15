@@ -254,5 +254,91 @@
       "RATE": "Free",
       "DESCRIPTION": "Public parking available on the street adjacent to the residence. Not guarded, spots not guaranteed based on availability."
     }
+  },
+  "RULES": {
+    "TITLE": "House Rules",
+    "IMPORTANT_RULES": "Important Rules",
+    "CATEGORIES": {
+      "GENERAL": "General",
+      "SAFETY": "Safety",
+      "NOISE": "Noise",
+      "CLEANLINESS": "Cleanliness",
+      "PETS": "Pets",
+      "SMOKING": "Smoking",
+      "EVENTS": "Events",
+      "OTHER": "Other"
+    },
+    "NO_RULES": {
+      "TITLE": "No Rules Available",
+      "MESSAGE": "No house rules have been defined for this property yet."
+    },
+    "NOTES": {
+      "TITLE": "Important Note",
+      "DESCRIPTION": "Please respect these rules during your stay to ensure a pleasant experience for everyone.\nIf you have any questions or need assistance, please don't hesitate to contact the reception at any time."
+    },
+    "GENERAL": {
+      "CHECK_IN_OUT": {
+        "TITLE": "Check-in and Check-out Times",
+        "DESCRIPTION": "Check-in between 3PM and 8PM. Check-out before 11AM. Please inform us in advance for late arrivals."
+      },
+      "BREAKFAST": {
+        "TITLE": "Breakfast",
+        "DESCRIPTION": "Breakfast is served from 7AM to 10AM in the dining room.\nIf you need an earlier breakfast, please let us know the day before.\nVegetarian and gluten-free options are available upon request."
+      },
+      "WIFI": {
+        "TITLE": "Wi-Fi",
+        "DESCRIPTION": "Free Wi-Fi is available throughout the property.\nThe network name and password are available at reception and in your room information booklet."
+      }
+    },
+    "NOISE": {
+      "QUIET_HOURS": {
+        "TITLE": "Quiet Hours",
+        "DESCRIPTION": "Please maintain quiet hours between 10PM and 8AM for the comfort of all residents."
+      }
+    },
+    "SMOKING": {
+      "NON_SMOKING": {
+        "TITLE": "No Smoking Policy",
+        "DESCRIPTION": "Smoking is strictly prohibited inside the property. Designated smoking areas are available outside."
+      }
+    },
+    "PETS": {
+      "PET_POLICY": {
+        "TITLE": "Pet Policy",
+        "DESCRIPTION": "Pets are allowed with prior approval. Additional fees may apply."
+      }
+    },
+    "CLEANLINESS": {
+      "TRASH": {
+        "TITLE": "Waste Management",
+        "DESCRIPTION": "Please sort your waste and dispose of it in the appropriate containers located outside the building."
+      },
+      "ROOM_CLEANING": {
+        "TITLE": "Room Cleaning",
+        "DESCRIPTION": "Cleaning service is available daily between 10AM and 2PM.\nPlease use the 'Do Not Disturb' sign if you do not wish to be disturbed.\nAdditional cleaning can be requested for an extra fee."
+      }
+    },
+    "EVENTS": {
+      "NO_PARTIES": {
+        "TITLE": "No Parties",
+        "DESCRIPTION": "Parties and loud events are not allowed without prior authorization."
+      }
+    },
+    "SAFETY": {
+      "FIRE_SAFETY": {
+        "TITLE": "Fire Safety",
+        "DESCRIPTION": "Please familiarize yourself with emergency exits and fire extinguisher locations. Never leave lit candles unattended."
+      },
+      "EMERGENCY_EXITS": {
+        "TITLE": "Emergency Exits",
+        "DESCRIPTION": "Evacuation plans are posted on your room door.\nIn case of emergency, follow staff instructions and proceed to the indicated exits.\nThe assembly point is located in the main garden."
+      }
+    },
+    "OTHER": {
+      "POOL_RULES": {
+        "TITLE": "Pool Rules",
+        "DESCRIPTION": "The pool is open from 9AM to 8PM. Children must be supervised at all times. Shower is mandatory before entering the water."
+      }
+    }
   }
 }

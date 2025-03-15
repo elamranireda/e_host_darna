@@ -15,6 +15,72 @@
         "latitude": 33.5731,
         "longitude": -7.5898
       },
+      "houseRules": [
+        {
+          "id": "rule-1",
+          "category": "general",
+          "title": "RULES.GENERAL.CHECK_IN_OUT.TITLE",
+          "description": "RULES.GENERAL.CHECK_IN_OUT.DESCRIPTION",
+          "icon": "schedule",
+          "isImportant": true
+        },
+        {
+          "id": "rule-2",
+          "category": "noise",
+          "title": "RULES.NOISE.QUIET_HOURS.TITLE",
+          "description": "RULES.NOISE.QUIET_HOURS.DESCRIPTION",
+          "icon": "volume_off",
+          "isImportant": true
+        },
+        {
+          "id": "rule-3",
+          "category": "smoking",
+          "title": "RULES.SMOKING.NON_SMOKING.TITLE",
+          "description": "RULES.SMOKING.NON_SMOKING.DESCRIPTION",
+          "icon": "smoke_free",
+          "isImportant": true
+        },
+        {
+          "id": "rule-4",
+          "category": "pets",
+          "title": "RULES.PETS.PET_POLICY.TITLE",
+          "description": "RULES.PETS.PET_POLICY.DESCRIPTION",
+          "icon": "pets",
+          "isImportant": false
+        },
+        {
+          "id": "rule-5",
+          "category": "cleanliness",
+          "title": "RULES.CLEANLINESS.TRASH.TITLE",
+          "description": "RULES.CLEANLINESS.TRASH.DESCRIPTION",
+          "icon": "delete",
+          "isImportant": false
+        },
+        {
+          "id": "rule-6",
+          "category": "events",
+          "title": "RULES.EVENTS.NO_PARTIES.TITLE",
+          "description": "RULES.EVENTS.NO_PARTIES.DESCRIPTION",
+          "icon": "celebration",
+          "isImportant": true
+        },
+        {
+          "id": "rule-7",
+          "category": "safety",
+          "title": "RULES.SAFETY.FIRE_SAFETY.TITLE",
+          "description": "RULES.SAFETY.FIRE_SAFETY.DESCRIPTION",
+          "icon": "local_fire_department",
+          "isImportant": false
+        },
+        {
+          "id": "rule-8",
+          "category": "other",
+          "title": "RULES.OTHER.POOL_RULES.TITLE",
+          "description": "RULES.OTHER.POOL_RULES.DESCRIPTION",
+          "icon": "pool",
+          "isImportant": false
+        }
+      ],
       "itineraryInfo": {
         "coordinates": {
           "latitude": 33.5731,

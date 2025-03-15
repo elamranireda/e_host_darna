@@ -254,5 +254,91 @@
       "RATE": "Gratuit",
       "DESCRIPTION": "Stationnement public disponible dans la rue adjacente à la résidence. Non surveillé, places non garanties selon disponibilité."
     }
+  },
+  "RULES": {
+    "TITLE": "Règles de la maison",
+    "IMPORTANT_RULES": "Règles importantes",
+    "CATEGORIES": {
+      "GENERAL": "Général",
+      "SAFETY": "Sécurité",
+      "NOISE": "Bruit",
+      "CLEANLINESS": "Propreté",
+      "PETS": "Animaux",
+      "SMOKING": "Tabac",
+      "EVENTS": "Événements",
+      "OTHER": "Autres"
+    },
+    "NO_RULES": {
+      "TITLE": "Aucune règle disponible",
+      "MESSAGE": "Aucune règle n'a été définie pour cette propriété pour le moment."
+    },
+    "NOTES": {
+      "TITLE": "Note importante",
+      "DESCRIPTION": "Veuillez respecter ces règles pendant votre séjour pour assurer une expérience agréable pour tous.\nEn cas de question ou de besoin d'assistance, n'hésitez pas à contacter la réception à tout moment."
+    },
+    "GENERAL": {
+      "CHECK_IN_OUT": {
+        "TITLE": "Heures d'arrivée et de départ",
+        "DESCRIPTION": "Arrivée entre 15h et 20h. Départ avant 11h. Merci de nous informer à l'avance pour toute arrivée tardive."
+      },
+      "BREAKFAST": {
+        "TITLE": "Petit-déjeuner",
+        "DESCRIPTION": "Le petit-déjeuner est servi de 7h à 10h dans la salle à manger.\nSi vous avez besoin d'un petit-déjeuner plus tôt, veuillez nous en informer la veille.\nDes options végétariennes et sans gluten sont disponibles sur demande."
+      },
+      "WIFI": {
+        "TITLE": "Wi-Fi",
+        "DESCRIPTION": "Une connexion Wi-Fi gratuite est disponible dans tout l'établissement.\nLe nom du réseau et le mot de passe sont disponibles à la réception et dans le livret d'information de votre chambre."
+      }
+    },
+    "NOISE": {
+      "QUIET_HOURS": {
+        "TITLE": "Heures de silence",
+        "DESCRIPTION": "Veuillez respecter le silence entre 22h et 8h pour le confort de tous les résidents."
+      }
+    },
+    "SMOKING": {
+      "NON_SMOKING": {
+        "TITLE": "Interdiction de fumer",
+        "DESCRIPTION": "Il est strictement interdit de fumer à l'intérieur de la propriété. Des espaces dédiés sont disponibles à l'extérieur."
+      }
+    },
+    "PETS": {
+      "PET_POLICY": {
+        "TITLE": "Politique concernant les animaux",
+        "DESCRIPTION": "Les animaux de compagnie sont autorisés avec accord préalable. Des frais supplémentaires peuvent s'appliquer."
+      }
+    },
+    "CLEANLINESS": {
+      "TRASH": {
+        "TITLE": "Gestion des déchets",
+        "DESCRIPTION": "Veuillez trier vos déchets et les déposer dans les conteneurs appropriés situés à l'extérieur du bâtiment."
+      },
+      "ROOM_CLEANING": {
+        "TITLE": "Nettoyage des chambres",
+        "DESCRIPTION": "Le service de nettoyage est disponible tous les jours entre 10h et 14h.\nVeuillez utiliser la pancarte 'Ne pas déranger' si vous ne souhaitez pas être dérangé.\nUn nettoyage supplémentaire peut être demandé moyennant des frais supplémentaires."
+      }
+    },
+    "EVENTS": {
+      "NO_PARTIES": {
+        "TITLE": "Pas de fêtes",
+        "DESCRIPTION": "Les fêtes et événements bruyants ne sont pas autorisés sans autorisation préalable."
+      }
+    },
+    "SAFETY": {
+      "FIRE_SAFETY": {
+        "TITLE": "Sécurité incendie",
+        "DESCRIPTION": "Veuillez vous familiariser avec les issues de secours et l'emplacement des extincteurs. Ne laissez jamais de bougies allumées sans surveillance."
+      },
+      "EMERGENCY_EXITS": {
+        "TITLE": "Issues de secours",
+        "DESCRIPTION": "Les plans d'évacuation sont affichés sur la porte de votre chambre.\nEn cas d'urgence, suivez les instructions du personnel et dirigez-vous vers les sorties indiquées.\nLe point de rassemblement se trouve dans le jardin principal."
+      }
+    },
+    "OTHER": {
+      "POOL_RULES": {
+        "TITLE": "Règles de la piscine",
+        "DESCRIPTION": "La piscine est ouverte de 9h à 20h. Les enfants doivent être surveillés en permanence. Douche obligatoire avant d'entrer dans l'eau."
+      }
+    }
   }
 }

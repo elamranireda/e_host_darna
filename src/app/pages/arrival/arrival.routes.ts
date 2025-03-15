@@ -36,6 +36,13 @@ const routes: AppRoutes = [
           import('./parking/parking.component').then(
             (m) => m.ParkingComponent
           )
+      },
+      {
+        path: 'rules',
+        loadComponent: () =>
+          import('./rules/rules.component').then(
+            (m) => m.RulesComponent
+          )
       }
     ]
   }

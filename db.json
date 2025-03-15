@@ -18,6 +18,88 @@
           "latitude": "35.7633",
           "longitude": "-5.8039"
         },
+        "houseRules": [
+          {
+            "id": "rule-1",
+            "category": "general",
+            "title": "RULES.GENERAL.CHECK_IN_OUT.TITLE",
+            "description": "RULES.GENERAL.CHECK_IN_OUT.DESCRIPTION",
+            "icon": "schedule",
+            "isImportant": true
+          },
+          {
+            "id": "rule-2",
+            "category": "noise",
+            "title": "RULES.NOISE.QUIET_HOURS.TITLE",
+            "description": "RULES.NOISE.QUIET_HOURS.DESCRIPTION",
+            "icon": "volume_off",
+            "isImportant": true
+          },
+          {
+            "id": "rule-3",
+            "category": "smoking",
+            "title": "RULES.SMOKING.NON_SMOKING.TITLE",
+            "description": "RULES.SMOKING.NON_SMOKING.DESCRIPTION",
+            "icon": "smoke_free",
+            "isImportant": true
+          },
+          {
+            "id": "rule-4",
+            "category": "pets",
+            "title": "RULES.PETS.PET_POLICY.TITLE",
+            "description": "RULES.PETS.PET_POLICY.DESCRIPTION",
+            "icon": "pets",
+            "isImportant": false
+          },
+          {
+            "id": "rule-5",
+            "category": "cleanliness",
+            "title": "RULES.CLEANLINESS.ROOM_CLEANING.TITLE",
+            "description": "RULES.CLEANLINESS.ROOM_CLEANING.DESCRIPTION",
+            "icon": "cleaning_services",
+            "isImportant": false
+          },
+          {
+            "id": "rule-6",
+            "category": "events",
+            "title": "RULES.EVENTS.NO_PARTIES.TITLE",
+            "description": "RULES.EVENTS.NO_PARTIES.DESCRIPTION",
+            "icon": "celebration",
+            "isImportant": true
+          },
+          {
+            "id": "rule-7",
+            "category": "safety",
+            "title": "RULES.SAFETY.FIRE_SAFETY.TITLE",
+            "description": "RULES.SAFETY.FIRE_SAFETY.DESCRIPTION",
+            "icon": "local_fire_department",
+            "isImportant": false
+          },
+          {
+            "id": "rule-8",
+            "category": "safety",
+            "title": "RULES.SAFETY.EMERGENCY_EXITS.TITLE",
+            "description": "RULES.SAFETY.EMERGENCY_EXITS.DESCRIPTION",
+            "icon": "exit_to_app",
+            "isImportant": false
+          },
+          {
+            "id": "rule-9",
+            "category": "general",
+            "title": "RULES.GENERAL.BREAKFAST.TITLE",
+            "description": "RULES.GENERAL.BREAKFAST.DESCRIPTION",
+            "icon": "restaurant",
+            "isImportant": false
+          },
+          {
+            "id": "rule-10",
+            "category": "general",
+            "title": "RULES.GENERAL.WIFI.TITLE",
+            "description": "RULES.GENERAL.WIFI.DESCRIPTION",
+            "icon": "wifi",
+            "isImportant": false
+          }
+        ],
         "itineraryInfo": {
           "coordinates": {
             "latitude": 35.7633,
