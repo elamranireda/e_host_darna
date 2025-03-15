@@ -1,0 +1,296 @@
+// Variables
+$primary-color: #3f51b5;
+$error-color: #f44336;
+$card-bg-color: #ffffff;
+$border-radius: 8px;
+$box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+$spacing-unit: 16px;
+
+// Styles généraux
+.late-arrival-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: $spacing-unit;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-unit;
+}
+
+// En-tête de section
+.section-header {
+  margin-bottom: calc($spacing-unit * 1.5);
+  
+  h1 {
+    font-size: 1.8rem;
+    font-weight: 500;
+    margin-bottom: calc($spacing-unit / 2);
+    color: $primary-color;
+  }
+  
+  p {
+    font-size: 1rem;
+    color: rgba(0, 0, 0, 0.6);
+    max-width: 700px;
+  }
+}
+
+// Conteneur des instructions
+.instructions-container {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-unit;
+}
+
+// Carte d'instruction
+.instruction-card {
+  border-radius: $border-radius;
+  background-color: $card-bg-color;
+  box-shadow: $box-shadow;
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+  
+  // En-tête de l'instruction
+  .instruction-header {
+    display: flex;
+    align-items: center;
+    padding: $spacing-unit;
+    background-color: rgba($primary-color, 0.05);
+    border-bottom: 1px solid rgba($primary-color, 0.1);
+    
+    .instruction-icon {
+      font-size: 24px;
+      height: 24px;
+      width: 24px;
+      margin-right: $spacing-unit;
+      color: $primary-color;
+    }
+    
+    .instruction-title {
+      flex: 1;
+      
+      h2 {
+        font-size: 1.2rem;
+        font-weight: 500;
+        margin: 0;
+        padding: 0;
+      }
+      
+      .instruction-type {
+        font-size: 0.85rem;
+        color: rgba(0, 0, 0, 0.6);
+        margin: 4px 0 0 0;
+      }
+    }
+  }
+  
+  // Contenu de l'instruction
+  mat-card-content {
+    padding: $spacing-unit;
+    
+    .instruction-description {
+      font-size: 1rem;
+      line-height: 1.5;
+      margin: 0 0 $spacing-unit 0;
+      color: rgba(0, 0, 0, 0.87);
+    }
+    
+    .whitespace-pre-line {
+      white-space: pre-line;
+    }
+    
+    // Séparateur
+    mat-divider {
+      margin: $spacing-unit 0;
+    }
+    
+    // Infos de contact
+    .contact-info, .hours-info {
+      p {
+        display: flex;
+        align-items: center;
+        margin: calc($spacing-unit / 2) 0;
+        
+        mat-icon {
+          font-size: 18px;
+          height: 18px;
+          width: 18px;
+          margin-right: calc($spacing-unit / 2);
+          color: rgba(0, 0, 0, 0.6);
+        }
+      }
+    }
+    
+    .phone-number {
+      display: flex;
+      align-items: center;
+      
+      span {
+        flex: 1;
+      }
+      
+      .call-btn {
+        margin-left: calc($spacing-unit / 2);
+      }
+    }
+  }
+}
+
+// État de chargement
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: calc($spacing-unit * 4);
+  gap: $spacing-unit;
+  
+  p {
+    margin-top: $spacing-unit;
+    color: rgba(0, 0, 0, 0.6);
+  }
+}
+
+// État d'erreur
+.error-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: calc($spacing-unit * 2);
+  
+  .error-content {
+    text-align: center;
+    max-width: 500px;
+    
+    .error-icon {
+      font-size: 48px;
+      height: 48px;
+      width: 48px;
+      color: $error-color;
+      margin-bottom: $spacing-unit;
+    }
+    
+    h2 {
+      font-size: 1.5rem;
+      margin-bottom: calc($spacing-unit / 2);
+    }
+    
+    p {
+      margin-bottom: $spacing-unit;
+      color: rgba(0, 0, 0, 0.6);
+    }
+    
+    .retry-btn {
+      margin-top: $spacing-unit;
+    }
+  }
+}
+
+// Absence de données
+.no-data-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.02);
+  border-radius: $border-radius;
+  padding: calc($spacing-unit * 3);
+  text-align: center;
+  
+  .no-data-icon {
+    font-size: 48px;
+    height: 48px;
+    width: 48px;
+    color: rgba(0, 0, 0, 0.3);
+    margin-bottom: $spacing-unit;
+  }
+  
+  p {
+    color: rgba(0, 0, 0, 0.6);
+    max-width: 400px;
+  }
+}
+
+// Adaptations pour le mode RTL
+[dir="rtl"] {
+  .instruction-header {
+    .instruction-icon {
+      margin-right: 0;
+      margin-left: $spacing-unit;
+    }
+  }
+  
+  mat-card-content {
+    p {
+      mat-icon {
+        margin-right: 0;
+        margin-left: calc($spacing-unit / 2);
+      }
+    }
+    
+    .phone-number {
+      .call-btn {
+        margin-left: 0;
+        margin-right: calc($spacing-unit / 2);
+      }
+    }
+  }
+}
+
+// Adaptations mobiles
+@media (max-width: 768px) {
+  .section-header {
+    h1 {
+      font-size: 1.5rem;
+    }
+  }
+  
+  .instruction-card {
+    .instruction-header {
+      .instruction-title {
+        h2 {
+          font-size: 1.1rem;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .late-arrival-container {
+    padding: calc($spacing-unit / 2);
+  }
+  
+  .section-header {
+    h1 {
+      font-size: 1.3rem;
+    }
+  }
+  
+  .instruction-card {
+    .instruction-header {
+      padding: calc($spacing-unit / 1.5);
+      
+      .instruction-icon {
+        font-size: 20px;
+        height: 20px;
+        width: 20px;
+      }
+      
+      .instruction-title {
+        h2 {
+          font-size: 1rem;
+        }
+      }
+    }
+    
+    mat-card-content {
+      padding: calc($spacing-unit / 1.5);
+    }
+  }
+} 

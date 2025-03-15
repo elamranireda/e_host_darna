@@ -1,0 +1,82 @@
+<div class="late-arrival-container" *ngIf="propertyStore.loading() === false">
+  <!-- État d'erreur -->
+  <div class="error-container" *ngIf="hasError">
+    <div class="error-content">
+      <mat-icon class="error-icon">error_outline</mat-icon>
+      <h2>{{ 'COMMON.ERROR.TITLE' | translate }}</h2>
+      <p>{{ 'COMMON.ERROR.MESSAGE' | translate }}</p>
+      <button mat-raised-button color="primary" (click)="retryOperation()" class="retry-btn">
+        <mat-icon>refresh</mat-icon>
+        {{ 'COMMON.ERROR.RETRY' | translate }}
+      </button>
+    </div>
+  </div>
+
+  <!-- Contenu principal (affiché uniquement s'il n'y a pas d'erreur) -->
+  <div class="content-container" *ngIf="!hasError">
+    <div class="section-header">
+      <h1>{{ 'LATE_ARRIVAL.TITLE' | translate }}</h1>
+      <p>{{ 'LATE_ARRIVAL.SUBTITLE' | translate }}</p>
+    </div>
+
+    <!-- Instructions d'arrivée tardive -->
+    <ng-container *ngIf="hasInstructions(); else noInstructions">
+      <div class="instructions-container">
+        <mat-card class="instruction-card" *ngFor="let instruction of getLateArrivalInstructions()">
+          <div class="instruction-header">
+            <mat-icon svgIcon="mat:{{ instruction.icon || getIconForInstructionType(instruction.type) }}" class="instruction-icon"></mat-icon>
+            <div class="instruction-title">
+              <h2>{{ instruction.title }}</h2>
+              <p class="instruction-type">{{ getInstructionTypeName(instruction.type) }}</p>
+            </div>
+          </div>
+          
+          <mat-card-content>
+            <p class="instruction-description whitespace-pre-line">{{ instruction.description }}</p>
+            
+            <!-- Contact information -->
+            <div class="contact-info" *ngIf="instruction.contactName || instruction.contactPhone">
+              <mat-divider></mat-divider>
+              <div class="contact-details">
+                <p *ngIf="instruction.contactName">
+                  <mat-icon svgIcon="mat:person"></mat-icon>
+                  <span>{{ instruction.contactName }}</span>
+                </p>
+                <p *ngIf="instruction.contactPhone" class="phone-number">
+                  <mat-icon svgIcon="mat:phone"></mat-icon>
+                  <span>{{ instruction.contactPhone }}</span>
+                  <button mat-icon-button color="primary" (click)="callContact(instruction.contactPhone)" class="call-btn">
+                    <mat-icon svgIcon="mat:call"></mat-icon>
+                  </button>
+                </p>
+              </div>
+            </div>
+            
+            <!-- Hours information -->
+            <div class="hours-info" *ngIf="instruction.hours">
+              <mat-divider></mat-divider>
+              <p>
+                <mat-icon svgIcon="mat:schedule"></mat-icon>
+                <span>{{ instruction.hours }}</span>
+              </p>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </ng-container>
+
+    <!-- Message s'il n'y a pas d'instructions -->
+    <ng-template #noInstructions>
+      <div class="no-data-container">
+        <mat-icon svgIcon="mat:info" class="no-data-icon"></mat-icon>
+        <p>{{ 'LATE_ARRIVAL.NO_INSTRUCTIONS' | translate }}</p>
+      </div>
+    </ng-template>
+  </div>
+</div>
+
+<!-- État de chargement -->
+<div class="loading-container" *ngIf="propertyStore.loading()">
+  <mat-spinner diameter="40"></mat-spinner>
+  <p>{{ 'COMMON.LOADING' | translate }}</p>
+</div> 

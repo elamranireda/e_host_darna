@@ -43,6 +43,13 @@ const routes: AppRoutes = [
           import('./rules/rules.component').then(
             (m) => m.RulesComponent
           )
+      },
+      {
+        path: 'late-arrival',
+        loadComponent: () =>
+          import('./late_arrival/late-arrival.component').then(
+            (m) => m.LateArrivalComponent
+          )
       }
     ]
   }

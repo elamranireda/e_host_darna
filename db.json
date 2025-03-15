@@ -18,6 +18,53 @@
           "latitude": "35.7633",
           "longitude": "-5.8039"
         },
+        "lateArrivalInstructions": [
+          {
+            "id": "late-arrival-1",
+            "type": "key",
+            "title": "Réception 24h/24",
+            "description": "Notre réception est ouverte 24h/24 et 7j/7. Présentez-vous simplement à l'accueil avec votre pièce d'identité et votre numéro de réservation pour obtenir votre clé.",
+            "priority": 1,
+            "icon": "key"
+          },
+          {
+            "id": "late-arrival-2",
+            "type": "contact",
+            "title": "Concierge de nuit",
+            "description": "Pour les arrivées entre 22h et 6h du matin, un concierge de nuit est présent à l'entrée latérale de l'hôtel (côté marina).",
+            "contactName": "Service de conciergerie nocturne",
+            "contactPhone": "+212 661-234567",
+            "hours": "22h00 - 06h00",
+            "priority": 2,
+            "icon": "contact_phone"
+          },
+          {
+            "id": "late-arrival-3",
+            "type": "smartlock",
+            "title": "Application mobile de l'hôtel",
+            "description": "Vous pouvez utiliser notre application mobile pour effectuer un check-in express et déverrouiller directement la porte de votre chambre.\n\nTéléchargez l'application 'Luxe Marina' sur App Store ou Google Play et connectez-vous avec les identifiants qui vous ont été envoyés par email.",
+            "priority": 3,
+            "icon": "phonelink_lock"
+          },
+          {
+            "id": "late-arrival-4",
+            "type": "meetandgreet",
+            "title": "Service VIP d'accueil",
+            "description": "Pour une arrivée sans stress, vous pouvez réserver notre service d'accueil VIP (à partir de 50€). Un membre de notre équipe vous attendra à l'aéroport ou à la gare et s'occupera de votre transfert et de votre enregistrement.",
+            "contactName": "Service client VIP",
+            "contactPhone": "+212 662-345678",
+            "priority": 4,
+            "icon": "handshake"
+          },
+          {
+            "id": "late-arrival-5",
+            "type": "other",
+            "title": "Informations pratiques",
+            "description": "Le parking souterrain de l'hôtel est accessible 24h/24 avec votre code de réservation.\n\nPour les arrivées tardives, un menu léger est disponible en room service jusqu'à 2h du matin.\n\nLe Wi-Fi est disponible dans tout l'hôtel avec le code d'accès : LuxeMarina2023",
+            "priority": 5,
+            "icon": "info"
+          }
+        ],
         "houseRules": [
           {
             "id": "rule-1",
@@ -349,109 +396,142 @@
           "checkInStart": "15:00",
           "checkInEnd": "20:00",
           "checkOutTime": "10:00",
-          "accessInstructions": {
-            "title": "Instructions d'accès - Villa",
-            "status": "PENDING",
-            "messages": {
-              "title": "Bienvenue à la Villa Oceania!",
-              "subtitle": "Voici comment accéder à votre location de vacances en toute autonomie.",
-              "items": [
-                {
-                  "order": 1,
-                  "value": "La villa est équipée d'une key box sécurisée pour récupérer les clés"
-                },
-                {
-                  "order": 2,
-                  "value": "Veuillez respecter les heures d'arrivée et de départ"
-                }
-              ]
+          "accessInstructions": [
+            {
+              "type": "keycode",
+              "description": "Code d'accès portail principal",
+              "details": "Le portail principal de la villa peut être ouvert avec le code 5678. Ce code est valable pendant toute la durée de votre séjour.",
+              "priority": 1
             },
-            "documents": [
-              {
-                "label": "Pièce d'identité",
-                "documentType": "CNI",
-                "status": "PENDING"
-              }
-            ],
-            "instructions": [
-              {
-                "step": 1,
-                "title": "Accès à la Propriété",
-                "description": "<h4>La villa est située dans un domaine privé avec un gardien à l'entrée</h4><p>Présentez-vous à l'entrée du domaine 'Les Jardins de Malabata' et donnez le code #2468 au gardien pour qu'il vous laisse entrer.</p>",
-                "videoUrl": "https://player.vimeo.com/video/253905163",
-                "list": ["Code d'accès domaine: 2468", "Le gardien est présent 24h/24"],
-                "type": "ARRIVAL_INSTRUCTION"
-              },
-              {
-                "step": 2,
-                "title": "Récupération des Clés",
-                "description": "Vous trouverez une key box sécurisée à droite de la porte d'entrée principale. Utilisez le code ci-dessous pour l'ouvrir et récupérer les clés de la villa.",
-                "videoUrl": "https://player.vimeo.com/video/253905164",
-                "methodType": "KEY_BOX",
-                "codeAccess": {
-                  "code": "3579",
-                  "expiresAt": "2023-12-31T23:59:59Z",
-                  "status": "ACTIVE"
-                },
-                "images": ["assets/img/demo/landscape.webp"],
-                "type": "ACCESS_MODE"
-              },
-              {
-                "step": 3,
-                "title": "Accès à la Piscine",
-                "description": "La piscine privée se trouve à l'arrière de la villa. Pour activer l'éclairage et le chauffage, utilisez le panneau de contrôle situé près de la cuisine extérieure.",
-                "images": ["assets/img/demo/landscape.webp", "assets/img/demo/landscape.webp"],
-                "type": "ARRIVAL_INSTRUCTION"
-              }
-            ],
-            "checkinContacts": [
+            {
+              "type": "key",
+              "description": "Boîte à clés sécurisée",
+              "details": "La clé de la villa se trouve dans une boîte à clés sécurisée située à droite de la porte d'entrée principale.\n\nPour l'ouvrir, utilisez le code à 4 chiffres qui vous a été envoyé par SMS le jour de votre arrivée.",
+              "priority": 2
+            },
+            {
+              "type": "contact",
+              "description": "Gardien sur place",
+              "details": "En cas de difficulté pour accéder à la villa, notre gardien habite dans la maison adjacente et peut vous aider à toute heure.",
+              "contactName": "Ahmed",
+              "contactPhone": "+212 661-987654",
+              "hours": "Disponible 24h/24",
+              "priority": 3
+            },
+            {
+              "type": "smartlock",
+              "description": "Application mobile pour accès",
+              "details": "Vous pouvez également utiliser notre application mobile 'Villa Connect' pour déverrouiller la porte principale.\n\nTéléchargez l'application sur votre smartphone et utilisez les identifiants fournis dans votre email de confirmation.",
+              "priority": 4
+            },
+            {
+              "type": "other",
+              "description": "Informations pratiques pour arrivée tardive",
+              "details": "- Une lumière extérieure à détecteur de mouvement s'allumera automatiquement à votre arrivée\n- Des bouteilles d'eau et une collation légère vous attendent dans la cuisine\n- Le chauffage/climatisation est préréglé pour votre confort\n- Un classeur avec toutes les informations sur la villa se trouve sur la table du salon",
+              "priority": 5
+            }
+          ],
+          "title": "Instructions d'accès - Villa",
+          "status": "PENDING",
+          "messages": {
+            "title": "Bienvenue à la Villa Oceania!",
+            "subtitle": "Voici comment accéder à votre location de vacances en toute autonomie.",
+            "items": [
               {
                 "order": 1,
-                "value": "+212 661 234 567",
-                "type": "PHONE",
-                "icon": "mat:phone",
-                "label": "Gestionnaire local"
+                "value": "La villa est équipée d'une key box sécurisée pour récupérer les clés"
               },
               {
                 "order": 2,
-                "value": "+212 661 234 567",
-                "type": "WHATSAPP",
-                "icon": "logo:whatsapp",
-                "label": "Support WhatsApp"
+                "value": "Veuillez respecter les heures d'arrivée et de départ"
               }
             ]
           },
-          "parkingInstructions": {
-            "generalInstructions": "La villa dispose d'un parking privé pouvant accueillir jusqu'à 3 véhicules. Aucune réservation préalable n'est nécessaire.",
-            "spots": [
-              {
-                "id": "villa-p1",
-                "name": "Garage Privé Villa",
-                "type": "Garage couvert",
-                "spotNumber": "G-01",
-                "hours": "Accès 24h/24 et 7j/7",
-                "rate": "14 euro",
-                "isPaid": true,
-                "description": "Garage couvert pouvant accueillir 2 véhicules avec accès direct à la villa. Télécommande fournie à l'arrivée.",
-                "available": false,
-                "photo": "assets/img/illustrations/parking-underground.svg",
-                "icon": "garage"
+          "documents": [
+            {
+              "label": "Pièce d'identité",
+              "documentType": "CNI",
+              "status": "PENDING"
+            }
+          ],
+          "instructions": [
+            {
+              "step": 1,
+              "title": "Accès à la Propriété",
+              "description": "<h4>La villa est située dans un domaine privé avec un gardien à l'entrée</h4><p>Présentez-vous à l'entrée du domaine 'Les Jardins de Malabata' et donnez le code #2468 au gardien pour qu'il vous laisse entrer.</p>",
+              "videoUrl": "https://player.vimeo.com/video/253905163",
+              "list": ["Code d'accès domaine: 2468", "Le gardien est présent 24h/24"],
+              "type": "ARRIVAL_INSTRUCTION"
+            },
+            {
+              "step": 2,
+              "title": "Récupération des Clés",
+              "description": "Vous trouverez une key box sécurisée à droite de la porte d'entrée principale. Utilisez le code ci-dessous pour l'ouvrir et récupérer les clés de la villa.",
+              "videoUrl": "https://player.vimeo.com/video/253905164",
+              "methodType": "KEY_BOX",
+              "codeAccess": {
+                "code": "3579",
+                "expiresAt": "2023-12-31T23:59:59Z",
+                "status": "ACTIVE"
               },
-              {
-                "id": "villa-p2",
-                "name": "Allée Privée Villa",
-                "type": "Stationnement extérieur privé",
-                "spotNumber": "E-01",
-                "hours": "Accès 24h/24 et 7j/7",
-                "rate": "Inclus dans la location",
-                "isPaid": false,
-                "description": "Allée privée devant la villa pouvant accueillir 1 véhicule supplémentaire.",
-                "available": true,
-                "photo": "assets/img/illustrations/parking-outdoor.svg",
-                "icon": "local_parking"
-              }
-            ]
-          }
+              "images": ["assets/img/demo/landscape.webp"],
+              "type": "ACCESS_MODE"
+            },
+            {
+              "step": 3,
+              "title": "Accès à la Piscine",
+              "description": "La piscine privée se trouve à l'arrière de la villa. Pour activer l'éclairage et le chauffage, utilisez le panneau de contrôle situé près de la cuisine extérieure.",
+              "images": ["assets/img/demo/landscape.webp", "assets/img/demo/landscape.webp"],
+              "type": "ARRIVAL_INSTRUCTION"
+            }
+          ],
+          "checkinContacts": [
+            {
+              "order": 1,
+              "value": "+212 661 234 567",
+              "type": "PHONE",
+              "icon": "mat:phone",
+              "label": "Gestionnaire local"
+            },
+            {
+              "order": 2,
+              "value": "+212 661 234 567",
+              "type": "WHATSAPP",
+              "icon": "logo:whatsapp",
+              "label": "Support WhatsApp"
+            }
+          ]
+        },
+        "parkingInstructions": {
+          "generalInstructions": "La villa dispose d'un parking privé pouvant accueillir jusqu'à 3 véhicules. Aucune réservation préalable n'est nécessaire.",
+          "spots": [
+            {
+              "id": "villa-p1",
+              "name": "Garage Privé Villa",
+              "type": "Garage couvert",
+              "spotNumber": "G-01",
+              "hours": "Accès 24h/24 et 7j/7",
+              "rate": "14 euro",
+              "isPaid": true,
+              "description": "Garage couvert pouvant accueillir 2 véhicules avec accès direct à la villa. Télécommande fournie à l'arrivée.",
+              "available": false,
+              "photo": "assets/img/illustrations/parking-underground.svg",
+              "icon": "garage"
+            },
+            {
+              "id": "villa-p2",
+              "name": "Allée Privée Villa",
+              "type": "Stationnement extérieur privé",
+              "spotNumber": "E-01",
+              "hours": "Accès 24h/24 et 7j/7",
+              "rate": "Inclus dans la location",
+              "isPaid": false,
+              "description": "Allée privée devant la villa pouvant accueillir 1 véhicule supplémentaire.",
+              "available": true,
+              "photo": "assets/img/illustrations/parking-outdoor.svg",
+              "icon": "local_parking"
+            }
+          ]
         }
       },
       {
@@ -990,7 +1070,7 @@
             "type":"link",
             "label":"Arrivée tardive",
             "icon": "mat:alarm",
-            "route":"/:id/arrival/late"
+            "route":"/:id/arrival/late-arrival"
           },
           {
             "type":"link",

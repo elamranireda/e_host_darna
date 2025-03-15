@@ -15,6 +15,53 @@
         "latitude": 33.5731,
         "longitude": -7.5898
       },
+      "lateArrivalInstructions": [
+        {
+          "id": "late-arrival-1",
+          "type": "key",
+          "title": "Clé dans la boîte à clés",
+          "description": "En cas d'arrivée tardive, vous trouverez une boîte à clés sécurisée à côté de la porte principale.\n\nCode d'accès: 4321\n\nVeuillez replacer la clé dans la boîte lorsque vous quittez la propriété.",
+          "priority": 1,
+          "icon": "key"
+        },
+        {
+          "id": "late-arrival-2",
+          "type": "contact",
+          "title": "Contact d'urgence",
+          "description": "Si vous avez des difficultés à accéder à la propriété, veuillez contacter notre gardien qui habite à proximité.",
+          "contactName": "Ahmed",
+          "contactPhone": "+212 661-234567",
+          "hours": "Disponible de 18h00 à 23h00",
+          "priority": 2,
+          "icon": "contact_phone"
+        },
+        {
+          "id": "late-arrival-3",
+          "type": "smartlock",
+          "title": "Serrure intelligente",
+          "description": "La porte principale est équipée d'une serrure intelligente. Téléchargez l'application 'SmartLock' et utilisez le code d'accès temporaire qui vous sera envoyé par SMS le jour de votre arrivée.",
+          "priority": 3,
+          "icon": "phonelink_lock"
+        },
+        {
+          "id": "late-arrival-4",
+          "type": "meetandgreet",
+          "title": "Service d'accueil",
+          "description": "Pour les arrivées après 22h00, un service d'accueil spécial peut être organisé moyennant des frais supplémentaires de 30€. Veuillez réserver ce service au moins 24 heures à l'avance.",
+          "contactName": "Service de conciergerie",
+          "contactPhone": "+212 661-888999",
+          "priority": 4,
+          "icon": "handshake"
+        },
+        {
+          "id": "late-arrival-5",
+          "type": "other",
+          "title": "Informations supplémentaires",
+          "description": "La propriété est située dans une zone résidentielle calme. Veuillez respecter les voisins en limitant le bruit lors d'une arrivée tardive.\n\nL'éclairage extérieur s'allume automatiquement à l'approche de l'entrée.",
+          "priority": 5,
+          "icon": "info"
+        }
+      ],
       "houseRules": [
         {
           "id": "rule-1",

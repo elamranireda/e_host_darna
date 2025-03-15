@@ -26,7 +26,7 @@
     "COPY_CODE": "Copy code"
   },
   "IDENTITY": {
-    "VERIFY": "Verify identity"
+    "VERIFY": "Verify Identity"
   },
   "NAVIGATION": {
     "PREVIOUS": "Previous",
@@ -339,6 +339,19 @@
         "TITLE": "Pool Rules",
         "DESCRIPTION": "The pool is open from 9AM to 8PM. Children must be supervised at all times. Shower is mandatory before entering the water."
       }
+    }
+  },
+  "LATE_ARRIVAL": {
+    "TITLE": "Late Arrival Instructions",
+    "SUBTITLE": "Follow these instructions if you arrive outside standard check-in hours",
+    "NO_INSTRUCTIONS": "No late arrival instructions are available for this property. Please contact the owner for more information.",
+    "TYPES": {
+      "KEY": "Key",
+      "KEYCODE": "Access Code",
+      "SMARTLOCK": "Smart Lock",
+      "CONTACT": "Emergency Contact",
+      "MEET_AND_GREET": "Meet & Greet Service",
+      "OTHER": "Other Information"
     }
   }
 }

@@ -28,6 +28,19 @@
   "IDENTITY": {
     "VERIFY": "Vérifier l'identité"
   },
+  "LATE_ARRIVAL": {
+    "TITLE": "Instructions d'arrivée tardive",
+    "SUBTITLE": "Voici les instructions à suivre en cas d'arrivée en dehors des heures d'ouverture standard",
+    "NO_INSTRUCTIONS": "Aucune instruction d'arrivée tardive n'est disponible pour cette propriété. Veuillez contacter le propriétaire pour plus d'informations.",
+    "TYPES": {
+      "KEY": "Clé",
+      "KEYCODE": "Code d'accès",
+      "SMARTLOCK": "Serrure intelligente",
+      "CONTACT": "Contact d'urgence",
+      "MEET_AND_GREET": "Service d'accueil",
+      "OTHER": "Autre information"
+    }
+  },
   "NAVIGATION": {
     "PREVIOUS": "Précédent",
     "NEXT": "Suivant"
