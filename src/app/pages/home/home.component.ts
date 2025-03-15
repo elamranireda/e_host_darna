@@ -20,6 +20,8 @@ import {DefaultImageDirective} from "@app/directives/default-image.directive";
 import {TranslatePipe} from "@ngx-translate/core";
 import {NavigationMenuComponent} from "../../layouts/components/navigation-menu/navigation-menu.component";
 import {FaqComponent} from "../faq/faq.component";
+import {NavigationConfigStore} from "../../core/stores/navigation-config.store";
+import {LanguageService} from "@app/services/language-service";
 
 @Component({
   selector: 'app-home',
@@ -36,14 +38,43 @@ import {FaqComponent} from "../faq/faq.component";
 })
 export class HomeComponent implements OnInit {
   readonly propertyStrore = inject(PropertyStore);
+  readonly navigationConfigStore = inject(NavigationConfigStore);
+  readonly languageService = inject(LanguageService);
+  propertyId: string = '';
 
   constructor(private route: ActivatedRoute) {
     this.route.data.subscribe(data => {
-      console.log(data);
+      console.log('Route data:', data);
+    });
+    
+    // Récupérer l'ID de la propriété depuis les paramètres de la route
+    this.route.paramMap.subscribe(params => {
+      this.propertyId = params.get('id') || '';
+      console.log('Property ID from route:', this.propertyId);
+      
+      // S'assurer que les données de navigation sont chargées
+      if (this.propertyId && this.navigationConfigStore.items().length === 0) {
+        console.log('Forcing navigation config loading...');
+        this.loadNavigationConfig();
+      }
     });
   }
 
-  ngOnInit(): void {
+  /**
+   * Charge explicitement la configuration de navigation
+   */
+  loadNavigationConfig(): void {
+    // S'assurer que les données de navigation sont chargées
+    if (this.propertyId) {
+      this.navigationConfigStore.getNavigationConfigFromApi({
+        path: this.propertyId,
+        lang: this.languageService.getCurrentLanguageInfo(),
+        propertyId: this.propertyId
+      });
+    }
+  }
 
+  ngOnInit(): void {
+    console.log('Home component initialized');
   }
 }

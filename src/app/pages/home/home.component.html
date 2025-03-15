@@ -55,7 +55,27 @@
       </div>
     </div>
       <div class="text-center pt-1 pb-24 header">
-        <navigation-menu></navigation-menu>
+        <!-- Affichage d'un loader pendant le chargement des items de navigation -->
+        <div *ngIf="navigationConfigStore.loading()" class="py-4">
+          <p class="text-hint">Chargement du menu de navigation...</p>
+        </div>
+        
+        <!-- Affichage du menu uniquement s'il y a des éléments -->
+        <div *ngIf="!navigationConfigStore.loading() && navigationConfigStore.items().length > 0">
+          <navigation-menu></navigation-menu>
+        </div>
+        
+        <!-- Message d'erreur si aucun élément n'est disponible après le chargement -->
+        <div *ngIf="!navigationConfigStore.loading() && navigationConfigStore.items().length === 0" class="py-4">
+          <p class="text-warning">Aucun élément de navigation n'est disponible.</p>
+          <button 
+            mat-raised-button 
+            color="primary" 
+            class="mt-2"
+            (click)="loadNavigationConfig()">
+            Réessayer
+          </button>
+        </div>
       </div>
   </div>
 </div>

@@ -1,5 +1,5 @@
 import {Component, effect, inject, OnInit, OnDestroy} from '@angular/core';
-import {AsyncPipe, NgClass, NgFor} from '@angular/common';
+import {AsyncPipe, NgClass, NgFor, NgIf} from '@angular/common';
 import {NavigationDropdown, NavigationItem} from '../../../core/navigation/navigation-item.interface';
 import {MatIconModule} from "@angular/material/icon";
 import {MatRippleModule} from "@angular/material/core";
@@ -18,7 +18,7 @@ import {Subject, filter, takeUntil} from "rxjs";
   styleUrls: ['./navigation-menu.component.scss'],
   animations: [stagger40ms, fadeInUp400ms],
   standalone: true,
-  imports: [NgFor, AsyncPipe, MatIconModule, MatRippleModule, RouterLinkActive, NgClass, RouterLink, SidenavItemComponent, NavigationItemComponent, MenuNavigationItemComponent]
+  imports: [NgFor, AsyncPipe, MatIconModule, MatRippleModule, RouterLinkActive, NgClass, RouterLink, SidenavItemComponent, NavigationItemComponent, MenuNavigationItemComponent, NgIf]
 })
 export class NavigationMenuComponent implements OnInit, OnDestroy {
   readonly navigationConfigStore = inject(NavigationConfigStore);
@@ -28,6 +28,7 @@ export class NavigationMenuComponent implements OnInit, OnDestroy {
   constructor(private router: Router) {
     // Réagir aux changements dans les items de navigation
     effect(() => {
+      console.log('Navigation items changed:', this.navigationConfigStore.items());
       this.updateNavigationItems();
     });
     
@@ -36,6 +37,7 @@ export class NavigationMenuComponent implements OnInit, OnDestroy {
       filter(event => event instanceof NavigationEnd),
       takeUntil(this.destroy$)
     ).subscribe(() => {
+      console.log('Navigation end event, updating items');
       this.updateNavigationItems();
     });
   }
@@ -46,8 +48,16 @@ export class NavigationMenuComponent implements OnInit, OnDestroy {
   private updateNavigationItems(): void {
     const currentItems = this.navigationConfigStore.items();
     
+    if (!currentItems || currentItems.length === 0) {
+      console.warn('No navigation items available in the store');
+      this.items = [];
+      return;
+    }
+    
     // Chercher un dropdown dont la route correspond exactement à un segment de l'URL
     const currentUrl = this.router.url;
+    console.log('Current URL:', currentUrl);
+    
     const selectedMenu = currentItems.find(item => 
       item.type === 'dropdown' && 
       item.route && 
@@ -55,11 +65,20 @@ export class NavigationMenuComponent implements OnInit, OnDestroy {
       item.children
     ) as NavigationDropdown | undefined;
     
-    this.items = selectedMenu?.children || currentItems;
+    if (selectedMenu) {
+      console.log('Selected menu found:', selectedMenu.label);
+      this.items = selectedMenu.children || [];
+    } else {
+      console.log('No selected menu found, using top-level items');
+      this.items = currentItems;
+    }
+    
+    console.log('Final navigation items:', this.items);
   }
 
   ngOnInit(): void {
-    // Initialisation supplémentaire si nécessaire
+    // Forcer une mise à jour des items au démarrage
+    this.updateNavigationItems();
   }
   
   ngOnDestroy(): void {

@@ -1,6 +1,7 @@
-<div
+<!-- Afficher le menu uniquement si des items sont disponibles -->
+<div *ngIf="items && items.length > 0"
   @fadeInUp
-  class="-mb-16 mx-auto flex  flex-col sm:flex-row gap-2 sm:gap-1 grid grid-cols-2 sm:grid-cols-3">
+  class="-mb-16 mx-auto flex flex-col sm:flex-row gap-2 sm:gap-1 grid grid-cols-2 sm:grid-cols-3">
   <div
     *ngFor="let item of items"
     class="bg-foreground">
@@ -8,4 +9,9 @@
       [item]="item"
       [level]="0"></menu-navigation-item>
   </div>
+</div>
+
+<!-- Message indicatif si aucun item n'est disponible -->
+<div *ngIf="!items || items.length === 0" class="text-center py-4">
+  <p class="text-hint">Le menu de navigation n'a pas pu être chargé.</p>
 </div>
