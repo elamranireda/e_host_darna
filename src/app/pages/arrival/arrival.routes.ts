@@ -50,6 +50,13 @@ const routes: AppRoutes = [
           import('./late_arrival/late-arrival.component').then(
             (m) => m.LateArrivalComponent
           )
+      },
+      {
+        path: 'times',
+        loadComponent: () =>
+          import('./times/times.component').then(
+            (m) => m.TimesComponent
+          )
       }
     ]
   }

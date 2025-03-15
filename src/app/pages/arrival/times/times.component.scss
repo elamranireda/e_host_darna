@@ -1,0 +1,50 @@
+@import "../../../../styles/variables";
+
+.times-container {
+  .times-content {
+    [dir="rtl"] & {
+      h1, h2, h3, p {
+        text-align: right;
+      }
+      
+      .mat-icon {
+        margin-left: 8px;
+        margin-right: 0;
+      }
+    }
+  }
+  
+  .mat-divider {
+    &.mat-divider-vertical {
+      height: 100px;
+    }
+  }
+  
+  // Ensure all flex containers adapt properly for RTL
+  [dir="rtl"] .flex-row {
+    flex-direction: row-reverse;
+  }
+}
+
+// Media queries
+@media screen and (max-width: 768px) {
+  .times-container {
+    .times-content {
+      .flex-col,
+      .flex-row {
+        flex-direction: column;
+      }
+      
+      [dir="rtl"] .flex-row {
+        flex-direction: column;
+      }
+      
+      // Ensure divider is horizontal on small screens
+      .mat-divider.mat-divider-vertical {
+        width: 100%;
+        height: 1px;
+        margin: 16px 0;
+      }
+    }
+  }
+} 

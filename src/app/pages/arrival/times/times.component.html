@@ -1,0 +1,99 @@
+<div class="container mx-auto px-4 py-6" [dir]="isRtl ? 'rtl' : 'ltr'">
+  <!-- Error component -->
+  <div *ngIf="hasError" class="flex flex-col items-center justify-center py-12">
+    <div class="text-center">
+      <mat-icon svgIcon="mat:error_outline" class="text-red-500 text-8xl mb-6"></mat-icon>
+      <h2 class="text-2xl font-bold mb-4">{{ 'COMMON.ERROR.TITLE' | translate }}</h2>
+      <p class="text-gray-600 mb-6">{{ 'COMMON.ERROR.MESSAGE' | translate: {code: errorCode} }}</p>
+      <button 
+        (click)="retryOperation()" 
+        mat-raised-button 
+        color="primary" 
+        class="px-6 py-2 rounded">
+        <mat-icon svgIcon="mat:refresh" class="me-2"></mat-icon>
+        {{ 'COMMON.ERROR.RETRY' | translate }}
+      </button>
+    </div>
+  </div>
+
+  <!-- Main content - shown only if no error -->
+  <div *ngIf="!hasError" class="times-container">
+    <!-- Loading state -->
+    <div *ngIf="propertyStore.loading()" class="flex justify-center items-center h-64">
+      <mat-spinner diameter="48"></mat-spinner>
+      <p class="ms-4 text-gray-600">{{ 'COMMON.LOADING' | translate }}</p>
+    </div>
+
+    <!-- Content when loaded -->
+    <div *ngIf="!propertyStore.loading()" class="times-content" [@scaleIn]="''" [@fadeInRight]="''">
+      <h1 class="text-3xl font-bold mb-6 text-primary">{{ 'TIMES.TITLE' | translate }}</h1>
+      <p class="text-lg text-gray-600 mb-8">{{ 'TIMES.SUBTITLE' | translate }}</p>
+      
+      <!-- Check-in / Check-out times -->
+      <div *ngIf="hasCheckInOutTimes()" class="bg-white rounded-lg shadow-sm p-6 mb-8">
+        <div class="flex flex-col md:flex-row md:items-center mb-6">
+          <div class="flex-1 mb-4 md:mb-0">
+            <h2 class="text-xl font-semibold flex items-center">
+              <mat-icon svgIcon="mat:login" class="text-primary me-2"></mat-icon>
+              {{ 'TIMES.CHECK_IN.TITLE' | translate }}
+            </h2>
+            <div class="mt-2 flex items-center">
+              <mat-icon svgIcon="mat:schedule" class="text-gray-500 me-2"></mat-icon>
+              <span class="text-lg font-medium">{{ getCheckInStartTime() }} - {{ getCheckInEndTime() }}</span>
+            </div>
+            <p class="mt-2 text-gray-600">{{ 'TIMES.CHECK_IN.DESCRIPTION' | translate }}</p>
+          </div>
+          <mat-divider [vertical]="true" class="hidden md:block mx-6 h-20"></mat-divider>
+          <div class="flex-1">
+            <h2 class="text-xl font-semibold flex items-center">
+              <mat-icon svgIcon="mat:logout" class="text-primary me-2"></mat-icon>
+              {{ 'TIMES.CHECK_OUT.TITLE' | translate }}
+            </h2>
+            <div class="mt-2 flex items-center">
+              <mat-icon svgIcon="mat:schedule" class="text-gray-500 me-2"></mat-icon>
+              <span class="text-lg font-medium">{{ getCheckOutTime() }}</span>
+            </div>
+            <p class="mt-2 text-gray-600">{{ 'TIMES.CHECK_OUT.DESCRIPTION' | translate }}</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Reception hours if available -->
+      <div *ngIf="hasReceptionHours()" class="bg-white rounded-lg shadow-sm p-6 mb-8">
+        <h2 class="text-xl font-semibold flex items-center mb-4">
+          <mat-icon svgIcon="mat:info" class="text-primary me-2"></mat-icon>
+          {{ 'TIMES.RECEPTION.TITLE' | translate }}
+        </h2>
+        <div class="flex items-center">
+          <mat-icon svgIcon="mat:schedule" class="text-gray-500 me-2"></mat-icon>
+          <span class="text-lg font-medium">{{ getReceptionHours() }}</span>
+        </div>
+        <p class="mt-2 text-gray-600">{{ 'TIMES.RECEPTION.DESCRIPTION' | translate }}</p>
+      </div>
+      
+      <!-- Late arrival information -->
+      <div class="bg-blue-50 rounded-lg p-6 border-l-4 border-blue-500">
+        <h2 class="text-xl font-semibold flex items-center mb-3">
+          <mat-icon svgIcon="mat:nightlight" class="text-blue-600 me-2"></mat-icon>
+          {{ 'TIMES.LATE_ARRIVAL.TITLE' | translate }}
+        </h2>
+        <p class="text-blue-800 mb-4">{{ 'TIMES.LATE_ARRIVAL.DESCRIPTION' | translate }}</p>
+        <a [routerLink]="['../late-arrival']" mat-raised-button color="primary" class="mt-2">
+          <mat-icon svgIcon="mat:arrow_forward" class="me-1"></mat-icon>
+          {{ 'TIMES.LATE_ARRIVAL.BUTTON' | translate }}
+        </a>
+      </div>
+      
+      <!-- Additional notes section -->
+      <div class="mt-8 bg-gray-50 p-6 rounded-lg border-l-4 border-gray-300">
+        <div class="flex items-start">
+          <mat-icon svgIcon="mat:info" class="text-gray-500 me-3 mt-0.5"></mat-icon>
+          <div>
+            <h3 class="font-semibold text-gray-800 mb-1">{{ 'TIMES.NOTES.TITLE' | translate }}</h3>
+            <p class="text-gray-700">{{ 'TIMES.NOTES.DESCRIPTION' | translate }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> 
