@@ -15,6 +15,83 @@
         "latitude": 33.5731,
         "longitude": -7.5898
       },
+      "itineraryInfo": {
+        "coordinates": {
+          "latitude": 33.5731,
+          "longitude": -7.5898
+        },
+        "airports": [
+          {
+            "name": "Aéroport Mohammed V",
+            "distance": "30 km",
+            "estimatedBudget": "250-300 MAD",
+            "estimatedTime": "45-60 min",
+            "icon": "flight"
+          },
+          {
+            "name": "Aéroport Tit Mellil",
+            "distance": "20 km",
+            "estimatedBudget": "200-250 MAD",
+            "estimatedTime": "30-40 min",
+            "icon": "flight"
+          }
+        ],
+        "trainStations": [
+          {
+            "name": "Gare de Casa Port",
+            "distance": "5 km",
+            "estimatedBudget": "30-40 MAD",
+            "estimatedTime": "15-20 min",
+            "icon": "train"
+          },
+          {
+            "name": "Gare de Casa Voyageurs",
+            "distance": "8 km",
+            "estimatedBudget": "40-50 MAD",
+            "estimatedTime": "20-25 min",
+            "icon": "train"
+          }
+        ],
+        "busStops": [
+          {
+            "name": "Station CTM Casablanca",
+            "distance": "6 km",
+            "estimatedBudget": "30-40 MAD",
+            "estimatedTime": "20-25 min",
+            "icon": "directions_bus"
+          }
+        ],
+        "transportApps": [
+          {
+            "name": "Careem",
+            "distance": "Service à la demande",
+            "estimatedBudget": "Tarifs variables selon destination",
+            "estimatedTime": "5-10 min d'attente",
+            "icon": "smartphone"
+          },
+          {
+            "name": "Yassir",
+            "distance": "Service à la demande",
+            "estimatedBudget": "Tarifs variables selon destination",
+            "estimatedTime": "5-10 min d'attente",
+            "icon": "smartphone"
+          }
+        ],
+        "taxiContacts": [
+          {
+            "name": "Grand Taxi Casablanca",
+            "phone": "+212 660 123 456",
+            "rating": 4.6,
+            "languages": ["Français", "Arabe", "Anglais"]
+          },
+          {
+            "name": "Petit Taxi Médina",
+            "phone": "+212 661 987 654",
+            "rating": 4.3,
+            "languages": ["Français", "Arabe"]
+          }
+        ]
+      },
       "checkInInfo": {
         "checkInTime": "14:00",
         "checkOutTime": "11:00",

@@ -18,6 +18,83 @@
           "latitude": "35.7633",
           "longitude": "-5.8039"
         },
+        "itineraryInfo": {
+          "coordinates": {
+            "latitude": 35.7633,
+            "longitude": -5.8039
+          },
+          "airports": [
+            {
+              "name": "Aéroport Ibn Batouta Tanger",
+              "distance": "15 km",
+              "estimatedBudget": "150-200 MAD",
+              "estimatedTime": "25-30 min",
+              "icon": "flight"
+            },
+            {
+              "name": "Aéroport de Tétouan",
+              "distance": "60 km",
+              "estimatedBudget": "500-600 MAD",
+              "estimatedTime": "1h15-1h30",
+              "icon": "flight"
+            }
+          ],
+          "trainStations": [
+            {
+              "name": "Gare de Tanger Ville",
+              "distance": "4 km",
+              "estimatedBudget": "30-50 MAD",
+              "estimatedTime": "10-15 min",
+              "icon": "train"
+            },
+            {
+              "name": "Gare LGV Tanger",
+              "distance": "18 km",
+              "estimatedBudget": "150-200 MAD",
+              "estimatedTime": "25-30 min",
+              "icon": "train"
+            }
+          ],
+          "busStops": [
+            {
+              "name": "Station de bus CTM Tanger",
+              "distance": "5 km",
+              "estimatedBudget": "30-50 MAD",
+              "estimatedTime": "15-20 min",
+              "icon": "directions_bus"
+            }
+          ],
+          "transportApps": [
+            {
+              "name": "Careem",
+              "distance": "Service à la demande",
+              "estimatedBudget": "Tarifs variables selon destination",
+              "estimatedTime": "5-10 min d'attente",
+              "icon": "smartphone"
+            },
+            {
+              "name": "Heetch",
+              "distance": "Service à la demande",
+              "estimatedBudget": "Tarifs variables selon destination",
+              "estimatedTime": "5-10 min d'attente",
+              "icon": "smartphone"
+            }
+          ],
+          "taxiContacts": [
+            {
+              "name": "Taxis Marina",
+              "phone": "+212 661 234 567",
+              "rating": 4.8,
+              "languages": ["Français", "Anglais", "Arabe", "Espagnol"]
+            },
+            {
+              "name": "Grand Taxi Tanger",
+              "phone": "+212 539 876 543",
+              "rating": 4.5,
+              "languages": ["Français", "Arabe", "Espagnol"]
+            }
+          ]
+        },
         "socialMedia": [
           { "name": "Facebook", "icon": "facebook", "url": "https://facebook.com/hotelluxemarina" },
           { "name": "Instagram", "icon": "instagram", "url": "https://instagram.com/hotelluxemarina" },

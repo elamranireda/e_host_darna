@@ -19,6 +19,7 @@ export interface Property {
     latitude: string | number;
     longitude: string | number;
   };
+  itineraryInfo?: PropertyTransportData;
   checkInInfo: {
     checkInStart: string;
     checkInEnd: string;
@@ -158,4 +159,31 @@ export interface MaintenanceRequest {
   resolvedAt?: string;
   notes: string;
   rating: number;
+}
+
+export interface PropertyTransportData {
+  airports?: TransportOption[];
+  trainStations?: TransportOption[];
+  busStops?: TransportOption[];
+  transportApps?: TransportOption[];
+  taxiContacts?: TaxiContact[];
+  coordinates?: {
+    latitude: number;
+    longitude: number;
+  };
+}
+
+export interface TransportOption {
+  name: string;
+  distance: string;
+  estimatedBudget: string;
+  estimatedTime: string;
+  icon: string;
+}
+
+export interface TaxiContact {
+  name: string;
+  phone: string;
+  rating: number;
+  languages: string[];
 }
