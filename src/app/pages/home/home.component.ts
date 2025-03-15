@@ -17,11 +17,12 @@ import {stagger40ms} from "@app/animations/stagger.animation";
 import {fadeInUp400ms} from "@app/animations/fade-in-up.animation";
 import {scaleFadeIn400ms} from "@app/animations/scale-fade-in.animation";
 import {DefaultImageDirective} from "@app/directives/default-image.directive";
-import {TranslatePipe} from "@ngx-translate/core";
+import {TranslatePipe, TranslateService} from "@ngx-translate/core";
 import {NavigationMenuComponent} from "../../layouts/components/navigation-menu/navigation-menu.component";
 import {FaqComponent} from "../faq/faq.component";
 import {NavigationConfigStore} from "../../core/stores/navigation-config.store";
 import {LanguageService} from "@app/services/language-service";
+import {ToolbarService} from "../../core/services/toolbar.service";
 
 @Component({
   selector: 'app-home',
@@ -40,6 +41,8 @@ export class HomeComponent implements OnInit {
   readonly propertyStrore = inject(PropertyStore);
   readonly navigationConfigStore = inject(NavigationConfigStore);
   readonly languageService = inject(LanguageService);
+  readonly toolbarService = inject(ToolbarService);
+  readonly translateService = inject(TranslateService);
   propertyId: string = '';
 
   constructor(private route: ActivatedRoute) {
@@ -76,5 +79,8 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     console.log('Home component initialized');
+    // Définir le titre et les fils d'Ariane pour la page d'accueil
+    const welcomeText = this.translateService.instant('WELCOME');
+    this.toolbarService.updateToolbar(welcomeText, [welcomeText]);
   }
 }

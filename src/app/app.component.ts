@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit, Renderer2} from '@angular/core';
+import {Component, Inject, OnInit, Renderer2, inject} from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import {TranslateService} from "@ngx-translate/core";
 import {DOCUMENT} from "@angular/common";
@@ -9,6 +9,7 @@ import {
   isRtlLanguage,
   languageConfig
 } from "@app/config/language.config";
+import { DynamicNavigationService } from './core/services/dynamic-navigation.service';
 
 @Component({
   selector: 'app-root',
@@ -18,6 +19,9 @@ import {
 })
 export class AppComponent implements OnInit {
   static fontLoaded: boolean;
+  
+  // Injection du service de navigation dynamique
+  private readonly dynamicNavigationService = inject(DynamicNavigationService);
   
   constructor(
     private translate: TranslateService,
@@ -51,6 +55,15 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     if (!AppComponent.fontLoaded) {
       this.loadFont();
+    }
+    
+    // Initialiser le service de navigation dynamique après l'initialisation du composant
+    try {
+      setTimeout(() => {
+        this.dynamicNavigationService.initialize();
+      }, 0);
+    } catch (error) {
+      console.error('Error initializing dynamic navigation service:', error);
     }
   }
 

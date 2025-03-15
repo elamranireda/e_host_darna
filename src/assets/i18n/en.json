@@ -28,6 +28,14 @@
   "IDENTITY": {
     "VERIFY": "Verify Identity"
   },
+  "ARRIVAL": "Your Arrival",
+  "ARRIVAL.CONTACT": "Contact",
+  "ARRIVAL.ITINERARY": "Itinerary",
+  "ARRIVAL.CHECKIN": "Check-in",
+  "ARRIVAL.PARKING": "Parking",
+  "ARRIVAL.RULES": "Rules",
+  "ARRIVAL.LATE_ARRIVAL": "Late Arrival",
+  "ARRIVAL.TIMES": "Times",
   "NAVIGATION": {
     "PREVIOUS": "Previous",
     "NEXT": "Next"
@@ -343,40 +351,29 @@
   },
   "LATE_ARRIVAL": {
     "TITLE": "Late Arrival Instructions",
-    "SUBTITLE": "Here are the instructions to follow if you arrive outside standard opening hours",
+    "SUBTITLE": "Here are the instructions to follow in case of arrival outside standard opening hours",
     "NO_INSTRUCTIONS": "No late arrival instructions are available for this property. Please contact the owner for more information.",
     "TYPES": {
       "KEY": "Key",
       "KEYCODE": "Access Code",
       "SMARTLOCK": "Smart Lock",
       "CONTACT": "Emergency Contact",
-      "MEET_AND_GREET": "Welcome Service",
-      "OTHER": "Other Information"
+      "MEET_AND_GREET": "Meet and Greet Service",
+      "OTHER": "Other"
     }
   },
   "TIMES": {
-    "TITLE": "Check-in and Check-out Times",
-    "SUBTITLE": "Check the arrival and departure times to organize your stay",
-    "CHECK_IN": {
-      "TITLE": "Check-in",
-      "DESCRIPTION": "Please respect these arrival times. If you plan to arrive outside these hours, check the late arrival instructions."
-    },
-    "CHECK_OUT": {
-      "TITLE": "Check-out",
-      "DESCRIPTION": "Please vacate your accommodation before this time on your departure day."
-    },
-    "RECEPTION": {
-      "TITLE": "Reception Hours",
-      "DESCRIPTION": "The reception is available during these hours to help you and answer your questions."
-    },
+    "TITLE": "Times",
+    "SUBTITLE": "Here are the important times for your stay",
+    "CHECK_IN": "Check-in",
+    "CHECK_OUT": "Check-out",
+    "RECEPTION": "Reception",
+    "FROM": "From",
+    "TO": "To",
     "LATE_ARRIVAL": {
       "TITLE": "Late Arrival",
-      "DESCRIPTION": "If you plan to arrive after standard check-in hours, see our special instructions for late arrival.",
+      "DESCRIPTION": "If you arrive outside opening hours, please check our special instructions.",
       "BUTTON": "View Late Arrival Instructions"
-    },
-    "NOTES": {
-      "TITLE": "Important Information",
-      "DESCRIPTION": "Thank you for respecting these times to ensure optimal organization. Feel free to contact us if you have any questions."
     }
   }
 }

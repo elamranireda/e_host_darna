@@ -16,6 +16,7 @@ import {provideQuillConfig} from 'ngx-quill';
 import {TranslateHttpLoader} from "@ngx-translate/http-loader";
 import {TranslateLoader, TranslateModule, TranslateService} from "@ngx-translate/core";
 import { ErrorInterceptor } from './core/interceptors/error-interceptor';
+import { BreadcrumbHistoryService } from './core/services/breadcrumb-history.service';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -40,6 +41,7 @@ export const appConfig: ApplicationConfig = {
       MatNativeDateModule
     ),
     TranslateService,
+    BreadcrumbHistoryService,
     provideRouter(
       appRoutes,
       // TODO: Add preloading withPreloading(),

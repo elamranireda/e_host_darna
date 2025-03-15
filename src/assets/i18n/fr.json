@@ -28,6 +28,32 @@
   "IDENTITY": {
     "VERIFY": "Vérifier l'identité"
   },
+  "LOADING": {
+    "PROPERTY_INFO": "Chargement des informations de l'hôtel...",
+    "NAVIGATION_MENU": "Chargement du menu de navigation..."
+  },
+  "ERROR": {
+    "NO_NAVIGATION_ITEMS": "Aucun élément de navigation n'est disponible."
+  },
+  "BUTTON": {
+    "RETRY": "Réessayer",
+    "SAVE": "Enregistrer",
+    "CANCEL": "Annuler",
+    "CONFIRM": "Confirmer",
+    "CLOSE": "Fermer"
+  },
+  "IMAGE": {
+    "HOTEL_COVER": "Image de couverture de l'hôtel",
+    "HOTEL_AVATAR": "Avatar de l'hôtel"
+  },
+  "ARRIVAL": "Votre arrivée",
+  "ARRIVAL.CONTACT": "Contact",
+  "ARRIVAL.ITINERARY": "Itinéraire",
+  "ARRIVAL.CHECKIN": "Enregistrement",
+  "ARRIVAL.PARKING": "Stationnement",
+  "ARRIVAL.RULES": "Règlement",
+  "ARRIVAL.LATE_ARRIVAL": "Arrivée tardive",
+  "ARRIVAL.TIMES": "Horaires",
   "LATE_ARRIVAL": {
     "TITLE": "Instructions d'arrivée tardive",
     "SUBTITLE": "Voici les instructions à suivre en cas d'arrivée en dehors des heures d'ouverture standard",
@@ -38,32 +64,21 @@
       "SMARTLOCK": "Serrure intelligente",
       "CONTACT": "Contact d'urgence",
       "MEET_AND_GREET": "Service d'accueil",
-      "OTHER": "Autre information"
+      "OTHER": "Autre"
     }
   },
   "TIMES": {
-    "TITLE": "Horaires d'arrivée et de départ",
-    "SUBTITLE": "Consultez les horaires d'arrivée et de départ pour organiser votre séjour",
-    "CHECK_IN": {
-      "TITLE": "Arrivée (Check-in)",
-      "DESCRIPTION": "Veuillez respecter ces horaires d'arrivée. Si vous prévoyez d'arriver en dehors de ces heures, consultez les instructions pour arrivée tardive."
-    },
-    "CHECK_OUT": {
-      "TITLE": "Départ (Check-out)",
-      "DESCRIPTION": "Merci de libérer votre logement avant cette heure le jour de votre départ."
-    },
-    "RECEPTION": {
-      "TITLE": "Horaires de la réception",
-      "DESCRIPTION": "La réception est disponible durant ces horaires pour vous aider et répondre à vos questions."
-    },
+    "TITLE": "Horaires",
+    "SUBTITLE": "Voici les horaires importants pour votre séjour",
+    "CHECK_IN": "Enregistrement",
+    "CHECK_OUT": "Départ",
+    "RECEPTION": "Réception",
+    "FROM": "De",
+    "TO": "À",
     "LATE_ARRIVAL": {
       "TITLE": "Arrivée tardive",
-      "DESCRIPTION": "Si vous prévoyez d'arriver après les heures d'enregistrement standard, consultez nos instructions spéciales pour l'arrivée tardive.",
-      "BUTTON": "Voir les instructions pour arrivée tardive"
-    },
-    "NOTES": {
-      "TITLE": "Informations importantes",
-      "DESCRIPTION": "Nous vous remercions de respecter ces horaires pour garantir une organisation optimale. N'hésitez pas à nous contacter si vous avez des questions."
+      "DESCRIPTION": "Si vous arrivez en dehors des heures d'ouverture, veuillez consulter nos instructions spéciales.",
+      "BUTTON": "Voir les instructions d'arrivée tardive"
     }
   },
   "NAVIGATION": {

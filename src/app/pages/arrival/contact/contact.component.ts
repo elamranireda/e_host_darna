@@ -15,6 +15,7 @@ import {MatSnackBarModule} from "@angular/material/snack-bar";
 import {ClipboardDirective} from "../../../shared/directives/clipboard.directive";
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ErrorMessageComponent } from '../../../core/error-message/error-message.component';
+import { ToolbarService } from '../../../core/services/toolbar.service';
 
 // Déclaration des types Google Maps pour éviter les erreurs TypeScript
 declare global {
@@ -83,6 +84,7 @@ export class ContactComponent implements OnInit, AfterViewInit {
   private route = inject(ActivatedRoute);
   private translateService = inject(TranslateService);
   private languageService = inject(LanguageService);
+  private toolbarService = inject(ToolbarService);
 
   constructor() {
     effect(() => {
@@ -99,8 +101,16 @@ export class ContactComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    
     this.loadGoogleMapsScript();
+    
+    // Mettre à jour le titre de la barre d'outils
+    const contactTitle = this.translateService.instant('ARRIVAL.CONTACT');
+    const arrivalTitle = this.translateService.instant('ARRIVAL');
+    this.toolbarService.updateToolbar(contactTitle, [
+      this.translateService.instant('WELCOME'),
+      arrivalTitle,
+      contactTitle
+    ]);
   }
   
   ngAfterViewInit(): void {
