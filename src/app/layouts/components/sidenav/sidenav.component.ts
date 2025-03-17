@@ -14,7 +14,6 @@ import {MatRippleModule} from '@angular/material/core';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import {AsyncPipe, NgFor, NgIf} from '@angular/common';
-import {NavigationConfigStore} from "../../../core/stores/navigation-config.store";
 import { AppPopoverService } from '@app/components/app-popover/app-popover.service';
 
 @Component({
@@ -35,7 +34,7 @@ import { AppPopoverService } from '@app/components/app-popover/app-popover.servi
   ]
 })
 export class SidenavComponent {
-  readonly navigationConfigStore = inject(NavigationConfigStore);
+  protected navigationService = inject(NavigationService);
 
   @Input() collapsed: boolean = false;
   collapsedOpen$ = this.layoutService.sidenavCollapsedOpen$;
@@ -58,7 +57,6 @@ export class SidenavComponent {
   userMenuOpen$: Observable<boolean> = of(false);
 
   constructor(
-    private navigationService: NavigationService,
     private layoutService: AppLayoutService,
     private configService: AppConfigService,
     private readonly popoverService: AppPopoverService,

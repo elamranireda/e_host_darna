@@ -1,21 +1,16 @@
 import {Component, inject} from '@angular/core';
 import { NavigationService } from '../../../core/navigation/navigation.service';
 import { NavigationItemComponent } from './navigation-item/navigation-item.component';
-import { AsyncPipe, NgFor } from '@angular/common';
-import { Observable } from 'rxjs';
+import { AsyncPipe, NgFor, NgIf } from '@angular/common';
 import { NavigationItem } from '../../../core/navigation/navigation-item.interface';
-import {NavigationConfigStore} from "../../../core/stores/navigation-config.store";
 
 @Component({
   selector: 'app-navigation',
   templateUrl: './navigation.component.html',
   styleUrls: ['./navigation.component.scss'],
   standalone: true,
-  imports: [NgFor, NavigationItemComponent, AsyncPipe]
+  imports: [NgFor, NavigationItemComponent, AsyncPipe, NgIf]
 })
 export class NavigationComponent {
-  items$: Observable<NavigationItem[]> = this.navigationService.items$;
-  readonly navigationConfigStore = inject(NavigationConfigStore);
-
-  constructor(private navigationService: NavigationService) {}
+  protected navigationService = inject(NavigationService);
 }

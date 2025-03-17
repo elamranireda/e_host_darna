@@ -8,28 +8,39 @@ import {
 import { Observable, Subject, map, of } from 'rxjs';
 import { Router, NavigationEnd } from '@angular/router';
 import { filter, startWith } from 'rxjs/operators';
-import { NavigationConfigStore } from '../stores/navigation-config.store';
+import { AppConfigStore } from '@app/config/app-config.store';
+import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 
 @Injectable({
   providedIn: 'root'
 })
 export class NavigationService {
-  private navigationConfigStore = inject(NavigationConfigStore);
+  private appConfigStore = inject(AppConfigStore);
   
   // Créer un observable à partir du signal du store
-  private readonly storeItems$ = of(null).pipe(
-    startWith(null),
-    map(() => this.navigationConfigStore.items())
-  );
+  items$: Observable<NavigationItem[]> = toObservable(this.appConfigStore.navigationItems);
   
-  // Utiliser le store de navigation comme source de données
-  // Les items sont déjà transformés dans le store
-  items$: Observable<NavigationItem[]> = this.storeItems$;
+  // Exposer l'état de chargement du store
+  loading$ = toObservable(this.appConfigStore.loading);
 
   private _openChangeSubject = new Subject<NavigationDropdown>();
   openChange$ = this._openChangeSubject.asObservable();
 
   constructor(private router: Router) {}
+
+  /**
+   * Recharge les données de navigation
+   * @param propertyId ID de la propriété pour laquelle charger les données de navigation
+   */
+  reloadItems(propertyId: string): void {
+    if (!propertyId) {
+      console.error('Impossible de recharger les données de navigation: ID de propriété manquant');
+      return;
+    }
+    
+    console.log('Rechargement des données de navigation pour la propriété:', propertyId);
+    this.appConfigStore.loadAllConfigs();
+  }
 
   triggerOpenChange(item: NavigationDropdown) {
     this._openChangeSubject.next(item);
@@ -45,5 +56,55 @@ export class NavigationService {
 
   isSubheading(item: NavigationItem): item is NavigationSubheading {
     return item.type === 'subheading';
+  }
+  
+  /**
+   * Remplace récursivement les :id dans les routes par l'ID de propriété réel
+   */
+  getNavigationWithReplacedIds(items: NavigationItem[], propertyId: string): NavigationItem[] {
+    if (!propertyId || !items || items.length === 0) {
+      return items;
+    }
+    
+    return items.map(item => {
+      const newItem = { ...item };
+      
+      // Remplacer l'ID dans la route si elle existe
+      if (this.isLink(newItem) || this.isDropdown(newItem)) {
+        if (newItem.route) {
+          // Remplacer le paramètre :id par l'ID réel
+          newItem.route = newItem.route.replace(/:id/g, propertyId);
+        }
+      }
+      
+      // Traiter les enfants de manière récursive
+      if (this.isDropdown(newItem) && newItem.children) {
+        newItem.children = this.getNavigationWithReplacedIds(newItem.children, propertyId) as (NavigationLink | NavigationDropdown)[];
+      } else if (this.isSubheading(newItem) && newItem.children) {
+        newItem.children = this.getNavigationWithReplacedIds(newItem.children, propertyId) as (NavigationLink | NavigationDropdown)[];
+      }
+      
+      return newItem;
+    });
+  }
+  
+  /**
+   * Obtient les items de navigation avec les IDs de propriété remplacés
+   * @param propertyId ID de la propriété à insérer dans les routes
+   * @returns Items de navigation avec les IDs remplacés
+   */
+  getReplaceableNavigation(propertyId: string): NavigationItem[] {
+    const items = this.appConfigStore.navigationItems();
+    if (!items || items.length === 0) {
+      console.warn('Aucun item de navigation disponible');
+      return [];
+    }
+    
+    if (!propertyId) {
+      console.warn('Aucun ID de propriété fourni, utilisation des items originaux');
+      return items;
+    }
+    
+    return this.getNavigationWithReplacedIds(items, propertyId);
   }
 }

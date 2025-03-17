@@ -20,7 +20,7 @@ import {DefaultImageDirective} from "@app/directives/default-image.directive";
 import {TranslatePipe, TranslateService} from "@ngx-translate/core";
 import {NavigationMenuComponent} from "../../layouts/components/navigation-menu/navigation-menu.component";
 import {FaqComponent} from "../faq/faq.component";
-import {NavigationConfigStore} from "../../core/stores/navigation-config.store";
+import {NavigationService} from "../../core/navigation/navigation.service";
 import {LanguageService} from "@app/services/language-service";
 import {ToolbarService} from "../../core/services/toolbar.service";
 
@@ -39,7 +39,7 @@ import {ToolbarService} from "../../core/services/toolbar.service";
 })
 export class HomeComponent implements OnInit {
   readonly propertyStrore = inject(PropertyStore);
-  readonly navigationConfigStore = inject(NavigationConfigStore);
+  readonly navigationService = inject(NavigationService);
   readonly languageService = inject(LanguageService);
   readonly toolbarService = inject(ToolbarService);
   readonly translateService = inject(TranslateService);
@@ -55,11 +55,7 @@ export class HomeComponent implements OnInit {
       this.propertyId = params.get('id') || '';
       console.log('Property ID from route:', this.propertyId);
       
-      // S'assurer que les données de navigation sont chargées
-      if (this.propertyId && this.navigationConfigStore.items().length === 0) {
-        console.log('Forcing navigation config loading...');
-        this.loadNavigationConfig();
-      }
+      
     });
   }
 
@@ -69,11 +65,8 @@ export class HomeComponent implements OnInit {
   loadNavigationConfig(): void {
     // S'assurer que les données de navigation sont chargées
     if (this.propertyId) {
-      this.navigationConfigStore.getNavigationConfigFromApi({
-        path: this.propertyId,
-        lang: this.languageService.getCurrentLanguageInfo(),
-        propertyId: this.propertyId
-      });
+      // Demander au service de navigation de recharger les données
+      this.navigationService.reloadItems(this.propertyId);
     }
   }
 

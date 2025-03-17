@@ -1,7 +1,9 @@
 <div class="border-b">
   <div class="navigation flex items-center container">
-    <app-navigation-item
-      *ngFor="let item of navigationConfigStore.items()"
-      [item]="item"></app-navigation-item>
+    <ng-container *ngIf="navigationService.items$ | async as items">
+      <app-navigation-item
+        *ngFor="let item of items"
+        [item]="item"></app-navigation-item>
+    </ng-container>
   </div>
 </div>

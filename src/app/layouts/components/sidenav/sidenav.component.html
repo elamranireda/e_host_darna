@@ -51,10 +51,12 @@
 
   <app-scrollbar class="flex-1 flex flex-col">
     <div class="pt-6 flex-1">
-      <app-sidenav-item
-        *ngFor="let item of navigationConfigStore.items(); trackBy: trackByRoute"
-        [item]="item"
-        [level]="0"></app-sidenav-item>
+      <ng-container *ngIf="navigationService.items$ | async as items">
+        <app-sidenav-item
+          *ngFor="let item of items; trackBy: trackByRoute"
+          [item]="item"
+          [level]="0"></app-sidenav-item>
+      </ng-container>
     </div>
 
     <div

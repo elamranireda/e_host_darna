@@ -50,26 +50,28 @@
     </div>
       <div class="text-center pt-1 pb-24 header">
         <!-- Affichage d'un loader pendant le chargement des items de navigation -->
-        <div *ngIf="navigationConfigStore.loading()" class="py-4">
+        <div *ngIf="navigationService.loading$ | async" class="py-4">
           <p class="text-hint">{{ 'LOADING.NAVIGATION_MENU' | translate }}</p>
         </div>
         
         <!-- Affichage du menu uniquement s'il y a des éléments -->
-        <div *ngIf="!navigationConfigStore.loading() && navigationConfigStore.items().length > 0">
-          <navigation-menu></navigation-menu>
-        </div>
-        
-        <!-- Message d'erreur si aucun élément n'est disponible après le chargement -->
-        <div *ngIf="!navigationConfigStore.loading() && navigationConfigStore.items().length === 0" class="py-4">
-          <p class="text-warning">{{ 'ERROR.NO_NAVIGATION_ITEMS' | translate }}</p>
-          <button 
-            mat-raised-button 
-            color="primary" 
-            class="mt-2"
-            (click)="loadNavigationConfig()">
-            {{ 'BUTTON.RETRY' | translate }}
-          </button>
-        </div>
+        <ng-container *ngIf="navigationService.items$ | async as items">
+          <div *ngIf="!(navigationService.loading$ | async) && items.length > 0">
+            <navigation-menu></navigation-menu>
+          </div>
+          
+          <!-- Message d'erreur si aucun élément n'est disponible après le chargement -->
+          <div *ngIf="!(navigationService.loading$ | async) && items.length === 0" class="py-4">
+            <p class="text-warning">{{ 'ERROR.NO_NAVIGATION_ITEMS' | translate }}</p>
+            <button 
+              mat-raised-button 
+              color="primary" 
+              class="mt-2"
+              (click)="loadNavigationConfig()">
+              {{ 'BUTTON.RETRY' | translate }}
+            </button>
+          </div>
+        </ng-container>
       </div>
   </div>
 </div>
