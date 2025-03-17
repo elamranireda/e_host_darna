@@ -23,6 +23,7 @@ import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 })
 export class AppConfigService implements OnDestroy {
   private _configSubject = new BehaviorSubject<AppConfig>(this.config);
+  private _colorVariablesSubject = new BehaviorSubject<Record<string, any>>({});
   private destroy$ = new Subject<void>();
   private readonly configStore = inject(AppConfigStore);
 
@@ -32,8 +33,18 @@ export class AppConfigService implements OnDestroy {
     @Inject(DOCUMENT) private readonly document: Document,
     private readonly layoutService: AppLayoutService
   ) {
-    // Initialiser avec la configuration par défaut
-    this._updateConfig(this.config);
+    // S'assurer que le thème par défaut est Apollo en mode light
+    const defaultConfig = {
+      ...this.config,
+      id: AppConfigName.apollo,
+      style: {
+        ...this.config.style,
+        colorScheme: AppColorScheme.LIGHT,
+      }
+    };
+    
+    // Initialiser avec la configuration par défaut Apollo light
+    this._updateConfig(defaultConfig);
     
     // Charger les configurations depuis le store
     this.configStore.loadConfigs();
@@ -43,6 +54,12 @@ export class AppConfigService implements OnDestroy {
       const storeConfig = this.configStore.config();
       if (storeConfig) {
         this._configSubject.next(storeConfig);
+      }
+      
+      // Observer les changements des variables de couleur du store
+      const colorVars = this.configStore.getColorVariables();
+      if (colorVars) {
+        this._colorVariablesSubject.next(colorVars);
       }
     });
     
@@ -80,6 +97,20 @@ export class AppConfigService implements OnDestroy {
    */
   get config$(): Observable<AppConfig> {
     return this._configSubject.asObservable();
+  }
+  
+  /**
+   * Obtenir les variables de couleur comme un Observable
+   */
+  get colorVariables$(): Observable<Record<string, any>> {
+    return this._colorVariablesSubject.asObservable();
+  }
+  
+  /**
+   * Obtenir les variables de couleur courantes
+   */
+  get colorVariables(): Record<string, any> {
+    return this._colorVariablesSubject.getValue();
   }
 
   /**

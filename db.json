@@ -1,529 +1,825 @@
 {
   "appConfigs": {
-    "apollo": {
-      "id": "apollo",
-      "name": "Apollo",
-      "bodyClass": "app-layout-apollo",
-      "style": {
-        "themeClassName": "app-theme-red",
-        "colorScheme": "light",
-        "borderRadius": {
-          "value": 0.5,
-          "unit": "rem"
-        },
-        "button": {
-          "borderRadius": {
-            "value": 9999,
-            "unit": "px"
+    "theme": {
+      "layouts": {
+        "available": ["apollo", "zeus", "hermes", "poseidon", "ares", "ikaros"],
+        "default": "apollo",
+        "configs": {
+          "apollo": {
+            "id": "apollo",
+            "name": "Apollo",
+            "bodyClass": "app-layout-apollo",
+            "style": {
+              "themeClassName": "app-theme-red",
+              "colorScheme": "light",
+              "borderRadius": {
+                "value": 0.5,
+                "unit": "rem"
+              },
+              "button": {
+                "borderRadius": {
+                  "value": 9999,
+                  "unit": "px"
+                }
+              }
+            },
+            "direction": "ltr",
+            "imgSrc": "assets/img/layouts/apollo.png",
+            "layout": "horizontal",
+            "boxed": false,
+            "sidenav": {
+              "title": "APP",
+              "imageUrl": "assets/img/logo/logo.svg",
+              "showCollapsePin": true,
+              "user": {
+                "visible": true
+              },
+              "search": {
+                "visible": true
+              },
+              "state": "expanded"
+            },
+            "toolbar": {
+              "fixed": true,
+              "user": {
+                "visible": true
+              }
+            },
+            "navbar": {
+              "position": "below-toolbar"
+            },
+            "footer": {
+              "visible": true,
+              "fixed": true
+            }
+          },
+          "poseidon": {
+            "id": "poseidon",
+            "name": "Poseidon",
+            "bodyClass": "app-layout-poseidon",
+            "style": {
+              "themeClassName": "app-theme-default",
+              "colorScheme": "dark",
+              "borderRadius": {
+                "value": 0.5,
+                "unit": "rem"
+              },
+              "button": {
+                "borderRadius": {
+                  "value": 9999,
+                  "unit": "px"
+                }
+              }
+            },
+            "direction": "ltr",
+            "imgSrc": "assets/img/layouts/poseidon.png",
+            "layout": "horizontal",
+            "boxed": false,
+            "sidenav": {
+              "title": "APP",
+              "imageUrl": "assets/img/logo/logo.svg",
+              "showCollapsePin": true,
+              "user": {
+                "visible": true
+              },
+              "search": {
+                "visible": true
+              },
+              "state": "expanded"
+            },
+            "toolbar": {
+              "fixed": true,
+              "user": {
+                "visible": false
+              }
+            },
+            "navbar": {
+              "position": "below-toolbar"
+            },
+            "footer": {
+              "visible": true,
+              "fixed": true
+            }
+          },
+          "hermes": {
+            "id": "hermes",
+            "name": "Hermes",
+            "bodyClass": "app-layout-hermes",
+            "style": {
+              "themeClassName": "app-theme-default",
+              "colorScheme": "light",
+              "borderRadius": {
+                "value": 0.5,
+                "unit": "rem"
+              },
+              "button": {
+                "borderRadius": {
+                  "value": 9999,
+                  "unit": "px"
+                }
+              }
+            },
+            "direction": "ltr",
+            "imgSrc": "assets/img/layouts/hermes.png",
+            "layout": "vertical",
+            "boxed": true,
+            "sidenav": {
+              "title": "APP",
+              "imageUrl": "assets/img/logo/logo.svg",
+              "showCollapsePin": true,
+              "user": {
+                "visible": false
+              },
+              "search": {
+                "visible": false
+              },
+              "state": "expanded"
+            },
+            "toolbar": {
+              "fixed": false,
+              "user": {
+                "visible": true
+              }
+            },
+            "navbar": {
+              "position": "below-toolbar"
+            },
+            "footer": {
+              "visible": true,
+              "fixed": false
+            }
+          },
+          "ares": {
+            "id": "ares",
+            "name": "Ares",
+            "bodyClass": "app-layout-ares",
+            "style": {
+              "themeClassName": "app-theme-default",
+              "colorScheme": "light",
+              "borderRadius": {
+                "value": 0.5,
+                "unit": "rem"
+              },
+              "button": {
+                "borderRadius": {
+                  "value": 9999,
+                  "unit": "px"
+                }
+              }
+            },
+            "direction": "ltr",
+            "imgSrc": "assets/img/layouts/ares.png",
+            "layout": "horizontal",
+            "boxed": false,
+            "sidenav": {
+              "title": "APP",
+              "imageUrl": "assets/img/logo/logo.svg",
+              "showCollapsePin": true,
+              "user": {
+                "visible": false
+              },
+              "search": {
+                "visible": false
+              },
+              "state": "expanded"
+            },
+            "toolbar": {
+              "fixed": false,
+              "user": {
+                "visible": true
+              }
+            },
+            "navbar": {
+              "position": "in-toolbar"
+            },
+            "footer": {
+              "visible": true,
+              "fixed": false
+            }
+          },
+          "zeus": {
+            "id": "zeus",
+            "name": "Zeus",
+            "bodyClass": "app-layout-zeus",
+            "style": {
+              "themeClassName": "app-theme-default",
+              "colorScheme": "light",
+              "borderRadius": {
+                "value": 0.5,
+                "unit": "rem"
+              },
+              "button": {
+                "borderRadius": {
+                  "value": 9999,
+                  "unit": "px"
+                }
+              }
+            },
+            "direction": "ltr",
+            "imgSrc": "assets/img/layouts/zeus.png",
+            "layout": "horizontal",
+            "boxed": false,
+            "sidenav": {
+              "title": "APP",
+              "imageUrl": "assets/img/logo/logo.svg",
+              "showCollapsePin": true,
+              "user": {
+                "visible": true
+              },
+              "search": {
+                "visible": true
+              },
+              "state": "collapsed"
+            },
+            "toolbar": {
+              "fixed": true,
+              "user": {
+                "visible": true
+              }
+            },
+            "navbar": {
+              "position": "below-toolbar"
+            },
+            "footer": {
+              "visible": true,
+              "fixed": true
+            }
+          },
+          "ikaros": {
+            "id": "ikaros",
+            "name": "Ikaros",
+            "bodyClass": "app-layout-ikaros",
+            "style": {
+              "themeClassName": "app-theme-default",
+              "colorScheme": "light",
+              "borderRadius": {
+                "value": 0.5,
+                "unit": "rem"
+              },
+              "button": {
+                "borderRadius": {
+                  "value": 9999,
+                  "unit": "px"
+                }
+              }
+            },
+            "direction": "ltr",
+            "imgSrc": "assets/img/layouts/ikaros.png",
+            "layout": "vertical",
+            "boxed": true,
+            "sidenav": {
+              "title": "APP",
+              "imageUrl": "assets/img/logo/logo.svg",
+              "showCollapsePin": true,
+              "user": {
+                "visible": false
+              },
+              "search": {
+                "visible": false
+              },
+              "state": "expanded"
+            },
+            "toolbar": {
+              "fixed": false,
+              "user": {
+                "visible": true
+              }
+            },
+            "navbar": {
+              "position": "in-toolbar"
+            },
+            "footer": {
+              "visible": true,
+              "fixed": false
+            }
           }
         }
       },
-      "direction": "ltr",
-      "imgSrc": "assets/img/layouts/apollo.png",
-      "layout": "horizontal",
-      "boxed": false,
-      "sidenav": {
-        "title": "APP",
-        "imageUrl": "assets/img/logo/logo.svg",
-        "showCollapsePin": true,
-        "user": {
-          "visible": true
+      "colors": {
+        "indigo": {
+          "default": {
+            "50": "238 242 255",
+            "100": "224 231 255",
+            "200": "199 210 254",
+            "300": "165 180 252",
+            "400": "129 140 248",
+            "500": "99 102 241",
+            "600": "79 70 229",
+            "700": "67 56 202",
+            "800": "55 48 163",
+            "900": "49 46 129"
+          },
+          "contrast": {
+            "50": "0 0 0",
+            "100": "0 0 0",
+            "200": "0 0 0",
+            "300": "0 0 0",
+            "400": "0 0 0",
+            "500": "255 255 255",
+            "600": "255 255 255",
+            "700": "255 255 255",
+            "800": "255 255 255",
+            "900": "255 255 255"
+          }
         },
-        "search": {
-          "visible": true
+        "blue": {
+          "default": {
+            "50": "239 246 255",
+            "100": "219 234 254",
+            "200": "191 219 254",
+            "300": "147 197 253",
+            "400": "96 165 250",
+            "500": "59 130 246",
+            "600": "37 99 235",
+            "700": "29 78 216",
+            "800": "30 64 175",
+            "900": "30 58 138"
+          },
+          "contrast": {
+            "50": "0 0 0",
+            "100": "0 0 0",
+            "200": "0 0 0",
+            "300": "0 0 0",
+            "400": "0 0 0",
+            "500": "255 255 255",
+            "600": "255 255 255",
+            "700": "255 255 255",
+            "800": "255 255 255",
+            "900": "255 255 255"
+          }
         },
-        "state": "expanded"
-      },
-      "toolbar": {
-        "fixed": true,
-        "user": {
-          "visible": true
-        }
-      },
-      "navbar": {
-        "position": "below-toolbar"
-      },
-      "footer": {
-        "visible": true,
-        "fixed": true
-      }
-    },
-    "poseidon": {
-      "id": "poseidon",
-      "name": "Poseidon",
-      "bodyClass": "app-layout-poseidon",
-      "style": {
-        "themeClassName": "app-theme-default",
-        "colorScheme": "dark",
-        "borderRadius": {
-          "value": 0.5,
-          "unit": "rem"
+        "gray": {
+          "default": {
+            "50": "249 250 251",
+            "100": "243 244 246",
+            "200": "229 231 235",
+            "300": "209 213 219",
+            "400": "156 163 175",
+            "500": "107 114 128",
+            "600": "75 85 99",
+            "700": "55 65 81",
+            "800": "31 41 55",
+            "900": "17 24 39"
+          },
+          "contrast": {
+            "50": "0 0 0",
+            "100": "0 0 0",
+            "200": "0 0 0",
+            "300": "0 0 0",
+            "400": "0 0 0",
+            "500": "255 255 255",
+            "600": "255 255 255",
+            "700": "255 255 255",
+            "800": "255 255 255",
+            "900": "255 255 255"
+          }
         },
-        "button": {
-          "borderRadius": {
-            "value": 9999,
-            "unit": "px"
+        "red": {
+          "default": {
+            "50": "254 242 242",
+            "100": "254 226 226",
+            "200": "254 202 202",
+            "300": "252 165 165",
+            "400": "248 113 113",
+            "500": "239 68 68",
+            "600": "220 38 38",
+            "700": "185 28 28",
+            "800": "153 27 27",
+            "900": "127 29 29"
+          },
+          "contrast": {
+            "50": "0 0 0",
+            "100": "0 0 0",
+            "200": "0 0 0",
+            "300": "0 0 0",
+            "400": "0 0 0",
+            "500": "255 255 255",
+            "600": "255 255 255",
+            "700": "255 255 255",
+            "800": "255 255 255",
+            "900": "255 255 255"
+          }
+        },
+        "orange": {
+          "default": {
+            "50": "255 247 237",
+            "100": "255 237 213",
+            "200": "254 215 170",
+            "300": "253 186 116",
+            "400": "251 146 60",
+            "500": "249 115 22",
+            "600": "234 88 12",
+            "700": "194 65 12",
+            "800": "154 52 18",
+            "900": "124 45 18"
+          },
+          "contrast": {
+            "50": "0 0 0",
+            "100": "0 0 0",
+            "200": "0 0 0",
+            "300": "0 0 0",
+            "400": "0 0 0",
+            "500": "255 255 255",
+            "600": "255 255 255",
+            "700": "255 255 255",
+            "800": "255 255 255",
+            "900": "255 255 255"
+          }
+        },
+        "amber": {
+          "default": {
+            "50": "255 251 235",
+            "100": "254 243 199",
+            "200": "253 230 138",
+            "300": "252 211 77",
+            "400": "251 191 36",
+            "500": "245 158 11",
+            "600": "217 119 6",
+            "700": "180 83 9",
+            "800": "146 64 14",
+            "900": "120 53 15"
+          },
+          "contrast": {
+            "50": "0 0 0",
+            "100": "0 0 0",
+            "200": "0 0 0",
+            "300": "0 0 0",
+            "400": "0 0 0",
+            "500": "0 0 0",
+            "600": "255 255 255",
+            "700": "255 255 255",
+            "800": "255 255 255",
+            "900": "255 255 255"
+          }
+        },
+        "green": {
+          "default": {
+            "50": "240 253 244",
+            "100": "220 252 231",
+            "200": "187 247 208",
+            "300": "134 239 172",
+            "400": "74 222 128",
+            "500": "34 197 94",
+            "600": "22 163 74",
+            "700": "21 128 61",
+            "800": "22 101 52",
+            "900": "20 83 45"
+          },
+          "contrast": {
+            "50": "0 0 0",
+            "100": "0 0 0",
+            "200": "0 0 0",
+            "300": "0 0 0",
+            "400": "0 0 0",
+            "500": "255 255 255",
+            "600": "255 255 255",
+            "700": "255 255 255",
+            "800": "255 255 255",
+            "900": "255 255 255"
+          }
+        },
+        "teal": {
+          "default": {
+            "50": "240 253 250",
+            "100": "204 251 241",
+            "200": "153 246 228",
+            "300": "94 234 212",
+            "400": "45 212 191",
+            "500": "20 184 166",
+            "600": "13 148 136",
+            "700": "15 118 110",
+            "800": "17 94 89",
+            "900": "19 78 74"
+          },
+          "contrast": {
+            "50": "0 0 0",
+            "100": "0 0 0",
+            "200": "0 0 0",
+            "300": "0 0 0",
+            "400": "0 0 0",
+            "500": "255 255 255",
+            "600": "255 255 255",
+            "700": "255 255 255",
+            "800": "255 255 255",
+            "900": "255 255 255"
+          }
+        },
+        "cyan": {
+          "default": {
+            "50": "236 254 255",
+            "100": "207 250 254",
+            "200": "165 243 252",
+            "300": "103 232 249",
+            "400": "34 211 238",
+            "500": "6 182 212",
+            "600": "8 145 178",
+            "700": "14 116 144",
+            "800": "21 94 117",
+            "900": "22 78 99"
+          },
+          "contrast": {
+            "50": "0 0 0",
+            "100": "0 0 0",
+            "200": "0 0 0",
+            "300": "0 0 0",
+            "400": "0 0 0",
+            "500": "255 255 255",
+            "600": "255 255 255",
+            "700": "255 255 255",
+            "800": "255 255 255",
+            "900": "255 255 255"
+          }
+        },
+        "purple": {
+          "default": {
+            "50": "250 245 255",
+            "100": "243 232 255",
+            "200": "233 213 255",
+            "300": "216 180 254",
+            "400": "192 132 252",
+            "500": "168 85 247",
+            "600": "147 51 234",
+            "700": "126 34 206",
+            "800": "107 33 168",
+            "900": "88 28 135"
+          },
+          "contrast": {
+            "50": "0 0 0",
+            "100": "0 0 0",
+            "200": "0 0 0",
+            "300": "0 0 0",
+            "400": "0 0 0",
+            "500": "255 255 255",
+            "600": "255 255 255",
+            "700": "255 255 255",
+            "800": "255 255 255",
+            "900": "255 255 255"
+          }
+        },
+        "pink": {
+          "default": {
+            "50": "253 242 248",
+            "100": "252 231 243",
+            "200": "251 207 232",
+            "300": "249 168 212",
+            "400": "244 114 182",
+            "500": "236 72 153",
+            "600": "219 39 119",
+            "700": "190 24 93",
+            "800": "157 23 77",
+            "900": "131 24 67"
+          },
+          "contrast": {
+            "50": "0 0 0",
+            "100": "0 0 0",
+            "200": "0 0 0",
+            "300": "0 0 0",
+            "400": "0 0 0",
+            "500": "255 255 255",
+            "600": "255 255 255",
+            "700": "255 255 255",
+            "800": "255 255 255",
+            "900": "255 255 255"
           }
         }
-      },
-      "direction": "ltr",
-      "imgSrc": "assets/img/layouts/poseidon.png",
-      "layout": "horizontal",
-      "boxed": false,
-      "sidenav": {
-        "title": "APP",
-        "imageUrl": "assets/img/logo/logo.svg",
-        "showCollapsePin": true,
-        "user": {
-          "visible": true
-        },
-        "search": {
-          "visible": true
-        },
-        "state": "expanded"
-      },
-      "toolbar": {
-        "fixed": true,
-        "user": {
-          "visible": false
-        }
-      },
-      "navbar": {
-        "position": "below-toolbar"
-      },
-      "footer": {
-        "visible": true,
-        "fixed": true
-      }
-    },
-    "hermes": {
-      "id": "hermes",
-      "name": "Hermes",
-      "bodyClass": "app-layout-hermes",
-      "style": {
-        "themeClassName": "app-theme-default",
-        "colorScheme": "light",
-        "borderRadius": {
-          "value": 0.5,
-          "unit": "rem"
-        },
-        "button": {
-          "borderRadius": {
-            "value": 9999,
-            "unit": "px"
-          }
-        }
-      },
-      "direction": "ltr",
-      "imgSrc": "assets/img/layouts/hermes.png",
-      "layout": "vertical",
-      "boxed": true,
-      "sidenav": {
-        "title": "APP",
-        "imageUrl": "assets/img/logo/logo.svg",
-        "showCollapsePin": true,
-        "user": {
-          "visible": false
-        },
-        "search": {
-          "visible": false
-        },
-        "state": "expanded"
-      },
-      "toolbar": {
-        "fixed": false,
-        "user": {
-          "visible": true
-        }
-      },
-      "navbar": {
-        "position": "below-toolbar"
-      },
-      "footer": {
-        "visible": true,
-        "fixed": false
-      }
-    },
-    "ares": {
-      "id": "ares",
-      "name": "Ares",
-      "bodyClass": "app-layout-ares",
-      "style": {
-        "themeClassName": "app-theme-default",
-        "colorScheme": "light",
-        "borderRadius": {
-          "value": 0.5,
-          "unit": "rem"
-        },
-        "button": {
-          "borderRadius": {
-            "value": 9999,
-            "unit": "px"
-          }
-        }
-      },
-      "direction": "ltr",
-      "imgSrc": "assets/img/layouts/ares.png",
-      "layout": "horizontal",
-      "boxed": false,
-      "sidenav": {
-        "title": "APP",
-        "imageUrl": "assets/img/logo/logo.svg",
-        "showCollapsePin": true,
-        "user": {
-          "visible": false
-        },
-        "search": {
-          "visible": false
-        },
-        "state": "expanded"
-      },
-      "toolbar": {
-        "fixed": false,
-        "user": {
-          "visible": true
-        }
-      },
-      "navbar": {
-        "position": "in-toolbar"
-      },
-      "footer": {
-        "visible": true,
-        "fixed": false
-      }
-    },
-    "zeus": {
-      "id": "zeus",
-      "name": "Zeus",
-      "bodyClass": "app-layout-zeus",
-      "style": {
-        "themeClassName": "app-theme-default",
-        "colorScheme": "light",
-        "borderRadius": {
-          "value": 0.5,
-          "unit": "rem"
-        },
-        "button": {
-          "borderRadius": {
-            "value": 9999,
-            "unit": "px"
-          }
-        }
-      },
-      "direction": "ltr",
-      "imgSrc": "assets/img/layouts/zeus.png",
-      "layout": "horizontal",
-      "boxed": false,
-      "sidenav": {
-        "title": "APP",
-        "imageUrl": "assets/img/logo/logo.svg",
-        "showCollapsePin": true,
-        "user": {
-          "visible": true
-        },
-        "search": {
-          "visible": true
-        },
-        "state": "collapsed"
-      },
-      "toolbar": {
-        "fixed": true,
-        "user": {
-          "visible": true
-        }
-      },
-      "navbar": {
-        "position": "below-toolbar"
-      },
-      "footer": {
-        "visible": true,
-        "fixed": true
-      }
-    },
-    "ikaros": {
-      "id": "ikaros",
-      "name": "Ikaros",
-      "bodyClass": "app-layout-ikaros",
-      "style": {
-        "themeClassName": "app-theme-default",
-        "colorScheme": "light",
-        "borderRadius": {
-          "value": 0.5,
-          "unit": "rem"
-        },
-        "button": {
-          "borderRadius": {
-            "value": 9999,
-            "unit": "px"
-          }
-        }
-      },
-      "direction": "ltr",
-      "imgSrc": "assets/img/layouts/ikaros.png",
-      "layout": "vertical",
-      "boxed": true,
-      "sidenav": {
-        "title": "APP",
-        "imageUrl": "assets/img/logo/logo.svg",
-        "showCollapsePin": true,
-        "user": {
-          "visible": false
-        },
-        "search": {
-          "visible": false
-        },
-        "state": "expanded"
-      },
-      "toolbar": {
-        "fixed": false,
-        "user": {
-          "visible": true
-        }
-      },
-      "navbar": {
-        "position": "in-toolbar"
-      },
-      "footer": {
-        "visible": true,
-        "fixed": false
       }
     }
   },
-    "properties": [
-      {
-        "id": "1fb734ec-5b6e-4a74-b9f3-8e853154a55e",
-        "name": "Hôtel Luxe Marina",
-        "type": "hotel",
-        "description": "Bienvenue dans notre hôtel 5 étoiles avec vue imprenable sur la marina. Notre personnel est à votre disposition 24h/24 pour rendre votre séjour inoubliable.",
-        "coverImage": "assets/img/demo/landscape.webp",
-        "avatar": "assets/img/avatars/100.jpg",
-        "address": {
-          "street": "12 Avenue des Palmiers",
-          "city": "Tanger",
-          "state": "Tanger-Tétouan-Al Hoceïma",
-          "postalCode": "90000",
-          "country": "Maroc"
+  "properties": [
+    {
+      "id": "1fb734ec-5b6e-4a74-b9f3-8e853154a55e",
+      "name": "Hôtel Luxe Marina",
+      "type": "hotel",
+      "description": "Bienvenue dans notre hôtel 5 étoiles avec vue imprenable sur la marina. Notre personnel est à votre disposition 24h/24 pour rendre votre séjour inoubliable.",
+      "coverImage": "assets/img/demo/landscape.webp",
+      "avatar": "assets/img/avatars/100.jpg",
+      "address": {
+        "street": "12 Avenue des Palmiers",
+        "city": "Tanger",
+        "state": "Tanger-Tétouan-Al Hoceïma",
+        "postalCode": "90000",
+        "country": "Maroc"
+      },
+      "location": {
+        "latitude": "35.7633",
+        "longitude": "-5.8039"
+      },
+      "lateArrivalInstructions": [
+        {
+          "id": "late-arrival-1",
+          "type": "key",
+          "title": "Réception 24h/24",
+          "description": "Notre réception est ouverte 24h/24 et 7j/7. Présentez-vous simplement à l'accueil avec votre pièce d'identité et votre numéro de réservation pour obtenir votre clé.",
+          "priority": 1,
+          "icon": "key"
         },
-        "location": {
-          "latitude": "35.7633",
-          "longitude": "-5.8039"
+        {
+          "id": "late-arrival-2",
+          "type": "contact",
+          "title": "Concierge de nuit",
+          "description": "Pour les arrivées entre 22h et 6h du matin, un concierge de nuit est présent à l'entrée latérale de l'hôtel (côté marina).",
+          "contactName": "Service de conciergerie nocturne",
+          "contactPhone": "+212 661-234567",
+          "hours": "22h00 - 06h00",
+          "priority": 2,
+          "icon": "contact_phone"
         },
-        "lateArrivalInstructions": [
+        {
+          "id": "late-arrival-3",
+          "type": "smartlock",
+          "title": "Application mobile de l'hôtel",
+          "description": "Vous pouvez utiliser notre application mobile pour effectuer un check-in express et déverrouiller directement la porte de votre chambre.\n\nTéléchargez l'application 'Luxe Marina' sur App Store ou Google Play et connectez-vous avec les identifiants qui vous ont été envoyés par email.",
+          "priority": 3,
+          "icon": "phonelink_lock"
+        },
+        {
+          "id": "late-arrival-4",
+          "type": "meetandgreet",
+          "title": "Service VIP d'accueil",
+          "description": "Pour une arrivée sans stress, vous pouvez réserver notre service d'accueil VIP (à partir de 50€). Un membre de notre équipe vous attendra à l'aéroport ou à la gare et s'occupera de votre transfert et de votre enregistrement.",
+          "contactName": "Service client VIP",
+          "contactPhone": "+212 662-345678",
+          "priority": 4,
+          "icon": "handshake"
+        },
+        {
+          "id": "late-arrival-5",
+          "type": "other",
+          "title": "Informations pratiques",
+          "description": "Le parking souterrain de l'hôtel est accessible 24h/24 avec votre code de réservation.\n\nPour les arrivées tardives, un menu léger est disponible en room service jusqu'à 2h du matin.\n\nLe Wi-Fi est disponible dans tout l'hôtel avec le code d'accès : LuxeMarina2023",
+          "priority": 5,
+          "icon": "info"
+        }
+      ],
+      "houseRules": [
+        {
+          "id": "rule-1",
+          "category": "general",
+          "title": "RULES.GENERAL.CHECK_IN_OUT.TITLE",
+          "description": "RULES.GENERAL.CHECK_IN_OUT.DESCRIPTION",
+          "icon": "schedule",
+          "isImportant": true
+        },
+        {
+          "id": "rule-2",
+          "category": "noise",
+          "title": "RULES.NOISE.QUIET_HOURS.TITLE",
+          "description": "RULES.NOISE.QUIET_HOURS.DESCRIPTION",
+          "icon": "volume_off",
+          "isImportant": true
+        },
+        {
+          "id": "rule-3",
+          "category": "smoking",
+          "title": "RULES.SMOKING.NON_SMOKING.TITLE",
+          "description": "RULES.SMOKING.NON_SMOKING.DESCRIPTION",
+          "icon": "smoke_free",
+          "isImportant": true
+        },
+        {
+          "id": "rule-4",
+          "category": "pets",
+          "title": "RULES.PETS.PET_POLICY.TITLE",
+          "description": "RULES.PETS.PET_POLICY.DESCRIPTION",
+          "icon": "pets",
+          "isImportant": false
+        },
+        {
+          "id": "rule-5",
+          "category": "cleanliness",
+          "title": "RULES.CLEANLINESS.ROOM_CLEANING.TITLE",
+          "description": "RULES.CLEANLINESS.ROOM_CLEANING.DESCRIPTION",
+          "icon": "cleaning_services",
+          "isImportant": false
+        },
+        {
+          "id": "rule-6",
+          "category": "events",
+          "title": "RULES.EVENTS.NO_PARTIES.TITLE",
+          "description": "RULES.EVENTS.NO_PARTIES.DESCRIPTION",
+          "icon": "celebration",
+          "isImportant": true
+        },
+        {
+          "id": "rule-7",
+          "category": "safety",
+          "title": "RULES.SAFETY.FIRE_SAFETY.TITLE",
+          "description": "RULES.SAFETY.FIRE_SAFETY.DESCRIPTION",
+          "icon": "local_fire_department",
+          "isImportant": false
+        },
+        {
+          "id": "rule-8",
+          "category": "safety",
+          "title": "RULES.SAFETY.EMERGENCY_EXITS.TITLE",
+          "description": "RULES.SAFETY.EMERGENCY_EXITS.DESCRIPTION",
+          "icon": "exit_to_app",
+          "isImportant": false
+        },
+        {
+          "id": "rule-9",
+          "category": "general",
+          "title": "RULES.GENERAL.BREAKFAST.TITLE",
+          "description": "RULES.GENERAL.BREAKFAST.DESCRIPTION",
+          "icon": "restaurant",
+          "isImportant": false
+        },
+        {
+          "id": "rule-10",
+          "category": "general",
+          "title": "RULES.GENERAL.WIFI.TITLE",
+          "description": "RULES.GENERAL.WIFI.DESCRIPTION",
+          "icon": "wifi",
+          "isImportant": false
+        }
+      ],
+      "itineraryInfo": {
+        "coordinates": {
+          "latitude": 35.7633,
+          "longitude": -5.8039
+        },
+        "airports": [
           {
-            "id": "late-arrival-1",
-            "type": "key",
-            "title": "Réception 24h/24",
-            "description": "Notre réception est ouverte 24h/24 et 7j/7. Présentez-vous simplement à l'accueil avec votre pièce d'identité et votre numéro de réservation pour obtenir votre clé.",
-            "priority": 1,
-            "icon": "key"
+            "name": "Aéroport Ibn Batouta Tanger",
+            "distance": "15 km",
+            "estimatedBudget": "150-200 MAD",
+            "estimatedTime": "25-30 min",
+            "icon": "flight"
           },
           {
-            "id": "late-arrival-2",
-            "type": "contact",
-            "title": "Concierge de nuit",
-            "description": "Pour les arrivées entre 22h et 6h du matin, un concierge de nuit est présent à l'entrée latérale de l'hôtel (côté marina).",
-            "contactName": "Service de conciergerie nocturne",
-            "contactPhone": "+212 661-234567",
-            "hours": "22h00 - 06h00",
-            "priority": 2,
-            "icon": "contact_phone"
-          },
-          {
-            "id": "late-arrival-3",
-            "type": "smartlock",
-            "title": "Application mobile de l'hôtel",
-            "description": "Vous pouvez utiliser notre application mobile pour effectuer un check-in express et déverrouiller directement la porte de votre chambre.\n\nTéléchargez l'application 'Luxe Marina' sur App Store ou Google Play et connectez-vous avec les identifiants qui vous ont été envoyés par email.",
-            "priority": 3,
-            "icon": "phonelink_lock"
-          },
-          {
-            "id": "late-arrival-4",
-            "type": "meetandgreet",
-            "title": "Service VIP d'accueil",
-            "description": "Pour une arrivée sans stress, vous pouvez réserver notre service d'accueil VIP (à partir de 50€). Un membre de notre équipe vous attendra à l'aéroport ou à la gare et s'occupera de votre transfert et de votre enregistrement.",
-            "contactName": "Service client VIP",
-            "contactPhone": "+212 662-345678",
-            "priority": 4,
-            "icon": "handshake"
-          },
-          {
-            "id": "late-arrival-5",
-            "type": "other",
-            "title": "Informations pratiques",
-            "description": "Le parking souterrain de l'hôtel est accessible 24h/24 avec votre code de réservation.\n\nPour les arrivées tardives, un menu léger est disponible en room service jusqu'à 2h du matin.\n\nLe Wi-Fi est disponible dans tout l'hôtel avec le code d'accès : LuxeMarina2023",
-            "priority": 5,
-            "icon": "info"
+            "name": "Aéroport de Tétouan",
+            "distance": "60 km",
+            "estimatedBudget": "500-600 MAD",
+            "estimatedTime": "1h15-1h30",
+            "icon": "flight"
           }
         ],
-        "houseRules": [
+        "trainStations": [
           {
-            "id": "rule-1",
-            "category": "general",
-            "title": "RULES.GENERAL.CHECK_IN_OUT.TITLE",
-            "description": "RULES.GENERAL.CHECK_IN_OUT.DESCRIPTION",
-            "icon": "schedule",
-            "isImportant": true
+            "name": "Gare de Tanger Ville",
+            "distance": "4 km",
+            "estimatedBudget": "30-50 MAD",
+            "estimatedTime": "10-15 min",
+            "icon": "train"
           },
           {
-            "id": "rule-2",
-            "category": "noise",
-            "title": "RULES.NOISE.QUIET_HOURS.TITLE",
-            "description": "RULES.NOISE.QUIET_HOURS.DESCRIPTION",
-            "icon": "volume_off",
-            "isImportant": true
-          },
-          {
-            "id": "rule-3",
-            "category": "smoking",
-            "title": "RULES.SMOKING.NON_SMOKING.TITLE",
-            "description": "RULES.SMOKING.NON_SMOKING.DESCRIPTION",
-            "icon": "smoke_free",
-            "isImportant": true
-          },
-          {
-            "id": "rule-4",
-            "category": "pets",
-            "title": "RULES.PETS.PET_POLICY.TITLE",
-            "description": "RULES.PETS.PET_POLICY.DESCRIPTION",
-            "icon": "pets",
-            "isImportant": false
-          },
-          {
-            "id": "rule-5",
-            "category": "cleanliness",
-            "title": "RULES.CLEANLINESS.ROOM_CLEANING.TITLE",
-            "description": "RULES.CLEANLINESS.ROOM_CLEANING.DESCRIPTION",
-            "icon": "cleaning_services",
-            "isImportant": false
-          },
-          {
-            "id": "rule-6",
-            "category": "events",
-            "title": "RULES.EVENTS.NO_PARTIES.TITLE",
-            "description": "RULES.EVENTS.NO_PARTIES.DESCRIPTION",
-            "icon": "celebration",
-            "isImportant": true
-          },
-          {
-            "id": "rule-7",
-            "category": "safety",
-            "title": "RULES.SAFETY.FIRE_SAFETY.TITLE",
-            "description": "RULES.SAFETY.FIRE_SAFETY.DESCRIPTION",
-            "icon": "local_fire_department",
-            "isImportant": false
-          },
-          {
-            "id": "rule-8",
-            "category": "safety",
-            "title": "RULES.SAFETY.EMERGENCY_EXITS.TITLE",
-            "description": "RULES.SAFETY.EMERGENCY_EXITS.DESCRIPTION",
-            "icon": "exit_to_app",
-            "isImportant": false
-          },
-          {
-            "id": "rule-9",
-            "category": "general",
-            "title": "RULES.GENERAL.BREAKFAST.TITLE",
-            "description": "RULES.GENERAL.BREAKFAST.DESCRIPTION",
-            "icon": "restaurant",
-            "isImportant": false
-          },
-          {
-            "id": "rule-10",
-            "category": "general",
-            "title": "RULES.GENERAL.WIFI.TITLE",
-            "description": "RULES.GENERAL.WIFI.DESCRIPTION",
-            "icon": "wifi",
-            "isImportant": false
+            "name": "Gare LGV Tanger",
+            "distance": "18 km",
+            "estimatedBudget": "150-200 MAD",
+            "estimatedTime": "25-30 min",
+            "icon": "train"
           }
         ],
-        "itineraryInfo": {
-          "coordinates": {
-            "latitude": 35.7633,
-            "longitude": -5.8039
+        "busStops": [
+          {
+            "name": "Station de bus CTM Tanger",
+            "distance": "5 km",
+            "estimatedBudget": "30-50 MAD",
+            "estimatedTime": "15-20 min",
+            "icon": "directions_bus"
+          }
+        ],
+        "transportApps": [
+          {
+            "name": "Careem",
+            "distance": "Service à la demande",
+            "estimatedBudget": "Tarifs variables selon destination",
+            "estimatedTime": "5-10 min d'attente",
+            "icon": "smartphone"
           },
-          "airports": [
-            {
-              "name": "Aéroport Ibn Batouta Tanger",
-              "distance": "15 km",
-              "estimatedBudget": "150-200 MAD",
-              "estimatedTime": "25-30 min",
-              "icon": "flight"
-            },
-            {
-              "name": "Aéroport de Tétouan",
-              "distance": "60 km",
-              "estimatedBudget": "500-600 MAD",
-              "estimatedTime": "1h15-1h30",
-              "icon": "flight"
-            }
-          ],
-          "trainStations": [
-            {
-              "name": "Gare de Tanger Ville",
-              "distance": "4 km",
-              "estimatedBudget": "30-50 MAD",
-              "estimatedTime": "10-15 min",
-              "icon": "train"
-            },
-            {
-              "name": "Gare LGV Tanger",
-              "distance": "18 km",
-              "estimatedBudget": "150-200 MAD",
-              "estimatedTime": "25-30 min",
-              "icon": "train"
-            }
-          ],
-          "busStops": [
-            {
-              "name": "Station de bus CTM Tanger",
-              "distance": "5 km",
-              "estimatedBudget": "30-50 MAD",
-              "estimatedTime": "15-20 min",
-              "icon": "directions_bus"
-            }
-          ],
-          "transportApps": [
-            {
-              "name": "Careem",
-              "distance": "Service à la demande",
-              "estimatedBudget": "Tarifs variables selon destination",
-              "estimatedTime": "5-10 min d'attente",
-              "icon": "smartphone"
-            },
-            {
-              "name": "Heetch",
-              "distance": "Service à la demande",
-              "estimatedBudget": "Tarifs variables selon destination",
-              "estimatedTime": "5-10 min d'attente",
-              "icon": "smartphone"
-            }
-          ],
-          "taxiContacts": [
-            {
-              "name": "Taxis Marina",
-              "phone": "+212 661 234 567",
-              "rating": 4.8,
+          {
+            "name": "Heetch",
+            "distance": "Service à la demande",
+            "estimatedBudget": "Tarifs variables selon destination",
+            "estimatedTime": "5-10 min d'attente",
+            "icon": "smartphone"
+          }
+        ],
+        "taxiContacts": [
+          {
+            "name": "Taxis Marina",
+            "phone": "+212 661 234 567",
+            "rating": 4.8,
             "languages": [
               "Français",
               "Anglais",
               "Arabe",
               "Espagnol"
             ]
-            },
-            {
-              "name": "Grand Taxi Tanger",
-              "phone": "+212 539 876 543",
-              "rating": 4.5,
+          },
+          {
+            "name": "Grand Taxi Tanger",
+            "phone": "+212 539 876 543",
+            "rating": 4.5,
             "languages": [
               "Français",
               "Arabe",
               "Espagnol"
             ]
-            }
-          ]
-        },
-        "socialMedia": [
+          }
+        ]
+      },
+      "socialMedia": [
         {
           "name": "Facebook",
           "icon": "facebook",
@@ -546,95 +842,94 @@
         "Arabe",
         "Espagnol"
       ],
-        "operatingHours": {
-          "reception": "00:00 - 24:00",
-          "checkout": "12:00",
-          "checkin": "14:00 - 23:00"
-        },
-        "contactInfo": {
-          "phone": "+212 539 123 456",
-          "email": "contact@hotelluxemarina.com",
-          "website": "www.hotelluxemarina.com"
-        },
-        "checkInInfo": {
-          "checkInStart": "14:00",
-          "checkInEnd": "23:00",
-          "checkOutTime": "12:00",
-          "accessInstructions": {
-            "title": "Instructions d'accès - Hôtel",
-            "status": "PENDING",
-            "messages": {
-              "title": "Bienvenue à l'Hôtel Luxe Marina!",
-              "subtitle": "Votre chambre est prête pour votre arrivée.",
-              "items": [
-                {
-                  "order": 1,
-                  "value": "Veuillez vous présenter à la réception avec votre pièce d'identité et le numéro de confirmation de réservation"
-                },
-                {
-                  "order": 2,
-                  "value": "Notre personnel est à votre disposition 24h/24 pour toute assistance"
-                }
-              ]
-            },
-            "documents": [
+      "operatingHours": {
+        "reception": "00:00 - 24:00",
+        "checkout": "12:00",
+        "checkin": "14:00 - 23:00"
+      },
+      "contactInfo": {
+        "phone": "+212 539 123 456",
+        "email": "contact@hotelluxemarina.com",
+        "website": "www.hotelluxemarina.com"
+      },
+      "checkInInfo": {
+        "checkInStart": "14:00",
+        "checkInEnd": "23:00",
+        "checkOutTime": "12:00",
+        "accessInstructions": {
+          "title": "Instructions d'accès - Hôtel",
+          "status": "PENDING",
+          "messages": {
+            "title": "Bienvenue à l'Hôtel Luxe Marina!",
+            "subtitle": "Votre chambre est prête pour votre arrivée.",
+            "items": [
               {
-                "label": "Pièce d'identité",
-                "documentType": "CNI",
-                "status": "PENDING"
+                "order": 1,
+                "value": "Veuillez vous présenter à la réception avec votre pièce d'identité et le numéro de confirmation de réservation"
+              },
+              {
+                "order": 2,
+                "value": "Notre personnel est à votre disposition 24h/24 pour toute assistance"
               }
-            ],
-            "instructions": [
-              {
-                "step": 1,
-                "title": "Vérification d'Identité",
-                "description": "<h4>Lors de votre arrivée à l'hôtel, veuillez présenter les documents suivants à la réception</h4>",
-                "needToCheck": true,
-                "checkLink": "https://example.com/verify-identity",
+            ]
+          },
+          "documents": [
+            {
+              "label": "Pièce d'identité",
+              "documentType": "CNI",
+              "status": "PENDING"
+            }
+          ],
+          "instructions": [
+            {
+              "step": 1,
+              "title": "Vérification d'Identité",
+              "description": "<h4>Lors de votre arrivée à l'hôtel, veuillez présenter les documents suivants à la réception</h4>",
+              "needToCheck": true,
+              "checkLink": "https://example.com/verify-identity",
               "list": [
                 "Pièce d'identité",
                 "Confirmation de réservation"
               ],
-                "videoUrl": "",
-                "type": "IDENTITY_CHECK"
-              },
-              {
-                "step": 2,
-                "title": "Récupération des Clés",
-                "description": "Présentez-vous à la réception de l'hôtel qui se trouve au rez-de-chaussée, à droite de l'entrée principale. Notre personnel vous remettra les clés de votre chambre après vérification de votre identité.",
-                "videoUrl": "https://player.vimeo.com/video/253905163",
-                "methodType": "KEY",
-                "type": "ACCESS_MODE"
-              },
-              {
-                "step": 3,
-                "title": "Accès à la Chambre",
-                "description": "Votre chambre se trouve au 4ème étage, accessible par l'ascenseur central. Suivez les indications dans le couloir pour trouver votre chambre numéro 412.",
-                "videoUrl": "",
+              "videoUrl": "",
+              "type": "IDENTITY_CHECK"
+            },
+            {
+              "step": 2,
+              "title": "Récupération des Clés",
+              "description": "Présentez-vous à la réception de l'hôtel qui se trouve au rez-de-chaussée, à droite de l'entrée principale. Notre personnel vous remettra les clés de votre chambre après vérification de votre identité.",
+              "videoUrl": "https://player.vimeo.com/video/253905163",
+              "methodType": "KEY",
+              "type": "ACCESS_MODE"
+            },
+            {
+              "step": 3,
+              "title": "Accès à la Chambre",
+              "description": "Votre chambre se trouve au 4ème étage, accessible par l'ascenseur central. Suivez les indications dans le couloir pour trouver votre chambre numéro 412.",
+              "videoUrl": "",
               "images": [
                 "assets/img/demo/landscape.webp",
                 "assets/img/demo/landscape.webp"
               ],
-                "type": "ARRIVAL_INSTRUCTION"
-              }
-            ],
-            "checkinContacts": [
-              {
-                "order": 1,
-                "value": "+212 539 123 456",
-                "type": "PHONE",
-                "icon": "mat:phone",
-                "label": "Réception 24h/24"
-              },
-              {
-                "order": 2,
-                "value": "+212 661 789 012",
-                "type": "WHATSAPP",
-                "icon": "logo:whatsapp",
-                "label": "Conciergerie WhatsApp"
-              }
-            ]
-          },
+              "type": "ARRIVAL_INSTRUCTION"
+            }
+          ],
+          "checkinContacts": [
+            {
+              "order": 1,
+              "value": "+212 539 123 456",
+              "type": "PHONE",
+              "icon": "mat:phone",
+              "label": "Réception 24h/24"
+            },
+            {
+              "order": 2,
+              "value": "+212 661 789 012",
+              "type": "WHATSAPP",
+              "icon": "logo:whatsapp",
+              "label": "Conciergerie WhatsApp"
+            }
+          ],
           "parkingInstructions": {
             "generalInstructions": "L'hôtel propose plusieurs options de stationnement pour nos clients. La réservation préalable est recommandée pendant la haute saison.",
             "spots": [
@@ -680,26 +975,27 @@
             ]
           }
         }
+      }
+    },
+    {
+      "id": "2ac845fd-6c7f-5b85-c0a4-9f964265b66f",
+      "name": "Villa Oceania",
+      "type": "villa",
+      "description": "Magnifique villa avec piscine privée et vue sur l'océan. Parfaite pour des vacances en famille ou entre amis dans un cadre idyllique.",
+      "coverImage": "assets/img/demo/landscape.webp",
+      "avatar": "assets/img/avatars/1.jpg",
+      "address": {
+        "street": "Route de Malabata",
+        "city": "Tanger",
+        "state": "Tanger-Tétouan-Al Hoceïma",
+        "postalCode": "90000",
+        "country": "Maroc"
       },
-      {
-        "id": "2ac845fd-6c7f-5b85-c0a4-9f964265b66f",
-        "name": "Villa Oceania",
-        "type": "villa",
-        "description": "Magnifique villa avec piscine privée et vue sur l'océan. Parfaite pour des vacances en famille ou entre amis dans un cadre idyllique.",
-        "coverImage": "assets/img/demo/landscape.webp",
-        "avatar": "assets/img/avatars/1.jpg",
-        "address": {
-          "street": "Route de Malabata",
-          "city": "Tanger",
-          "state": "Tanger-Tétouan-Al Hoceïma",
-          "postalCode": "90000",
-          "country": "Maroc"
-        },
-        "location": {
-          "latitude": "35.7922",
-          "longitude": "-5.7656"
-        },
-        "socialMedia": [
+      "location": {
+        "latitude": "35.7922",
+        "longitude": "-5.7656"
+      },
+      "socialMedia": [
         {
           "name": "Facebook",
           "icon": "facebook",
@@ -716,134 +1012,133 @@
         "Anglais",
         "Espagnol"
       ],
-        "operatingHours": {
-          "reception": "09:00 - 19:00",
-          "checkout": "10:00",
-          "checkin": "15:00 - 20:00"
-        },
-        "contactInfo": {
-          "phone": "+212 661 234 567",
-          "email": "info@villaoceania.com",
-          "website": "www.villaoceania.com"
-        },
-        "checkInInfo": {
-          "checkInStart": "15:00",
-          "checkInEnd": "20:00",
-          "checkOutTime": "10:00",
-          "accessInstructions": [
-            {
-              "type": "keycode",
-              "description": "Code d'accès portail principal",
-              "details": "Le portail principal de la villa peut être ouvert avec le code 5678. Ce code est valable pendant toute la durée de votre séjour.",
-              "priority": 1
-            },
-            {
-              "type": "key",
-              "description": "Boîte à clés sécurisée",
-              "details": "La clé de la villa se trouve dans une boîte à clés sécurisée située à droite de la porte d'entrée principale.\n\nPour l'ouvrir, utilisez le code à 4 chiffres qui vous a été envoyé par SMS le jour de votre arrivée.",
-              "priority": 2
-            },
-            {
-              "type": "contact",
-              "description": "Gardien sur place",
-              "details": "En cas de difficulté pour accéder à la villa, notre gardien habite dans la maison adjacente et peut vous aider à toute heure.",
-              "contactName": "Ahmed",
-              "contactPhone": "+212 661-987654",
-              "hours": "Disponible 24h/24",
-              "priority": 3
-            },
-            {
-              "type": "smartlock",
-              "description": "Application mobile pour accès",
-              "details": "Vous pouvez également utiliser notre application mobile 'Villa Connect' pour déverrouiller la porte principale.\n\nTéléchargez l'application sur votre smartphone et utilisez les identifiants fournis dans votre email de confirmation.",
-              "priority": 4
-            },
-            {
-              "type": "other",
-              "description": "Informations pratiques pour arrivée tardive",
-              "details": "- Une lumière extérieure à détecteur de mouvement s'allumera automatiquement à votre arrivée\n- Des bouteilles d'eau et une collation légère vous attendent dans la cuisine\n- Le chauffage/climatisation est préréglé pour votre confort\n- Un classeur avec toutes les informations sur la villa se trouve sur la table du salon",
-              "priority": 5
-            }
-          ],
-          "title": "Instructions d'accès - Villa",
-          "status": "PENDING",
-          "messages": {
-            "title": "Bienvenue à la Villa Oceania!",
-            "subtitle": "Voici comment accéder à votre location de vacances en toute autonomie.",
-            "items": [
-              {
-                "order": 1,
-                "value": "La villa est équipée d'une key box sécurisée pour récupérer les clés"
-              },
-              {
-                "order": 2,
-                "value": "Veuillez respecter les heures d'arrivée et de départ"
-              }
-            ]
+      "operatingHours": {
+        "reception": "09:00 - 19:00",
+        "checkout": "10:00",
+        "checkin": "15:00 - 20:00"
+      },
+      "contactInfo": {
+        "phone": "+212 661 234 567",
+        "email": "info@villaoceania.com",
+        "website": "www.villaoceania.com"
+      },
+      "checkInInfo": {
+        "checkInStart": "15:00",
+        "checkInEnd": "20:00",
+        "checkOutTime": "10:00",
+        "accessInstructions": [
+          {
+            "type": "keycode",
+            "description": "Code d'accès portail principal",
+            "details": "Le portail principal de la villa peut être ouvert avec le code 5678. Ce code est valable pendant toute la durée de votre séjour.",
+            "priority": 1
           },
-          "documents": [
+          {
+            "type": "key",
+            "description": "Boîte à clés sécurisée",
+            "details": "La clé de la villa se trouve dans une boîte à clés sécurisée située à droite de la porte d'entrée principale.\n\nPour l'ouvrir, utilisez le code à 4 chiffres qui vous a été envoyé par SMS le jour de votre arrivée.",
+            "priority": 2
+          },
+          {
+            "type": "contact",
+            "description": "Gardien sur place",
+            "details": "En cas de difficulté pour accéder à la villa, notre gardien habite dans la maison adjacente et peut vous aider à toute heure.",
+            "contactName": "Ahmed",
+            "contactPhone": "+212 661-987654",
+            "hours": "Disponible 24h/24",
+            "priority": 3
+          },
+          {
+            "type": "smartlock",
+            "description": "Application mobile pour accès",
+            "details": "Vous pouvez également utiliser notre application mobile 'Villa Connect' pour déverrouiller la porte principale.\n\nTéléchargez l'application sur votre smartphone et utilisez les identifiants fournis dans votre email de confirmation.",
+            "priority": 4
+          },
+          {
+            "type": "other",
+            "description": "Informations pratiques pour arrivée tardive",
+            "details": "- Une lumière extérieure à détecteur de mouvement s'allumera automatiquement à votre arrivée\n- Des bouteilles d'eau et une collation légère vous attendent dans la cuisine\n- Le chauffage/climatisation est préréglé pour votre confort\n- Un classeur avec toutes les informations sur la villa se trouve sur la table du salon",
+            "priority": 5
+          }
+        ],
+        "title": "Instructions d'accès - Villa",
+        "status": "PENDING",
+        "messages": {
+          "title": "Bienvenue à la Villa Oceania!",
+          "subtitle": "Voici comment accéder à votre location de vacances en toute autonomie.",
+          "items": [
             {
-              "label": "Pièce d'identité",
-              "documentType": "CNI",
-              "status": "PENDING"
+              "order": 1,
+              "value": "La villa est équipée d'une key box sécurisée pour récupérer les clés"
+            },
+            {
+              "order": 2,
+              "value": "Veuillez respecter les heures d'arrivée et de départ"
             }
-          ],
-          "instructions": [
-            {
-              "step": 1,
-              "title": "Accès à la Propriété",
-              "description": "<h4>La villa est située dans un domaine privé avec un gardien à l'entrée</h4><p>Présentez-vous à l'entrée du domaine 'Les Jardins de Malabata' et donnez le code #2468 au gardien pour qu'il vous laisse entrer.</p>",
-              "videoUrl": "https://player.vimeo.com/video/253905163",
+          ]
+        },
+        "documents": [
+          {
+            "label": "Pièce d'identité",
+            "documentType": "CNI",
+            "status": "PENDING"
+          }
+        ],
+        "instructions": [
+          {
+            "step": 1,
+            "title": "Accès à la Propriété",
+            "description": "<h4>La villa est située dans un domaine privé avec un gardien à l'entrée</h4><p>Présentez-vous à l'entrée du domaine 'Les Jardins de Malabata' et donnez le code #2468 au gardien pour qu'il vous laisse entrer.</p>",
+            "videoUrl": "https://player.vimeo.com/video/253905163",
             "list": [
               "Code d'accès domaine: 2468",
               "Le gardien est présent 24h/24"
             ],
-              "type": "ARRIVAL_INSTRUCTION"
+            "type": "ARRIVAL_INSTRUCTION"
+          },
+          {
+            "step": 2,
+            "title": "Récupération des Clés",
+            "description": "Vous trouverez une key box sécurisée à droite de la porte d'entrée principale. Utilisez le code ci-dessous pour l'ouvrir et récupérer les clés de la villa.",
+            "videoUrl": "https://player.vimeo.com/video/253905164",
+            "methodType": "KEY_BOX",
+            "codeAccess": {
+              "code": "3579",
+              "expiresAt": "2023-12-31T23:59:59Z",
+              "status": "ACTIVE"
             },
-            {
-              "step": 2,
-              "title": "Récupération des Clés",
-              "description": "Vous trouverez une key box sécurisée à droite de la porte d'entrée principale. Utilisez le code ci-dessous pour l'ouvrir et récupérer les clés de la villa.",
-              "videoUrl": "https://player.vimeo.com/video/253905164",
-              "methodType": "KEY_BOX",
-              "codeAccess": {
-                "code": "3579",
-                "expiresAt": "2023-12-31T23:59:59Z",
-                "status": "ACTIVE"
-              },
             "images": [
               "assets/img/demo/landscape.webp"
             ],
-              "type": "ACCESS_MODE"
-            },
-            {
-              "step": 3,
-              "title": "Accès à la Piscine",
-              "description": "La piscine privée se trouve à l'arrière de la villa. Pour activer l'éclairage et le chauffage, utilisez le panneau de contrôle situé près de la cuisine extérieure.",
+            "type": "ACCESS_MODE"
+          },
+          {
+            "step": 3,
+            "title": "Accès à la Piscine",
+            "description": "La piscine privée se trouve à l'arrière de la villa. Pour activer l'éclairage et le chauffage, utilisez le panneau de contrôle situé près de la cuisine extérieure.",
             "images": [
               "assets/img/demo/landscape.webp",
               "assets/img/demo/landscape.webp"
             ],
-              "type": "ARRIVAL_INSTRUCTION"
-            }
-          ],
-          "checkinContacts": [
-            {
-              "order": 1,
-              "value": "+212 661 234 567",
-              "type": "PHONE",
-              "icon": "mat:phone",
-              "label": "Gestionnaire local"
-            },
-            {
-              "order": 2,
-              "value": "+212 661 234 567",
-              "type": "WHATSAPP",
-              "icon": "logo:whatsapp",
-              "label": "Support WhatsApp"
-            }
-          ]
-        },
+            "type": "ARRIVAL_INSTRUCTION"
+          }
+        ],
+        "checkinContacts": [
+          {
+            "order": 1,
+            "value": "+212 661 234 567",
+            "type": "PHONE",
+            "icon": "mat:phone",
+            "label": "Gestionnaire local"
+          },
+          {
+            "order": 2,
+            "value": "+212 661 234 567",
+            "type": "WHATSAPP",
+            "icon": "logo:whatsapp",
+            "label": "Support WhatsApp"
+          }
+        ],
         "parkingInstructions": {
           "generalInstructions": "La villa dispose d'un parking privé pouvant accueillir jusqu'à 3 véhicules. Aucune réservation préalable n'est nécessaire.",
           "spots": [
@@ -876,25 +1171,57 @@
           ]
         }
       },
-      {
-        "id": "3bd956fe-7d8g-6c96-d1b5-0a075376c77g",
-        "name": "Gîte Rural Essaouira",
-        "type": "gite",
-        "description": "Authentique gîte rural à quelques kilomètres d'Essaouira. Immergez-vous dans la nature et découvrez la vie locale dans un cadre paisible.",
-        "coverImage": "assets/img/demo/landscape.webp",
-        "avatar": "assets/img/avatars/102.svg",
-        "address": {
-          "street": "Route des Arganiers",
-          "city": "Essaouira",
-          "state": "Marrakech-Safi",
-          "postalCode": "44000",
-          "country": "Maroc"
-        },
-        "location": {
-          "latitude": "31.5084",
-          "longitude": "-9.7703"
-        },
-        "socialMedia": [
+      "parkingInstructions": {
+        "generalInstructions": "La villa dispose d'un parking privé pouvant accueillir jusqu'à 3 véhicules. Aucune réservation préalable n'est nécessaire.",
+        "spots": [
+          {
+            "id": "villa-p1",
+            "name": "Garage Privé Villa",
+            "type": "Garage couvert",
+            "spotNumber": "G-01",
+            "hours": "Accès 24h/24 et 7j/7",
+            "rate": "14 euro",
+            "isPaid": true,
+            "description": "Garage couvert pouvant accueillir 2 véhicules avec accès direct à la villa. Télécommande fournie à l'arrivée.",
+            "available": false,
+            "photo": "assets/img/illustrations/parking-underground.svg",
+            "icon": "garage"
+          },
+          {
+            "id": "villa-p2",
+            "name": "Allée Privée Villa",
+            "type": "Stationnement extérieur privé",
+            "spotNumber": "E-01",
+            "hours": "Accès 24h/24 et 7j/7",
+            "rate": "Inclus dans la location",
+            "isPaid": false,
+            "description": "Allée privée devant la villa pouvant accueillir 1 véhicule supplémentaire.",
+            "available": true,
+            "photo": "assets/img/illustrations/parking-outdoor.svg",
+            "icon": "local_parking"
+          }
+        ]
+      }
+    },
+    {
+      "id": "3bd956fe-7d8g-6c96-d1b5-0a075376c77g",
+      "name": "Gîte Rural Essaouira",
+      "type": "gite",
+      "description": "Authentique gîte rural à quelques kilomètres d'Essaouira. Immergez-vous dans la nature et découvrez la vie locale dans un cadre paisible.",
+      "coverImage": "assets/img/demo/landscape.webp",
+      "avatar": "assets/img/avatars/102.svg",
+      "address": {
+        "street": "Route des Arganiers",
+        "city": "Essaouira",
+        "state": "Marrakech-Safi",
+        "postalCode": "44000",
+        "country": "Maroc"
+      },
+      "location": {
+        "latitude": "31.5084",
+        "longitude": "-9.7703"
+      },
+      "socialMedia": [
         {
           "name": "Facebook",
           "icon": "facebook",
@@ -916,135 +1243,135 @@
         "Arabe",
         "Anglais"
       ],
-        "operatingHours": {
-          "reception": "08:00 - 19:00",
-          "checkout": "11:00",
-          "checkin": "16:00 - 19:00"
-        },
-        "contactInfo": {
-          "phone": "+212 662 345 678",
-          "email": "contact@giteruralessaouira.com",
-          "website": "www.giteruralessaouira.com"
-        },
-        "checkInInfo": {
-          "checkInStart": "16:00",
-          "checkInEnd": "19:00",
-          "checkOutTime": "11:00",
-          "accessInstructions": {
-            "title": "Instructions d'accès - Gîte Rural",
-            "status": "PENDING",
-            "messages": {
-              "title": "Bienvenue au Gîte Rural Essaouira!",
-              "subtitle": "Notre hôte vous accueillera personnellement sur place.",
-              "items": [
-                {
-                  "order": 1,
-                  "value": "Veuillez contacter notre hôte 1h avant votre arrivée"
-                },
-                {
-                  "order": 2,
-                  "value": "L'accès au gîte se fait par une piste non goudronnée de 800m"
-                }
-              ]
-            },
-            "documents": [
+      "operatingHours": {
+        "reception": "08:00 - 19:00",
+        "checkout": "11:00",
+        "checkin": "16:00 - 19:00"
+      },
+      "contactInfo": {
+        "phone": "+212 662 345 678",
+        "email": "contact@giteruralessaouira.com",
+        "website": "www.giteruralessaouira.com"
+      },
+      "checkInInfo": {
+        "checkInStart": "16:00",
+        "checkInEnd": "19:00",
+        "checkOutTime": "11:00",
+        "accessInstructions": {
+          "title": "Instructions d'accès - Gîte Rural",
+          "status": "PENDING",
+          "messages": {
+            "title": "Bienvenue au Gîte Rural Essaouira!",
+            "subtitle": "Notre hôte vous accueillera personnellement sur place.",
+            "items": [
               {
-                "label": "Pièce d'identité",
-                "documentType": "CNI",
-                "status": "PENDING"
+                "order": 1,
+                "value": "Veuillez contacter notre hôte 1h avant votre arrivée"
+              },
+              {
+                "order": 2,
+                "value": "L'accès au gîte se fait par une piste non goudronnée de 800m"
               }
-            ],
-            "instructions": [
-              {
-                "step": 1,
-                "title": "Itinéraire d'Accès",
-                "description": "<h4>Comment trouver le gîte</h4><p>Depuis Essaouira, prenez la route N1 en direction de Marrakech. Après 12km, tournez à droite au panneau 'Coopérative d'Argan'. Suivez la piste sur 800m et vous arriverez au gîte.</p>",
-                "videoUrl": "",
+            ]
+          },
+          "documents": [
+            {
+              "label": "Pièce d'identité",
+              "documentType": "CNI",
+              "status": "PENDING"
+            }
+          ],
+          "instructions": [
+            {
+              "step": 1,
+              "title": "Itinéraire d'Accès",
+              "description": "<h4>Comment trouver le gîte</h4><p>Depuis Essaouira, prenez la route N1 en direction de Marrakech. Après 12km, tournez à droite au panneau 'Coopérative d'Argan'. Suivez la piste sur 800m et vous arriverez au gîte.</p>",
+              "videoUrl": "",
               "images": [
                 "assets/img/demo/landscape.webp",
                 "assets/img/demo/landscape.webp"
               ],
-                "type": "ARRIVAL_INSTRUCTION"
-              },
-              {
-                "step": 2,
-                "title": "Rencontre avec l'Hôte",
-                "description": "Notre hôte, Ahmed, vous attendra sur place pour vous accueillir et vous remettre les clés. Il vous fera visiter le gîte et vous donnera des conseils sur les activités locales.",
-                "videoUrl": "",
-                "methodType": "KEY",
+              "type": "ARRIVAL_INSTRUCTION"
+            },
+            {
+              "step": 2,
+              "title": "Rencontre avec l'Hôte",
+              "description": "Notre hôte, Ahmed, vous attendra sur place pour vous accueillir et vous remettre les clés. Il vous fera visiter le gîte et vous donnera des conseils sur les activités locales.",
+              "videoUrl": "",
+              "methodType": "KEY",
               "images": [
                 "assets/img/demo/landscape.webp"
               ],
-                "type": "ACCESS_MODE"
-              },
-              {
-                "step": 3,
-                "title": "Informations Pratiques",
-                "description": "Le gîte fonctionne à l'énergie solaire. L'eau chaude est disponible de 6h à 22h. Le réseau mobile peut être limité mais une connexion WiFi par satellite est disponible.",
+              "type": "ACCESS_MODE"
+            },
+            {
+              "step": 3,
+              "title": "Informations Pratiques",
+              "description": "Le gîte fonctionne à l'énergie solaire. L'eau chaude est disponible de 6h à 22h. Le réseau mobile peut être limité mais une connexion WiFi par satellite est disponible.",
               "list": [
                 "Électricité solaire",
                 "Eau de source",
                 "WiFi par satellite"
               ],
-                "type": "ARRIVAL_INSTRUCTION"
-              }
-            ],
-            "checkinContacts": [
-              {
-                "order": 1,
-                "value": "+212 662 345 678",
-                "type": "PHONE",
-                "icon": "mat:phone",
-                "label": "Ahmed (Français, Arabe)"
-              },
-              {
-                "order": 2,
-                "value": "+212 662 345 678",
-                "type": "WHATSAPP",
-                "icon": "logo:whatsapp",
-                "label": "WhatsApp préféré"
-              }
-            ]
-          },
-          "parkingInstructions": {
-            "generalInstructions": "Le stationnement est gratuit et non surveillé sur le terrain du gîte. L'accès peut être difficile pour les véhicules bas en raison du chemin non goudronné.",
-            "spots": [
-              {
-                "id": "gite-p1",
-                "name": "Parking du Gîte",
-                "type": "Parking en terre",
-                "spotNumber": "Non attribué",
-                "hours": "Accès 24h/24 et 7j/7",
-                "rate": "Gratuit",
-                "isPaid": false,
-                "description": "Zone de stationnement en terre battue pouvant accueillir jusqu'à 5 véhicules. Chemin d'accès non goudronné, déconseillé aux véhicules à faible garde au sol.",
-                "available": true,
-                "photo": "assets/img/illustrations/parking-outdoor.svg",
-                "icon": "local_parking"
-              }
-            ]
-          }
+              "type": "ARRIVAL_INSTRUCTION"
+            }
+          ],
+          "checkinContacts": [
+            {
+              "order": 1,
+              "value": "+212 662 345 678",
+              "type": "PHONE",
+              "icon": "mat:phone",
+              "label": "Ahmed (Français, Arabe)"
+            },
+            {
+              "order": 2,
+              "value": "+212 662 345 678",
+              "type": "WHATSAPP",
+              "icon": "logo:whatsapp",
+              "label": "WhatsApp préféré"
+            }
+          ]
         }
       },
-      {
-        "id": "4ce067gf-8e9h-7d07-e2c6-1b186487d88h",
-        "name": "Appartement Marina Bay",
-        "type": "appartement_complexe",
-        "description": "Appartement moderne dans un complexe résidentiel sécurisé avec accès à la plage, piscines communes et jardins luxuriants.",
-        "coverImage": "assets/img/demo/landscape.webp",
-        "avatar": "assets/img/avatars/103.svg",
-        "address": {
-          "street": "Complexe Marina Bay, Bloc C, Apt 304",
-          "city": "Agadir",
-          "state": "Souss-Massa",
-          "postalCode": "80000",
-          "country": "Maroc"
-        },
-        "location": {
-          "latitude": "30.4278",
-          "longitude": "-9.6058"
-        },
-        "socialMedia": [
+      "parkingInstructions": {
+        "generalInstructions": "Le stationnement est gratuit et non surveillé sur le terrain du gîte. L'accès peut être difficile pour les véhicules bas en raison du chemin non goudronné.",
+        "spots": [
+          {
+            "id": "gite-p1",
+            "name": "Parking du Gîte",
+            "type": "Parking en terre",
+            "spotNumber": "Non attribué",
+            "hours": "Accès 24h/24 et 7j/7",
+            "rate": "Gratuit",
+            "isPaid": false,
+            "description": "Zone de stationnement en terre battue pouvant accueillir jusqu'à 5 véhicules. Chemin d'accès non goudronné, déconseillé aux véhicules à faible garde au sol.",
+            "available": true,
+            "photo": "assets/img/illustrations/parking-outdoor.svg",
+            "icon": "local_parking"
+          }
+        ]
+      }
+    },
+    {
+      "id": "4ce067gf-8e9h-7d07-e2c6-1b186487d88h",
+      "name": "Appartement Marina Bay",
+      "type": "appartement_complexe",
+      "description": "Appartement moderne dans un complexe résidentiel sécurisé avec accès à la plage, piscines communes et jardins luxuriants.",
+      "coverImage": "assets/img/demo/landscape.webp",
+      "avatar": "assets/img/avatars/103.svg",
+      "address": {
+        "street": "Complexe Marina Bay, Bloc C, Apt 304",
+        "city": "Agadir",
+        "state": "Souss-Massa",
+        "postalCode": "80000",
+        "country": "Maroc"
+      },
+      "location": {
+        "latitude": "30.4278",
+        "longitude": "-9.6058"
+      },
+      "socialMedia": [
         {
           "name": "Facebook",
           "icon": "facebook",
@@ -1067,85 +1394,85 @@
         "Arabe",
         "Allemand"
       ],
-        "operatingHours": {
-          "reception": "00:00 - 24:00",
-          "checkout": "11:00",
-          "checkin": "15:00 - 22:00"
-        },
-        "contactInfo": {
-          "phone": "+212 528 456 789",
-          "email": "info@marinabayagadir.com",
-          "website": "www.marinabayagadir.com"
-        },
-        "checkInInfo": {
-          "checkInStart": "15:00",
-          "checkInEnd": "22:00",
-          "checkOutTime": "11:00",
-          "accessInstructions": {
-            "title": "Instructions d'accès - Appartement en Complexe",
-            "status": "PENDING",
-            "messages": {
-              "title": "Bienvenue à Marina Bay!",
-              "subtitle": "Votre appartement est équipé d'une serrure connectée pour un accès sans clé.",
-              "items": [
-                {
-                  "order": 1,
-                  "value": "Vous devez vous enregistrer à l'accueil du complexe avant d'accéder à l'appartement"
-                },
-                {
-                  "order": 2,
-                  "value": "Un dépôt de garantie de 1500 MAD sera demandé par carte bancaire"
-                }
-              ]
-            },
-            "documents": [
+      "operatingHours": {
+        "reception": "00:00 - 24:00",
+        "checkout": "11:00",
+        "checkin": "15:00 - 22:00"
+      },
+      "contactInfo": {
+        "phone": "+212 528 456 789",
+        "email": "info@marinabayagadir.com",
+        "website": "www.marinabayagadir.com"
+      },
+      "checkInInfo": {
+        "checkInStart": "15:00",
+        "checkInEnd": "22:00",
+        "checkOutTime": "11:00",
+        "accessInstructions": {
+          "title": "Instructions d'accès - Appartement en Complexe",
+          "status": "PENDING",
+          "messages": {
+            "title": "Bienvenue à Marina Bay!",
+            "subtitle": "Votre appartement est équipé d'une serrure connectée pour un accès sans clé.",
+            "items": [
               {
-                "label": "Pièce d'identité",
-                "documentType": "CNI",
-                "status": "PENDING"
+                "order": 1,
+                "value": "Vous devez vous enregistrer à l'accueil du complexe avant d'accéder à l'appartement"
               },
               {
-                "label": "Carte de crédit",
-                "documentType": "CREDIT_CARD",
-                "status": "PENDING"
+                "order": 2,
+                "value": "Un dépôt de garantie de 1500 MAD sera demandé par carte bancaire"
               }
-            ],
-            "instructions": [
-              {
-                "step": 1,
-                "title": "Enregistrement au Complexe",
-                "description": "<h4>Procédure d'enregistrement à la réception</h4><p>Présentez-vous à la réception principale du complexe Marina Bay (ouverte 24h/24) avec votre pièce d'identité et le code de réservation. Le personnel vous enregistrera et vous donnera un pass d'accès au complexe.</p>",
-                "needToCheck": true,
-                "checkLink": "https://example.com/verify-identity",
+            ]
+          },
+          "documents": [
+            {
+              "label": "Pièce d'identité",
+              "documentType": "CNI",
+              "status": "PENDING"
+            },
+            {
+              "label": "Carte de crédit",
+              "documentType": "CREDIT_CARD",
+              "status": "PENDING"
+            }
+          ],
+          "instructions": [
+            {
+              "step": 1,
+              "title": "Enregistrement au Complexe",
+              "description": "<h4>Procédure d'enregistrement à la réception</h4><p>Présentez-vous à la réception principale du complexe Marina Bay (ouverte 24h/24) avec votre pièce d'identité et le code de réservation. Le personnel vous enregistrera et vous donnera un pass d'accès au complexe.</p>",
+              "needToCheck": true,
+              "checkLink": "https://example.com/verify-identity",
               "list": [
                 "Pièce d'identité",
                 "Code de réservation: MB-304-XYZ"
               ],
-                "videoUrl": "",
-                "type": "IDENTITY_CHECK"
+              "videoUrl": "",
+              "type": "IDENTITY_CHECK"
+            },
+            {
+              "step": 2,
+              "title": "Accès à l'Appartement",
+              "description": "L'appartement se trouve dans le Bloc C, 3ème étage, appartement 304. Utilisez l'ascenseur central ou les escaliers. L'appartement est équipé d'une serrure connectée avec code.",
+              "videoUrl": "https://player.vimeo.com/video/253905165",
+              "methodType": "SMART_LOCK",
+              "codeAccess": {
+                "code": "2580",
+                "expiresAt": "2023-12-31T23:59:59Z",
+                "status": "ACTIVE"
               },
-              {
-                "step": 2,
-                "title": "Accès à l'Appartement",
-                "description": "L'appartement se trouve dans le Bloc C, 3ème étage, appartement 304. Utilisez l'ascenseur central ou les escaliers. L'appartement est équipé d'une serrure connectée avec code.",
-                "videoUrl": "https://player.vimeo.com/video/253905165",
-                "methodType": "SMART_LOCK",
-                "codeAccess": {
-                  "code": "2580",
-                  "expiresAt": "2023-12-31T23:59:59Z",
-                  "status": "ACTIVE"
-                },
               "images": [
                 "assets/img/demo/landscape.webp",
                 "assets/img/demo/landscape.webp"
               ],
-                "type": "ACCESS_MODE"
-              },
-              {
-                "step": 3,
-                "title": "Accès aux Installations Communes",
-                "description": "Le pass d'accès remis à la réception vous permet d'utiliser toutes les installations du complexe: piscines, spa, salle de sport et accès direct à la plage.",
-                "videoUrl": "",
+              "type": "ACCESS_MODE"
+            },
+            {
+              "step": 3,
+              "title": "Accès aux Installations Communes",
+              "description": "Le pass d'accès remis à la réception vous permet d'utiliser toutes les installations du complexe: piscines, spa, salle de sport et accès direct à la plage.",
+              "videoUrl": "",
               "images": [
                 "assets/img/demo/landscape.webp"
               ],
@@ -1154,47 +1481,47 @@
                 "Spa: 10h-20h",
                 "Salle de sport: 6h-23h"
               ],
-                "type": "ARRIVAL_INSTRUCTION"
-              }
-            ],
-            "checkinContacts": [
-              {
-                "order": 1,
-                "value": "+212 528 234 567",
-                "type": "PHONE",
-                "icon": "mat:phone",
-                "label": "Réception du complexe"
-              },
-              {
-                "order": 2,
-                "value": "+212 663 456 789",
-                "type": "WHATSAPP",
-                "icon": "logo:whatsapp",
-                "label": "Gestionnaire de l'appartement"
-              }
-            ]
-          }
+              "type": "ARRIVAL_INSTRUCTION"
+            }
+          ],
+          "checkinContacts": [
+            {
+              "order": 1,
+              "value": "+212 528 234 567",
+              "type": "PHONE",
+              "icon": "mat:phone",
+              "label": "Réception du complexe"
+            },
+            {
+              "order": 2,
+              "value": "+212 663 456 789",
+              "type": "WHATSAPP",
+              "icon": "logo:whatsapp",
+              "label": "Gestionnaire de l'appartement"
+            }
+          ]
         }
+      }
+    },
+    {
+      "id": "5df178hg-9f0i-8e18-f3d7-2c297598e99i",
+      "name": "Airbnb Médina Chefchaouen",
+      "type": "airbnb",
+      "description": "Charmante maison traditionnelle au cœur de la médina bleue de Chefchaouen. Décoration authentique et terrasse avec vue panoramique.",
+      "coverImage": "assets/img/demo/landscape.webp",
+      "avatar": "assets/img/avatars/104.jpg",
+      "address": {
+        "street": "7 Derb Sidi Ahmed El Ouafi",
+        "city": "Chefchaouen",
+        "state": "Tanger-Tétouan-Al Hoceïma",
+        "postalCode": "91000",
+        "country": "Maroc"
       },
-      {
-        "id": "5df178hg-9f0i-8e18-f3d7-2c297598e99i",
-        "name": "Airbnb Médina Chefchaouen",
-        "type": "airbnb",
-        "description": "Charmante maison traditionnelle au cœur de la médina bleue de Chefchaouen. Décoration authentique et terrasse avec vue panoramique.",
-        "coverImage": "assets/img/demo/landscape.webp",
-        "avatar": "assets/img/avatars/104.jpg",
-        "address": {
-          "street": "7 Derb Sidi Ahmed El Ouafi",
-          "city": "Chefchaouen",
-          "state": "Tanger-Tétouan-Al Hoceïma",
-          "postalCode": "91000",
-          "country": "Maroc"
-        },
-        "location": {
-          "latitude": "35.1716",
-          "longitude": "-5.2680"
-        },
-        "socialMedia": [
+      "location": {
+        "latitude": "35.1716",
+        "longitude": "-5.2680"
+      },
+      "socialMedia": [
         {
           "name": "Airbnb",
           "icon": "airbnb",
@@ -1217,50 +1544,50 @@
         "Espagnol",
         "Anglais"
       ],
-        "operatingHours": {
-          "reception": "09:00 - 18:00",
-          "checkout": "11:00",
-          "checkin": "14:00 - 18:00"
-        },
-        "contactInfo": {
-          "phone": "+212 664 567 890",
-          "email": "host@mediachefchaouen.com",
-          "website": "www.mediachefchaouen.com"
-        },
-        "checkInInfo": {
-          "checkInStart": "14:00",
-          "checkInEnd": "18:00",
-          "checkOutTime": "11:00",
-          "accessInstructions": {
-            "title": "Instructions d'accès - Maison Médina",
-            "status": "PENDING",
-            "messages": {
-              "title": "Bienvenue dans votre maison bleue!",
-              "subtitle": "Voici comment accéder à votre logement dans la médina piétonne.",
-              "items": [
-                {
-                  "order": 1,
-                  "value": "La médina est piétonne, prévoyez de garer votre voiture au parking Bab Souk (payant)"
-                },
-                {
-                  "order": 2,
-                  "value": "Les ruelles de la médina peuvent être difficiles à naviguer, suivez précisément nos indications"
-                }
-              ]
-            },
-            "documents": [
+      "operatingHours": {
+        "reception": "09:00 - 18:00",
+        "checkout": "11:00",
+        "checkin": "14:00 - 18:00"
+      },
+      "contactInfo": {
+        "phone": "+212 664 567 890",
+        "email": "host@mediachefchaouen.com",
+        "website": "www.mediachefchaouen.com"
+      },
+      "checkInInfo": {
+        "checkInStart": "14:00",
+        "checkInEnd": "18:00",
+        "checkOutTime": "11:00",
+        "accessInstructions": {
+          "title": "Instructions d'accès - Maison Médina",
+          "status": "PENDING",
+          "messages": {
+            "title": "Bienvenue dans votre maison bleue!",
+            "subtitle": "Voici comment accéder à votre logement dans la médina piétonne.",
+            "items": [
               {
-                "label": "Pièce d'identité",
-                "documentType": "CNI",
-                "status": "PENDING"
+                "order": 1,
+                "value": "La médina est piétonne, prévoyez de garer votre voiture au parking Bab Souk (payant)"
+              },
+              {
+                "order": 2,
+                "value": "Les ruelles de la médina peuvent être difficiles à naviguer, suivez précisément nos indications"
               }
-            ],
-            "instructions": [
-              {
-                "step": 1,
-                "title": "Stationnement & Point de Rencontre",
-                "description": "<h4>Où garer votre voiture</h4><p>Garez votre voiture au parking Bab Souk (30 MAD/jour). Notre assistant Karim vous attendra à l'entrée du parking avec une pancarte à votre nom.</p>",
-                "videoUrl": "",
+            ]
+          },
+          "documents": [
+            {
+              "label": "Pièce d'identité",
+              "documentType": "CNI",
+              "status": "PENDING"
+            }
+          ],
+          "instructions": [
+            {
+              "step": 1,
+              "title": "Stationnement & Point de Rencontre",
+              "description": "<h4>Où garer votre voiture</h4><p>Garez votre voiture au parking Bab Souk (30 MAD/jour). Notre assistant Karim vous attendra à l'entrée du parking avec une pancarte à votre nom.</p>",
+              "videoUrl": "",
               "images": [
                 "assets/img/demo/landscape.webp"
               ],
@@ -1268,191 +1595,191 @@
                 "Coordonnées parking: 35.169, -5.268",
                 "Karim portera une casquette bleue"
               ],
-                "type": "ARRIVAL_INSTRUCTION"
-              },
-              {
-                "step": 2,
-                "title": "Accès à la Maison",
-                "description": "Karim vous guidera à travers la médina jusqu'à la maison (environ 7 minutes à pied). Il vous expliquera le fonctionnement de la maison et vous remettra les clés.",
-                "videoUrl": "https://player.vimeo.com/video/253905166",
-                "methodType": "KEY",
+              "type": "ARRIVAL_INSTRUCTION"
+            },
+            {
+              "step": 2,
+              "title": "Accès à la Maison",
+              "description": "Karim vous guidera à travers la médina jusqu'à la maison (environ 7 minutes à pied). Il vous expliquera le fonctionnement de la maison et vous remettra les clés.",
+              "videoUrl": "https://player.vimeo.com/video/253905166",
+              "methodType": "KEY",
               "images": [
                 "assets/img/demo/landscape.webp",
                 "assets/img/demo/landscape.webp"
               ],
-                "type": "ACCESS_MODE"
+              "type": "ACCESS_MODE"
+            },
+            {
+              "step": 3,
+              "title": "En Cas d'Arrivée Tardive",
+              "description": "Si vous arrivez après 18h, une key box est disponible pour un auto check-in. Elle est située à droite de la porte bleue, dissimulée sous une plante grimpante.",
+              "videoUrl": "",
+              "methodType": "KEY_BOX",
+              "codeAccess": {
+                "code": "7412",
+                "expiresAt": "2023-12-31T23:59:59Z",
+                "status": "ACTIVE"
               },
-              {
-                "step": 3,
-                "title": "En Cas d'Arrivée Tardive",
-                "description": "Si vous arrivez après 18h, une key box est disponible pour un auto check-in. Elle est située à droite de la porte bleue, dissimulée sous une plante grimpante.",
-                "videoUrl": "",
-                "methodType": "KEY_BOX",
-                "codeAccess": {
-                  "code": "7412",
-                  "expiresAt": "2023-12-31T23:59:59Z",
-                  "status": "ACTIVE"
-                },
               "images": [
                 "assets/img/demo/landscape.webp"
               ],
-                "type": "ACCESS_MODE"
-              }
-            ],
-            "checkinContacts": [
-              {
-                "order": 1,
-                "value": "+212 664 567 890",
-                "type": "PHONE",
-                "icon": "mat:phone",
-                "label": "Karim (Français, Arabe, Anglais)"
-              },
-              {
-                "order": 2,
-                "value": "+212 664 567 890",
-                "type": "WHATSAPP",
-                "icon": "logo:whatsapp",
-                "label": "WhatsApp (réponse rapide)"
-              },
-              {
-                "order": 3,
-                "value": "host@mediachefchaouen.com",
-                "type": "EMAIL",
-                "icon": "mat:mail",
-                "label": "Email (réponse sous 12h)"
-              }
-            ]
-          }
-        }
-      },
-      {
-        "id": "property-special",
-        "name": "Riad Médina Fès",
-        "type": "riad",
-        "description": "Authentique riad au cœur de la médina de Fès, alliant charme traditionnel et confort moderne.",
-        "coverImage": "assets/img/demo/landscape.webp",
-        "avatar": "assets/img/avatars/103.jpg",
-        "address": {
-          "street": "12 Derb El Miter",
-          "city": "Fès",
-          "state": "Fès-Meknès",
-          "postalCode": "30000",
-          "country": "Maroc"
-        },
-        "location": {
-          "latitude": "34.0371",
-          "longitude": "-4.9998"
-        },
-        "checkInInfo": {
-          "checkInStart": "14:00",
-          "checkInEnd": "20:00",
-          "checkOutTime": "11:00",
-          "accessInstructions": [],
-          "parkingInstructions": {
-            "generalInstructions": "La médina étant piétonne, aucun stationnement n'est disponible directement au riad. Plusieurs options sont disponibles à proximité. Notre équipe peut organiser un service de portage des bagages depuis les parkings jusqu'au riad.",
-            "spots": [
-              {
-                "id": "riad-p1",
-                "name": "Parking Ain Azliten",
-                "type": "Parking gardé",
-                "spotNumber": "Non attribué",
-                "hours": "24h/24 et 7j/7",
-                "rate": "30 MAD/jour",
-                "isPaid": true,
-                "description": "Parking gardé jour et nuit situé à l'entrée de la médina, à 7 minutes à pied du riad. Bon éclairage nocturne et surveillance permanente.",
-                "available": true,
-                "photo": "assets/img/illustrations/parking-outdoor.svg",
-                "icon": "local_parking"
-              },
-              {
-                "id": "riad-p2",
-                "name": "Parking Bab Boujloud",
-                "type": "Parking public",
-                "spotNumber": "Non attribué",
-                "hours": "24h/24",
-                "rate": "20 MAD/jour",
-                "isPaid": true,
-                "description": "Parking public situé près de la porte Bab Boujloud, à 12 minutes à pied du riad. Option la moins chère mais souvent complet pendant la haute saison.",
-                "available": true,
-                "photo": "assets/img/illustrations/parking-street.svg",
-                "icon": "local_parking"
-              },
-              {
-                "id": "riad-p3",
-                "name": "Service Voiturier",
-                "type": "Service premium",
-                "spotNumber": "N/A",
-                "hours": "Sur réservation",
-                "rate": "100 MAD/jour",
-                "isPaid": true,
-                "description": "Notre service voiturier récupère votre véhicule à votre arrivée et le gare dans un parking sécurisé. Le véhicule vous est restitué à la fin de votre séjour à l'heure convenue.",
-                "available": true,
-                "photo": "assets/img/illustrations/parking-underground.svg",
-                "icon": "directions_car"
-              }
-            ]
-          }
-        }
-      },
-      {
-        "id": "property-unavailable",
-        "name": "Appartement Centre Rabat",
-        "type": "apartment",
-        "description": "Appartement moderne au centre de Rabat, proche des transports et commerces.",
-        "coverImage": "assets/img/demo/landscape.webp",
-        "avatar": "assets/img/avatars/104.jpg",
-        "address": {
-          "street": "15 Avenue Mohammed V",
-          "city": "Rabat",
-          "state": "Rabat-Salé-Kénitra",
-          "postalCode": "10000",
-          "country": "Maroc"
-        },
-        "location": {
-          "latitude": "34.0209",
-          "longitude": "-6.8416"
-        },
-        "checkInInfo": {
-          "checkInStart": "15:00",
-          "checkInEnd": "21:00",
-          "checkOutTime": "11:00",
-          "accessInstructions": [],
-          "parkingInstructions": {
-            "generalInstructions": "Le stationnement dans le centre de Rabat est difficile. Nous vous recommandons d'utiliser les transports en commun ou les taxis pour vos déplacements.",
-            "spots": [
-              {
-                "id": "apt-p1",
-                "name": "Garage de l'immeuble",
-                "type": "Parking souterrain",
-                "spotNumber": "B-12",
-                "hours": "Accès 24h/24 avec badge",
-                "rate": "120 MAD/jour",
-                "isPaid": true,
-                "description": "Place de parking en sous-sol de l'immeuble. Accès par badge magnétique fourni à l'arrivée.",
-                "available": false,
-                "photo": "assets/img/illustrations/parking-underground.svg",
-                "icon": "local_parking"
-              },
-              {
-                "id": "apt-p2",
-                "name": "Parking Hassan",
-                "type": "Parking public couvert",
-                "spotNumber": "Non attribué",
-                "hours": "7h00 - 23h00",
-                "rate": "5 MAD/heure",
-                "isPaid": true,
-                "description": "Parking public à 400m de l'appartement. Attention: fermé entre 23h et 7h du matin.",
-                "available": true,
-                "photo": "assets/img/illustrations/parking-outdoor.svg",
-                "icon": "local_parking"
-              }
-            ]
-          }
+              "type": "ACCESS_MODE"
+            }
+          ],
+          "checkinContacts": [
+            {
+              "order": 1,
+              "value": "+212 664 567 890",
+              "type": "PHONE",
+              "icon": "mat:phone",
+              "label": "Karim (Français, Arabe, Anglais)"
+            },
+            {
+              "order": 2,
+              "value": "+212 664 567 890",
+              "type": "WHATSAPP",
+              "icon": "logo:whatsapp",
+              "label": "WhatsApp (réponse rapide)"
+            },
+            {
+              "order": 3,
+              "value": "host@mediachefchaouen.com",
+              "type": "EMAIL",
+              "icon": "mat:mail",
+              "label": "Email (réponse sous 12h)"
+            }
+          ]
         }
       }
-    ],
-    "navigation": [
-      {
+    },
+    {
+      "id": "property-special",
+      "name": "Riad Médina Fès",
+      "type": "riad",
+      "description": "Authentique riad au cœur de la médina de Fès, alliant charme traditionnel et confort moderne.",
+      "coverImage": "assets/img/demo/landscape.webp",
+      "avatar": "assets/img/avatars/103.jpg",
+      "address": {
+        "street": "12 Derb El Miter",
+        "city": "Fès",
+        "state": "Fès-Meknès",
+        "postalCode": "30000",
+        "country": "Maroc"
+      },
+      "location": {
+        "latitude": "34.0371",
+        "longitude": "-4.9998"
+      },
+      "checkInInfo": {
+        "checkInStart": "14:00",
+        "checkInEnd": "20:00",
+        "checkOutTime": "11:00",
+        "accessInstructions": [],
+        "parkingInstructions": {
+          "generalInstructions": "La médina étant piétonne, aucun stationnement n'est disponible directement au riad. Plusieurs options sont disponibles à proximité. Notre équipe peut organiser un service de portage des bagages depuis les parkings jusqu'au riad.",
+          "spots": [
+            {
+              "id": "riad-p1",
+              "name": "Parking Ain Azliten",
+              "type": "Parking gardé",
+              "spotNumber": "Non attribué",
+              "hours": "24h/24 et 7j/7",
+              "rate": "30 MAD/jour",
+              "isPaid": true,
+              "description": "Parking gardé jour et nuit situé à l'entrée de la médina, à 7 minutes à pied du riad. Bon éclairage nocturne et surveillance permanente.",
+              "available": true,
+              "photo": "assets/img/illustrations/parking-outdoor.svg",
+              "icon": "local_parking"
+            },
+            {
+              "id": "riad-p2",
+              "name": "Parking Bab Boujloud",
+              "type": "Parking public",
+              "spotNumber": "Non attribué",
+              "hours": "24h/24",
+              "rate": "20 MAD/jour",
+              "isPaid": true,
+              "description": "Parking public situé près de la porte Bab Boujloud, à 12 minutes à pied du riad. Option la moins chère mais souvent complet pendant la haute saison.",
+              "available": true,
+              "photo": "assets/img/illustrations/parking-street.svg",
+              "icon": "local_parking"
+            },
+            {
+              "id": "riad-p3",
+              "name": "Service Voiturier",
+              "type": "Service premium",
+              "spotNumber": "N/A",
+              "hours": "Sur réservation",
+              "rate": "100 MAD/jour",
+              "isPaid": true,
+              "description": "Notre service voiturier récupère votre véhicule à votre arrivée et le gare dans un parking sécurisé. Le véhicule vous est restitué à la fin de votre séjour à l'heure convenue.",
+              "available": true,
+              "photo": "assets/img/illustrations/parking-underground.svg",
+              "icon": "directions_car"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "property-unavailable",
+      "name": "Appartement Centre Rabat",
+      "type": "apartment",
+      "description": "Appartement moderne au centre de Rabat, proche des transports et commerces.",
+      "coverImage": "assets/img/demo/landscape.webp",
+      "avatar": "assets/img/avatars/104.jpg",
+      "address": {
+        "street": "15 Avenue Mohammed V",
+        "city": "Rabat",
+        "state": "Rabat-Salé-Kénitra",
+        "postalCode": "10000",
+        "country": "Maroc"
+      },
+      "location": {
+        "latitude": "34.0209",
+        "longitude": "-6.8416"
+      },
+      "checkInInfo": {
+        "checkInStart": "15:00",
+        "checkInEnd": "21:00",
+        "checkOutTime": "11:00",
+        "accessInstructions": [],
+        "parkingInstructions": {
+          "generalInstructions": "Le stationnement dans le centre de Rabat est difficile. Nous vous recommandons d'utiliser les transports en commun ou les taxis pour vos déplacements.",
+          "spots": [
+            {
+              "id": "apt-p1",
+              "name": "Garage de l'immeuble",
+              "type": "Parking souterrain",
+              "spotNumber": "B-12",
+              "hours": "Accès 24h/24 avec badge",
+              "rate": "120 MAD/jour",
+              "isPaid": true,
+              "description": "Place de parking en sous-sol de l'immeuble. Accès par badge magnétique fourni à l'arrivée.",
+              "available": false,
+              "photo": "assets/img/illustrations/parking-underground.svg",
+              "icon": "local_parking"
+            },
+            {
+              "id": "apt-p2",
+              "name": "Parking Hassan",
+              "type": "Parking public couvert",
+              "spotNumber": "Non attribué",
+              "hours": "7h00 - 23h00",
+              "rate": "5 MAD/heure",
+              "isPaid": true,
+              "description": "Parking public à 400m de l'appartement. Attention: fermé entre 23h et 7h du matin.",
+              "available": true,
+              "photo": "assets/img/illustrations/parking-outdoor.svg",
+              "icon": "local_parking"
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "navigation": [
+    {
       "type": "dropdown",
       "label": "Votre arrivée",
       "icon": "mat:directions_walk",
@@ -1461,24 +1788,24 @@
         {
           "type": "link",
           "label": "Coordonnées",
-            "icon": "mat:mail_outline",
+          "icon": "mat:mail_outline",
           "route": "/:id/arrival/contact"
-          },
-          {
+        },
+        {
           "type": "link",
-            "icon": "mat:access_time",
+          "icon": "mat:access_time",
           "label": "Tranche horaire",
           "route": "/:id/arrival/times"
-          },
-          {
+        },
+        {
           "type": "link",
-            "icon": "mat:directions",
+          "icon": "mat:directions",
           "label": "Itinéraire et transports",
           "route": "/:id/arrival/itinerary"
-          },
-          {
+        },
+        {
           "type": "link",
-            "icon": "mat:local_parking",
+          "icon": "mat:local_parking",
           "label": "Parkings",
           "route": "/:id/arrival/parking"
         },
@@ -1490,14 +1817,14 @@
         },
         {
           "type": "link",
+          "icon": "mat:alarm",
           "label": "Arrivée tardive",
-            "icon": "mat:alarm",
           "route": "/:id/arrival/late-arrival"
         },
         {
           "type": "link",
-          "label": "Règles de la maison",
           "icon": "mat:home",
+          "label": "Règles de la maison",
           "route": "/:id/arrival/rules"
         }
       ],
@@ -1633,12 +1960,12 @@
           "type": "link",
           "label": "Terrasse",
           "route": "/:id/services/terrace"
-          },
-          {
-            "type": "link",
-            "label": "Balcon",
-            "route": "/:id/services/balcony"
-          }
+        },
+        {
+          "type": "link",
+          "label": "Balcon",
+          "route": "/:id/services/balcony"
+        }
       ],
       "id": "6be2"
     },
@@ -1657,31 +1984,31 @@
       "label": "Loisirs aux environs",
       "route": "/:id/leisures",
       "icon": "mat:explore",
-        "children": [
-          {
-            "type": "link",
-            "label": "Culture",
-            "route": "/:id/leisures/culture",
-            "icon": "fa-theater-masks "
-          },
-          {
-            "type": "link",
-            "label": "Divertissement",
-            "route": "/:id/leisures/entertainment",
-            "icon": "fa-grin-stars"
-          },
-          {
-            "type": "link",
-            "label": "Relaxation",
-            "route": "/:id/leisures/relaxation",
-            "icon": "fa-grin-stars"
-          },
-          {
-            "type": "link",
-            "label": "Sports",
-            "route": "/:id/leisures/sports",
-            "icon": "mat:fitness_center"
-          }
+      "children": [
+        {
+          "type": "link",
+          "label": "Culture",
+          "route": "/:id/leisures/culture",
+          "icon": "fa-theater-masks "
+        },
+        {
+          "type": "link",
+          "label": "Divertissement",
+          "route": "/:id/leisures/entertainment",
+          "icon": "fa-grin-stars"
+        },
+        {
+          "type": "link",
+          "label": "Relaxation",
+          "route": "/:id/leisures/relaxation",
+          "icon": "fa-grin-stars"
+        },
+        {
+          "type": "link",
+          "label": "Sports",
+          "route": "/:id/leisures/sports",
+          "icon": "mat:fitness_center"
+        }
       ],
       "id": "2acb"
     },
@@ -1692,110 +2019,110 @@
       "icon": "mat:explore",
       "routerLinkActiveOptions": {
         "exact": true
+      },
+      "children": [
+        {
+          "type": "link",
+          "label": "Lieux de culte",
+          "route": "/:id/amenities/worshipplaces",
+          "icon": "mat:church"
         },
-        "children": [
-          {
-            "type": "link",
-            "label": "Lieux de culte",
-            "route": "/:id/amenities/worshipplaces",
-            "icon": "mat:church"
-          },
-          {
-            "type": "link",
-            "label": "Alimentation",
-            "route": "/:id/amenities/food",
-            "icon": "mat:restaurant"
-          },
-          {
-            "type": "link",
-            "label": "Shopping",
-            "route": "/:id/amenities/shopping",
-            "icon": "mat:shopping_cart"
-          },
-          {
-            "type": "link",
-            "label": "Santé",
-            "route": "/:id/amenities/health",
-            "icon": "mat:local_hospital"
-          },
-          {
-            "type": "link",
-            "label": "Services",
-            "route": "/:id/amenities/services",
-            "icon": "mat:build"
-          },
-          {
-            "type": "link",
-            "label": "Transports",
-            "route": "/:id/amenities/transports",
-            "icon": "mat:directions_bus"
-          },
-          {
-            "type": "link",
-            "label": "Banques",
-            "route": "/:id/amenities/banks",
-            "icon": "mat:account_balance"
-          },
-          {
-            "type": "link",
-            "label": "Poste",
-            "route": "/:id/amenities/post",
-            "icon": "mat:local_post_office"
-          },
-          {
-            "type": "link",
-            "label": "Pharmacies",
-            "route": "/:id/amenities/pharmacies",
-            "icon": "mat:local_pharmacy"
-          },
-          {
-            "type": "link",
-            "label": "Médecins",
-            "route": "/:id/amenities/doctors",
-            "icon": "mat:local_hospital"
-          },
-          {
-            "type": "link",
-            "label": "Hôpitaux",
-            "route": "/:id/amenities/hospitals",
-            "icon": "mat:local_hospital"
-          },
-          {
-            "type": "link",
-            "label": "Dentistes",
-            "route": "/:id/amenities/dentists",
-            "icon": "mat:local_hospital"
-          },
-          {
-            "type": "link",
-            "label": "Opticiens",
-            "route": "/:id/amenities/opticians",
-            "icon": "mat:local_hospital"
-          },
-          {
-            "type": "link",
-            "label": "Vétérinaires",
-            "route": "/:id/amenities/veterinaries",
-            "icon": "mat:local_hospital"
-          },
-          {
-            "type": "link",
-            "label": "Salons de coiffure",
-            "route": "/:id/amenities/hairdressers",
-            "icon": "mat:local_hospital"
-          },
-          {
-            "type": "link",
-            "label": "Salons de beauté",
-            "route": "/:id/amenities/beauty",
-            "icon": "mat:local_hospital"
-          },
-          {
-            "type": "link",
-            "label": "Salons de massage",
-            "route": "/:id/amenities/massage",
-            "icon": "mat:local_hospital"
-          }
+        {
+          "type": "link",
+          "label": "Alimentation",
+          "route": "/:id/amenities/food",
+          "icon": "mat:restaurant"
+        },
+        {
+          "type": "link",
+          "label": "Shopping",
+          "route": "/:id/amenities/shopping",
+          "icon": "mat:shopping_cart"
+        },
+        {
+          "type": "link",
+          "label": "Santé",
+          "route": "/:id/amenities/health",
+          "icon": "mat:local_hospital"
+        },
+        {
+          "type": "link",
+          "label": "Services",
+          "route": "/:id/amenities/services",
+          "icon": "mat:build"
+        },
+        {
+          "type": "link",
+          "label": "Transports",
+          "route": "/:id/amenities/transports",
+          "icon": "mat:directions_bus"
+        },
+        {
+          "type": "link",
+          "label": "Banques",
+          "route": "/:id/amenities/banks",
+          "icon": "mat:account_balance"
+        },
+        {
+          "type": "link",
+          "label": "Poste",
+          "route": "/:id/amenities/post",
+          "icon": "mat:local_post_office"
+        },
+        {
+          "type": "link",
+          "label": "Pharmacies",
+          "route": "/:id/amenities/pharmacies",
+          "icon": "mat:local_pharmacy"
+        },
+        {
+          "type": "link",
+          "label": "Médecins",
+          "route": "/:id/amenities/doctors",
+          "icon": "mat:local_hospital"
+        },
+        {
+          "type": "link",
+          "label": "Hôpitaux",
+          "route": "/:id/amenities/hospitals",
+          "icon": "mat:local_hospital"
+        },
+        {
+          "type": "link",
+          "label": "Dentistes",
+          "route": "/:id/amenities/dentists",
+          "icon": "mat:local_hospital"
+        },
+        {
+          "type": "link",
+          "label": "Opticiens",
+          "route": "/:id/amenities/opticians",
+          "icon": "mat:local_hospital"
+        },
+        {
+          "type": "link",
+          "label": "Vétérinaires",
+          "route": "/:id/amenities/veterinaries",
+          "icon": "mat:local_hospital"
+        },
+        {
+          "type": "link",
+          "label": "Salons de coiffure",
+          "route": "/:id/amenities/hairdressers",
+          "icon": "mat:local_hospital"
+        },
+        {
+          "type": "link",
+          "label": "Salons de beauté",
+          "route": "/:id/amenities/beauty",
+          "icon": "mat:local_hospital"
+        },
+        {
+          "type": "link",
+          "label": "Salons de massage",
+          "route": "/:id/amenities/massage",
+          "icon": "mat:local_hospital"
+        }
       ],
       "id": "bfdb"
     },
@@ -1806,80 +2133,80 @@
       "icon": "mat:restaurant",
       "routerLinkActiveOptions": {
         "exact": true
+      },
+      "children": [
+        {
+          "type": "link",
+          "label": "Restaurants",
+          "route": "/:id/restaurants",
+          "icon": "mat:restaurant"
         },
-        "children": [
-          {
-            "type": "link",
-            "label": "Restaurants",
-            "route": "/:id/restaurants",
-            "icon": "mat:restaurant"
-          },
-          {
-            "type": "link",
-            "label": "Fast-food",
-            "route": "/:id/fastfoods",
-            "icon": "mat:fastfood"
-          },
-          {
-            "type": "link",
-            "label": "Pizzerias",
-            "route": "/:id/pizzerias",
-            "icon": "mat:local_pizza"
-          },
-          {
-            "type": "link",
-            "label": "Crêperies",
-            "route": "/:id/creperies",
-            "icon": "mat:local_pizza"
-          },
-          {
-            "type": "link",
-            "label": "Kebabs",
-            "route": "/:id/kebabs",
-            "icon": "mat:local_pizza"
-          },
-          {
-            "type": "link",
-            "label": "Sandwicheries",
-            "route": "/:id/sandwicheries",
-            "icon": "mat:local_pizza"
-          },
-          {
-            "type": "link",
-            "label": "Salons de thé",
-            "route": "/:id/tearooms",
-            "icon": "mat:local_cafe"
-          },
-          {
-            "type": "link",
-            "label": "Bars",
-            "route": "/:id/bars",
-            "icon": "mat:local_bar"
-          },
-          {
-            "type": "link",
-            "label": "Cafés",
-            "route": "/:id/cafes",
-            "icon": "mat:local_cafe"
-          },
-          {
-            "type": "link",
-            "label": "Glaciers",
-            "route": "/:id/icecreams",
-            "icon": "mat:local_pizza"
-          },
-          {
-            "type": "link",
-            "label": "Boulangeries",
-            "route": "/:id/bakeries",
-            "icon": "mat:local_pizza"
-          },
-          {
-            "type": "link",
-            "label": "Pâtisseries",
-            "route": "/:id/pastries",
-            "icon": "mat:local_pizza"
-          }
+        {
+          "type": "link",
+          "label": "Fast-food",
+          "route": "/:id/fastfoods",
+          "icon": "mat:fastfood"
+        },
+        {
+          "type": "link",
+          "label": "Pizzerias",
+          "route": "/:id/pizzerias",
+          "icon": "mat:local_pizza"
+        },
+        {
+          "type": "link",
+          "label": "Crêperies",
+          "route": "/:id/creperies",
+          "icon": "mat:local_pizza"
+        },
+        {
+          "type": "link",
+          "label": "Kebabs",
+          "route": "/:id/kebabs",
+          "icon": "mat:local_pizza"
+        },
+        {
+          "type": "link",
+          "label": "Sandwicheries",
+          "route": "/:id/sandwicheries",
+          "icon": "mat:local_pizza"
+        },
+        {
+          "type": "link",
+          "label": "Salons de thé",
+          "route": "/:id/tearooms",
+          "icon": "mat:local_cafe"
+        },
+        {
+          "type": "link",
+          "label": "Bars",
+          "route": "/:id/bars",
+          "icon": "mat:local_bar"
+        },
+        {
+          "type": "link",
+          "label": "Cafés",
+          "route": "/:id/cafes",
+          "icon": "mat:local_cafe"
+        },
+        {
+          "type": "link",
+          "label": "Glaciers",
+          "route": "/:id/icecreams",
+          "icon": "mat:local_pizza"
+        },
+        {
+          "type": "link",
+          "label": "Boulangeries",
+          "route": "/:id/bakeries",
+          "icon": "mat:local_pizza"
+        },
+        {
+          "type": "link",
+          "label": "Pâtisseries",
+          "route": "/:id/pastries",
+          "icon": "mat:local_pizza"
+        }
       ],
       "id": "322b"
     },
@@ -1890,56 +2217,56 @@
       "icon": "mat:help",
       "routerLinkActiveOptions": {
         "exact": true
+      },
+      "children": [
+        {
+          "type": "link",
+          "label": "Police",
+          "route": "/:id/police",
+          "icon": "mat:local_police"
         },
-        "children": [
-          {
-            "type": "link",
-            "label": "Police",
-            "route": "/:id/police",
-            "icon": "mat:local_police"
-          },
-          {
-            "type": "link",
-            "label": "Gendarmerie",
-            "route": "/:id/gendarmerie",
-            "icon": "mat:local_police"
-          },
-          {
-            "type": "link",
-            "label": "Pompiers",
-            "route": "/:id/firemen",
-            "icon": "mat:local_fire_department"
-          },
-          {
-            "type": "link",
-            "label": "Samu",
-            "route": "/:id/samu",
-            "icon": "mat:local_hospital"
-          },
-          {
-            "type": "link",
-            "label": "Urgences",
-            "route": "/:id/emergencies",
-            "icon": "mat:local_hospital"
-          },
-          {
-            "type": "link",
-            "label": "Médecins de garde",
-            "route": "/:id/doctors",
-            "icon": "mat:local_hospital"
-          },
-          {
-            "type": "link",
-            "label": "Pharmacies de garde",
-            "route": "/:id/pharmacies",
-            "icon": "mat:local_pharmacy"
-          },
-          {
-            "type": "link",
-            "label": "Vétérinaires de garde",
-            "route": "/:id/veterinaries",
-            "icon": "mat:local_hospital"
-          }
+        {
+          "type": "link",
+          "label": "Gendarmerie",
+          "route": "/:id/gendarmerie",
+          "icon": "mat:local_police"
+        },
+        {
+          "type": "link",
+          "label": "Pompiers",
+          "route": "/:id/firemen",
+          "icon": "mat:local_fire_department"
+        },
+        {
+          "type": "link",
+          "label": "Samu",
+          "route": "/:id/samu",
+          "icon": "mat:local_hospital"
+        },
+        {
+          "type": "link",
+          "label": "Urgences",
+          "route": "/:id/emergencies",
+          "icon": "mat:local_hospital"
+        },
+        {
+          "type": "link",
+          "label": "Médecins de garde",
+          "route": "/:id/doctors",
+          "icon": "mat:local_hospital"
+        },
+        {
+          "type": "link",
+          "label": "Pharmacies de garde",
+          "route": "/:id/pharmacies",
+          "icon": "mat:local_pharmacy"
+        },
+        {
+          "type": "link",
+          "label": "Vétérinaires de garde",
+          "route": "/:id/veterinaries",
+          "icon": "mat:local_hospital"
+        }
       ],
       "id": "76eb"
     },

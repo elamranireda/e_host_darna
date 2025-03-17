@@ -7,6 +7,7 @@ import {
   AppTheme
 } from './app-config.interface';
 import { deepClone } from '../utils/deep-clone';
+import { colorVariables as defaultColorVariables } from './color-variables';
 
 const baseConfig: AppConfig = {
   id: AppConfigName.apollo,
@@ -54,6 +55,20 @@ const baseConfig: AppConfig = {
   footer: {
     visible: true,
     fixed: true
+  },
+  theme: {
+    colors: {
+      primary: 'indigo',
+      accent: 'blue',
+      warn: 'red',
+      background: 'gray',
+      palettes: defaultColorVariables
+    },
+    layouts: {
+      available: ["apollo", "zeus", "hermes", "poseidon", "ares", "ikaros"],
+      default: "apollo",
+      configs: {}
+    }
   }
 };
 
@@ -64,6 +79,9 @@ export const appConfigs: AppConfigs = {
     name: 'Poseidon',
     bodyClass: 'app-layout-poseidon',
     imgSrc: 'assets/img/layouts/poseidon.png',
+    style: {
+      colorScheme: AppColorScheme.DARK,
+    },
     sidenav: {
       user: {
         visible: true
@@ -75,6 +93,11 @@ export const appConfigs: AppConfigs = {
     toolbar: {
       user: {
         visible: false
+      }
+    },
+    theme: {
+      layouts: {
+        default: "poseidon"
       }
     }
   }),
@@ -98,6 +121,11 @@ export const appConfigs: AppConfigs = {
     },
     footer: {
       fixed: false
+    },
+    theme: {
+      layouts: {
+        default: "hermes"
+      }
     }
   }),
   ares: mergeDeep(deepClone(baseConfig), {
@@ -121,6 +149,11 @@ export const appConfigs: AppConfigs = {
     },
     footer: {
       fixed: false
+    },
+    theme: {
+      layouts: {
+        default: "ares"
+      }
     }
   }),
   zeus: mergeDeep(deepClone(baseConfig), {
@@ -130,6 +163,11 @@ export const appConfigs: AppConfigs = {
     imgSrc: 'assets/img/layouts/zeus.png',
     sidenav: {
       state: 'collapsed'
+    },
+    theme: {
+      layouts: {
+        default: "zeus"
+      }
     }
   }),
   ikaros: mergeDeep(deepClone(baseConfig), {
@@ -155,6 +193,11 @@ export const appConfigs: AppConfigs = {
     },
     footer: {
       fixed: false
+    },
+    theme: {
+      layouts: {
+        default: "ikaros"
+      }
     }
   })
 };

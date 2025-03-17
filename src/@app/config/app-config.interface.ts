@@ -1,4 +1,5 @@
 import { CSSValue } from '../interfaces/css-value.type';
+import { AppThemeConfig } from './app-theme.interface';
 
 export enum AppTheme {
   DEFAULT = 'app-theme-default',
@@ -60,6 +61,10 @@ export interface AppConfig {
     visible: boolean;
     fixed: boolean;
   };
+  /** 
+   * Configuration du thème (couleurs et layouts) 
+   */
+  theme?: AppThemeConfig;
 }
 
 export type AppConfigs = Record<AppConfigName, AppConfig>;
