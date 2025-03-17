@@ -1,4 +1,4 @@
-import { Inject, Injectable, OnDestroy, inject, effect } from '@angular/core';
+import { Inject, Injectable, OnDestroy, inject, effect, runInInjectionContext, Injector } from '@angular/core';
 import { BehaviorSubject, Observable, Subject, of } from 'rxjs';
 import { DOCUMENT } from '@angular/common';
 import { DeepPartial } from '../interfaces/deep-partial.type';
@@ -13,25 +13,28 @@ import {
   AppThemeProvider
 } from './app-config.interface';
 import { CSSValue } from '../interfaces/css-value.type';
-import { catchError, map, switchMap, takeUntil, tap } from 'rxjs/operators';
+import { catchError, delay, filter, map, switchMap, take, takeUntil, tap } from 'rxjs/operators';
 import { APP_CONFIG, APP_THEMES } from './config.token';
 import { AppConfigStore } from './app-config.store';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { LanguageConfig, LanguageInfo } from './language.config';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AppConfigService implements OnDestroy {
-  private _configSubject = new BehaviorSubject<AppConfig>(this.config);
-  private _colorVariablesSubject = new BehaviorSubject<Record<string, any>>({});
-  private _languageConfigSubject = new BehaviorSubject<LanguageConfig>({
-    defaultLanguage: 'en',
-    fallbackLanguage: 'en',
-    supportedLanguages: []
-  });
+  private _configSubject = new BehaviorSubject<AppConfig | null>(null);
+  private _colorVariablesSubject = new BehaviorSubject<Record<string, any> | null>(null);
+  private _languageConfigSubject = new BehaviorSubject<LanguageConfig | null>(null);
   private destroy$ = new Subject<void>();
   private readonly configStore = inject(AppConfigStore);
+  private readonly router = inject(Router);
+  private readonly injector = inject(Injector);
+  private _loading = true;
+  private _initialized = false;
+  private _loadAttemptFailed = false;
+  private _configChangeEffect: ReturnType<typeof effect> | null = null;
 
   constructor(
     @Inject(APP_CONFIG) private readonly config: AppConfig,
@@ -39,192 +42,340 @@ export class AppConfigService implements OnDestroy {
     @Inject(DOCUMENT) private readonly document: Document,
     private readonly layoutService: AppLayoutService
   ) {
-    // S'assurer que le thème par défaut est Apollo en mode light
-    const defaultConfig = {
-      ...this.config,
-      id: AppConfigName.apollo,
-      style: {
-        ...this.config.style,
-        colorScheme: AppColorScheme.LIGHT,
-      }
-    };
-    
-    // Initialiser avec la configuration par défaut Apollo light
-    this._updateConfig(defaultConfig);
-    
-    // Charger les configurations depuis le store
-    this.configStore.loadConfigs();
-    
-    // Observer les changements de configuration du store 
-    effect(() => {
-      const storeConfig = this.configStore.config();
-      if (storeConfig) {
-        this._configSubject.next(storeConfig);
-      }
-      
-      // Observer les changements des variables de couleur du store
-      const colorVars = this.configStore.getColorVariables();
-      if (colorVars) {
-        this._colorVariablesSubject.next(colorVars);
-      }
-      
-      // Observer les changements de la configuration linguistique
-      const langConfig = this.configStore.getLanguageConfig();
-      if (langConfig) {
-        this._languageConfigSubject.next(langConfig);
+    // Configurer l'effet d'observation des changements dans le contexte du constructeur
+    this._configChangeEffect = effect(() => {
+      // Cet effet ne sera actif qu'après l'initialisation
+      if (this._initialized) {
+        const newConfig = this.configStore.config();
+        if (newConfig) {
+          this._configSubject.next(newConfig);
+          this._updateConfig(newConfig);
+        }
+        
+        const newColorVars = this.configStore.getColorVariables();
+        if (newColorVars) {
+          this._colorVariablesSubject.next(newColorVars);
+        }
+        
+        const newLangConfig = this.configStore.getLanguageConfig();
+        if (newLangConfig) {
+          this._languageConfigSubject.next(newLangConfig);
+        }
       }
     });
     
-    // S'abonner aux changements de configuration émis par le service
-    this.config$.pipe(
+    // Démarrer le chargement des configurations
+    this._loadConfigs();
+  }
+
+  private _loadConfigs(): void {
+    console.log('Démarrage du chargement des configurations...');
+    this._loading = true;
+    
+    this.configStore.loadConfigs();
+    
+    toObservable(this.configStore.isInitialized).pipe(
+      filter(initialized => initialized === true),
+      take(1),
+      delay(0),
       takeUntil(this.destroy$)
-    ).subscribe(config => this._updateConfig(config));
+    ).subscribe({
+      next: () => {
+        console.log('Configurations chargées avec succès depuis le store');
+        this._processConfigs();
+      },
+      error: (error) => {
+        console.error('Erreur lors du chargement des configurations:', error);
+        this._handleLoadError();
+      }
+    });
+    
+    setTimeout(() => {
+      if (this._loading && !this._initialized && !this._loadAttemptFailed) {
+        console.error('Délai de chargement des configurations dépassé');
+        this._handleLoadError();
+      }
+    }, 10000);
+  }
+  
+  private _processConfigs(): void {
+    try {
+      const storeConfig = this.configStore.config();
+      const colorVars = this.configStore.getColorVariables();
+      const langConfig = this.configStore.getLanguageConfig();
+      
+      // Journalisation détaillée pour le débogage
+      console.log('Résultat du chargement des configurations:', { 
+        hasConfig: !!storeConfig, 
+        configId: storeConfig?.id,
+        hasColors: !!colorVars && Object.keys(colorVars).length > 0, 
+        colorsCount: colorVars ? Object.keys(colorVars).length : 0,
+        hasLang: !!langConfig && !!langConfig.supportedLanguages,
+        langCount: langConfig?.supportedLanguages?.length || 0
+      });
+      
+      // Vérifier s'il y a au moins une configuration minimale
+      if (!storeConfig) {
+        console.error('Configuration principale manquante après chargement');
+        this._handleLoadError();
+        return;
+      }
+      
+      // Mettre à jour les sujets avec ce que nous avons, même si incomplet
+      this._configSubject.next(storeConfig);
+      
+      if (colorVars && Object.keys(colorVars).length > 0) {
+        this._colorVariablesSubject.next(colorVars);
+      } else {
+        console.warn('Variables de couleur manquantes ou vides - utilisation d\'un objet vide');
+        this._colorVariablesSubject.next({});
+      }
+      
+      if (langConfig && langConfig.supportedLanguages) {
+        this._languageConfigSubject.next(langConfig);
+      } else {
+        console.warn('Configuration linguistique manquante ou invalide - utilisation de valeurs par défaut');
+        this._languageConfigSubject.next({
+          defaultLanguage: 'en',
+          fallbackLanguage: 'en',
+          supportedLanguages: [
+            { code: 'en', name: 'English', flag: 'en', rtl: false }
+          ]
+        });
+      }
+      
+      // Mise à jour initiale de la configuration
+      this._updateConfig(storeConfig);
+      
+      // Configuration terminée
+      this._loading = false;
+      this._initialized = true;
+      
+      console.log('Initialisation des configurations terminée avec succès');
+    } catch (error) {
+      console.error('Erreur lors du traitement des configurations:', error);
+      this._handleLoadError();
+    }
+  }
+  
+  private _handleLoadError(): void {
+    if (!this._loadAttemptFailed) {
+      this._loadAttemptFailed = true;
+      this._loading = false;
+      console.error('Échec du chargement des configurations, redirection vers la page d\'erreur');
+      this.router.navigateByUrl('/error-500');
+    }
   }
 
   ngOnDestroy(): void {
-    // Sauvegarder les configurations avant que le service soit détruit
-    this.configStore.saveConfigs();
+    if (this._initialized) {
+      this.configStore.saveConfigs();
+    }
     
-    // Nettoyer les abonnements
+    // Nettoyer l'effet si nécessaire
+    if (this._configChangeEffect) {
+      this._configChangeEffect.destroy();
+      this._configChangeEffect = null;
+    }
+    
     this.destroy$.next();
     this.destroy$.complete();
   }
 
-  /**
-   * Obtenir toutes les configurations disponibles
-   */
+  get loading(): boolean {
+    return this._loading;
+  }
+  
+  get initialized(): boolean {
+    return this._initialized;
+  }
+
   get configs(): AppConfig[] {
-    return this.configStore.availableConfigs();
+    if (this._loading) {
+      return [];
+    }
+    
+    const configs = this.configStore.availableConfigs();
+    
+    if (!this._loading && this._initialized && (!configs || configs.length === 0)) {
+      console.error('Aucune configuration disponible après initialisation');
+      this._handleLoadError();
+      return [];
+    }
+    
+    return configs;
   }
 
-  /**
-   * Observable qui émet quand les configurations sont chargées
-   */
   get configsLoaded$(): Observable<boolean> {
-    return of(this.configStore.isInitialized());
+    return of(this._initialized);
   }
 
-  /**
-   * Obtenir la configuration courante comme un Observable
-   */
   get config$(): Observable<AppConfig> {
-    return this._configSubject.asObservable();
+    return this._configSubject.asObservable().pipe(
+      filter(config => config !== null),
+      map(config => config as AppConfig)
+    );
   }
   
-  /**
-   * Obtenir les variables de couleur comme un Observable
-   */
   get colorVariables$(): Observable<Record<string, any>> {
-    return this._colorVariablesSubject.asObservable();
+    return this._colorVariablesSubject.asObservable().pipe(
+      filter(colorVars => colorVars !== null),
+      map(colorVars => colorVars as Record<string, any>)
+    );
   }
   
-  /**
-   * Obtenir les variables de couleur courantes
-   */
   get colorVariables(): Record<string, any> {
-    return this._colorVariablesSubject.getValue();
+    if (this._loading) {
+      return {};
+    }
+    
+    const colorVars = this._colorVariablesSubject.getValue();
+    
+    if (!this._loading && this._initialized && !colorVars) {
+      console.error('Variables de couleur non disponibles après initialisation');
+      this._handleLoadError();
+      return {};
+    }
+    
+    return colorVars || {};
   }
   
-  /**
-   * Obtenir la configuration linguistique comme un Observable
-   */
   get languageConfig$(): Observable<LanguageConfig> {
-    return this._languageConfigSubject.asObservable();
+    return this._languageConfigSubject.asObservable().pipe(
+      filter(langConfig => langConfig !== null),
+      map(langConfig => langConfig as LanguageConfig)
+    );
   }
   
-  /**
-   * Obtenir la configuration linguistique courante
-   */
   get languageConfig(): LanguageConfig {
-    return this._languageConfigSubject.getValue();
+    if (this._loading) {
+      return { defaultLanguage: '', fallbackLanguage: '', supportedLanguages: [] };
+    }
+    
+    const langConfig = this._languageConfigSubject.getValue();
+    
+    if (!this._loading && this._initialized && !langConfig) {
+      console.error('Configuration linguistique non disponible après initialisation');
+      this._handleLoadError();
+      return { defaultLanguage: '', fallbackLanguage: '', supportedLanguages: [] };
+    }
+    
+    return langConfig || { defaultLanguage: '', fallbackLanguage: '', supportedLanguages: [] };
   }
   
-  /**
-   * Mettre à jour la configuration linguistique
-   */
   updateLanguageConfig(config: Partial<LanguageConfig>): void {
+    if (!this._initialized) {
+      console.warn('Tentative de mise à jour de la configuration linguistique avant initialisation');
+      return;
+    }
     this.configStore.updateLanguageConfig(config);
   }
   
-  /**
-   * Obtenir les codes des langues supportées
-   */
   getSupportedLanguageCodes(): string[] {
     return this.languageConfig.supportedLanguages.map(lang => lang.code);
   }
   
-  /**
-   * Vérifier si une langue est supportée
-   */
   isLanguageSupported(langCode: string): boolean {
     return this.languageConfig.supportedLanguages.some(lang => lang.code === langCode);
   }
   
-  /**
-   * Récupérer les informations d'une langue
-   */
   getLanguageInfo(langCode: string): LanguageInfo | undefined {
     return this.languageConfig.supportedLanguages.find(lang => lang.code === langCode);
   }
   
-  /**
-   * Récupérer les langues RTL
-   */
   getRtlLanguages(): string[] {
     return this.languageConfig.supportedLanguages
       .filter(lang => lang.rtl)
       .map(lang => lang.code);
   }
   
-  /**
-   * Vérifier si une langue est RTL
-   */
   isRtlLanguage(langCode: string): boolean {
     const langInfo = this.getLanguageInfo(langCode);
     return langInfo ? langInfo.rtl : false;
   }
 
-  /**
-   * Sélectionner une propriété spécifique de la configuration
-   */
   select<R>(selector: (config: AppConfig) => R): Observable<R> {
     return this.config$.pipe(map(selector));
   }
 
-  /**
-   * Définir la configuration active par son nom
-   */
   setConfig(configName: AppConfigName) {
+    if (!this._initialized) {
+      console.warn('Tentative de définition de la configuration avant initialisation');
+      return;
+    }
     this.configStore.setConfig(configName);
   }
 
-  /**
-   * Mettre à jour la configuration courante avec des changements partiels
-   */
   updateConfig(config: DeepPartial<AppConfig>) {
+    if (!this._initialized) {
+      console.warn('Tentative de mise à jour de la configuration avant initialisation');
+      return;
+    }
     this.configStore.updateConfig(config);
   }
 
-  /**
-   * Force la sauvegarde des configurations vers l'API
-   */
   saveConfigs() {
+    if (!this._initialized) {
+      console.warn('Tentative de sauvegarde des configurations avant initialisation');
+      return;
+    }
     this.configStore.saveConfigs();
   }
 
   private _updateConfig(config: AppConfig): void {
-    this._setLayoutClass(config.bodyClass);
-    this._setStyle(config.style);
-    this._setDensity();
-    this._setDirection(config.direction);
-    this._setSidenavState(config.sidenav.state);
-    this._emitResize();
+    try {
+      // Vérifier que la configuration a les propriétés minimales nécessaires
+      if (!config) {
+        console.error('Tentative de mise à jour avec une configuration nulle');
+        return;
+      }
+
+      // Appliquer les classes de mise en page
+      if (config.bodyClass) {
+        this._setLayoutClass(config.bodyClass);
+      } else {
+        console.warn('bodyClass manquante dans la configuration');
+      }
+
+      // Appliquer le style si disponible
+      if (config.style) {
+        this._setStyle(config.style);
+      } else {
+        console.warn('style manquant dans la configuration');
+      }
+
+      // Appliquer d'autres paramètres
+      this._setDensity();
+      
+      if (config.direction) {
+        this._setDirection(config.direction);
+      } else {
+        // Valeur par défaut
+        this._setDirection('ltr');
+      }
+      
+      if (config.sidenav && config.sidenav.state) {
+        this._setSidenavState(config.sidenav.state);
+      } else {
+        // Valeur par défaut
+        console.warn('État de sidenav manquant, utilisation de "expanded" par défaut');
+        this._setSidenavState('expanded');
+      }
+      
+      this._emitResize();
+    } catch (error) {
+      console.error('Erreur lors de la mise à jour de la configuration:', error);
+      // Ne pas rediriger en cas d'erreur mineure si déjà initialisé
+      if (!this._initialized) {
+        console.warn('Erreur pendant l\'initialisation, tentative de continuer');
+        // Marquer comme initialisé même en cas d'erreur pour éviter des redirections en boucle
+        this._loading = false;
+        this._initialized = true;
+      }
+    }
   }
 
   private _setStyle(style: AppConfig['style']): void {
-    /**
-     * Set light/dark mode
-     */
     switch (style.colorScheme) {
       case AppColorScheme.LIGHT:
         this.document.body.classList.remove(AppColorScheme.DARK);
@@ -237,15 +388,9 @@ export class AppConfigService implements OnDestroy {
         break;
     }
 
-    /**
-     * Set theme class
-     */
     this.document.body.classList.remove(...this.themes.map((t) => t.className));
     this.document.body.classList.add(style.themeClassName);
 
-    /**
-     * Border Radius
-     */
     this.document.body.style.setProperty(
       '--app-border-radius',
       `${style.borderRadius.value}${style.borderRadius.unit}`
@@ -265,10 +410,6 @@ export class AppConfigService implements OnDestroy {
     }
   }
 
-  /**
-   * Emit event so charts and other external libraries know they have to resize on layout switch
-   * @private
-   */
   private _emitResize(): void {
     if (window) {
       window.dispatchEvent(new Event('resize'));
@@ -287,12 +428,23 @@ export class AppConfigService implements OnDestroy {
   }
 
   private _setLayoutClass(bodyClass: string): void {
-    this.configs.forEach((c) => {
-      if (this.document.body.classList.contains(c.bodyClass)) {
-        this.document.body.classList.remove(c.bodyClass);
+    try {
+      // Supprimer les classes de mise en page existantes
+      const configs = this.configStore.availableConfigs();
+      if (configs && configs.length > 0) {
+        configs.forEach((c) => {
+          if (c.bodyClass && this.document.body.classList.contains(c.bodyClass)) {
+            this.document.body.classList.remove(c.bodyClass);
+          }
+        });
       }
-    });
 
-    this.document.body.classList.add(bodyClass);
+      // Ajouter la nouvelle classe
+      if (bodyClass) {
+        this.document.body.classList.add(bodyClass);
+      }
+    } catch (error) {
+      console.warn('Erreur lors de la définition de la classe de mise en page:', error);
+    }
   }
 }

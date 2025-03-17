@@ -4,6 +4,20 @@ import {NavigationConfigResolver} from "./core/navigation/navigation-config.reso
 
 export const appRoutes: AppRoutes = [
   {
+    path: 'error-404',
+    loadComponent: () =>
+      import('./pages/errors/error-404/error-404.component').then(
+        (m) => m.Error404Component
+      )
+  },
+  {
+    path: 'error-500',
+    loadComponent: () =>
+      import('./pages/errors/error-500/error-500.component').then(
+        (m) => m.Error500Component
+      )
+  },
+  {
     path: ':id',
     component: LayoutComponent,
     resolve: {
@@ -22,19 +36,5 @@ export const appRoutes: AppRoutes = [
         loadChildren: () => import('./pages/arrival/arrival.routes')
       }
     ]
-  },
-  {
-    path: 'error-404',
-    loadComponent: () =>
-      import('./pages/errors/error-404/error-404.component').then(
-        (m) => m.Error404Component
-      )
-  },
-  {
-    path: 'error-500',
-    loadComponent: () =>
-      import('./pages/errors/error-500/error-500.component').then(
-        (m) => m.Error500Component
-      )
   }
 ];
