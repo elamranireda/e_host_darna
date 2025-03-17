@@ -67,9 +67,8 @@ export const NavigationConfigStore = signalStore(
   {providedIn: 'root'},
   withState(initialState),
   withMethods((store, httpClient = inject(HttpClient)) => {
-    // URL de base pour l'API
-    const baseUrl = environment.production ? 'https://api.example.com' : 'http://localhost:3000';
-    const navigationEndpoint = `${baseUrl}/navigation`;
+    // URL de base pour l'API depuis l'environnement
+    const navigationEndpoint = `${environment.apiUrl}/navigation`;
     
     return {
       reset() {

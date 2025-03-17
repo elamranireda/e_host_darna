@@ -14,6 +14,7 @@ import { Router } from '@angular/router';
 import { colorVariables as defaultColorVariables } from './color-variables';
 // Importer la configuration linguistique comme fallback
 import { languageConfig as defaultLanguageConfig, LanguageConfig, LanguageInfo } from './language.config';
+import { environment } from '../../environments/environment';
 
 /**
  * Interface d'état du store pour les configurations
@@ -43,8 +44,8 @@ const initialState: AppConfigState = {
   languageConfig: defaultLanguageConfig // Utiliser la config linguistique statique comme fallback
 };
 
-// API URL
-const API_URL = 'http://localhost:3000';
+// URL de l'API depuis l'environnement
+const API_URL = environment.apiUrl;
 
 /**
  * Service to adapt API responses to expected format
@@ -98,15 +99,13 @@ class ConfigApiAdapter {
           configs: {}
         }
       };
-    } else {
-      // Créer un thème par défaut si aucun n'est fourni
-      console.warn(`Aucun thème trouvé pour la configuration ${config.id}, création d'un thème par défaut`);
+    } else if (config.id && config.style) {
+      // Cas où le thème est absent mais d'autres propriétés essentielles existent
+      // Utiliser uniquement les variables de couleur existantes, sans créer de valeurs par défaut
+      console.warn(`Thème incomplet pour la configuration ${config.id}, utilisation des couleurs du thème global`);
       adaptedConfig.theme = {
         colors: {
-          primary: 'indigo',
-          accent: 'blue',
-          warn: 'red',
-          background: 'gray',
+          // Utiliser uniquement les palettes fournies par l'API
           palettes: colorVars
         },
         layouts: {
@@ -115,6 +114,9 @@ class ConfigApiAdapter {
           configs: {}
         }
       };
+    } else {
+      // Ne pas créer un thème par défaut si aucune information n'est disponible
+      throw new Error(`Aucun thème trouvé pour la configuration ${config.id}. Un thème est obligatoire.`);
     }
     
     return adaptedConfig;
@@ -175,36 +177,7 @@ class ConfigApiAdapter {
     
     // S'assurer qu'il y a au moins une configuration
     if (Object.keys(data.theme.layouts.configs).length === 0) {
-      console.warn('Aucune configuration trouvée dans db.json, création d\'une configuration par défaut pour Apollo');
-      // Créer une configuration par défaut pour Apollo
-      data.theme.layouts.configs.apollo = {
-        id: "apollo",
-        name: "Apollo",
-        bodyClass: "app-layout-apollo",
-        style: {
-          themeClassName: "app-theme-red",
-          colorScheme: "light",
-          borderRadius: {
-            value: 0.5,
-            unit: "rem"
-          },
-          button: {
-            borderRadius: {
-              value: 9999,
-              unit: "px"
-            }
-          }
-        },
-        direction: "ltr",
-        layout: "horizontal",
-        boxed: false,
-        sidenav: {
-          state: "expanded"
-        },
-        toolbar: {},
-        navbar: {},
-        footer: {}
-      };
+      throw new Error('Aucune configuration trouvée dans db.json. Au moins une configuration est obligatoire.');
     }
     
     // Pour chaque layout dans la section theme.layouts.configs
@@ -290,76 +263,84 @@ export const AppConfigStore = signalStore(
       },
       
       /**
-       * Load configurations from the API
+       * Charge les configurations depuis l'API 
+       * et redirige vers la page d'erreur en cas d'échec
        */
       loadConfigs: rxMethod<void>(
         pipe(
-          tap(() => patchState(store, { loading: true })),
+          tap(() => {
+            // Si déjà en cours de chargement, ne rien faire
+            if (store.loading()) {
+              console.log('Chargement déjà en cours, ignorer la nouvelle demande');
+              return;
+            }
+            
+            console.log('Démarrage du chargement des configurations');
+            patchState(store, { loading: true, error: null });
+          }),
           switchMap(() => {
+            // Si déjà initialisé, retourner les données existantes
             if (store.initialized()) {
-              return of({ 
-                configs: store.configs(), 
-                colorVariables: store.colorVariables(),
-                languageConfig: store.languageConfig()
-              });
+              console.log('Configurations déjà initialisées, réutilisation');
+              return of(true);
             }
             
             console.log('Chargement des configurations depuis l\'API...');
             return httpClient.get<Record<string, any>>(`${API_URL}/appConfigs`).pipe(
               tap({
                 next: (response) => {
-                  // Process API response
-                  if (response && Object.keys(response).length > 0) {
-                    try {
-                      // Utiliser l'adaptateur pour le nouveau format
-                      const { configs, colorVariables, languageConfig } = ConfigApiAdapter.adaptFromCentralizedFormat(response);
-                      
-                      // Vérifier que les données requises sont présentes
-                      if (!configs || Object.keys(configs).length === 0 || 
-                          !colorVariables || Object.keys(colorVariables).length === 0 ||
-                          !languageConfig || !languageConfig.supportedLanguages) {
-                        console.error('Configuration incomplète chargée depuis API');
-                        patchState(store, { 
-                          loading: false,
-                          error: new Error('Configuration incomplète')
-                        });
-                        return;
-                      }
-                      
-                      // Update state with loaded configs, color variables and language config
-                      patchState(store, { 
-                        loading: false, 
-                        configs,
-                        colorVariables,
-                        languageConfig,
-                        initialized: true,
-                        error: null
-                      });
-                      
-                      // Par défaut, utiliser Apollo comme config par défaut
-                      if (configs[AppConfigName.apollo]) {
-                        patchState(store, { currentConfig: configs[AppConfigName.apollo] });
-                        console.log('Configuration Apollo chargée avec succès');
-                      } else {
-                        console.error('Configuration Apollo non trouvée');
-                        patchState(store, { 
-                          loading: false,
-                          error: new Error('Configuration Apollo non trouvée')
-                        });
-                      }
-                    } catch (error) {
-                      console.error('Erreur lors du traitement des configurations:', error);
+                  try {
+                    // Utiliser l'adaptateur pour le nouveau format
+                    const { configs, colorVariables, languageConfig } = ConfigApiAdapter.adaptFromCentralizedFormat(response);
+                    
+                    // Vérifier que les données requises sont présentes
+                    if (!configs || Object.keys(configs).length === 0 || 
+                        !colorVariables || Object.keys(colorVariables).length === 0 ||
+                        !languageConfig || !languageConfig.supportedLanguages) {
+                      console.error('Configuration incomplète chargée depuis API');
                       patchState(store, { 
                         loading: false,
-                        error
+                        error: new Error('Configuration incomplète')
                       });
+                      
+                      // Rediriger vers la page d'erreur
+                      router.navigateByUrl('/error-500');
+                      return;
                     }
-                  } else {
-                    console.error('Aucune configuration reçue de l\'API');
+                    
+                    // Update state with loaded configs, color variables and language config
+                    patchState(store, { 
+                      loading: false, 
+                      configs,
+                      colorVariables,
+                      languageConfig,
+                      initialized: true,
+                      error: null
+                    });
+                    
+                    // Par défaut, utiliser Apollo comme config par défaut
+                    if (configs[AppConfigName.apollo]) {
+                      patchState(store, { currentConfig: configs[AppConfigName.apollo] });
+                      console.log('Configuration Apollo chargée avec succès');
+                    } else {
+                      console.error('Configuration Apollo non trouvée');
+                      patchState(store, { 
+                        loading: false,
+                        error: new Error('Configuration Apollo non trouvée')
+                      });
+                      
+                      // Rediriger vers la page d'erreur
+                      router.navigateByUrl('/error-500');
+                    }
+                  } catch (error) {
+                    console.error('Erreur lors du traitement des configurations:', error);
                     patchState(store, { 
                       loading: false,
-                      error: new Error('Aucune configuration reçue de l\'API')
+                      error
                     });
+                    
+                    // Rediriger vers la page d'erreur
+                    router.navigateByUrl('/error-500');
                   }
                 },
                 error: (error: any) => {
@@ -368,20 +349,34 @@ export const AppConfigStore = signalStore(
                     loading: false,
                     error
                   });
+                  
+                  // Rediriger vers la page d'erreur
+                  router.navigateByUrl('/error-500');
                 }
               }),
+              map(() => store.initialized()),
               catchError(error => {
                 console.error('Erreur critique lors du chargement des configurations:', error);
                 patchState(store, { 
                   loading: false,
                   error
                 });
-                return throwError(() => error);
+                
+                // Rediriger vers la page d'erreur
+                router.navigateByUrl('/error-500');
+                return of(false);
               })
             );
           })
         )
       ),
+      
+      /**
+       * Alias pour loadConfigs pour compatibilité avec le code existant
+       */
+      loadAllConfigs() {
+        return this.loadConfigs();
+      },
       
       /**
        * Set the current active configuration
@@ -489,132 +484,6 @@ export const AppConfigStore = signalStore(
               catchError(error => {
                 console.error('Erreur critique lors de la sauvegarde des configurations:', error);
                 return throwError(() => error);
-              })
-            );
-          })
-        )
-      ),
-
-      /**
-       * Charge toutes les configurations nécessaires en parallèle (app et navigation)
-       * et s'assure que toutes sont chargées correctement avant de continuer
-       * Un seul appel est fait, et en cas d'erreur, on conserve l'état error
-       */
-      loadAllConfigs: rxMethod<void>(
-        pipe(
-          tap(() => {
-            // Si déjà en cours de chargement, ne rien faire
-            if (store.loading()) {
-              console.log('Chargement déjà en cours, ignorer la nouvelle demande');
-              return;
-            }
-            
-            console.log('Démarrage du chargement de toutes les configurations en parallèle');
-            patchState(store, { loading: true, error: null });
-          }),
-          switchMap(() => {
-            // Si déjà initialisé, retourner les données existantes
-            if (store.initialized()) {
-              console.log('Configurations déjà initialisées, réutilisation');
-              return of(true);
-            }
-            
-            console.log('Chargement de toutes les configurations en parallèle...');
-            
-            // URL des apis de configuration
-            const appConfigUrl = `${API_URL}/appConfigs`;
-            const navigationUrl = `${API_URL}/navigation`;
-            
-            // Exécuter les requêtes en parallèle avec forkJoin
-            return forkJoin({
-              appConfig: httpClient.get<Record<string, any>>(appConfigUrl).pipe(
-                catchError(error => {
-                  console.error('Erreur lors du chargement de la configuration app:', error);
-                  // Retourner null pour indiquer l'échec mais permettre à forkJoin de continuer
-                  return of(null);
-                })
-              ),
-              navigation: httpClient.get<any[]>(navigationUrl).pipe(
-                catchError(error => {
-                  console.error('Erreur lors du chargement de la navigation:', error);
-                  // Retourner null pour indiquer l'échec mais permettre à forkJoin de continuer
-                  return of(null);
-                })
-              )
-            }).pipe(
-              map(({ appConfig, navigation }) => {
-                // Vérifier si la configuration app est disponible
-                if (!appConfig) {
-                  console.error('Échec du chargement de la configuration app');
-                  
-                  // Indiquer une erreur grave
-                  patchState(store, { 
-                    loading: false,
-                    error: new Error('Échec du chargement de la configuration app')
-                  });
-                  
-                  // Retourner false pour indiquer l'échec
-                  return false;
-                }
-                
-                try {
-                  // Adapter la configuration de l'application
-                  const { configs, colorVariables, languageConfig } = ConfigApiAdapter.adaptFromCentralizedFormat(appConfig);
-                  
-                  // Ajouter la configuration de navigation si elle est disponible
-                  if (navigation) {
-                    console.log('Navigation chargée avec succès, intégration dans la configuration');
-                    // Stocker la navigation dans un endroit accessible du store
-                    // Par exemple, ajoutons-la à une propriété spécifique de la config
-                    const updatedConfig = { ...configs[AppConfigName.apollo] };
-                    if (!updatedConfig.navigation) {
-                      updatedConfig.navigation = {};
-                    }
-                    updatedConfig.navigation.items = navigation;
-                    
-                    // Mettre à jour la configuration avec la navigation
-                    configs[AppConfigName.apollo] = updatedConfig;
-                  } else {
-                    console.warn('Navigation non disponible, la configuration n\'inclura pas les éléments de navigation');
-                  }
-                  
-                  // Mettre à jour le state avec les configurations chargées
-                  patchState(store, { 
-                    loading: false, 
-                    configs,
-                    colorVariables,
-                    languageConfig,
-                    currentConfig: configs[AppConfigName.apollo],
-                    initialized: true,
-                    error: null
-                  });
-                  
-                  console.log('Toutes les configurations chargées avec succès');
-                  return true;
-                } catch (error) {
-                  console.error('Erreur lors du traitement des configurations:', error);
-                  
-                  // Indiquer une erreur grave
-                  patchState(store, { 
-                    loading: false,
-                    error
-                  });
-                  
-                  // Retourner false pour indiquer l'échec
-                  return false;
-                }
-              }),
-              catchError(error => {
-                console.error('Erreur critique lors du chargement des configurations:', error);
-                
-                // Indiquer une erreur grave
-                patchState(store, { 
-                  loading: false,
-                  error
-                });
-                
-                // Retourner false pour indiquer l'échec
-                return of(false);
               })
             );
           })
