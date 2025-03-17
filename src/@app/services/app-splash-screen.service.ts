@@ -1,7 +1,6 @@
 import { Inject, Injectable } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { DOCUMENT } from '@angular/common';
-import { filter, take } from 'rxjs/operators';
 import { animate, AnimationBuilder, style } from '@angular/animations';
 
 @Injectable({
@@ -17,18 +16,21 @@ export class AppSplashScreenService {
   ) {
     this.splashScreenElem =
       this.document.body.querySelector('#app-splash-screen') ?? undefined;
-
-    if (this.splashScreenElem) {
-      this.router.events
-        .pipe(
-          filter((event) => event instanceof NavigationEnd),
-          take(1)
-        )
-        .subscribe(() => this.hide());
-    }
   }
 
+  /**
+   * Cache le splash screen avec une animation de fondu
+   * Cette méthode sera appelée explicitement par AppConfigService 
+   * lorsque le chargement de la configuration est terminé
+   */
   hide() {
+    if (!this.splashScreenElem) {
+      console.warn('Élément splash screen non trouvé');
+      return;
+    }
+
+    console.log('Masquage du splash screen');
+    
     const player = this.animationBuilder
       .build([
         style({
@@ -43,7 +45,11 @@ export class AppSplashScreenService {
       ])
       .create(this.splashScreenElem);
 
-    player.onDone(() => this.splashScreenElem?.remove());
+    player.onDone(() => {
+      this.splashScreenElem?.remove();
+      console.log('Splash screen supprimé du DOM');
+    });
+    
     player.play();
   }
 }

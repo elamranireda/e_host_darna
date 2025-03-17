@@ -498,14 +498,22 @@ export const AppConfigStore = signalStore(
       /**
        * Charge toutes les configurations nécessaires en parallèle (app et navigation)
        * et s'assure que toutes sont chargées correctement avant de continuer
+       * Un seul appel est fait, et en cas d'erreur, on conserve l'état error
        */
       loadAllConfigs: rxMethod<void>(
         pipe(
           tap(() => {
+            // Si déjà en cours de chargement, ne rien faire
+            if (store.loading()) {
+              console.log('Chargement déjà en cours, ignorer la nouvelle demande');
+              return;
+            }
+            
             console.log('Démarrage du chargement de toutes les configurations en parallèle');
-            patchState(store, { loading: true });
+            patchState(store, { loading: true, error: null });
           }),
           switchMap(() => {
+            // Si déjà initialisé, retourner les données existantes
             if (store.initialized()) {
               console.log('Configurations déjà initialisées, réutilisation');
               return of(true);
@@ -522,12 +530,14 @@ export const AppConfigStore = signalStore(
               appConfig: httpClient.get<Record<string, any>>(appConfigUrl).pipe(
                 catchError(error => {
                   console.error('Erreur lors du chargement de la configuration app:', error);
+                  // Retourner null pour indiquer l'échec mais permettre à forkJoin de continuer
                   return of(null);
                 })
               ),
               navigation: httpClient.get<any[]>(navigationUrl).pipe(
                 catchError(error => {
                   console.error('Erreur lors du chargement de la navigation:', error);
+                  // Retourner null pour indiquer l'échec mais permettre à forkJoin de continuer
                   return of(null);
                 })
               )
@@ -535,14 +545,16 @@ export const AppConfigStore = signalStore(
               map(({ appConfig, navigation }) => {
                 // Vérifier si la configuration app est disponible
                 if (!appConfig) {
-                  console.error('Échec du chargement de la configuration app, utilisation des valeurs par défaut');
-                  // Au lieu d'échouer, utiliser les valeurs par défaut
+                  console.error('Échec du chargement de la configuration app');
+                  
+                  // Indiquer une erreur grave
                   patchState(store, { 
                     loading: false,
-                    // Utiliser les valeurs d'initialisation par défaut
-                    initialized: true  // Marquer comme initialisé même si avec des valeurs par défaut
+                    error: new Error('Échec du chargement de la configuration app')
                   });
-                  return true; // Continuer le flux
+                  
+                  // Retourner false pour indiquer l'échec
+                  return false;
                 }
                 
                 try {
@@ -581,24 +593,28 @@ export const AppConfigStore = signalStore(
                   return true;
                 } catch (error) {
                   console.error('Erreur lors du traitement des configurations:', error);
-                  // En cas d'erreur, utiliser les valeurs par défaut mais marquer quand même comme initialisé
+                  
+                  // Indiquer une erreur grave
                   patchState(store, { 
                     loading: false,
-                    initialized: true, // Marquer comme initialisé malgré l'erreur
                     error
                   });
-                  return true; // Continuer le flux malgré l'erreur
+                  
+                  // Retourner false pour indiquer l'échec
+                  return false;
                 }
               }),
               catchError(error => {
                 console.error('Erreur critique lors du chargement des configurations:', error);
-                // Même en cas d'erreur critique, marquer comme initialisé avec les valeurs par défaut
+                
+                // Indiquer une erreur grave
                 patchState(store, { 
                   loading: false,
-                  initialized: true,
                   error
                 });
-                return of(true); // Toujours continuer le flux
+                
+                // Retourner false pour indiquer l'échec
+                return of(false);
               })
             );
           })

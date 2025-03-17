@@ -19,6 +19,7 @@ import { AppConfigStore } from './app-config.store';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { LanguageConfig, LanguageInfo } from './language.config';
 import { Router } from '@angular/router';
+import { AppSplashScreenService } from '../services/app-splash-screen.service';
 
 @Injectable({
   providedIn: 'root'
@@ -35,6 +36,7 @@ export class AppConfigService implements OnDestroy {
   private _initialized = false;
   private _loadAttemptFailed = false;
   private _configChangeEffect: ReturnType<typeof effect> | null = null;
+  private readonly splashScreenService = inject(AppSplashScreenService);
 
   constructor(
     @Inject(APP_CONFIG) private readonly config: AppConfig,
@@ -72,14 +74,22 @@ export class AppConfigService implements OnDestroy {
     console.log('Démarrage du chargement des configurations...');
     this._loading = true;
     
-    // Vérifier si déjà initialisé
+    // Vérifier si déjà initialisé - pour éviter le double chargement
     if (this._initialized) {
       console.log('Configurations déjà initialisées, réutilisation');
       this._loading = false;
+      
+      // Cacher le splash screen
+      try {
+        this.splashScreenService.hide();
+      } catch (error) {
+        console.warn('Impossible de cacher le splash screen:', error);
+      }
+      
       return;
     }
     
-    // Lancer le chargement des configurations parallèlement
+    // Lancer le chargement des configurations (un seul appel)
     this.configStore.loadAllConfigs();
     
     // Observer l'état d'initialisation
@@ -91,22 +101,29 @@ export class AppConfigService implements OnDestroy {
       next: () => {
         console.log('Configurations chargées avec succès depuis le store');
         this._processConfigs();
+        
+        // Cacher le splash screen après chargement réussi
+        try {
+          this.splashScreenService.hide();
+        } catch (error) {
+          console.warn('Impossible de cacher le splash screen:', error);
+        }
       },
       error: (error: Error) => {
         console.error('Erreur lors du chargement des configurations:', error);
-        // Même en cas d'erreur, tenter de traiter ce qui est disponible
-        this._processConfigs();
+        // En cas d'erreur, rediriger vers error-500
+        this._handleLoadError();
       }
     });
     
-    // Timeout de sécurité
+    // Timeout de sécurité réduit (5 secondes)
     setTimeout(() => {
       if (this._loading && !this._initialized && !this._loadAttemptFailed) {
         console.error('Délai de chargement des configurations dépassé');
-        // Même en cas de timeout, tenter de traiter ce qui est disponible
-        this._processConfigs();
+        // En cas de timeout, rediriger vers error-500
+        this._handleLoadError();
       }
-    }, 5000); // Réduit à 5 secondes pour plus de réactivité
+    }, 5000);
   }
   
   private _processConfigs(): void {
@@ -188,6 +205,15 @@ export class AppConfigService implements OnDestroy {
       this._loadAttemptFailed = true;
       this._loading = false;
       console.error('Échec du chargement des configurations, redirection vers la page d\'erreur');
+      
+      // Cacher le splash screen même en cas d'erreur
+      try {
+        this.splashScreenService.hide();
+      } catch (error) {
+        console.warn('Impossible de cacher le splash screen:', error);
+      }
+      
+      // Rediriger vers la page d'erreur
       this.router.navigateByUrl('/error-500');
     }
   }
