@@ -2,8 +2,8 @@
 import { computed, effect, inject } from "@angular/core";
 import { getState, patchState, signalStore, signalStoreFeature, withComputed, withHooks, withMethods, withState } from '@ngrx/signals';
 import { rxMethod } from "@ngrx/signals/rxjs-interop";
-import { of, pipe, tap, throwError } from "rxjs";
-import { catchError, switchMap } from "rxjs/operators";
+import { catchError, forkJoin, from, Observable, of, pipe, tap, throwError } from "rxjs";
+import { catchError, map, switchMap } from "rxjs/operators";
 import { AppConfig, AppConfigName, AppConfigs } from './app-config.interface';
 import { appConfigs as defaultConfigs } from './app-configs';
 import { HttpClient } from "@angular/common/http";
@@ -489,6 +489,116 @@ export const AppConfigStore = signalStore(
               catchError(error => {
                 console.error('Erreur critique lors de la sauvegarde des configurations:', error);
                 return throwError(() => error);
+              })
+            );
+          })
+        )
+      ),
+
+      /**
+       * Charge toutes les configurations nécessaires en parallèle (app et navigation)
+       * et s'assure que toutes sont chargées correctement avant de continuer
+       */
+      loadAllConfigs: rxMethod<void>(
+        pipe(
+          tap(() => {
+            console.log('Démarrage du chargement de toutes les configurations en parallèle');
+            patchState(store, { loading: true });
+          }),
+          switchMap(() => {
+            if (store.initialized()) {
+              console.log('Configurations déjà initialisées, réutilisation');
+              return of(true);
+            }
+            
+            console.log('Chargement de toutes les configurations en parallèle...');
+            
+            // URL des apis de configuration
+            const appConfigUrl = `${API_URL}/appConfigs`;
+            const navigationUrl = `${API_URL}/navigation`;
+            
+            // Exécuter les requêtes en parallèle avec forkJoin
+            return forkJoin({
+              appConfig: httpClient.get<Record<string, any>>(appConfigUrl).pipe(
+                catchError(error => {
+                  console.error('Erreur lors du chargement de la configuration app:', error);
+                  return of(null);
+                })
+              ),
+              navigation: httpClient.get<any[]>(navigationUrl).pipe(
+                catchError(error => {
+                  console.error('Erreur lors du chargement de la navigation:', error);
+                  return of(null);
+                })
+              )
+            }).pipe(
+              map(({ appConfig, navigation }) => {
+                // Vérifier si la configuration app est disponible
+                if (!appConfig) {
+                  console.error('Échec du chargement de la configuration app, utilisation des valeurs par défaut');
+                  // Au lieu d'échouer, utiliser les valeurs par défaut
+                  patchState(store, { 
+                    loading: false,
+                    // Utiliser les valeurs d'initialisation par défaut
+                    initialized: true  // Marquer comme initialisé même si avec des valeurs par défaut
+                  });
+                  return true; // Continuer le flux
+                }
+                
+                try {
+                  // Adapter la configuration de l'application
+                  const { configs, colorVariables, languageConfig } = ConfigApiAdapter.adaptFromCentralizedFormat(appConfig);
+                  
+                  // Ajouter la configuration de navigation si elle est disponible
+                  if (navigation) {
+                    console.log('Navigation chargée avec succès, intégration dans la configuration');
+                    // Stocker la navigation dans un endroit accessible du store
+                    // Par exemple, ajoutons-la à une propriété spécifique de la config
+                    const updatedConfig = { ...configs[AppConfigName.apollo] };
+                    if (!updatedConfig.navigation) {
+                      updatedConfig.navigation = {};
+                    }
+                    updatedConfig.navigation.items = navigation;
+                    
+                    // Mettre à jour la configuration avec la navigation
+                    configs[AppConfigName.apollo] = updatedConfig;
+                  } else {
+                    console.warn('Navigation non disponible, la configuration n\'inclura pas les éléments de navigation');
+                  }
+                  
+                  // Mettre à jour le state avec les configurations chargées
+                  patchState(store, { 
+                    loading: false, 
+                    configs,
+                    colorVariables,
+                    languageConfig,
+                    currentConfig: configs[AppConfigName.apollo],
+                    initialized: true,
+                    error: null
+                  });
+                  
+                  console.log('Toutes les configurations chargées avec succès');
+                  return true;
+                } catch (error) {
+                  console.error('Erreur lors du traitement des configurations:', error);
+                  // En cas d'erreur, utiliser les valeurs par défaut mais marquer quand même comme initialisé
+                  patchState(store, { 
+                    loading: false,
+                    initialized: true, // Marquer comme initialisé malgré l'erreur
+                    error
+                  });
+                  return true; // Continuer le flux malgré l'erreur
+                }
+              }),
+              catchError(error => {
+                console.error('Erreur critique lors du chargement des configurations:', error);
+                // Même en cas d'erreur critique, marquer comme initialisé avec les valeurs par défaut
+                patchState(store, { 
+                  loading: false,
+                  initialized: true,
+                  error
+                });
+                return of(true); // Toujours continuer le flux
               })
             );
           })

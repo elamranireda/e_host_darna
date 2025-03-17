@@ -5,6 +5,8 @@ import {effect, inject} from "@angular/core";
 import {rxMethod} from "@ngrx/signals/rxjs-interop";
 import {of, pipe, tap,} from "rxjs";
 import {switchMap} from "rxjs/operators";
+import {HttpClient} from "@angular/common/http";
+import {environment} from "../../../environments/environment";
 
 export interface NavigationConfigState {
   items: NavigationItem[];
@@ -64,41 +66,76 @@ function isSubheading(item: NavigationItem): item is NavigationSubheading {
 export const NavigationConfigStore = signalStore(
   {providedIn: 'root'},
   withState(initialState),
-  withMethods((store, navigationService = inject(NavigationLoaderService)) => ({
-    reset() {
-      patchState(store, initialState);
-    },
-    getNavigationConfigFromApi: rxMethod<{path: string, lang: string, propertyId?: string}>(
-      pipe(
-        tap(() => patchState(store, {loading: true})),
-        switchMap((input) => {
-          // Nous récupérons toujours les données pour obtenir la configuration la plus à jour
-          // Si vous avez besoin de mise en cache, vous pouvez décommenter la ligne suivante
-          // if (store.items().length > 0) return of(null);
-          
-          return navigationService.loadNavigation(input.path, input.lang).pipe(
-            tap({
-              next: (items: NavigationItem[]) => {
-                // Remplacer les :id par l'ID réel si propertyId est fourni
-                let processedItems = items;
-                if (input.propertyId) {
-                  processedItems = replaceIdInItems(items, input.propertyId);
-                }
-                
-                // Remplacer complètement les items au lieu de les concaténer
-                patchState(store, {loading: false, items: processedItems})
-              },
-              error: (error: any) => {
-                patchState(store, {loading: false, error});
-                console.error('Erreur lors du chargement de la navigation:', error);
-              },
-            })
-          )
-        })
-      )
-    ),
-
-  })),
+  withMethods((store, httpClient = inject(HttpClient)) => {
+    // URL de base pour l'API
+    const baseUrl = environment.production ? 'https://api.example.com' : 'http://localhost:3000';
+    const navigationEndpoint = `${baseUrl}/navigation`;
+    
+    return {
+      reset() {
+        patchState(store, initialState);
+      },
+      getNavigationConfigFromApi: rxMethod<{path: string, lang: string, propertyId?: string}>(
+        pipe(
+          tap(() => patchState(store, {loading: true})),
+          switchMap((input) => {
+            // Utiliser directement HttpClient au lieu de passer par le service
+            // pour éviter les dépendances circulaires
+            const headers = { 'Accept-language': input.lang };
+            
+            return httpClient.get<NavigationItem[]>(navigationEndpoint, { headers }).pipe(
+              tap({
+                next: (items: NavigationItem[]) => {
+                  if (!items || items.length === 0) {
+                    console.warn('Aucun élément de navigation reçu de l\'API');
+                    patchState(store, {loading: false});
+                    return;
+                  }
+                  
+                  // Remplacer les :id par l'ID réel si propertyId est fourni
+                  let processedItems = items;
+                  if (input.propertyId) {
+                    processedItems = replaceIdInItems(items, input.propertyId);
+                  }
+                  
+                  // Remplacer complètement les items au lieu de les concaténer
+                  patchState(store, {loading: false, items: processedItems, error: null});
+                  console.log('Navigation chargée avec succès depuis API:', processedItems.length, 'items');
+                },
+                error: (error: any) => {
+                  patchState(store, {loading: false, error});
+                  console.error('Erreur lors du chargement de la navigation:', error);
+                },
+              })
+            );
+          })
+        )
+      ),
+      
+      /**
+       * Définir directement la configuration de navigation sans passer par l'API
+       * Utile lorsque la navigation est déjà disponible dans AppConfigStore
+       */
+      setNavigationConfig(config: {items: NavigationItem[], propertyId?: string}) {
+        console.log('Définition directe de la configuration de navigation');
+        
+        // Traiter les items si propertyId est fourni
+        let processedItems = config.items;
+        if (config.propertyId) {
+          processedItems = replaceIdInItems(config.items, config.propertyId);
+        }
+        
+        // Mettre à jour le store
+        patchState(store, {
+          loading: false,
+          items: processedItems,
+          error: null
+        });
+        
+        console.log('Configuration de navigation définie avec succès:', processedItems.length, 'items');
+      }
+    };
+  }),
   withIpponLogging()
 );
 

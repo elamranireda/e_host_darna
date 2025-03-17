@@ -10,7 +10,7 @@ import {
 } from '@ngrx/signals';
 import {computed, effect, inject} from "@angular/core";
 import {rxMethod} from "@ngrx/signals/rxjs-interop";
-import {of, pipe, tap,} from "rxjs";
+import {of, pipe, tap, catchError} from "rxjs";
 import {switchMap} from "rxjs/operators";
 import {Property} from "../interfaces/property.interface";
 import {PropertyService} from "./property.service";
@@ -48,20 +48,44 @@ export const PropertyStore = signalStore(
     },
     getPropertyDetails: rxMethod<string>(
       pipe(
-        tap(() => patchState(store, {loading: true})),
+        tap(() => {
+          console.log('Démarrage du chargement des détails de propriété');
+          patchState(store, {loading: true});
+        }),
         switchMap((propertyId) => {
-          if (store.property() && store.property()?.id === propertyId) return of(null);
+          // Ne pas charger si on a déjà cette propriété et qu'elle est valide
+          if (store.property() && store.property()?.id === propertyId) {
+            console.log('Propriété déjà chargée, réutilisation:', propertyId);
+            return of(store.property());
+          }
+          
+          console.log('Récupération des détails de propriété depuis l\'API pour ID:', propertyId);
           return propertyService.getProperty(propertyId).pipe(
             tap({
               next: (item: Property) => {
-                patchState(store, {loading: false, property: item})
+                if (item) {
+                  console.log('Propriété chargée avec succès:', item.id);
+                  patchState(store, {loading: false, property: item, error: null});
+                } else {
+                  console.error('Propriété reçue est nulle ou invalide');
+                  patchState(store, {
+                    loading: false, 
+                    error: new Error('Propriété non trouvée ou invalide')
+                  });
+                }
               },
               error: (error: any) => {
+                console.error('Erreur lors du chargement de la propriété:', error);
                 patchState(store, {loading: false, error});
-      
               },
+            }),
+            catchError((error) => {
+              console.error('Erreur critique lors du chargement de la propriété:', error);
+              patchState(store, {loading: false, error});
+              // Retourner un observable vide pour permettre la continuation du flux
+              return of(null);
             })
-          )
+          );
         })
       )
     ),

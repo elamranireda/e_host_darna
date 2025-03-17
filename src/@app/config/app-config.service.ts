@@ -72,40 +72,56 @@ export class AppConfigService implements OnDestroy {
     console.log('Démarrage du chargement des configurations...');
     this._loading = true;
     
-    this.configStore.loadConfigs();
+    // Vérifier si déjà initialisé
+    if (this._initialized) {
+      console.log('Configurations déjà initialisées, réutilisation');
+      this._loading = false;
+      return;
+    }
     
-    toObservable(this.configStore.isInitialized).pipe(
+    // Lancer le chargement des configurations parallèlement
+    this.configStore.loadAllConfigs();
+    
+    // Observer l'état d'initialisation
+    toObservable(this.configStore.initialized).pipe(
       filter(initialized => initialized === true),
       take(1),
-      delay(0),
       takeUntil(this.destroy$)
     ).subscribe({
       next: () => {
         console.log('Configurations chargées avec succès depuis le store');
         this._processConfigs();
       },
-      error: (error) => {
+      error: (error: Error) => {
         console.error('Erreur lors du chargement des configurations:', error);
-        this._handleLoadError();
+        // Même en cas d'erreur, tenter de traiter ce qui est disponible
+        this._processConfigs();
       }
     });
     
+    // Timeout de sécurité
     setTimeout(() => {
       if (this._loading && !this._initialized && !this._loadAttemptFailed) {
         console.error('Délai de chargement des configurations dépassé');
-        this._handleLoadError();
+        // Même en cas de timeout, tenter de traiter ce qui est disponible
+        this._processConfigs();
       }
-    }, 10000);
+    }, 5000); // Réduit à 5 secondes pour plus de réactivité
   }
   
   private _processConfigs(): void {
     try {
-      const storeConfig = this.configStore.config();
-      const colorVars = this.configStore.getColorVariables();
-      const langConfig = this.configStore.getLanguageConfig();
+      // Récupérer les configurations depuis le store - utiliser null comme fallback
+      const storeConfig = this.configStore.config() || null;
+      const colorVars = this.configStore.getColorVariables() || {};
+      const langConfig = this.configStore.getLanguageConfig() || { 
+        defaultLanguage: 'en', 
+        fallbackLanguage: 'en',
+        supportedLanguages: [{ code: 'en', name: 'English', flag: 'en', rtl: false }]
+      };
       
       // Journalisation détaillée pour le débogage
-      console.log('Résultat du chargement des configurations:', { 
+      console.log('Traitement des configurations chargées:', { 
         hasConfig: !!storeConfig, 
         configId: storeConfig?.id,
         hasColors: !!colorVars && Object.keys(colorVars).length > 0, 
@@ -114,15 +130,11 @@ export class AppConfigService implements OnDestroy {
         langCount: langConfig?.supportedLanguages?.length || 0
       });
       
-      // Vérifier s'il y a au moins une configuration minimale
-      if (!storeConfig) {
-        console.error('Configuration principale manquante après chargement');
-        this._handleLoadError();
-        return;
-      }
+      // Utiliser la configuration disponible ou une configuration par défaut
+      const configToUse = storeConfig || this.config;
       
       // Mettre à jour les sujets avec ce que nous avons, même si incomplet
-      this._configSubject.next(storeConfig);
+      this._configSubject.next(configToUse);
       
       if (colorVars && Object.keys(colorVars).length > 0) {
         this._colorVariablesSubject.next(colorVars);
@@ -131,7 +143,7 @@ export class AppConfigService implements OnDestroy {
         this._colorVariablesSubject.next({});
       }
       
-      if (langConfig && langConfig.supportedLanguages) {
+      if (langConfig && langConfig.supportedLanguages && langConfig.supportedLanguages.length > 0) {
         this._languageConfigSubject.next(langConfig);
       } else {
         console.warn('Configuration linguistique manquante ou invalide - utilisation de valeurs par défaut');
@@ -145,7 +157,7 @@ export class AppConfigService implements OnDestroy {
       }
       
       // Mise à jour initiale de la configuration
-      this._updateConfig(storeConfig);
+      this._updateConfig(configToUse);
       
       // Configuration terminée
       this._loading = false;
@@ -154,7 +166,20 @@ export class AppConfigService implements OnDestroy {
       console.log('Initialisation des configurations terminée avec succès');
     } catch (error) {
       console.error('Erreur lors du traitement des configurations:', error);
-      this._handleLoadError();
+      // Tenter de continuer avec les valeurs par défaut
+      this._loading = false;
+      this._initialized = true; // Marquer comme initialisé malgré l'erreur
+      this._configSubject.next(this.config);
+      this._colorVariablesSubject.next({});
+      this._languageConfigSubject.next({
+        defaultLanguage: 'en',
+        fallbackLanguage: 'en',
+        supportedLanguages: [
+          { code: 'en', name: 'English', flag: 'en', rtl: false }
+        ]
+      });
+      this._updateConfig(this.config);
+      console.warn('Initialisation des configurations terminée avec des valeurs par défaut');
     }
   }
   
