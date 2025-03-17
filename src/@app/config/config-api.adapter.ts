@@ -1,5 +1,6 @@
 import { AppConfig, AppConfigName, AppConfigs } from './app-config.interface';
 import { LanguageConfig } from './language.config';
+import { NavigationItem } from '../../app/core/navigation/navigation-item.interface';
 
 // Interface pour les propriétés de couleur
 interface ThemeColors {
@@ -89,7 +90,8 @@ export class ConfigApiAdapter {
   static adaptFromCentralizedFormat(data: any): { 
     configs: AppConfigs, 
     colorVariables: Record<string, any>,
-    languageConfig: LanguageConfig
+    languageConfig: LanguageConfig,
+    navigationItems: NavigationItem[]
   } {
     // Vérifier que la structure de base est présente
     if (!data || !data.theme) {
@@ -136,6 +138,20 @@ export class ConfigApiAdapter {
       throw new Error('Configuration linguistique invalide dans db.json');
     }
     
+    // Récupérer les éléments de navigation
+    const navigationItems = data.navigationConfig || [];
+    
+    // Vérifier que la navigation est valide
+    if (!Array.isArray(navigationItems)) {
+      console.warn('Navigation invalide dans db.json, utilisation d\'un tableau vide');
+      return {
+        configs, 
+        colorVariables: colorVars,
+        languageConfig: langConfig,
+        navigationItems: []
+      };
+    }
+    
     // S'assurer qu'il y a au moins une configuration
     if (Object.keys(data.theme.layouts.configs).length === 0) {
       throw new Error('Aucune configuration trouvée dans db.json. Au moins une configuration est obligatoire.');
@@ -161,7 +177,8 @@ export class ConfigApiAdapter {
     return { 
       configs, 
       colorVariables: colorVars,
-      languageConfig: langConfig
+      languageConfig: langConfig,
+      navigationItems
     };
   }
 } 

@@ -28,19 +28,6 @@ export class NavigationService {
 
   constructor(private router: Router) {}
 
-  /**
-   * Recharge les données de navigation
-   * @param propertyId ID de la propriété pour laquelle charger les données de navigation
-   */
-  reloadItems(propertyId: string): void {
-    if (!propertyId) {
-      console.error('Impossible de recharger les données de navigation: ID de propriété manquant');
-      return;
-    }
-    
-    console.log('Rechargement des données de navigation pour la propriété:', propertyId);
-    this.appConfigStore.loadAllConfigs();
-  }
 
   triggerOpenChange(item: NavigationDropdown) {
     this._openChangeSubject.next(item);

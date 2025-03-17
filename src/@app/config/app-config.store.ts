@@ -36,8 +36,6 @@ export interface AppConfigState {
   colorVariables: Record<string, any>; // Variables de couleur centralisées
   languageConfig: LanguageConfig;      // Configuration linguistique centralisée
   navigationItems: NavigationItem[];   // Items de navigation centralisés
-  navigationLoading: boolean;          // État de chargement spécifique à la navigation
-  navigationError: any;                // Erreur spécifique à la navigation
 }
 
 // Initial state
@@ -50,8 +48,6 @@ const initialState: AppConfigState = {
   colorVariables: defaultColorVariables, // Utiliser les variables statiques comme fallback initial
   languageConfig: defaultLanguageConfig, // Utiliser la config linguistique statique comme fallback
   navigationItems: [],                   // Initialiser avec une liste vide
-  navigationLoading: false,
-  navigationError: null
 };
 
 /**
@@ -83,7 +79,7 @@ export const AppConfigStore = signalStore(
             }
             
             console.log('Démarrage du chargement des configurations');
-            patchState(store, { loading: true, navigationLoading: true, error: null, navigationError: null });
+            patchState(store, { loading: true, error: null });
           }),
           switchMap(() => {
             // Si déjà initialisé, retourner les données existantes
@@ -96,19 +92,13 @@ export const AppConfigStore = signalStore(
               tap({
                 next: ({ configs, colorVariables, languageConfig, navigationItems }) => {
                   try {
-                    // Mettre à jour la navigation
-                    patchState(store, {
-                      navigationLoading: false,
-                      navigationError: null,
-                      navigationItems
-                    });
-                    
-                    // Update state with loaded configs, color variables and language config
+                    // Mettre à jour l'ensemble de la configuration dans le store
                     patchState(store, { 
                       loading: false, 
                       configs,
                       colorVariables,
                       languageConfig,
+                      navigationItems,
                       initialized: true,
                       error: null
                     });
@@ -131,9 +121,7 @@ export const AppConfigStore = signalStore(
                     console.error('Erreur lors du traitement des configurations:', error);
                     patchState(store, { 
                       loading: false,
-                      navigationLoading: false,
-                      error,
-                      navigationError: error
+                      error
                     });
                     
                     // Rediriger vers la page d'erreur
@@ -144,9 +132,7 @@ export const AppConfigStore = signalStore(
                   console.error('Erreur lors du chargement des configurations depuis l\'API:', error);
                   patchState(store, { 
                     loading: false,
-                    navigationLoading: false,
-                    error,
-                    navigationError: error
+                    error
                   });
                   
                   // Rediriger vers la page d'erreur
@@ -158,9 +144,7 @@ export const AppConfigStore = signalStore(
                 console.error('Erreur critique lors du chargement des configurations:', error);
                 patchState(store, { 
                   loading: false,
-                  navigationLoading: false,
-                  error,
-                  navigationError: error
+                  error
                 });
                 
                 // Rediriger vers la page d'erreur
@@ -243,7 +227,8 @@ export const AppConfigStore = signalStore(
             return configApiService.saveConfigs(
               store.configs(),
               store.colorVariables(),
-              store.languageConfig()
+              store.languageConfig(),
+              store.navigationItems()
             ).pipe(
               tap({
                 next: () => {
@@ -276,9 +261,7 @@ export const AppConfigStore = signalStore(
         }
         
         patchState(store, {
-          navigationItems: items,
-          navigationLoading: false,
-          navigationError: null
+          navigationItems: items
         });
         
         console.log('Items de navigation définis manuellement:', items.length, 'items');
@@ -305,10 +288,7 @@ export const AppConfigStore = signalStore(
     getLanguageConfig: computed(() => store.languageConfig()),
     
     // Exposer les items de navigation
-    navigationItems: computed(() => store.navigationItems()),
-    
-    // État de chargement de la navigation
-    isNavigationLoading: computed(() => store.navigationLoading())
+    navigationItems: computed(() => store.navigationItems())
   })),
   withLogging()
 );

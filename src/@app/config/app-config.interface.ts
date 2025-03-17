@@ -1,6 +1,5 @@
 import { CSSValue } from '../interfaces/css-value.type';
 import { AppThemeConfig } from './app-theme.interface';
-import { NavigationItem } from '../../app/core/navigation/navigation-item.interface';
 
 export enum AppTheme {
   DEFAULT = 'app-theme-default',
@@ -66,14 +65,6 @@ export interface AppConfig {
    * Configuration du thème (couleurs et layouts) 
    */
   theme?: AppThemeConfig;
-  /**
-   * Configuration de navigation pour l'application
-   * Ajoutée pour centraliser le chargement de la navigation
-   */
-  navigation?: {
-    items: NavigationItem[];
-    [key: string]: any;  // Pour permettre d'autres propriétés si nécessaire
-  };
 }
 
 export type AppConfigs = Record<AppConfigName, AppConfig>;

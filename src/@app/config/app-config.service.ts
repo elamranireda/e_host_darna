@@ -1,4 +1,12 @@
-import { Inject, Injectable, OnDestroy, inject, effect, runInInjectionContext, Injector } from '@angular/core';
+import {
+  Inject,
+  Injectable,
+  OnDestroy,
+  inject,
+  effect,
+  runInInjectionContext,
+  Injector
+} from '@angular/core';
 import { BehaviorSubject, Observable, Subject, of } from 'rxjs';
 import { DOCUMENT } from '@angular/common';
 import { DeepPartial } from '../interfaces/deep-partial.type';
@@ -9,11 +17,16 @@ import {
   AppColorScheme,
   AppConfig,
   AppConfigName,
-  AppConfigs,
   AppThemeProvider
 } from './app-config.interface';
 import { CSSValue } from '../interfaces/css-value.type';
-import { catchError, delay, filter, map, switchMap, take, takeUntil, tap } from 'rxjs/operators';
+import {
+  filter,
+  map,
+  take,
+  takeUntil,
+  tap
+} from 'rxjs/operators';
 import { APP_CONFIG, APP_THEMES } from './config.token';
 import { AppConfigStore } from './app-config.store';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
@@ -26,8 +39,13 @@ import { AppSplashScreenService } from '../services/app-splash-screen.service';
 })
 export class AppConfigService implements OnDestroy {
   private _configSubject = new BehaviorSubject<AppConfig | null>(null);
-  private _colorVariablesSubject = new BehaviorSubject<Record<string, any> | null>(null);
-  private _languageConfigSubject = new BehaviorSubject<LanguageConfig | null>(null);
+  private _colorVariablesSubject = new BehaviorSubject<Record<
+    string,
+    any
+  > | null>(null);
+  private _languageConfigSubject = new BehaviorSubject<LanguageConfig | null>(
+    null
+  );
   private destroy$ = new Subject<void>();
   private readonly configStore = inject(AppConfigStore);
   private readonly router = inject(Router);
@@ -53,19 +71,19 @@ export class AppConfigService implements OnDestroy {
           this._configSubject.next(newConfig);
           this._updateConfig(newConfig);
         }
-        
+
         const newColorVars = this.configStore.getColorVariables();
         if (newColorVars) {
           this._colorVariablesSubject.next(newColorVars);
         }
-        
+
         const newLangConfig = this.configStore.getLanguageConfig();
         if (newLangConfig) {
           this._languageConfigSubject.next(newLangConfig);
         }
       }
     });
-    
+
     // Démarrer le chargement des configurations
     this._loadConfigs();
   }
@@ -73,49 +91,51 @@ export class AppConfigService implements OnDestroy {
   private _loadConfigs(): void {
     console.log('Démarrage du chargement des configurations...');
     this._loading = true;
-    
+
     // Vérifier si déjà initialisé - pour éviter le double chargement
     if (this._initialized) {
       console.log('Configurations déjà initialisées, réutilisation');
       this._loading = false;
-      
+
       // Cacher le splash screen
       try {
         this.splashScreenService.hide();
       } catch (error) {
         console.warn('Impossible de cacher le splash screen:', error);
       }
-      
+
       return;
     }
-    
+
     // Lancer le chargement des configurations (un seul appel)
     this.configStore.loadAllConfigs();
-    
+
     // Observer l'état d'initialisation
-    toObservable(this.configStore.initialized).pipe(
-      filter(initialized => initialized === true),
-      take(1),
-      takeUntil(this.destroy$)
-    ).subscribe({
-      next: () => {
-        console.log('Configurations chargées avec succès depuis le store');
-        this._processConfigs();
-        
-        // Cacher le splash screen après chargement réussi
-        try {
-          this.splashScreenService.hide();
-        } catch (error) {
-          console.warn('Impossible de cacher le splash screen:', error);
+    toObservable(this.configStore.initialized)
+      .pipe(
+        filter((initialized) => initialized === true),
+        take(1),
+        takeUntil(this.destroy$)
+      )
+      .subscribe({
+        next: () => {
+          console.log('Configurations chargées avec succès depuis le store');
+          this._processConfigs();
+
+          // Cacher le splash screen après chargement réussi
+          try {
+            this.splashScreenService.hide();
+          } catch (error) {
+            console.warn('Impossible de cacher le splash screen:', error);
+          }
+        },
+        error: (error: Error) => {
+          console.error('Erreur lors du chargement des configurations:', error);
+          // En cas d'erreur, rediriger vers error-500
+          this._handleLoadError();
         }
-      },
-      error: (error: Error) => {
-        console.error('Erreur lors du chargement des configurations:', error);
-        // En cas d'erreur, rediriger vers error-500
-        this._handleLoadError();
-      }
-    });
-    
+      });
+
     // Timeout de sécurité réduit (5 secondes)
     setTimeout(() => {
       if (this._loading && !this._initialized && !this._loadAttemptFailed) {
@@ -125,45 +145,55 @@ export class AppConfigService implements OnDestroy {
       }
     }, 5000);
   }
-  
+
   private _processConfigs(): void {
     try {
       // Récupérer les configurations depuis le store - utiliser null comme fallback
       const storeConfig = this.configStore.config() || null;
       const colorVars = this.configStore.getColorVariables() || {};
-      const langConfig = this.configStore.getLanguageConfig() || { 
-        defaultLanguage: 'en', 
+      const langConfig = this.configStore.getLanguageConfig() || {
+        defaultLanguage: 'en',
         fallbackLanguage: 'en',
-        supportedLanguages: [{ code: 'en', name: 'English', flag: 'en', rtl: false }]
+        supportedLanguages: [
+          { code: 'en', name: 'English', flag: 'en', rtl: false }
+        ]
       };
-      
+
       // Journalisation détaillée pour le débogage
-      console.log('Traitement des configurations chargées:', { 
-        hasConfig: !!storeConfig, 
+      console.log('Traitement des configurations chargées:', {
+        hasConfig: !!storeConfig,
         configId: storeConfig?.id,
-        hasColors: !!colorVars && Object.keys(colorVars).length > 0, 
+        hasColors: !!colorVars && Object.keys(colorVars).length > 0,
         colorsCount: colorVars ? Object.keys(colorVars).length : 0,
         hasLang: !!langConfig && !!langConfig.supportedLanguages,
         langCount: langConfig?.supportedLanguages?.length || 0
       });
-      
+
       // Utiliser la configuration disponible ou une configuration par défaut
       const configToUse = storeConfig || this.config;
-      
+
       // Mettre à jour les sujets avec ce que nous avons, même si incomplet
       this._configSubject.next(configToUse);
-      
+
       if (colorVars && Object.keys(colorVars).length > 0) {
         this._colorVariablesSubject.next(colorVars);
       } else {
-        console.warn('Variables de couleur manquantes ou vides - utilisation d\'un objet vide');
+        console.warn(
+          "Variables de couleur manquantes ou vides - utilisation d'un objet vide"
+        );
         this._colorVariablesSubject.next({});
       }
-      
-      if (langConfig && langConfig.supportedLanguages && langConfig.supportedLanguages.length > 0) {
+
+      if (
+        langConfig &&
+        langConfig.supportedLanguages &&
+        langConfig.supportedLanguages.length > 0
+      ) {
         this._languageConfigSubject.next(langConfig);
       } else {
-        console.warn('Configuration linguistique manquante ou invalide - utilisation de valeurs par défaut');
+        console.warn(
+          'Configuration linguistique manquante ou invalide - utilisation de valeurs par défaut'
+        );
         this._languageConfigSubject.next({
           defaultLanguage: 'en',
           fallbackLanguage: 'en',
@@ -172,14 +202,14 @@ export class AppConfigService implements OnDestroy {
           ]
         });
       }
-      
+
       // Mise à jour initiale de la configuration
       this._updateConfig(configToUse);
-      
+
       // Configuration terminée
       this._loading = false;
       this._initialized = true;
-      
+
       console.log('Initialisation des configurations terminée avec succès');
     } catch (error) {
       console.error('Erreur lors du traitement des configurations:', error);
@@ -196,23 +226,27 @@ export class AppConfigService implements OnDestroy {
         ]
       });
       this._updateConfig(this.config);
-      console.warn('Initialisation des configurations terminée avec des valeurs par défaut');
+      console.warn(
+        'Initialisation des configurations terminée avec des valeurs par défaut'
+      );
     }
   }
-  
+
   private _handleLoadError(): void {
     if (!this._loadAttemptFailed) {
       this._loadAttemptFailed = true;
       this._loading = false;
-      console.error('Échec du chargement des configurations, redirection vers la page d\'erreur');
-      
+      console.error(
+        "Échec du chargement des configurations, redirection vers la page d'erreur"
+      );
+
       // Cacher le splash screen même en cas d'erreur
       try {
         this.splashScreenService.hide();
       } catch (error) {
         console.warn('Impossible de cacher le splash screen:', error);
       }
-      
+
       // Rediriger vers la page d'erreur
       this.router.navigateByUrl('/error-500');
     }
@@ -222,13 +256,13 @@ export class AppConfigService implements OnDestroy {
     if (this._initialized) {
       this.configStore.saveConfigs();
     }
-    
+
     // Nettoyer l'effet si nécessaire
     if (this._configChangeEffect) {
       this._configChangeEffect.destroy();
       this._configChangeEffect = null;
     }
-    
+
     this.destroy$.next();
     this.destroy$.complete();
   }
@@ -236,7 +270,7 @@ export class AppConfigService implements OnDestroy {
   get loading(): boolean {
     return this._loading;
   }
-  
+
   get initialized(): boolean {
     return this._initialized;
   }
@@ -245,15 +279,19 @@ export class AppConfigService implements OnDestroy {
     if (this._loading) {
       return [];
     }
-    
+
     const configs = this.configStore.availableConfigs();
-    
-    if (!this._loading && this._initialized && (!configs || configs.length === 0)) {
+
+    if (
+      !this._loading &&
+      this._initialized &&
+      (!configs || configs.length === 0)
+    ) {
       console.error('Aucune configuration disponible après initialisation');
       this._handleLoadError();
       return [];
     }
-    
+
     return configs;
   }
 
@@ -263,83 +301,107 @@ export class AppConfigService implements OnDestroy {
 
   get config$(): Observable<AppConfig> {
     return this._configSubject.asObservable().pipe(
-      filter(config => config !== null),
-      map(config => config as AppConfig)
+      filter((config) => config !== null),
+      map((config) => config as AppConfig)
     );
   }
-  
+
   get colorVariables$(): Observable<Record<string, any>> {
     return this._colorVariablesSubject.asObservable().pipe(
-      filter(colorVars => colorVars !== null),
-      map(colorVars => colorVars as Record<string, any>)
+      filter((colorVars) => colorVars !== null),
+      map((colorVars) => colorVars as Record<string, any>)
     );
   }
-  
+
   get colorVariables(): Record<string, any> {
     if (this._loading) {
       return {};
     }
-    
+
     const colorVars = this._colorVariablesSubject.getValue();
-    
+
     if (!this._loading && this._initialized && !colorVars) {
-      console.error('Variables de couleur non disponibles après initialisation');
+      console.error(
+        'Variables de couleur non disponibles après initialisation'
+      );
       this._handleLoadError();
       return {};
     }
-    
+
     return colorVars || {};
   }
-  
+
   get languageConfig$(): Observable<LanguageConfig> {
     return this._languageConfigSubject.asObservable().pipe(
-      filter(langConfig => langConfig !== null),
-      map(langConfig => langConfig as LanguageConfig)
+      filter((langConfig) => langConfig !== null),
+      map((langConfig) => langConfig as LanguageConfig)
     );
   }
-  
+
   get languageConfig(): LanguageConfig {
     if (this._loading) {
-      return { defaultLanguage: '', fallbackLanguage: '', supportedLanguages: [] };
+      return {
+        defaultLanguage: '',
+        fallbackLanguage: '',
+        supportedLanguages: []
+      };
     }
-    
+
     const langConfig = this._languageConfigSubject.getValue();
-    
+
     if (!this._loading && this._initialized && !langConfig) {
-      console.error('Configuration linguistique non disponible après initialisation');
+      console.error(
+        'Configuration linguistique non disponible après initialisation'
+      );
       this._handleLoadError();
-      return { defaultLanguage: '', fallbackLanguage: '', supportedLanguages: [] };
+      return {
+        defaultLanguage: '',
+        fallbackLanguage: '',
+        supportedLanguages: []
+      };
     }
-    
-    return langConfig || { defaultLanguage: '', fallbackLanguage: '', supportedLanguages: [] };
+
+    return (
+      langConfig || {
+        defaultLanguage: '',
+        fallbackLanguage: '',
+        supportedLanguages: []
+      }
+    );
   }
-  
+
   updateLanguageConfig(config: Partial<LanguageConfig>): void {
     if (!this._initialized) {
-      console.warn('Tentative de mise à jour de la configuration linguistique avant initialisation');
+      console.warn(
+        'Tentative de mise à jour de la configuration linguistique avant initialisation'
+      );
       return;
     }
     this.configStore.updateLanguageConfig(config);
   }
-  
+
   getSupportedLanguageCodes(): string[] {
-    return this.languageConfig.supportedLanguages.map(lang => lang.code);
+    return this.languageConfig.supportedLanguages.map((lang) => lang.code);
   }
-  
+
   isLanguageSupported(langCode: string): boolean {
-    return this.languageConfig.supportedLanguages.some(lang => lang.code === langCode);
+    return this.languageConfig.supportedLanguages.some(
+      (lang) => lang.code === langCode
+    );
   }
-  
+
   getLanguageInfo(langCode: string): LanguageInfo | undefined {
-    return this.languageConfig.supportedLanguages.find(lang => lang.code === langCode);
+    return this.languageConfig.supportedLanguages.find(
+      (lang) => lang.code === langCode
+    );
   }
-  
+
   getRtlLanguages(): string[] {
     return this.languageConfig.supportedLanguages
-      .filter(lang => lang.rtl)
-      .map(lang => lang.code);
+      .filter((lang) => lang.rtl)
+      .map((lang) => lang.code);
   }
-  
+
   isRtlLanguage(langCode: string): boolean {
     const langInfo = this.getLanguageInfo(langCode);
     return langInfo ? langInfo.rtl : false;
@@ -351,7 +413,9 @@ export class AppConfigService implements OnDestroy {
 
   setConfig(configName: AppConfigName) {
     if (!this._initialized) {
-      console.warn('Tentative de définition de la configuration avant initialisation');
+      console.warn(
+        'Tentative de définition de la configuration avant initialisation'
+      );
       return;
     }
     this.configStore.setConfig(configName);
@@ -359,7 +423,9 @@ export class AppConfigService implements OnDestroy {
 
   updateConfig(config: DeepPartial<AppConfig>) {
     if (!this._initialized) {
-      console.warn('Tentative de mise à jour de la configuration avant initialisation');
+      console.warn(
+        'Tentative de mise à jour de la configuration avant initialisation'
+      );
       return;
     }
     this.configStore.updateConfig(config);
@@ -367,7 +433,9 @@ export class AppConfigService implements OnDestroy {
 
   saveConfigs() {
     if (!this._initialized) {
-      console.warn('Tentative de sauvegarde des configurations avant initialisation');
+      console.warn(
+        'Tentative de sauvegarde des configurations avant initialisation'
+      );
       return;
     }
     this.configStore.saveConfigs();
@@ -397,28 +465,33 @@ export class AppConfigService implements OnDestroy {
 
       // Appliquer d'autres paramètres
       this._setDensity();
-      
+
       if (config.direction) {
         this._setDirection(config.direction);
       } else {
         // Valeur par défaut
         this._setDirection('ltr');
       }
-      
+
       if (config.sidenav && config.sidenav.state) {
         this._setSidenavState(config.sidenav.state);
       } else {
         // Valeur par défaut
-        console.warn('État de sidenav manquant, utilisation de "expanded" par défaut');
+        console.warn(
+          'État de sidenav manquant, utilisation de "expanded" par défaut'
+        );
         this._setSidenavState('expanded');
       }
-      
+
       this._emitResize();
     } catch (error) {
-      console.error('Erreur lors de la mise à jour de la configuration:', error);
+      console.error(
+        'Erreur lors de la mise à jour de la configuration:',
+        error
+      );
       // Ne pas rediriger en cas d'erreur mineure si déjà initialisé
       if (!this._initialized) {
-        console.warn('Erreur pendant l\'initialisation, tentative de continuer');
+        console.warn("Erreur pendant l'initialisation, tentative de continuer");
         // Marquer comme initialisé même en cas d'erreur pour éviter des redirections en boucle
         this._loading = false;
         this._initialized = true;
@@ -484,7 +557,10 @@ export class AppConfigService implements OnDestroy {
       const configs = this.configStore.availableConfigs();
       if (configs && configs.length > 0) {
         configs.forEach((c) => {
-          if (c.bodyClass && this.document.body.classList.contains(c.bodyClass)) {
+          if (
+            c.bodyClass &&
+            this.document.body.classList.contains(c.bodyClass)
+          ) {
             this.document.body.classList.remove(c.bodyClass);
           }
         });
@@ -495,7 +571,10 @@ export class AppConfigService implements OnDestroy {
         this.document.body.classList.add(bodyClass);
       }
     } catch (error) {
-      console.warn('Erreur lors de la définition de la classe de mise en page:', error);
+      console.warn(
+        'Erreur lors de la définition de la classe de mise en page:',
+        error
+      );
     }
   }
 }

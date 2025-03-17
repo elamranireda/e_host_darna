@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, forkJoin, throwError } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 import { ConfigApiAdapter } from './config-api.adapter';
@@ -22,7 +22,7 @@ export class ConfigApiService {
   constructor(private http: HttpClient) {}
 
   /**
-   * Charge les configurations et la navigation depuis l'API
+   * Charge les configurations depuis l'API, y compris la navigation
    */
   loadConfigsAndNavigation(): Observable<{
     configs: AppConfigs, 
@@ -30,16 +30,13 @@ export class ConfigApiService {
     languageConfig: LanguageConfig,
     navigationItems: NavigationItem[]
   }> {
-    console.log('Chargement des configurations et de la navigation depuis l\'API...');
+    console.log('Chargement des configurations depuis l\'API...');
     
-    // Effectuer les deux requêtes en parallèle
-    return forkJoin({
-      appConfig: this.http.get<Record<string, any>>(`${API_URL}/appConfigs`),
-      navigation: this.http.get<NavigationItem[]>(`${API_URL}/navigation`)
-    }).pipe(
-      map(({ appConfig, navigation }) => {
+    // Un seul appel pour récupérer toutes les données
+    return this.http.get<Record<string, any>>(`${API_URL}/appConfigs`).pipe(
+      map(appConfig => {
         // Adapter la configuration de l'application
-        const { configs, colorVariables, languageConfig } = ConfigApiAdapter.adaptFromCentralizedFormat(appConfig);
+        const { configs, colorVariables, languageConfig, navigationItems } = ConfigApiAdapter.adaptFromCentralizedFormat(appConfig);
         
         // Vérifier que les données requises sont présentes
         if (!configs || Object.keys(configs).length === 0 || 
@@ -48,18 +45,15 @@ export class ConfigApiService {
           throw new Error('Configuration incomplète chargée depuis API');
         }
         
-        // Vérifier que la navigation est présente
-        if (!navigation || !Array.isArray(navigation)) {
-          console.warn('Navigation manquante ou invalide depuis API');
-          return { configs, colorVariables, languageConfig, navigationItems: [] };
-        }
+        console.log('Configuration et navigation chargées avec succès:', 
+          Object.keys(configs).length, 'configurations,', 
+          'navigation:', navigationItems.length, 'items');
         
-        console.log('Navigation chargée avec succès:', navigation.length, 'items');
         return {
           configs,
           colorVariables,
           languageConfig,
-          navigationItems: navigation
+          navigationItems
         };
       }),
       catchError(error => {
@@ -70,12 +64,13 @@ export class ConfigApiService {
   }
 
   /**
-   * Sauvegarde les configurations vers l'API
+   * Sauvegarde les configurations vers l'API, y compris la navigation
    */
   saveConfigs(
     configs: AppConfigs, 
     colorVariables: Record<string, any>,
-    languageConfig: LanguageConfig
+    languageConfig: LanguageConfig,
+    navigationItems: NavigationItem[]
   ): Observable<any> {
     // Convertir le format des configs pour l'API
     const apiConfigs = {
@@ -103,7 +98,9 @@ export class ConfigApiService {
         }
       },
       // Ajouter la configuration linguistique
-      languageConfig: languageConfig
+      languageConfig: languageConfig,
+      // Ajouter la configuration de navigation
+      navigationConfig: navigationItems
     };
     
     return this.http.put<Record<string, any>>(`${API_URL}/appConfigs`, apiConfigs).pipe(

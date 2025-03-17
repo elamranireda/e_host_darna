@@ -59,18 +59,6 @@
           <div *ngIf="!(navigationService.loading$ | async) && items.length > 0">
             <navigation-menu></navigation-menu>
           </div>
-          
-          <!-- Message d'erreur si aucun élément n'est disponible après le chargement -->
-          <div *ngIf="!(navigationService.loading$ | async) && items.length === 0" class="py-4">
-            <p class="text-warning">{{ 'ERROR.NO_NAVIGATION_ITEMS' | translate }}</p>
-            <button 
-              mat-raised-button 
-              color="primary" 
-              class="mt-2"
-              (click)="loadNavigationConfig()">
-              {{ 'BUTTON.RETRY' | translate }}
-            </button>
-          </div>
         </ng-container>
       </div>
   </div>

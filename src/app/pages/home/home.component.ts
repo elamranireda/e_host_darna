@@ -59,16 +59,7 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  /**
-   * Charge explicitement la configuration de navigation
-   */
-  loadNavigationConfig(): void {
-    // S'assurer que les données de navigation sont chargées
-    if (this.propertyId) {
-      // Demander au service de navigation de recharger les données
-      this.navigationService.reloadItems(this.propertyId);
-    }
-  }
+
 
   ngOnInit(): void {
     console.log('Home component initialized');

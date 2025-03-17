@@ -1,172 +1,79 @@
 import {Injectable, inject} from '@angular/core';
-import {AppLayoutService} from '@app/services/app-layout.service';
 import {NavigationItem} from './navigation-item.interface';
 import {BehaviorSubject, Observable, of} from 'rxjs';
-import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {catchError, shareReplay, tap, take, switchMap} from 'rxjs/operators';
-import {environment} from '../../../environments/environment';
-import {AppConfigService} from '@app/config/app-config.service';
+import {toObservable} from '@angular/core/rxjs-interop';
+import {AppConfigStore} from '@app/config/app-config.store';
 
+/**
+ * Service simplifié pour obtenir les données de navigation
+ * Utilise désormais AppConfigStore comme source unique de vérité
+ */
 @Injectable({
   providedIn: 'root'
 })
 export class NavigationLoaderService {
-  // URL de base pour l'API
-  private baseUrl = environment.production ? 'https://api.example.com' : 'http://localhost:3000';
-  private navigationEndpoint = `${this.baseUrl}/navigation`;
-
-  private readonly _items: BehaviorSubject<NavigationItem[]> =
-    new BehaviorSubject<NavigationItem[]>([]);
-  private readonly appConfigService = inject(AppConfigService);
+  private readonly _items: BehaviorSubject<NavigationItem[]> = new BehaviorSubject<NavigationItem[]>([]);
+  private readonly appConfigStore = inject(AppConfigStore);
+  // Convertir le signal en Observable
+  private readonly navigationItems$ = toObservable(this.appConfigStore.navigationItems);
 
   get items$(): Observable<NavigationItem[]> {
     return this._items.asObservable();
   }
 
-  private loadedData: Observable<NavigationItem[]> | null = null;
-
-  constructor(private readonly layoutService: AppLayoutService, private http: HttpClient) {
-    console.log('Initialisation de NavigationLoaderService - vérification si navigation disponible');
-    // Observer l'état de la configuration pour récupérer la navigation lorsqu'elle est disponible
-    this.syncWithAppConfig();
-  }
-
-  /**
-   * Synchronise avec la configuration de l'application pour obtenir la navigation
-   */
-  private syncWithAppConfig(): void {
-    // Si la configuration est déjà initialisée, récupérer la navigation maintenant
-    if (this.appConfigService.initialized) {
-      this.getNavigationFromConfig();
-    }
-
-    // Sinon, attendre l'initialisation de la configuration
-    const checkInterval = setInterval(() => {
-      if (this.appConfigService.initialized && this._items.getValue().length === 0) {
-        this.getNavigationFromConfig();
-        clearInterval(checkInterval); // Arrêter l'intervalle une fois que nous avons obtenu la navigation
-      }
-    }, 500);
-
-    // Nettoyer l'intervalle après 10 secondes au maximum
-    setTimeout(() => {
-      clearInterval(checkInterval);
-    }, 10000);
-  }
-
-  /**
-   * Récupère la navigation depuis la configuration
-   */
-  private getNavigationFromConfig(): void {
-    // Utiliser config$ pour s'assurer que nous obtenons la configuration actuelle
-    this.appConfigService.config$.pipe(take(1)).subscribe({
-      next: currentConfig => {
-        if (currentConfig && currentConfig.navigation && currentConfig.navigation.items) {
-          console.log('Navigation récupérée depuis AppConfigService, nombre d\'items:', currentConfig.navigation.items.length);
-          this._items.next(currentConfig.navigation.items);
-        } else {
-          console.warn('Navigation non disponible dans AppConfigService, chargement direct');
-          // Si la navigation n'est pas disponible dans la configuration, la charger directement
-          this.loadNavigationData();
-        }
-      },
-      error: error => {
-        console.error('Erreur lors de la récupération de la configuration:', error);
-        this.loadNavigationData();
+  constructor() {
+    console.log('Initialisation de NavigationLoaderService (version simplifiée)');
+    
+    // S'abonner à l'Observable dérivé du signal pour rester synchronisé
+    this.navigationItems$.subscribe((items: NavigationItem[]) => {
+      if (items && items.length > 0) {
+        console.log('Navigation mise à jour depuis AppConfigStore:', items.length, 'items');
+        this._items.next(items);
       }
     });
+
+    // Si le store n'est pas encore initialisé, nous attendrons que navigationItems$ émette
+    // Si le store est déjà initialisé, nous obtiendrons immédiatement les items
   }
 
   /**
    * Charge les données de navigation pour un chemin et une langue spécifiques
-   * Cette méthode est appelée par le resolver uniquement si nécessaire
+   * Cette méthode est maintenue pour la compatibilité, mais délègue maintenant à AppConfigStore
    */
   loadNavigation(pathId: string, lang: string): Observable<NavigationItem[]> {
-    console.log('Tentative de chargement de navigation pour', pathId, lang);
+    console.log('Demande de navigation pour', pathId, lang, '(délégué à AppConfigStore)');
     
-    // Vérifier d'abord si la navigation est déjà disponible localement
-    if (this._items.getValue().length > 0) {
-      console.log('Réutilisation de la navigation locale');
-      return of(this._items.getValue());
+    // Utiliser les données de navigation déjà disponibles dans le store
+    const currentItems = this._items.getValue();
+    if (currentItems && currentItems.length > 0) {
+      console.log('Réutilisation des données de navigation existantes');
+      return this.items$;
+    }
+
+    // Émettre les données actuelles du store
+    const currentStoreNavItems = this.appConfigStore.navigationItems();
+    if (currentStoreNavItems && currentStoreNavItems.length > 0) {
+      console.log('Navigation obtenue depuis AppConfigStore');
+      this._items.next(currentStoreNavItems);
     }
     
-    // Si non disponible, vérifier dans AppConfigService via l'Observable
-    return this.appConfigService.config$.pipe(
-      take(1),
-      switchMap(currentConfig => {
-        if (currentConfig && currentConfig.navigation && currentConfig.navigation.items) {
-          console.log('Réutilisation de la navigation depuis AppConfigService');
-          const navItems = currentConfig.navigation.items;
-          this._items.next(navItems);
-          return of(navItems);
-        }
-        
-        console.log('Navigation non disponible dans AppConfigService, chargement depuis API');
-        // Si non disponible dans la config, charger depuis l'API
-        const headers = new HttpHeaders({
-          'Accept-language': lang,
-        });
-        
-        return this.http.get<NavigationItem[]>(this.navigationEndpoint, {headers}).pipe(
-          tap(items => {
-            console.log('Navigation chargée depuis API:', items.length, 'items');
-            // Mettre à jour le BehaviorSubject local
-            this._items.next(items);
-          }),
-          catchError(error => {
-            console.error('Erreur lors du chargement de la navigation:', error);
-            return of([]);
-          })
-        );
-      })
-    );
+    return this.items$;
   }
 
   /**
-   * Charge les données de navigation depuis l'API
-   * Cette méthode est appelée uniquement si la navigation n'est pas disponible dans AppConfigStore
-   */
-  private loadNavigationData() {
-    if (!this.loadedData) {
-      console.log('Chargement direct de la navigation depuis API');
-      this.loadedData = this.http.get<NavigationItem[]>(this.navigationEndpoint).pipe(
-        tap(items => {
-          console.log('Navigation chargée directement depuis API:', items.length, 'items');
-          this._items.next(items);
-        }),
-        shareReplay(1)
-      );
-      
-      this.loadedData.subscribe({
-        error: error => console.error('Erreur lors du chargement direct de la navigation:', error)
-      });
-    }
-  }
-  
-  /**
    * Force le rechargement des données de navigation
+   * Cette méthode est maintenue pour la compatibilité, mais délègue à AppConfigStore
    */
   refresh() {
-    // Réinitialiser pour forcer un nouveau chargement
-    this.loadedData = null;
+    console.log('Demande de refresh navigation (délégué à AppConfigStore)');
     
-    // Vérifier d'abord si la navigation est disponible dans AppConfigService via l'Observable
-    this.appConfigService.config$.pipe(take(1)).subscribe({
-      next: currentConfig => {
-        if (currentConfig && currentConfig.navigation && currentConfig.navigation.items) {
-          console.log('Refresh: utilisation de la navigation depuis AppConfigService');
-          this._items.next(currentConfig.navigation.items);
-        } else {
-          // Sinon, recharger depuis l'API
-          console.log('Refresh: chargement direct depuis API');
-          this.loadNavigationData();
-        }
-      },
-      error: () => {
-        // En cas d'erreur, charger directement depuis l'API
-        console.log('Refresh: erreur avec AppConfigService, chargement direct depuis API');
-        this.loadNavigationData();
-      }
-    });
+    // Utiliser directement les valeurs actuelles du signal
+    const currentNavItems = this.appConfigStore.navigationItems();
+    if (currentNavItems && currentNavItems.length > 0) {
+      console.log('Navigation rafraîchie depuis AppConfigStore');
+      this._items.next(currentNavItems);
+    } else {
+      console.warn('Aucune navigation disponible dans AppConfigStore lors du refresh');
+    }
   }
 }
