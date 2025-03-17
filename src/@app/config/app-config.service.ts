@@ -17,6 +17,7 @@ import { catchError, map, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { APP_CONFIG, APP_THEMES } from './config.token';
 import { AppConfigStore } from './app-config.store';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
+import { LanguageConfig, LanguageInfo } from './language.config';
 
 @Injectable({
   providedIn: 'root'
@@ -24,6 +25,11 @@ import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 export class AppConfigService implements OnDestroy {
   private _configSubject = new BehaviorSubject<AppConfig>(this.config);
   private _colorVariablesSubject = new BehaviorSubject<Record<string, any>>({});
+  private _languageConfigSubject = new BehaviorSubject<LanguageConfig>({
+    defaultLanguage: 'en',
+    fallbackLanguage: 'en',
+    supportedLanguages: []
+  });
   private destroy$ = new Subject<void>();
   private readonly configStore = inject(AppConfigStore);
 
@@ -60,6 +66,12 @@ export class AppConfigService implements OnDestroy {
       const colorVars = this.configStore.getColorVariables();
       if (colorVars) {
         this._colorVariablesSubject.next(colorVars);
+      }
+      
+      // Observer les changements de la configuration linguistique
+      const langConfig = this.configStore.getLanguageConfig();
+      if (langConfig) {
+        this._languageConfigSubject.next(langConfig);
       }
     });
     
@@ -111,6 +123,65 @@ export class AppConfigService implements OnDestroy {
    */
   get colorVariables(): Record<string, any> {
     return this._colorVariablesSubject.getValue();
+  }
+  
+  /**
+   * Obtenir la configuration linguistique comme un Observable
+   */
+  get languageConfig$(): Observable<LanguageConfig> {
+    return this._languageConfigSubject.asObservable();
+  }
+  
+  /**
+   * Obtenir la configuration linguistique courante
+   */
+  get languageConfig(): LanguageConfig {
+    return this._languageConfigSubject.getValue();
+  }
+  
+  /**
+   * Mettre à jour la configuration linguistique
+   */
+  updateLanguageConfig(config: Partial<LanguageConfig>): void {
+    this.configStore.updateLanguageConfig(config);
+  }
+  
+  /**
+   * Obtenir les codes des langues supportées
+   */
+  getSupportedLanguageCodes(): string[] {
+    return this.languageConfig.supportedLanguages.map(lang => lang.code);
+  }
+  
+  /**
+   * Vérifier si une langue est supportée
+   */
+  isLanguageSupported(langCode: string): boolean {
+    return this.languageConfig.supportedLanguages.some(lang => lang.code === langCode);
+  }
+  
+  /**
+   * Récupérer les informations d'une langue
+   */
+  getLanguageInfo(langCode: string): LanguageInfo | undefined {
+    return this.languageConfig.supportedLanguages.find(lang => lang.code === langCode);
+  }
+  
+  /**
+   * Récupérer les langues RTL
+   */
+  getRtlLanguages(): string[] {
+    return this.languageConfig.supportedLanguages
+      .filter(lang => lang.rtl)
+      .map(lang => lang.code);
+  }
+  
+  /**
+   * Vérifier si une langue est RTL
+   */
+  isRtlLanguage(langCode: string): boolean {
+    const langInfo = this.getLanguageInfo(langCode);
+    return langInfo ? langInfo.rtl : false;
   }
 
   /**

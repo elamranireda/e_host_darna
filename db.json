@@ -1,5 +1,29 @@
 {
   "appConfigs": {
+    "languageConfig": {
+      "defaultLanguage": "en",
+      "fallbackLanguage": "en",
+      "supportedLanguages": [
+        {
+          "code": "en",
+          "name": "English",
+          "flag": "en",
+          "rtl": false
+        },
+        {
+          "code": "fr",
+          "name": "Français",
+          "flag": "fr",
+          "rtl": false
+        },
+        {
+          "code": "ar",
+          "name": "العربية",
+          "flag": "ar",
+          "rtl": true
+        }
+      ]
+    },
     "theme": {
       "layouts": {
         "available": ["apollo", "zeus", "hermes", "poseidon", "ares", "ikaros"],
@@ -1811,8 +1835,8 @@
         },
         {
           "type": "link",
-          "label": "Formalités d'arrivée",
           "icon": "mat:playlist_add_check",
+          "label": "Formalités d'arrivée",
           "route": "/:id/arrival/checkin"
         },
         {

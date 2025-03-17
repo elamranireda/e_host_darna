@@ -11,15 +11,24 @@ import { DeepPartial } from '../interfaces/deep-partial.type';
 import { mergeDeep } from '../utils/merge-deep';
 // Importer comme backup uniquement
 import { colorVariables as defaultColorVariables } from './color-variables';
+// Importer la configuration linguistique comme fallback
+import { languageConfig as defaultLanguageConfig, LanguageConfig, LanguageInfo } from './language.config';
 
-// Define the store state
+/**
+ * Interface d'état du store pour les configurations
+ * Centralise toutes les configurations de l'application :
+ * - Thèmes et layouts
+ * - Variables de couleurs
+ * - Configurations linguistiques
+ */
 export interface AppConfigState {
   configs: AppConfigs;
   currentConfig: AppConfig;
   loading: boolean;
   error: any;
   initialized: boolean;
-  colorVariables: Record<string, any>; // Ajouter les variables de couleur à l'état
+  colorVariables: Record<string, any>; // Variables de couleur centralisées
+  languageConfig: LanguageConfig;      // Configuration linguistique centralisée
 }
 
 // Initial state
@@ -29,7 +38,8 @@ const initialState: AppConfigState = {
   loading: false,
   error: null,
   initialized: false,
-  colorVariables: defaultColorVariables // Utiliser les variables statiques comme fallback initial
+  colorVariables: defaultColorVariables, // Utiliser les variables statiques comme fallback initial
+  languageConfig: defaultLanguageConfig // Utiliser la config linguistique statique comme fallback
 };
 
 // API URL
@@ -88,11 +98,18 @@ class ConfigApiAdapter {
   /**
    * Adapte la nouvelle structure centralisée du db.json et construit les configs individuelles
    */
-  static adaptFromCentralizedFormat(data: any): { configs: AppConfigs, colorVariables: Record<string, any> } {
+  static adaptFromCentralizedFormat(data: any): { 
+    configs: AppConfigs, 
+    colorVariables: Record<string, any>,
+    languageConfig: LanguageConfig
+  } {
     const configs: AppConfigs = {} as AppConfigs;
     
     // Récupérer les variables de couleur depuis db.json ou utiliser les valeurs par défaut
     const colorVars = data?.theme?.colors || defaultColorVariables;
+    
+    // Récupérer la configuration linguistique depuis db.json ou utiliser les valeurs par défaut
+    const langConfig = data?.languageConfig || defaultLanguageConfig;
     
     // Nouvelle structure : data.theme.layouts.configs et data.theme.colors
     if (data && data.theme && data.theme.layouts && data.theme.layouts.configs) {
@@ -137,10 +154,18 @@ class ConfigApiAdapter {
       });
     } else {
       // Fallback aux configs par défaut si structure non trouvée
-      return { configs: defaultConfigs, colorVariables: defaultColorVariables };
+      return { 
+        configs: defaultConfigs, 
+        colorVariables: defaultColorVariables,
+        languageConfig: defaultLanguageConfig 
+      };
     }
     
-    return { configs, colorVariables: colorVars };
+    return { 
+      configs, 
+      colorVariables: colorVars,
+      languageConfig: langConfig
+    };
   }
 }
 
@@ -185,7 +210,11 @@ export const AppConfigStore = signalStore(
           tap(() => patchState(store, { loading: true })),
           switchMap(() => {
             if (store.initialized()) {
-              return of({ configs: store.configs(), colorVariables: store.colorVariables() });
+              return of({ 
+                configs: store.configs(), 
+                colorVariables: store.colorVariables(),
+                languageConfig: store.languageConfig()
+              });
             }
             
             return httpClient.get<Record<string, any>>(`${API_URL}/appConfigs`).pipe(
@@ -194,13 +223,14 @@ export const AppConfigStore = signalStore(
                   // Process API response
                   if (response && Object.keys(response).length > 0) {
                     // Utiliser l'adaptateur pour le nouveau format
-                    const { configs, colorVariables } = ConfigApiAdapter.adaptFromCentralizedFormat(response);
+                    const { configs, colorVariables, languageConfig } = ConfigApiAdapter.adaptFromCentralizedFormat(response);
                     
-                    // Update state with loaded configs and color variables
+                    // Update state with loaded configs, color variables and language config
                     patchState(store, { 
                       loading: false, 
                       configs,
                       colorVariables,
+                      languageConfig,
                       initialized: true,
                       error: null
                     });
@@ -221,6 +251,7 @@ export const AppConfigStore = signalStore(
                       loading: false, 
                       configs: defaultConfigs,
                       colorVariables: defaultColorVariables,
+                      languageConfig: defaultLanguageConfig,
                       initialized: true,
                       error: null
                     });
@@ -232,6 +263,7 @@ export const AppConfigStore = signalStore(
                     loading: false, 
                     configs: defaultConfigs,
                     colorVariables: defaultColorVariables,
+                    languageConfig: defaultLanguageConfig,
                     initialized: true,
                     error 
                   });
@@ -285,6 +317,15 @@ export const AppConfigStore = signalStore(
           console.error('Cannot update configs map: invalid config ID', currentConfig.id);
         }
       },
+
+      /**
+       * Mettre à jour la configuration linguistique
+       */
+      updateLanguageConfig(configPartial: Partial<LanguageConfig>) {
+        const currentLangConfig = store.languageConfig();
+        const updatedLangConfig = { ...currentLangConfig, ...configPartial };
+        patchState(store, { languageConfig: updatedLangConfig });
+      },
       
       /**
        * Save all configurations to the API in bulk
@@ -319,7 +360,9 @@ export const AppConfigStore = signalStore(
                     return acc;
                   }, {})
                 }
-              }
+              },
+              // Ajouter la configuration linguistique
+              languageConfig: store.languageConfig()
             };
             
             return httpClient.put<Record<string, any>>(`${API_URL}/appConfigs`, apiConfigs).pipe(
@@ -352,7 +395,10 @@ export const AppConfigStore = signalStore(
     isLoading: computed(() => store.loading()),
     
     // Exposer les variables de couleur du store
-    getColorVariables: computed(() => store.colorVariables())
+    getColorVariables: computed(() => store.colorVariables()),
+    
+    // Exposer la configuration linguistique
+    getLanguageConfig: computed(() => store.languageConfig())
   })),
   withLogging()
 );
