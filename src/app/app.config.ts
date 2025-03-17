@@ -61,7 +61,8 @@ export const appConfig: ApplicationConfig = {
     provideApp({
       /**
        * The config that will be used by default.
-       * This can be changed at runtime via the config panel or using the appConfigService.
+       * This is used until configurations are loaded from the API.
+       * The configurations are loaded and managed by the AppConfigService.
        */
       config: appConfigs.poseidon,
       /**

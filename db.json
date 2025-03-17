@@ -1,4 +1,294 @@
 {
+  "appConfigs": {
+    "apollo": {
+      "id": "apollo",
+      "name": "Apollo",
+      "bodyClass": "app-layout-apollo",
+      "style": {
+        "themeClassName": "app-theme-red",
+        "colorScheme": "light",
+        "borderRadius": {
+          "value": 0.5,
+          "unit": "rem"
+        },
+        "button": {
+          "borderRadius": {
+            "value": 9999,
+            "unit": "px"
+          }
+        }
+      },
+      "direction": "ltr",
+      "imgSrc": "assets/img/layouts/apollo.png",
+      "layout": "horizontal",
+      "boxed": false,
+      "sidenav": {
+        "title": "APP",
+        "imageUrl": "assets/img/logo/logo.svg",
+        "showCollapsePin": true,
+        "user": {
+          "visible": true
+        },
+        "search": {
+          "visible": true
+        },
+        "state": "expanded"
+      },
+      "toolbar": {
+        "fixed": true,
+        "user": {
+          "visible": true
+        }
+      },
+      "navbar": {
+        "position": "below-toolbar"
+      },
+      "footer": {
+        "visible": true,
+        "fixed": true
+      }
+    },
+    "poseidon": {
+      "id": "poseidon",
+      "name": "Poseidon",
+      "bodyClass": "app-layout-poseidon",
+      "style": {
+        "themeClassName": "app-theme-default",
+        "colorScheme": "dark",
+        "borderRadius": {
+          "value": 0.5,
+          "unit": "rem"
+        },
+        "button": {
+          "borderRadius": {
+            "value": 9999,
+            "unit": "px"
+          }
+        }
+      },
+      "direction": "ltr",
+      "imgSrc": "assets/img/layouts/poseidon.png",
+      "layout": "horizontal",
+      "boxed": false,
+      "sidenav": {
+        "title": "APP",
+        "imageUrl": "assets/img/logo/logo.svg",
+        "showCollapsePin": true,
+        "user": {
+          "visible": true
+        },
+        "search": {
+          "visible": true
+        },
+        "state": "expanded"
+      },
+      "toolbar": {
+        "fixed": true,
+        "user": {
+          "visible": false
+        }
+      },
+      "navbar": {
+        "position": "below-toolbar"
+      },
+      "footer": {
+        "visible": true,
+        "fixed": true
+      }
+    },
+    "hermes": {
+      "id": "hermes",
+      "name": "Hermes",
+      "bodyClass": "app-layout-hermes",
+      "style": {
+        "themeClassName": "app-theme-default",
+        "colorScheme": "light",
+        "borderRadius": {
+          "value": 0.5,
+          "unit": "rem"
+        },
+        "button": {
+          "borderRadius": {
+            "value": 9999,
+            "unit": "px"
+          }
+        }
+      },
+      "direction": "ltr",
+      "imgSrc": "assets/img/layouts/hermes.png",
+      "layout": "vertical",
+      "boxed": true,
+      "sidenav": {
+        "title": "APP",
+        "imageUrl": "assets/img/logo/logo.svg",
+        "showCollapsePin": true,
+        "user": {
+          "visible": false
+        },
+        "search": {
+          "visible": false
+        },
+        "state": "expanded"
+      },
+      "toolbar": {
+        "fixed": false,
+        "user": {
+          "visible": true
+        }
+      },
+      "navbar": {
+        "position": "below-toolbar"
+      },
+      "footer": {
+        "visible": true,
+        "fixed": false
+      }
+    },
+    "ares": {
+      "id": "ares",
+      "name": "Ares",
+      "bodyClass": "app-layout-ares",
+      "style": {
+        "themeClassName": "app-theme-default",
+        "colorScheme": "light",
+        "borderRadius": {
+          "value": 0.5,
+          "unit": "rem"
+        },
+        "button": {
+          "borderRadius": {
+            "value": 9999,
+            "unit": "px"
+          }
+        }
+      },
+      "direction": "ltr",
+      "imgSrc": "assets/img/layouts/ares.png",
+      "layout": "horizontal",
+      "boxed": false,
+      "sidenav": {
+        "title": "APP",
+        "imageUrl": "assets/img/logo/logo.svg",
+        "showCollapsePin": true,
+        "user": {
+          "visible": false
+        },
+        "search": {
+          "visible": false
+        },
+        "state": "expanded"
+      },
+      "toolbar": {
+        "fixed": false,
+        "user": {
+          "visible": true
+        }
+      },
+      "navbar": {
+        "position": "in-toolbar"
+      },
+      "footer": {
+        "visible": true,
+        "fixed": false
+      }
+    },
+    "zeus": {
+      "id": "zeus",
+      "name": "Zeus",
+      "bodyClass": "app-layout-zeus",
+      "style": {
+        "themeClassName": "app-theme-default",
+        "colorScheme": "light",
+        "borderRadius": {
+          "value": 0.5,
+          "unit": "rem"
+        },
+        "button": {
+          "borderRadius": {
+            "value": 9999,
+            "unit": "px"
+          }
+        }
+      },
+      "direction": "ltr",
+      "imgSrc": "assets/img/layouts/zeus.png",
+      "layout": "horizontal",
+      "boxed": false,
+      "sidenav": {
+        "title": "APP",
+        "imageUrl": "assets/img/logo/logo.svg",
+        "showCollapsePin": true,
+        "user": {
+          "visible": true
+        },
+        "search": {
+          "visible": true
+        },
+        "state": "collapsed"
+      },
+      "toolbar": {
+        "fixed": true,
+        "user": {
+          "visible": true
+        }
+      },
+      "navbar": {
+        "position": "below-toolbar"
+      },
+      "footer": {
+        "visible": true,
+        "fixed": true
+      }
+    },
+    "ikaros": {
+      "id": "ikaros",
+      "name": "Ikaros",
+      "bodyClass": "app-layout-ikaros",
+      "style": {
+        "themeClassName": "app-theme-default",
+        "colorScheme": "light",
+        "borderRadius": {
+          "value": 0.5,
+          "unit": "rem"
+        },
+        "button": {
+          "borderRadius": {
+            "value": 9999,
+            "unit": "px"
+          }
+        }
+      },
+      "direction": "ltr",
+      "imgSrc": "assets/img/layouts/ikaros.png",
+      "layout": "vertical",
+      "boxed": true,
+      "sidenav": {
+        "title": "APP",
+        "imageUrl": "assets/img/logo/logo.svg",
+        "showCollapsePin": true,
+        "user": {
+          "visible": false
+        },
+        "search": {
+          "visible": false
+        },
+        "state": "expanded"
+      },
+      "toolbar": {
+        "fixed": false,
+        "user": {
+          "visible": true
+        }
+      },
+      "navbar": {
+        "position": "in-toolbar"
+      },
+      "footer": {
+        "visible": true,
+        "fixed": false
+      }
+    }
+  },
     "properties": [
       {
         "id": "1fb734ec-5b6e-4a74-b9f3-8e853154a55e",
@@ -214,22 +504,48 @@
               "name": "Taxis Marina",
               "phone": "+212 661 234 567",
               "rating": 4.8,
-              "languages": ["Français", "Anglais", "Arabe", "Espagnol"]
+            "languages": [
+              "Français",
+              "Anglais",
+              "Arabe",
+              "Espagnol"
+            ]
             },
             {
               "name": "Grand Taxi Tanger",
               "phone": "+212 539 876 543",
               "rating": 4.5,
-              "languages": ["Français", "Arabe", "Espagnol"]
+            "languages": [
+              "Français",
+              "Arabe",
+              "Espagnol"
+            ]
             }
           ]
         },
         "socialMedia": [
-          { "name": "Facebook", "icon": "facebook", "url": "https://facebook.com/hotelluxemarina" },
-          { "name": "Instagram", "icon": "instagram", "url": "https://instagram.com/hotelluxemarina" },
-          { "name": "Twitter", "icon": "twitter", "url": "https://twitter.com/hotelluxemarina" }
-        ],
-        "languages": ["Français", "Anglais", "Arabe", "Espagnol"],
+        {
+          "name": "Facebook",
+          "icon": "facebook",
+          "url": "https://facebook.com/hotelluxemarina"
+        },
+        {
+          "name": "Instagram",
+          "icon": "instagram",
+          "url": "https://instagram.com/hotelluxemarina"
+        },
+        {
+          "name": "Twitter",
+          "icon": "twitter",
+          "url": "https://twitter.com/hotelluxemarina"
+        }
+      ],
+      "languages": [
+        "Français",
+        "Anglais",
+        "Arabe",
+        "Espagnol"
+      ],
         "operatingHours": {
           "reception": "00:00 - 24:00",
           "checkout": "12:00",
@@ -275,7 +591,10 @@
                 "description": "<h4>Lors de votre arrivée à l'hôtel, veuillez présenter les documents suivants à la réception</h4>",
                 "needToCheck": true,
                 "checkLink": "https://example.com/verify-identity",
-                "list": ["Pièce d'identité", "Confirmation de réservation"],
+              "list": [
+                "Pièce d'identité",
+                "Confirmation de réservation"
+              ],
                 "videoUrl": "",
                 "type": "IDENTITY_CHECK"
               },
@@ -292,7 +611,10 @@
                 "title": "Accès à la Chambre",
                 "description": "Votre chambre se trouve au 4ème étage, accessible par l'ascenseur central. Suivez les indications dans le couloir pour trouver votre chambre numéro 412.",
                 "videoUrl": "",
-                "images": ["assets/img/demo/landscape.webp", "assets/img/demo/landscape.webp"],
+              "images": [
+                "assets/img/demo/landscape.webp",
+                "assets/img/demo/landscape.webp"
+              ],
                 "type": "ARRIVAL_INSTRUCTION"
               }
             ],
@@ -378,10 +700,22 @@
           "longitude": "-5.7656"
         },
         "socialMedia": [
-          { "name": "Facebook", "icon": "facebook", "url": "https://facebook.com/villaoceania" },
-          { "name": "Instagram", "icon": "instagram", "url": "https://instagram.com/villaoceania" }
-        ],
-        "languages": ["Français", "Anglais", "Espagnol"],
+        {
+          "name": "Facebook",
+          "icon": "facebook",
+          "url": "https://facebook.com/villaoceania"
+        },
+        {
+          "name": "Instagram",
+          "icon": "instagram",
+          "url": "https://instagram.com/villaoceania"
+        }
+      ],
+      "languages": [
+        "Français",
+        "Anglais",
+        "Espagnol"
+      ],
         "operatingHours": {
           "reception": "09:00 - 19:00",
           "checkout": "10:00",
@@ -460,7 +794,10 @@
               "title": "Accès à la Propriété",
               "description": "<h4>La villa est située dans un domaine privé avec un gardien à l'entrée</h4><p>Présentez-vous à l'entrée du domaine 'Les Jardins de Malabata' et donnez le code #2468 au gardien pour qu'il vous laisse entrer.</p>",
               "videoUrl": "https://player.vimeo.com/video/253905163",
-              "list": ["Code d'accès domaine: 2468", "Le gardien est présent 24h/24"],
+            "list": [
+              "Code d'accès domaine: 2468",
+              "Le gardien est présent 24h/24"
+            ],
               "type": "ARRIVAL_INSTRUCTION"
             },
             {
@@ -474,14 +811,19 @@
                 "expiresAt": "2023-12-31T23:59:59Z",
                 "status": "ACTIVE"
               },
-              "images": ["assets/img/demo/landscape.webp"],
+            "images": [
+              "assets/img/demo/landscape.webp"
+            ],
               "type": "ACCESS_MODE"
             },
             {
               "step": 3,
               "title": "Accès à la Piscine",
               "description": "La piscine privée se trouve à l'arrière de la villa. Pour activer l'éclairage et le chauffage, utilisez le panneau de contrôle situé près de la cuisine extérieure.",
-              "images": ["assets/img/demo/landscape.webp", "assets/img/demo/landscape.webp"],
+            "images": [
+              "assets/img/demo/landscape.webp",
+              "assets/img/demo/landscape.webp"
+            ],
               "type": "ARRIVAL_INSTRUCTION"
             }
           ],
@@ -553,11 +895,27 @@
           "longitude": "-9.7703"
         },
         "socialMedia": [
-          { "name": "Facebook", "icon": "facebook", "url": "https://facebook.com/giteruralessaouira" },
-          { "name": "Instagram", "icon": "instagram", "url": "https://instagram.com/giteruralessaouira" },
-          { "name": "Pinterest", "icon": "pinterest", "url": "https://pinterest.com/giteruralessaouira" }
-        ],
-        "languages": ["Français", "Arabe", "Anglais"],
+        {
+          "name": "Facebook",
+          "icon": "facebook",
+          "url": "https://facebook.com/giteruralessaouira"
+        },
+        {
+          "name": "Instagram",
+          "icon": "instagram",
+          "url": "https://instagram.com/giteruralessaouira"
+        },
+        {
+          "name": "Pinterest",
+          "icon": "pinterest",
+          "url": "https://pinterest.com/giteruralessaouira"
+        }
+      ],
+      "languages": [
+        "Français",
+        "Arabe",
+        "Anglais"
+      ],
         "operatingHours": {
           "reception": "08:00 - 19:00",
           "checkout": "11:00",
@@ -602,7 +960,10 @@
                 "title": "Itinéraire d'Accès",
                 "description": "<h4>Comment trouver le gîte</h4><p>Depuis Essaouira, prenez la route N1 en direction de Marrakech. Après 12km, tournez à droite au panneau 'Coopérative d'Argan'. Suivez la piste sur 800m et vous arriverez au gîte.</p>",
                 "videoUrl": "",
-                "images": ["assets/img/demo/landscape.webp", "assets/img/demo/landscape.webp"],
+              "images": [
+                "assets/img/demo/landscape.webp",
+                "assets/img/demo/landscape.webp"
+              ],
                 "type": "ARRIVAL_INSTRUCTION"
               },
               {
@@ -611,14 +972,20 @@
                 "description": "Notre hôte, Ahmed, vous attendra sur place pour vous accueillir et vous remettre les clés. Il vous fera visiter le gîte et vous donnera des conseils sur les activités locales.",
                 "videoUrl": "",
                 "methodType": "KEY",
-                "images": ["assets/img/demo/landscape.webp"],
+              "images": [
+                "assets/img/demo/landscape.webp"
+              ],
                 "type": "ACCESS_MODE"
               },
               {
                 "step": 3,
                 "title": "Informations Pratiques",
                 "description": "Le gîte fonctionne à l'énergie solaire. L'eau chaude est disponible de 6h à 22h. Le réseau mobile peut être limité mais une connexion WiFi par satellite est disponible.",
-                "list": ["Électricité solaire", "Eau de source", "WiFi par satellite"],
+              "list": [
+                "Électricité solaire",
+                "Eau de source",
+                "WiFi par satellite"
+              ],
                 "type": "ARRIVAL_INSTRUCTION"
               }
             ],
@@ -678,11 +1045,28 @@
           "longitude": "-9.6058"
         },
         "socialMedia": [
-          { "name": "Facebook", "icon": "facebook", "url": "https://facebook.com/marinabayagadir" },
-          { "name": "Instagram", "icon": "instagram", "url": "https://instagram.com/marinabayagadir" },
-          { "name": "Twitter", "icon": "twitter", "url": "https://twitter.com/marinabayagadir" }
-        ],
-        "languages": ["Français", "Anglais", "Arabe", "Allemand"],
+        {
+          "name": "Facebook",
+          "icon": "facebook",
+          "url": "https://facebook.com/marinabayagadir"
+        },
+        {
+          "name": "Instagram",
+          "icon": "instagram",
+          "url": "https://instagram.com/marinabayagadir"
+        },
+        {
+          "name": "Twitter",
+          "icon": "twitter",
+          "url": "https://twitter.com/marinabayagadir"
+        }
+      ],
+      "languages": [
+        "Français",
+        "Anglais",
+        "Arabe",
+        "Allemand"
+      ],
         "operatingHours": {
           "reception": "00:00 - 24:00",
           "checkout": "11:00",
@@ -733,7 +1117,10 @@
                 "description": "<h4>Procédure d'enregistrement à la réception</h4><p>Présentez-vous à la réception principale du complexe Marina Bay (ouverte 24h/24) avec votre pièce d'identité et le code de réservation. Le personnel vous enregistrera et vous donnera un pass d'accès au complexe.</p>",
                 "needToCheck": true,
                 "checkLink": "https://example.com/verify-identity",
-                "list": ["Pièce d'identité", "Code de réservation: MB-304-XYZ"],
+              "list": [
+                "Pièce d'identité",
+                "Code de réservation: MB-304-XYZ"
+              ],
                 "videoUrl": "",
                 "type": "IDENTITY_CHECK"
               },
@@ -748,7 +1135,10 @@
                   "expiresAt": "2023-12-31T23:59:59Z",
                   "status": "ACTIVE"
                 },
-                "images": ["assets/img/demo/landscape.webp", "assets/img/demo/landscape.webp"],
+              "images": [
+                "assets/img/demo/landscape.webp",
+                "assets/img/demo/landscape.webp"
+              ],
                 "type": "ACCESS_MODE"
               },
               {
@@ -756,8 +1146,14 @@
                 "title": "Accès aux Installations Communes",
                 "description": "Le pass d'accès remis à la réception vous permet d'utiliser toutes les installations du complexe: piscines, spa, salle de sport et accès direct à la plage.",
                 "videoUrl": "",
-                "images": ["assets/img/demo/landscape.webp"],
-                "list": ["Horaires piscine: 7h-22h", "Spa: 10h-20h", "Salle de sport: 6h-23h"],
+              "images": [
+                "assets/img/demo/landscape.webp"
+              ],
+              "list": [
+                "Horaires piscine: 7h-22h",
+                "Spa: 10h-20h",
+                "Salle de sport: 6h-23h"
+              ],
                 "type": "ARRIVAL_INSTRUCTION"
               }
             ],
@@ -799,11 +1195,28 @@
           "longitude": "-5.2680"
         },
         "socialMedia": [
-          { "name": "Airbnb", "icon": "airbnb", "url": "https://airbnb.com/rooms/mediachefchaouen" },
-          { "name": "Instagram", "icon": "instagram", "url": "https://instagram.com/mediachefchaouen" },
-          { "name": "Facebook", "icon": "facebook", "url": "https://facebook.com/mediachefchaouen" }
-        ],
-        "languages": ["Français", "Arabe", "Espagnol", "Anglais"],
+        {
+          "name": "Airbnb",
+          "icon": "airbnb",
+          "url": "https://airbnb.com/rooms/mediachefchaouen"
+        },
+        {
+          "name": "Instagram",
+          "icon": "instagram",
+          "url": "https://instagram.com/mediachefchaouen"
+        },
+        {
+          "name": "Facebook",
+          "icon": "facebook",
+          "url": "https://facebook.com/mediachefchaouen"
+        }
+      ],
+      "languages": [
+        "Français",
+        "Arabe",
+        "Espagnol",
+        "Anglais"
+      ],
         "operatingHours": {
           "reception": "09:00 - 18:00",
           "checkout": "11:00",
@@ -848,8 +1261,13 @@
                 "title": "Stationnement & Point de Rencontre",
                 "description": "<h4>Où garer votre voiture</h4><p>Garez votre voiture au parking Bab Souk (30 MAD/jour). Notre assistant Karim vous attendra à l'entrée du parking avec une pancarte à votre nom.</p>",
                 "videoUrl": "",
-                "images": ["assets/img/demo/landscape.webp"],
-                "list": ["Coordonnées parking: 35.169, -5.268", "Karim portera une casquette bleue"],
+              "images": [
+                "assets/img/demo/landscape.webp"
+              ],
+              "list": [
+                "Coordonnées parking: 35.169, -5.268",
+                "Karim portera une casquette bleue"
+              ],
                 "type": "ARRIVAL_INSTRUCTION"
               },
               {
@@ -858,7 +1276,10 @@
                 "description": "Karim vous guidera à travers la médina jusqu'à la maison (environ 7 minutes à pied). Il vous expliquera le fonctionnement de la maison et vous remettra les clés.",
                 "videoUrl": "https://player.vimeo.com/video/253905166",
                 "methodType": "KEY",
-                "images": ["assets/img/demo/landscape.webp", "assets/img/demo/landscape.webp"],
+              "images": [
+                "assets/img/demo/landscape.webp",
+                "assets/img/demo/landscape.webp"
+              ],
                 "type": "ACCESS_MODE"
               },
               {
@@ -872,7 +1293,9 @@
                   "expiresAt": "2023-12-31T23:59:59Z",
                   "status": "ACTIVE"
                 },
-                "images": ["assets/img/demo/landscape.webp"],
+              "images": [
+                "assets/img/demo/landscape.webp"
+              ],
                 "type": "ACCESS_MODE"
               }
             ],
@@ -1028,210 +1451,212 @@
         }
       }
     ],
-    
     "navigation": [
       {
-        "type":"dropdown",
-        "label":"Votre arrivée",
-        "icon":"mat:directions_walk",
-        "route":"/:id/arrival",
-        "children":[
-          {
-            "type":"link",
-            "label":"Coordonnées",
+      "type": "dropdown",
+      "label": "Votre arrivée",
+      "icon": "mat:directions_walk",
+      "route": "/:id/arrival",
+      "children": [
+        {
+          "type": "link",
+          "label": "Coordonnées",
             "icon": "mat:mail_outline",
-            "route":"/:id/arrival/contact"
+          "route": "/:id/arrival/contact"
           },
           {
-            "type":"link",
+          "type": "link",
             "icon": "mat:access_time",
-            "label":"Tranche horaire",
-            "route":"/:id/arrival/times"
+          "label": "Tranche horaire",
+          "route": "/:id/arrival/times"
           },
           {
-            "type":"link",
+          "type": "link",
             "icon": "mat:directions",
-            "label":"Itinéraire et transports",
-            "route":"/:id/arrival/itinerary"
+          "label": "Itinéraire et transports",
+          "route": "/:id/arrival/itinerary"
           },
           {
-            "type":"link",
+          "type": "link",
             "icon": "mat:local_parking",
-            "label":"Parkings",
-            "route":"/:id/arrival/parking"
-          },
-          {
-            "type":"link",
-            "label":"Formalités d'arrivée",
-            "icon":"mat:playlist_add_check",
-            "route":"/:id/arrival/checkin"
-          },
-          {
-            "type":"link",
-            "label":"Arrivée tardive",
+          "label": "Parkings",
+          "route": "/:id/arrival/parking"
+        },
+        {
+          "type": "link",
+          "label": "Formalités d'arrivée",
+          "icon": "mat:playlist_add_check",
+          "route": "/:id/arrival/checkin"
+        },
+        {
+          "type": "link",
+          "label": "Arrivée tardive",
             "icon": "mat:alarm",
-            "route":"/:id/arrival/late-arrival"
-          },
-          {
-            "type":"link",
-            "label":"Règles de la maison",
-            "icon":"mat:home",
-            "route":"/:id/arrival/rules"
-          }
-        ]
-      },
-      {
-        "type":"dropdown",
-        "label":"Services sur place",
-        "icon":"mat:room_service",
-        "route":"/:id/services",
-        "children":[
-          {
-            "type":"link",
-            "label":"Wi-Fi",
-            "route":"/:id/services/wifi"
-          },
-          {
-            "type":"link",
-            "label":"Animaux domestiques",
-            "route":"/:id/services/pets"
-          },
-          {
-            "type":"link",
-            "label":"Télévision",
-            "route":"/:id/services/television"
-          },
-          {
-            "type":"link",
-            "label":"Boissons",
-            "route":"/:id/services/drinks"
-          },
-          {
-          "type":"link",
-          "label":"Accès handicapés",
-          "route":"/:id/services/disabled"
-          },
-          {
-            "type":"link",
-            "label":"Petit-déjeuner",
-            "route":"/:id/services/breakfast"
-          },
-          {
-            "type":"link",
-            "label":"Ménage",
-            "route":"/:id/services/cleaning"
-          },
-          {
-            "type":"link",
-            "label":"Blanchisserie",
-            "route":"/:id/services/laundry"
-          },
-          {
-            "type":"link",
-            "label":"Linge de toilette",
-            "route":"/:id/services/towels"
-          },
-          {
-            "type":"link",
-            "label":"Oreillers Supplémentaires",
-            "route":"/:id/services/pillows"
-          },
-          {
-            "type":"link",
-            "label":"Climatisation",
-            "route":"/:id/services/air-conditioning"
-          },
-          {
-            "type":"link",
-            "label":"Chauffage",
-            "route":"/:id/services/heating"
-          },
-          {
-            "type":"link",
-            "label":"Sèche-cheveux",
-            "route":"/:id/services/hairdryer"
-          },
-          {
-            "type":"link",
-            "label":"Fer à repasser",
-            "route":"/:id/services/iron"
-          },
-          {
-            "type":"link",
-            "label":"Cintres",
-            "route":"/:id/services/hangers"
-          },
-          {
-            "type":"link",
-            "label":"Espace de travail",
-            "route":"/:id/services/workspace"
-          },
-          {
-            "type":"link",
-            "label":"Cuisine",
-            "route":"/:id/services/kitchen"
-          },
-          {
-            "type":"link",
-            "label":"Piscine",
-            "route":"/:id/services/pool"
-          },
-          {
-            "type":"link",
-            "label":"Jacuzzi",
-            "route":"/:id/services/jacuzzi"
-          },
-          {
-            "type":"link",
-            "label":"Sauna",
-            "route":"/:id/services/sauna"
-          },
-          {
-            "type":"link",
-            "label":"Salle de sport",
-            "route":"/:id/services/gym"
-          },
-          {
-            "type":"link",
-            "label":"Spa",
-            "route":"/:id/services/spa"
-          },
-          {
-            "type":"link",
-            "label":"Barbecue",
-            "route":"/:id/services/barbecue"
-          },
-          {
-            "type":"link",
-            "label":"Jardin",
-            "route":"/:id/services/garden"
-          },
-          {
-            "type":"link",
-            "label":"Terrasse",
-            "route":"/:id/services/terrace"
+          "route": "/:id/arrival/late-arrival"
+        },
+        {
+          "type": "link",
+          "label": "Règles de la maison",
+          "icon": "mat:home",
+          "route": "/:id/arrival/rules"
+        }
+      ],
+      "id": "73d8"
+    },
+    {
+      "type": "dropdown",
+      "label": "Services sur place",
+      "icon": "mat:room_service",
+      "route": "/:id/services",
+      "children": [
+        {
+          "type": "link",
+          "label": "Wi-Fi",
+          "route": "/:id/services/wifi"
+        },
+        {
+          "type": "link",
+          "label": "Animaux domestiques",
+          "route": "/:id/services/pets"
+        },
+        {
+          "type": "link",
+          "label": "Télévision",
+          "route": "/:id/services/television"
+        },
+        {
+          "type": "link",
+          "label": "Boissons",
+          "route": "/:id/services/drinks"
+        },
+        {
+          "type": "link",
+          "label": "Accès handicapés",
+          "route": "/:id/services/disabled"
+        },
+        {
+          "type": "link",
+          "label": "Petit-déjeuner",
+          "route": "/:id/services/breakfast"
+        },
+        {
+          "type": "link",
+          "label": "Ménage",
+          "route": "/:id/services/cleaning"
+        },
+        {
+          "type": "link",
+          "label": "Blanchisserie",
+          "route": "/:id/services/laundry"
+        },
+        {
+          "type": "link",
+          "label": "Linge de toilette",
+          "route": "/:id/services/towels"
+        },
+        {
+          "type": "link",
+          "label": "Oreillers Supplémentaires",
+          "route": "/:id/services/pillows"
+        },
+        {
+          "type": "link",
+          "label": "Climatisation",
+          "route": "/:id/services/air-conditioning"
+        },
+        {
+          "type": "link",
+          "label": "Chauffage",
+          "route": "/:id/services/heating"
+        },
+        {
+          "type": "link",
+          "label": "Sèche-cheveux",
+          "route": "/:id/services/hairdryer"
+        },
+        {
+          "type": "link",
+          "label": "Fer à repasser",
+          "route": "/:id/services/iron"
+        },
+        {
+          "type": "link",
+          "label": "Cintres",
+          "route": "/:id/services/hangers"
+        },
+        {
+          "type": "link",
+          "label": "Espace de travail",
+          "route": "/:id/services/workspace"
+        },
+        {
+          "type": "link",
+          "label": "Cuisine",
+          "route": "/:id/services/kitchen"
+        },
+        {
+          "type": "link",
+          "label": "Piscine",
+          "route": "/:id/services/pool"
+        },
+        {
+          "type": "link",
+          "label": "Jacuzzi",
+          "route": "/:id/services/jacuzzi"
+        },
+        {
+          "type": "link",
+          "label": "Sauna",
+          "route": "/:id/services/sauna"
+        },
+        {
+          "type": "link",
+          "label": "Salle de sport",
+          "route": "/:id/services/gym"
+        },
+        {
+          "type": "link",
+          "label": "Spa",
+          "route": "/:id/services/spa"
+        },
+        {
+          "type": "link",
+          "label": "Barbecue",
+          "route": "/:id/services/barbecue"
+        },
+        {
+          "type": "link",
+          "label": "Jardin",
+          "route": "/:id/services/garden"
+        },
+        {
+          "type": "link",
+          "label": "Terrasse",
+          "route": "/:id/services/terrace"
           },
           {
             "type": "link",
             "label": "Balcon",
             "route": "/:id/services/balcony"
           }
-        ]
+      ],
+      "id": "6be2"
+    },
+    {
+      "type": "link",
+      "label": "Tourisme",
+      "route": "/:id/tourisme",
+      "icon": "mat:explore",
+      "routerLinkActiveOptions": {
+        "exact": true
       },
-      {
-        "type":"link",
-        "label":"Tourisme",
-        "route":"/:id/tourisme",
-        "icon":"mat:explore",
-        "routerLinkActiveOptions":{
-          "exact":true
-        }
-      },
-      {
-        "type":"dropdown",
-        "label":"Loisirs aux environs",
-        "route":"/:id/leisures",
-        "icon":"mat:explore",
+      "id": "15f2"
+    },
+    {
+      "type": "dropdown",
+      "label": "Loisirs aux environs",
+      "route": "/:id/leisures",
+      "icon": "mat:explore",
         "children": [
           {
             "type": "link",
@@ -1257,15 +1682,16 @@
             "route": "/:id/leisures/sports",
             "icon": "mat:fitness_center"
           }
-        ]
-      },
-      {
-        "type":"dropdown",
-        "label":"Commodités à proximité",
-        "route":"/:id/amenities",
-        "icon":"mat:explore",
-        "routerLinkActiveOptions":{
-          "exact":true
+      ],
+      "id": "2acb"
+    },
+    {
+      "type": "dropdown",
+      "label": "Commodités à proximité",
+      "route": "/:id/amenities",
+      "icon": "mat:explore",
+      "routerLinkActiveOptions": {
+        "exact": true
         },
         "children": [
           {
@@ -1370,15 +1796,16 @@
             "route": "/:id/amenities/massage",
             "icon": "mat:local_hospital"
           }
-        ]
-      },
-      {
-        "type":"dropdown",
-        "label":"Manger aux environs",
-        "route":"/apps/aio-table",
-        "icon":"mat:restaurant",
-        "routerLinkActiveOptions":{
-          "exact":true
+      ],
+      "id": "bfdb"
+    },
+    {
+      "type": "dropdown",
+      "label": "Manger aux environs",
+      "route": "/apps/aio-table",
+      "icon": "mat:restaurant",
+      "routerLinkActiveOptions": {
+        "exact": true
         },
         "children": [
           {
@@ -1453,15 +1880,16 @@
             "route": "/:id/pastries",
             "icon": "mat:local_pizza"
           }
-        ]
-      },
-      {
-        "type":"dropdown",
-        "label":"Urgences",
-        "route":"/apps/editor",
-        "icon":"mat:help",
-        "routerLinkActiveOptions":{
-          "exact":true
+      ],
+      "id": "322b"
+    },
+    {
+      "type": "dropdown",
+      "label": "Urgences",
+      "route": "/apps/editor",
+      "icon": "mat:help",
+      "routerLinkActiveOptions": {
+        "exact": true
         },
         "children": [
           {
@@ -1512,17 +1940,18 @@
             "route": "/:id/veterinaries",
             "icon": "mat:local_hospital"
           }
-        ]
+      ],
+      "id": "76eb"
+    },
+    {
+      "type": "link",
+      "label": "Votre départ",
+      "route": "/apps/help-center/guides",
+      "icon": "mat:explore",
+      "routerLinkActiveOptions": {
+        "exact": true
       },
-      {
-        "type":"link",
-        "label":"Votre départ",
-        "route":"/apps/help-center/guides",
-        "icon":"mat:explore",
-        "routerLinkActiveOptions":{
-          "exact":true
-        }
-      }
-    ]
+      "id": "f64d"
+    }
+  ]
 }
-  

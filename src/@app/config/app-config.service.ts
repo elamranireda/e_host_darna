@@ -1,10 +1,10 @@
-import { Inject, Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Inject, Injectable, OnDestroy, inject, effect } from '@angular/core';
+import { BehaviorSubject, Observable, Subject, of } from 'rxjs';
 import { DOCUMENT } from '@angular/common';
 import { DeepPartial } from '../interfaces/deep-partial.type';
 import { mergeDeep } from '../utils/merge-deep';
 import { AppLayoutService } from '../services/app-layout.service';
-import { appConfigs } from './app-configs';
+import { appConfigs as defaultConfigs } from './app-configs';
 import {
   AppColorScheme,
   AppConfig,
@@ -13,16 +13,18 @@ import {
   AppThemeProvider
 } from './app-config.interface';
 import { CSSValue } from '../interfaces/css-value.type';
-import { map } from 'rxjs/operators';
+import { catchError, map, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { APP_CONFIG, APP_THEMES } from './config.token';
+import { AppConfigStore } from './app-config.store';
+import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AppConfigService {
-  readonly configMap: AppConfigs = appConfigs;
-  readonly configs: AppConfig[] = Object.values(this.configMap);
+export class AppConfigService implements OnDestroy {
   private _configSubject = new BehaviorSubject<AppConfig>(this.config);
+  private destroy$ = new Subject<void>();
+  private readonly configStore = inject(AppConfigStore);
 
   constructor(
     @Inject(APP_CONFIG) private readonly config: AppConfig,
@@ -30,31 +32,82 @@ export class AppConfigService {
     @Inject(DOCUMENT) private readonly document: Document,
     private readonly layoutService: AppLayoutService
   ) {
-    this.config$.subscribe((config) => this._updateConfig(config));
+    // Initialiser avec la configuration par défaut
+    this._updateConfig(this.config);
+    
+    // Charger les configurations depuis le store
+    this.configStore.loadConfigs();
+    
+    // Observer les changements de configuration du store 
+    effect(() => {
+      const storeConfig = this.configStore.config();
+      if (storeConfig) {
+        this._configSubject.next(storeConfig);
+      }
+    });
+    
+    // S'abonner aux changements de configuration émis par le service
+    this.config$.pipe(
+      takeUntil(this.destroy$)
+    ).subscribe(config => this._updateConfig(config));
   }
 
+  ngOnDestroy(): void {
+    // Sauvegarder les configurations avant que le service soit détruit
+    this.configStore.saveConfigs();
+    
+    // Nettoyer les abonnements
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
+  /**
+   * Obtenir toutes les configurations disponibles
+   */
+  get configs(): AppConfig[] {
+    return this.configStore.availableConfigs();
+  }
+
+  /**
+   * Observable qui émet quand les configurations sont chargées
+   */
+  get configsLoaded$(): Observable<boolean> {
+    return of(this.configStore.isInitialized());
+  }
+
+  /**
+   * Obtenir la configuration courante comme un Observable
+   */
   get config$(): Observable<AppConfig> {
     return this._configSubject.asObservable();
   }
 
+  /**
+   * Sélectionner une propriété spécifique de la configuration
+   */
   select<R>(selector: (config: AppConfig) => R): Observable<R> {
     return this.config$.pipe(map(selector));
   }
 
+  /**
+   * Définir la configuration active par son nom
+   */
   setConfig(configName: AppConfigName) {
-    const settings = this.configMap[configName];
-
-    if (!settings) {
-      throw new Error(`Config with name '${configName}' does not exist!`);
-    }
-
-    this._configSubject.next(settings);
+    this.configStore.setConfig(configName);
   }
 
+  /**
+   * Mettre à jour la configuration courante avec des changements partiels
+   */
   updateConfig(config: DeepPartial<AppConfig>) {
-    this._configSubject.next(
-      mergeDeep({ ...this._configSubject.getValue() }, config)
-    );
+    this.configStore.updateConfig(config);
+  }
+
+  /**
+   * Force la sauvegarde des configurations vers l'API
+   */
+  saveConfigs() {
+    this.configStore.saveConfigs();
   }
 
   private _updateConfig(config: AppConfig): void {
