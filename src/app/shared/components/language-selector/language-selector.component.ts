@@ -5,6 +5,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { LanguageService } from '@app/services/language-service';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { getLanguageInfo, languageConfig } from '@app/config/language.config';
 
 interface Language {
   code: string;
@@ -42,11 +43,11 @@ export class LanguageSelectorComponent {
   readonly languageService = inject(LanguageService);
   readonly translateService = inject(TranslateService);
   
-  languages: Language[] = [
-    { code: 'fr', name: 'Français' },
-    { code: 'en', name: 'English' },
-    { code: 'ar', name: 'العربية' }
-  ];
+  languages: Language[] = languageConfig.supportedLanguages.map(lang => ({
+    code: lang.code,
+    name: lang.name,
+    flag: lang.flag
+  }));
   
   get currentLang(): string {
     return this.translateService.currentLang;

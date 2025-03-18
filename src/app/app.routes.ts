@@ -1,8 +1,17 @@
 import { LayoutComponent } from './layouts/layout/layout.component';
 import { AppRoutes } from '@app/interfaces/app-route.interface';
 import {NavigationConfigResolver} from "./core/navigation/navigation-config.resolver";
+import { languageConfig } from '@app/config/language.config';
+import { LangRedirectComponent } from './core/lang-redirect/lang-redirect.component';
 
 export const appRoutes: AppRoutes = [
+  // Route d'accueil sans préfixe - redirection vers error-404
+  {
+    path: '',
+    redirectTo: 'error-404',
+    pathMatch: 'full'
+  },
+  // Routes d'erreur
   {
     path: 'error-404',
     loadComponent: () =>
@@ -17,31 +26,52 @@ export const appRoutes: AppRoutes = [
         (m) => m.Error500Component
       )
   },
+  // Route principale avec paramètre :id
   {
     path: ':id',
-    component: LayoutComponent,
-    resolve: {
-      navigationConfig: NavigationConfigResolver
-    },
     children: [
+      // Route de base - détecte et redirige vers la langue appropriée
       {
         path: '',
-        loadComponent: () =>
-          import(
-            './pages/home/home.component'
-            ).then((m) => m.HomeComponent)
+        component: LangRedirectComponent
       },
+      // Routes pour chaque langue avec paramètre :lang
       {
-        path: 'arrival',
-        loadChildren: () => import('./pages/arrival/arrival.routes')
+        path: ':lang',
+        component: LayoutComponent,
+        resolve: {
+          navigationConfig: NavigationConfigResolver
+        },
+        children: [
+          {
+            path: '',
+            loadComponent: () =>
+              import(
+                './pages/home/home.component'
+                ).then((m) => m.HomeComponent)
+          },
+          {
+            path: 'arrival',
+            loadChildren: () => import('./pages/arrival/arrival.routes')
+          }
+        ]
       }
     ]
   },
-  // Route d'accueil vide qui redirige vers error-404
+  // Routes d'erreur avec paramètre :id et langue
   {
-    path: '',
-    redirectTo: 'error-404',
-    pathMatch: 'full'
+    path: ':id/:lang/error-404',
+    loadComponent: () =>
+      import('./pages/errors/error-404/error-404.component').then(
+        (m) => m.Error404Component
+      )
+  },
+  {
+    path: ':id/:lang/error-500',
+    loadComponent: () =>
+      import('./pages/errors/error-500/error-500.component').then(
+        (m) => m.Error500Component
+      )
   },
   // Route wildcard qui capture toutes les routes non définies
   {
