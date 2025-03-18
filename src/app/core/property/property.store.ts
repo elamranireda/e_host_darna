@@ -10,7 +10,7 @@ import {
 } from '@ngrx/signals';
 import {computed, effect, inject} from "@angular/core";
 import {rxMethod} from "@ngrx/signals/rxjs-interop";
-import {of, pipe, tap, catchError, delay} from "rxjs";
+import {of, pipe, tap, catchError} from "rxjs";
 import {switchMap} from "rxjs/operators";
 import {Property} from "../interfaces/property.interface";
 import {PropertyService} from "./property.service";
@@ -58,7 +58,6 @@ export const PropertyStore = signalStore(
           }
           
           return propertyService.getProperty(propertyId).pipe(
-            delay(5000),
             tap({
               next: (item: Property) => {
                 if (item) {

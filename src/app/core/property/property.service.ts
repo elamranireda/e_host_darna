@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
-import {catchError, delay, map, Observable, of} from "rxjs";
+import {catchError, map, Observable, of} from "rxjs";
 import {Property} from "../interfaces/property.interface";
 import {environment} from "../../../environments/environment";
 
@@ -31,13 +31,11 @@ export class PropertyService {
           }
           return property;
         }),
-        delay(500),
         catchError(this.handleError<Property>('getProperty'))
       );
     } else {
       // Utiliser l'API mock en développement
       return this.http.get<Property>(`${this.propertiesEndpoint}/${id}`).pipe(
-        delay(500),
         catchError(this.handleError<Property>('getProperty'))
       );
     }
@@ -46,7 +44,6 @@ export class PropertyService {
   // Récupérer toutes les propriétés
   getAllProperties(): Observable<Property[]> {
     return this.http.get<Property[]>(this.propertiesEndpoint).pipe(
-      delay(500),
       catchError(this.handleError<Property[]>('getAllProperties', []))
     );
   }
@@ -57,13 +54,11 @@ export class PropertyService {
       // En production, filtrer manuellement le fichier JSON
       return this.http.get<Property[]>(`${environment.jsonUrl}/properties-data.json`).pipe(
         map(properties => properties.filter(p => p.type === type)),
-        delay(500),
         catchError(this.handleError<Property[]>('getPropertiesByType', []))
       );
     } else {
       // En dev, utiliser l'API mock avec le paramètre type
       return this.http.get<Property[]>(`${this.propertiesEndpoint}?type=${type}`).pipe(
-        delay(500),
         catchError(this.handleError<Property[]>('getPropertiesByType', []))
       );
     }
@@ -82,13 +77,11 @@ export class PropertyService {
           property.name.toLowerCase().includes(term.toLowerCase()) || 
           property.description.toLowerCase().includes(term.toLowerCase())
         )),
-        delay(500),
         catchError(this.handleError<Property[]>('searchProperties', []))
       );
     } else {
       // En dev, utiliser l'API mock avec q pour la recherche
       return this.http.get<Property[]>(`${this.propertiesEndpoint}?q=${term}`).pipe(
-        delay(500),
         catchError(this.handleError<Property[]>('searchProperties', []))
       );
     }
@@ -97,7 +90,6 @@ export class PropertyService {
   // Récupérer les commentaires d'une propriété
   getPropertyComments(propertyId: string): Observable<any[]> {
     return this.http.get<any[]>(`${this.baseUrl}/comments?propertyId=${propertyId}`).pipe(
-      delay(500),
       catchError(this.handleError<any[]>('getPropertyComments', []))
     );
   }
@@ -105,7 +97,6 @@ export class PropertyService {
   // Récupérer les informations du profil
   getProfile(): Observable<any> {
     return this.http.get<any>(`${this.baseUrl}/profile`).pipe(
-      delay(500),
       catchError(this.handleError<any>('getProfile', {}))
     );
   }

@@ -198,15 +198,7 @@ export class AppConfigService implements OnDestroy {
         this._handleLoadError(error, reject);
       }
 
-      // Timeout de sécurité réduit (5 secondes)
-      setTimeout(() => {
-        if (this._loading && !this._initialized && !this._loadAttemptFailed) {
-          const timeoutError = new Error('Délai de chargement des configurations dépassé');
-          console.error(timeoutError.message);
-          // En cas de timeout, rediriger vers error-500
-          this._handleLoadError(timeoutError, reject);
-        }
-      }, 5000);
+     
     });
   }
 
@@ -329,7 +321,7 @@ export class AppConfigService implements OnDestroy {
             } catch (hideError) {
               console.warn('Impossible de cacher le splash screen:', hideError);
             }
-          }, 500);
+          }, 0);
         } catch (routerError) {
           console.error('Erreur lors de la redirection vers error-500:', routerError);
           // Tentative de masquer le splashscreen en dernier recours
@@ -339,7 +331,7 @@ export class AppConfigService implements OnDestroy {
             console.warn('Impossible de cacher le splash screen:', hideError);
           }
         }
-      }, 100);
+      }, 0);
       
       // Rejeter la promesse si une fonction de rejet a été fournie
       if (rejectPromise) {
