@@ -1,28 +1,18 @@
-import { Injectable, inject, Signal } from '@angular/core';
+import { Injectable } from '@angular/core';
 import {
   NavigationDropdown,
   NavigationItem,
   NavigationLink,
   NavigationSubheading
 } from './navigation-item.interface';
-import { Observable, Subject, map, of } from 'rxjs';
-import { Router, NavigationEnd } from '@angular/router';
-import { filter, startWith } from 'rxjs/operators';
-import { AppConfigStore } from '@app/config/app-config.store';
-import { toObservable, toSignal } from '@angular/core/rxjs-interop';
+import { Subject} from 'rxjs';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class NavigationService {
-  private appConfigStore = inject(AppConfigStore);
-  
-  // Créer un observable à partir du signal du store
-  items$: Observable<NavigationItem[]> = toObservable(this.appConfigStore.navigationItems);
-  
-  // Exposer l'état de chargement du store
-  loading$ = toObservable(this.appConfigStore.loading);
-
+ 
   private _openChangeSubject = new Subject<NavigationDropdown>();
   openChange$ = this._openChangeSubject.asObservable();
 
@@ -75,23 +65,5 @@ export class NavigationService {
     });
   }
   
-  /**
-   * Obtient les items de navigation avec les IDs de propriété remplacés
-   * @param propertyId ID de la propriété à insérer dans les routes
-   * @returns Items de navigation avec les IDs remplacés
-   */
-  getReplaceableNavigation(propertyId: string): NavigationItem[] {
-    const items = this.appConfigStore.navigationItems();
-    if (!items || items.length === 0) {
-      console.warn('Aucun item de navigation disponible');
-      return [];
-    }
-    
-    if (!propertyId) {
-      console.warn('Aucun ID de propriété fourni, utilisation des items originaux');
-      return items;
-    }
-    
-    return this.getNavigationWithReplacedIds(items, propertyId);
-  }
+  
 }

@@ -21,6 +21,9 @@ export class NavigationLoaderService {
     return this._items.asObservable();
   }
 
+  // Exposer l'état de chargement du store
+  loading$ = toObservable(this.appConfigStore.loading);
+
   constructor() {
     console.log('Initialisation de NavigationLoaderService (version simplifiée)');
     

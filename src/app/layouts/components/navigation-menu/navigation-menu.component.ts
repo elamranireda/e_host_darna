@@ -11,6 +11,7 @@ import {NavigationItemComponent} from "../navigation/navigation-item/navigation-
 import {NavigationService} from "../../../core/navigation/navigation.service";
 import {MenuNavigationItemComponent} from "../navigation/menu-navigation-item/menu-navigation-item.component";
 import {Subject, filter, takeUntil, take} from "rxjs";
+import { NavigationLoaderService } from 'src/app/core/navigation/navigation-loader.service';
 
 @Component({
   selector: 'navigation-menu',
@@ -21,7 +22,7 @@ import {Subject, filter, takeUntil, take} from "rxjs";
   imports: [NgFor, AsyncPipe, MatIconModule, MatRippleModule, RouterLinkActive, NgClass, RouterLink, SidenavItemComponent, NavigationItemComponent, MenuNavigationItemComponent, NgIf]
 })
 export class NavigationMenuComponent implements OnInit, OnDestroy {
-  protected navigationService = inject(NavigationService);
+  protected navigationService = inject(NavigationLoaderService);
   items!: NavigationItem[];
   private destroy$ = new Subject<void>();
 

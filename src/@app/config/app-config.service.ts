@@ -55,6 +55,7 @@ export class AppConfigService implements OnDestroy {
   private _loadAttemptFailed = false;
   private _configChangeEffect: ReturnType<typeof effect> | null = null;
   private readonly splashScreenService = inject(AppSplashScreenService);
+  private _propertyId: string | null = null;
 
   constructor(
     @Inject(APP_CONFIG) private readonly config: AppConfig,
@@ -84,66 +85,131 @@ export class AppConfigService implements OnDestroy {
       }
     });
 
-    // Démarrer le chargement des configurations
-    this._loadConfigs();
   }
 
-  private _loadConfigs(): void {
-    console.log('Démarrage du chargement des configurations...');
-    this._loading = true;
-
-    // Vérifier si déjà initialisé - pour éviter le double chargement
+  /**
+   * Méthode publique pour charger les configurations avec un ID de propriété spécifique
+   * @param propertyId L'ID de la propriété à utiliser pour les appels API
+   * @returns Une promesse qui se résout lorsque les configurations sont chargées
+   */
+  public loadConfigsWithPropertyId(propertyId: string): Promise<void> {
+    console.log(`Chargement des configurations avec ID de propriété: ${propertyId}`);
+    this._propertyId = propertyId;
+    
+    // Si déjà initialisé, recharger les configurations avec le nouvel ID
     if (this._initialized) {
-      console.log('Configurations déjà initialisées, réutilisation');
-      this._loading = false;
+      console.log('Rechargement des configurations avec le nouvel ID de propriété');
+      return this._loadConfigs(propertyId);
+    }
+    
+    // Sinon, chargement initial avec l'ID
+    return this._loadConfigs(propertyId);
+  }
 
-      // Cacher le splash screen
-      try {
-        this.splashScreenService.hide();
-      } catch (error) {
-        console.warn('Impossible de cacher le splash screen:', error);
+  /**
+   * Charge les configurations depuis le store ou l'API
+   * @param propertyId ID de propriété optionnel à utiliser pour les appels API
+   * @returns Une promesse qui se résout lorsque les configurations sont chargées
+   */
+  private _loadConfigs(propertyId?: string): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
+      console.log(`Démarrage du chargement des configurations${propertyId ? ' pour la propriété ' + propertyId : ''}...`);
+      this._loading = true;
+      this._propertyId = propertyId || this._propertyId;
+
+      // Vérifier si déjà initialisé pour un rechargement
+      if (this._initialized && !propertyId) {
+        console.log('Configurations déjà initialisées, réutilisation');
+        this._loading = false;
+
+        // Cacher le splash screen seulement si pas d'erreur
+        try {
+          this.splashScreenService.hide();
+        } catch (error) {
+          console.warn('Impossible de cacher le splash screen:', error);
+        }
+
+        resolve();
+        return;
       }
 
-      return;
-    }
-
-    // Lancer le chargement des configurations (un seul appel)
-    this.configStore.loadAllConfigs();
-
-    // Observer l'état d'initialisation
-    toObservable(this.configStore.initialized)
-      .pipe(
-        filter((initialized) => initialized === true),
-        take(1),
-        takeUntil(this.destroy$)
-      )
-      .subscribe({
-        next: () => {
-          console.log('Configurations chargées avec succès depuis le store');
-          this._processConfigs();
-
-          // Cacher le splash screen après chargement réussi
+      // Lancer le chargement des configurations avec l'ID de propriété si disponible
+      try {
+        // Fonction appelée en cas d'échec de l'appel API
+        const handleApiFailure = (error: any) => {
+          console.error('Échec de l\'appel API lors du chargement des configurations:', error);
+          
+          // Cacher immédiatement le splash screen
           try {
             this.splashScreenService.hide();
-          } catch (error) {
-            console.warn('Impossible de cacher le splash screen:', error);
+          } catch (splashError) {
+            console.warn('Impossible de cacher le splash screen après erreur API:', splashError);
           }
-        },
-        error: (error: Error) => {
-          console.error('Erreur lors du chargement des configurations:', error);
-          // En cas d'erreur, rediriger vers error-500
-          this._handleLoadError();
-        }
-      });
-
-    // Timeout de sécurité réduit (5 secondes)
-    setTimeout(() => {
-      if (this._loading && !this._initialized && !this._loadAttemptFailed) {
-        console.error('Délai de chargement des configurations dépassé');
-        // En cas de timeout, rediriger vers error-500
-        this._handleLoadError();
+          
+          // Rediriger vers la page d'erreur
+          setTimeout(() => {
+            this.router.navigateByUrl('/error-500');
+          }, 0);
+          
+          // Rejeter la promesse
+          reject(error);
+        };
+        
+        // Appeler la méthode du store qui retourne maintenant une promesse
+        this.configStore.loadAllConfigs(this._propertyId)
+          .then(() => {
+            // Utiliser runInInjectionContext pour créer un contexte d'injection valide
+            runInInjectionContext(this.injector, () => {
+              // Observer l'état d'initialisation
+              toObservable(this.configStore.initialized)
+                .pipe(
+                  filter((initialized) => initialized === true),
+                  take(1),
+                  takeUntil(this.destroy$)
+                )
+                .subscribe({
+                  next: () => {
+                    console.log(`Configurations chargées avec succès depuis le store${this._propertyId ? ' pour la propriété ' + this._propertyId : ''}`);
+                    
+                    try {
+                      this._processConfigs();
+                      
+                      // Cacher le splash screen après chargement réussi
+                      this.splashScreenService.hide();
+                      console.log('Splashscreen masqué après chargement réussi');
+                    } catch (error) {
+                      console.error('Erreur lors du traitement des configurations:', error);
+                      // Ne pas cacher le splashscreen en cas d'erreur, gérer l'erreur
+                      this._handleLoadError(error, reject);
+                      return;
+                    }
+                    
+                    resolve();
+                  },
+                  error: (error: Error) => {
+                    console.error('Erreur lors du chargement des configurations:', error);
+                    // En cas d'erreur, rediriger vers error-500
+                    this._handleLoadError(error, reject);
+                  }
+                });
+            });
+          })
+          .catch(handleApiFailure);
+      } catch (error) {
+        console.error('Exception lors du démarrage du chargement:', error);
+        this._handleLoadError(error, reject);
       }
-    }, 5000);
+
+      // Timeout de sécurité réduit (5 secondes)
+      setTimeout(() => {
+        if (this._loading && !this._initialized && !this._loadAttemptFailed) {
+          const timeoutError = new Error('Délai de chargement des configurations dépassé');
+          console.error(timeoutError.message);
+          // En cas de timeout, rediriger vers error-500
+          this._handleLoadError(timeoutError, reject);
+        }
+      }, 5000);
+    });
   }
 
   private _processConfigs(): void {
@@ -232,23 +298,55 @@ export class AppConfigService implements OnDestroy {
     }
   }
 
-  private _handleLoadError(): void {
+  /**
+   * Gère les erreurs de chargement des configurations
+   * @param error L'erreur rencontrée
+   * @param rejectPromise Fonction de rejet de promesse à appeler
+   */
+  private _handleLoadError(error?: any, rejectPromise?: (error: any) => void): void {
     if (!this._loadAttemptFailed) {
       this._loadAttemptFailed = true;
       this._loading = false;
       console.error(
-        "Échec du chargement des configurations, redirection vers la page d'erreur"
+        "Échec du chargement des configurations, redirection vers la page d'erreur",
+        error
       );
 
-      // Cacher le splash screen même en cas d'erreur
-      try {
-        this.splashScreenService.hide();
-      } catch (error) {
-        console.warn('Impossible de cacher le splash screen:', error);
-      }
+      // Ne pas cacher le splash screen tout de suite pour éviter un flash de contenu
+      // La redirection va décharger la page actuelle de toute façon
 
-      // Rediriger vers la page d'erreur
-      this.router.navigateByUrl('/error-500');
+      // Attendre un court instant avant de rediriger
+      // pour permettre à l'interface de se stabiliser
+      setTimeout(() => {
+        try {
+          // Rediriger vers la page d'erreur
+          this.router.navigateByUrl('/error-500');
+          console.log('Redirection vers error-500 effectuée');
+          
+          // Masquer le splashscreen seulement après un délai
+          // pour éviter un flash de l'UI entre la redirection
+          setTimeout(() => {
+            try {
+              this.splashScreenService.hide();
+            } catch (hideError) {
+              console.warn('Impossible de cacher le splash screen:', hideError);
+            }
+          }, 500);
+        } catch (routerError) {
+          console.error('Erreur lors de la redirection vers error-500:', routerError);
+          // Tentative de masquer le splashscreen en dernier recours
+          try {
+            this.splashScreenService.hide();
+          } catch (hideError) {
+            console.warn('Impossible de cacher le splash screen:', hideError);
+          }
+        }
+      }, 100);
+      
+      // Rejeter la promesse si une fonction de rejet a été fournie
+      if (rejectPromise) {
+        rejectPromise(error || new Error('Échec du chargement des configurations'));
+      }
     }
   }
 
@@ -576,5 +674,10 @@ export class AppConfigService implements OnDestroy {
         error
       );
     }
+  }
+
+  // Getter pour l'ID de propriété actuel
+  get propertyId(): string | null {
+    return this._propertyId;
   }
 }

@@ -23,6 +23,7 @@ import {FaqComponent} from "../faq/faq.component";
 import {NavigationService} from "../../core/navigation/navigation.service";
 import {LanguageService} from "@app/services/language-service";
 import {ToolbarService} from "../../core/services/toolbar.service";
+import { NavigationLoaderService } from 'src/app/core/navigation/navigation-loader.service';
 
 @Component({
   selector: 'app-home',
@@ -39,7 +40,7 @@ import {ToolbarService} from "../../core/services/toolbar.service";
 })
 export class HomeComponent implements OnInit {
   readonly propertyStrore = inject(PropertyStore);
-  readonly navigationService = inject(NavigationService);
+  readonly navigationService = inject(NavigationLoaderService);
   readonly languageService = inject(LanguageService);
   readonly toolbarService = inject(ToolbarService);
   readonly translateService = inject(TranslateService);

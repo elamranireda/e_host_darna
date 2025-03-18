@@ -21,6 +21,7 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {TranslatePipe} from "@ngx-translate/core";
 import {LanguageService} from "@app/services/language-service";
 import { AppConfigService } from '@app/config/app-config.service';
+import { NavigationLoaderService } from 'src/app/core/navigation/navigation-loader.service';
 
 @Component({
   selector: 'app-toolbar',
@@ -76,7 +77,7 @@ export class ToolbarComponent implements OnInit {
   constructor(
     private readonly layoutService: AppLayoutService,
     private readonly configService: AppConfigService,
-    private readonly navigationService: NavigationService,
+    private readonly navigationService: NavigationLoaderService,
     private readonly popoverService: AppPopoverService,
     private readonly router: Router,
     private languageService: LanguageService

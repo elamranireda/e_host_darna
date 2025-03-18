@@ -66,101 +66,83 @@ export const AppConfigStore = signalStore(
       },
       
       /**
-       * Charge les configurations depuis l'API 
-       * et redirige vers la page d'erreur en cas d'échec
+       * Charge toutes les configurations depuis l'API
+       * Point d'entrée principal pour le chargement des configurations
        */
-      loadConfigs: rxMethod<void>(
-        pipe(
-          tap(() => {
-            // Si déjà en cours de chargement, ne rien faire
-            if (store.loading()) {
-              console.log('Chargement déjà en cours, ignorer la nouvelle demande');
-              return;
-            }
-            
-            console.log('Démarrage du chargement des configurations');
-            patchState(store, { loading: true, error: null });
-          }),
-          switchMap(() => {
-            // Si déjà initialisé, retourner les données existantes
-            if (store.initialized()) {
-              console.log('Configurations déjà initialisées, réutilisation');
-              return of(true);
-            }
-            
-            return configApiService.loadConfigsAndNavigation().pipe(
-              tap({
-                next: ({ configs, colorVariables, languageConfig, navigationItems }) => {
-                  try {
-                    // Mettre à jour l'ensemble de la configuration dans le store
-                    patchState(store, { 
-                      loading: false, 
-                      configs,
-                      colorVariables,
-                      languageConfig,
-                      navigationItems,
-                      initialized: true,
-                      error: null
-                    });
-                    
-                    // Par défaut, utiliser Apollo comme config par défaut
-                    if (configs[AppConfigName.apollo]) {
-                      patchState(store, { currentConfig: configs[AppConfigName.apollo] });
-                      console.log('Configuration Apollo chargée avec succès');
-                    } else {
-                      console.error('Configuration Apollo non trouvée');
-                      patchState(store, { 
-                        loading: false,
-                        error: new Error('Configuration Apollo non trouvée')
-                      });
-                      
-                      // Rediriger vers la page d'erreur
-                      router.navigateByUrl('/error-500');
-                    }
-                  } catch (error) {
-                    console.error('Erreur lors du traitement des configurations:', error);
-                    patchState(store, { 
-                      loading: false,
-                      error
-                    });
-                    
-                    // Rediriger vers la page d'erreur
-                    router.navigateByUrl('/error-500');
-                  }
-                },
-                error: (error: any) => {
-                  console.error('Erreur lors du chargement des configurations depuis l\'API:', error);
-                  patchState(store, { 
-                    loading: false,
-                    error
-                  });
-                  
-                  // Rediriger vers la page d'erreur
-                  router.navigateByUrl('/error-500');
-                }
-              }),
-              map(() => store.initialized()),
-              catchError(error => {
-                console.error('Erreur critique lors du chargement des configurations:', error);
-                patchState(store, { 
-                  loading: false,
-                  error
-                });
-                
-                // Rediriger vers la page d'erreur
-                router.navigateByUrl('/error-500');
-                return of(false);
-              })
-            );
-          })
-        )
-      ),
+      loadAllConfigs(propertyId?: string | null) {
+        return this.loadConfigs(propertyId);
+      },
       
       /**
-       * Alias pour loadConfigs pour compatibilité avec le code existant
+       * Méthode privée qui charge les configurations depuis l'API
+       * @param propertyId ID de propriété optionnel à utiliser pour les appels API
+       * @returns Une promesse qui est résolue ou rejetée en fonction du résultat de l'appel API
        */
-      loadAllConfigs() {
-        return this.loadConfigs();
+      loadConfigs(propertyId?: string | null): Promise<void> {
+        const store = getState(this);
+        
+        return new Promise<void>((resolve, reject) => {
+          // Si déjà en cours de chargement, ne pas relancer
+          if (store.loading) {
+            console.log('Chargement des configurations déjà en cours, ignoré');
+            resolve(); // Résoudre immédiatement
+            return;
+          }
+          
+          // Marquer comme en cours de chargement
+          patchState(this, { loading: true, error: null });
+          
+          console.log(`Chargement des configurations depuis l'API${propertyId ? ' pour la propriété ' + propertyId : ''}...`);
+          
+          // Utiliser le service API avec l'ID de propriété si disponible
+          configApiService.loadConfigs(propertyId)
+            .pipe(
+              catchError(error => {
+                console.error('Erreur HTTP lors du chargement des configurations:', error);
+                
+                // Mettre à jour l'état avec l'erreur mais utiliser les configurations par défaut
+                patchState(this, { 
+                  loading: false, 
+                  error,
+                  configs: defaultConfigs,
+                  currentConfig: defaultConfigs[AppConfigName.apollo],
+                  colorVariables: defaultColorVariables,
+                  languageConfig: defaultLanguageConfig,
+                  // Ne pas marquer comme initialisé en cas d'erreur
+                  initialized: false 
+                });
+                
+                // Propager l'erreur pour qu'elle soit traitée par le service appelant
+                reject(error);
+                
+                // Ceci ne sera jamais exécuté mais est nécessaire pour la syntaxe RxJS
+                return throwError(() => error);
+              })
+            )
+            .subscribe({
+              next: (response) => {
+                console.log('Configurations chargées avec succès', response);
+                
+                // Mettre à jour l'état avec les données reçues
+                patchState(this, {
+                  loading: false,
+                  configs: response.configs || defaultConfigs,
+                  currentConfig: response.currentConfig || defaultConfigs[AppConfigName.apollo],
+                  colorVariables: response.colorVariables || defaultColorVariables,
+                  languageConfig: response.languageConfig || defaultLanguageConfig,
+                  navigationItems: response.navigationItems || [],
+                  initialized: true,
+                  error: null
+                });
+                
+                resolve();
+              },
+              error: (error) => {
+                console.error('Erreur dans la souscription:', error);
+                reject(error);
+              }
+            });
+        });
       },
       
       /**

@@ -15,6 +15,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import {AsyncPipe, NgFor, NgIf} from '@angular/common';
 import { AppPopoverService } from '@app/components/app-popover/app-popover.service';
+import { NavigationLoaderService } from 'src/app/core/navigation/navigation-loader.service';
 
 @Component({
   selector: 'app-sidenav',
@@ -34,7 +35,7 @@ import { AppPopoverService } from '@app/components/app-popover/app-popover.servi
   ]
 })
 export class SidenavComponent {
-  protected navigationService = inject(NavigationService);
+  protected navigationService = inject(NavigationLoaderService);
 
   @Input() collapsed: boolean = false;
   collapsedOpen$ = this.layoutService.sidenavCollapsedOpen$;

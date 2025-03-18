@@ -1,15 +1,23 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { catchError, map, tap } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 import { ConfigApiAdapter } from './config-api.adapter';
 import { NavigationItem } from '../../app/core/navigation/navigation-item.interface';
 import { AppConfig, AppConfigs } from './app-config.interface';
 import { LanguageConfig } from './language.config';
+import { NavigationService } from 'src/app/core/navigation/navigation.service';
 
 // URL de l'API depuis l'environnement
 const API_URL = environment.apiUrl;
+
+// Interface d'erreur enrichie pour la gestion des erreurs
+interface EnhancedError extends Error {
+  originalError?: any;
+  isHttpError?: boolean;
+  httpStatus?: number;
+}
 
 /**
  * Service pour gérer les opérations d'API liées à la configuration
@@ -19,10 +27,109 @@ const API_URL = environment.apiUrl;
   providedIn: 'root'
 })
 export class ConfigApiService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private readonly navigationService: NavigationService) {}
+
+  /**
+   * Charge les configurations depuis l'API avec ID de propriété
+   * @param propertyId ID de propriété à utiliser dans l'appel API
+   */
+  loadConfigs(propertyId?: string | null): Observable<{
+    configs: AppConfigs, 
+    colorVariables: Record<string, any>,
+    languageConfig: LanguageConfig,
+    navigationItems: NavigationItem[],
+    currentConfig: AppConfig
+  }> {
+    console.log(`Chargement des configurations depuis l'API${propertyId ? ' pour la propriété ' + propertyId : ''}...`);
+    
+    // Construire l'URL avec l'ID de propriété si disponible
+    const url = !propertyId 
+      ? `${API_URL}/properties/${propertyId}/config` 
+      : `${API_URL}/appConfigs`;
+    
+    return this.http.get<Record<string, any>>(url).pipe(
+      // Ajouter un délai pour éviter les appels trop rapides et permettre de voir les erreurs
+      tap(response => {
+        console.log('Réponse HTTP reçue:', response ? 'OK' : 'Vide');
+      }),
+      map(appConfig => {
+        try {
+          // Vérifier d'abord si nous avons une réponse valide
+          if (!appConfig) {
+            throw new Error('Réponse API vide ou invalide');
+          }
+          
+          // Adapter la configuration de l'application
+          const { configs, colorVariables, languageConfig, navigationItems } = ConfigApiAdapter.adaptFromCentralizedFormat(appConfig);
+          
+          // Vérifier que les données requises sont présentes
+          if (!configs || Object.keys(configs).length === 0) {
+            throw new Error('Configurations manquantes ou invalides');
+          }
+          
+          if (!colorVariables || Object.keys(colorVariables).length === 0) {
+            throw new Error('Variables de couleur manquantes ou invalides');
+          }
+          
+          if (!languageConfig || !languageConfig.supportedLanguages) {
+            throw new Error('Configuration linguistique manquante ou invalide');
+          }
+          
+          console.log('Configuration et navigation chargées avec succès:', 
+            Object.keys(configs).length, 'configurations,', 
+            'navigation:', navigationItems ? navigationItems.length : 0, 'items');
+          
+          // Par défaut, utiliser Apollo comme config courante
+          const currentConfig = configs['apollo'] || Object.values(configs)[0];
+          
+          return {
+            configs,
+            colorVariables,
+            languageConfig,
+            navigationItems: this.navigationService.getNavigationWithReplacedIds(navigationItems || [], propertyId || ''),
+            currentConfig
+          };
+        } catch (error) {
+          console.error('Erreur lors du traitement de la réponse API:', error);
+          // Transformer l'erreur de transformation en erreur observable
+          throw error;
+        }
+      }),
+      // Capture centralisée de toutes les erreurs possibles
+      catchError(error => {
+        // Message d'erreur personnalisé selon le type d'erreur
+        let errorMessage = 'Erreur lors du chargement des configurations';
+        let httpStatus = 0;
+        
+        if (error instanceof HttpErrorResponse) {
+          // Erreur HTTP
+          httpStatus = error.status;
+          errorMessage = `Erreur HTTP ${error.status}: ${error.statusText || 'Erreur serveur'}`;
+          console.error(errorMessage, error);
+        } else if (error instanceof Error) {
+          // Erreur JavaScript
+          errorMessage = `Erreur de traitement: ${error.message}`;
+          console.error(errorMessage, error);
+        } else {
+          // Autre type d'erreur
+          errorMessage = `Erreur inconnue: ${JSON.stringify(error)}`;
+          console.error(errorMessage, error);
+        }
+        
+        // Créer un objet d'erreur enrichi
+        const enhancedError: EnhancedError = new Error(errorMessage);
+        enhancedError.originalError = error;
+        enhancedError.isHttpError = error instanceof HttpErrorResponse;
+        enhancedError.httpStatus = httpStatus;
+        
+        return throwError(() => enhancedError);
+      })
+    );
+  }
 
   /**
    * Charge les configurations depuis l'API, y compris la navigation
+   * @deprecated Utiliser loadConfigs à la place
    */
   loadConfigsAndNavigation(): Observable<{
     configs: AppConfigs, 
@@ -30,36 +137,14 @@ export class ConfigApiService {
     languageConfig: LanguageConfig,
     navigationItems: NavigationItem[]
   }> {
-    console.log('Chargement des configurations depuis l\'API...');
-    
-    // Un seul appel pour récupérer toutes les données
-    return this.http.get<Record<string, any>>(`${API_URL}/appConfigs`).pipe(
-      map(appConfig => {
-        // Adapter la configuration de l'application
-        const { configs, colorVariables, languageConfig, navigationItems } = ConfigApiAdapter.adaptFromCentralizedFormat(appConfig);
-        
-        // Vérifier que les données requises sont présentes
-        if (!configs || Object.keys(configs).length === 0 || 
-            !colorVariables || Object.keys(colorVariables).length === 0 ||
-            !languageConfig || !languageConfig.supportedLanguages) {
-          throw new Error('Configuration incomplète chargée depuis API');
-        }
-        
-        console.log('Configuration et navigation chargées avec succès:', 
-          Object.keys(configs).length, 'configurations,', 
-          'navigation:', navigationItems.length, 'items');
-        
-        return {
-          configs,
-          colorVariables,
-          languageConfig,
-          navigationItems
-        };
-      }),
-      catchError(error => {
-        console.error('Erreur lors du chargement des configurations depuis l\'API:', error);
-        return throwError(() => error);
-      })
+    console.log('Chargement des configurations depuis l\'API (méthode dépréciée)...');
+    return this.loadConfigs().pipe(
+      map(({ configs, colorVariables, languageConfig, navigationItems }) => ({
+        configs,
+        colorVariables,
+        languageConfig,
+        navigationItems
+      }))
     );
   }
 
@@ -110,4 +195,5 @@ export class ConfigApiService {
       })
     );
   }
+  
 } 
