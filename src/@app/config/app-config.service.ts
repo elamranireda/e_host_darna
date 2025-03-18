@@ -93,12 +93,10 @@ export class AppConfigService implements OnDestroy {
    * @returns Une promesse qui se résout lorsque les configurations sont chargées
    */
   public loadConfigsWithPropertyId(propertyId: string): Promise<void> {
-    console.log(`Chargement des configurations avec ID de propriété: ${propertyId}`);
     this._propertyId = propertyId;
     
     // Si déjà initialisé, recharger les configurations avec le nouvel ID
     if (this._initialized) {
-      console.log('Rechargement des configurations avec le nouvel ID de propriété');
       return this._loadConfigs(propertyId);
     }
     

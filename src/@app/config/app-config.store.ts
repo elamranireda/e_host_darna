@@ -84,16 +84,13 @@ export const AppConfigStore = signalStore(
         return new Promise<void>((resolve, reject) => {
           // Si déjà en cours de chargement, ne pas relancer
           if (store.loading) {
-            console.log('Chargement des configurations déjà en cours, ignoré');
             resolve(); // Résoudre immédiatement
             return;
           }
           
           // Marquer comme en cours de chargement
           patchState(this, { loading: true, error: null });
-          
-          console.log(`Chargement des configurations depuis l'API${propertyId ? ' pour la propriété ' + propertyId : ''}...`);
-          
+
           // Utiliser le service API avec l'ID de propriété si disponible
           configApiService.loadConfigs(propertyId)
             .pipe(
@@ -121,7 +118,6 @@ export const AppConfigStore = signalStore(
             )
             .subscribe({
               next: (response) => {
-                console.log('Configurations chargées avec succès', response);
                 
                 // Mettre à jour l'état avec les données reçues
                 patchState(this, {
@@ -245,8 +241,7 @@ export const AppConfigStore = signalStore(
         patchState(store, {
           navigationItems: items
         });
-        
-        console.log('Items de navigation définis manuellement:', items.length, 'items');
+      
       }
     };
   }),

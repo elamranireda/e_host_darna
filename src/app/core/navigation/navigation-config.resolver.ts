@@ -3,61 +3,51 @@ import {ActivatedRouteSnapshot, Resolve, Router} from "@angular/router";
 import {PropertyStore} from "../property/property.store";
 import {LanguageService} from "@app/services/language-service";
 import {AppConfigService} from "@app/config/app-config.service";
-import {AppConfigStore} from "@app/config/app-config.store";
-import { AppSplashScreenService } from '@app/services/app-splash-screen.service';
 
+/**
+ * Ce resolver est responsable de:
+ * 1. Charger les configurations spécifiques à la propriété
+ * 2. Charger les détails de la propriété seulement après le chargement des configurations
+ */
 @Injectable({
   providedIn: 'root'
 })
-export class NavigationConfigResolver implements Resolve<any> {
-  readonly propertyStore = inject(PropertyStore);
-  readonly appConfigService = inject(AppConfigService);
-  readonly appConfigStore = inject(AppConfigStore);
-  readonly router = inject(Router);
-  readonly splashScreenService = inject(AppSplashScreenService);
+export class NavigationConfigResolver implements Resolve<string> {
+  private readonly propertyStore = inject(PropertyStore);
+  private readonly appConfigService = inject(AppConfigService);
+  private readonly router = inject(Router);
 
   constructor(private languageService: LanguageService) {
   }
 
+  /**
+   * Résout la navigation et les configurations pour une propriété spécifique
+   * @param route La route active qui contient l'ID de propriété
+   * @returns Une promesse qui se résout avec l'ID de propriété ou une chaîne vide
+   */
   async resolve(route: ActivatedRouteSnapshot): Promise<string> {
-    const id = route.paramMap?.get('id') ?? '';
-    console.log('Résolution navigation avec ID:', id);
+    // Récupérer l'ID de propriété depuis les paramètres de route
+    const propertyId = route.paramMap?.get('id') ?? '';
     
-    if (id) {
-      try {
-        // 1. Charger les configurations avec l'ID de propriété
-        console.log('Chargement des configurations pour la propriété:', id);
-        await this.appConfigService.loadConfigsWithPropertyId(id);
-        
-        // 2. Charger les détails de la propriété
-        console.log('Chargement des détails de propriété pour ID:', id);
-        this.propertyStore.getPropertyDetails(id);
-        
-        console.log('Configuration et navigation chargées avec succès pour la propriété:', id);
-        return id;
-      } catch (error) {
-        console.error('Erreur lors du chargement des configurations dans le resolver:', error);
-        
-        // S'assurer que le splash screen est masqué
-        try {
-          this.splashScreenService.hide();
-        } catch (splashError) {
-          console.warn('Impossible de masquer le splash screen depuis le resolver:', splashError);
-        }
-        
-        // Redirection de secours au cas où le service n'a pas redirigé
-        if (!this.router.navigated) {
-          console.log('Redirection de secours vers la page d\'erreur depuis le resolver');
-          setTimeout(() => {
-            this.router.navigateByUrl('/error-500');
-          }, 0);
-        }
-        
-        return id; // Retourner l'ID même en cas d'erreur pour éviter d'autres erreurs
-      }
-    } else {
-      console.warn('Aucun ID de propriété trouvé dans la route');
+    if (!propertyId) {
+      console.warn('Aucun ID de propriété trouvé dans la route - navigation impossible');
       return '';
+    }
+    
+    
+    try {
+      // 1. Charger les configurations avec l'ID de propriété (attendre la fin)
+      await this.appConfigService.loadConfigsWithPropertyId(propertyId);
+      
+      // 2. Une fois les configurations chargées avec succès, charger les détails de la propriété
+      this.propertyStore.getPropertyDetails(propertyId);
+      
+      return propertyId;
+    } catch (error) {
+      // La gestion des erreurs est déjà effectuée dans AppConfigService
+      // Ce bloc catch est simplement pour éviter que l'erreur ne remonte plus haut
+      console.error(`Erreur dans le resolver pour la propriété ${propertyId}:`, error);
+      return propertyId;
     }
   }
 }

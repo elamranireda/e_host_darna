@@ -40,7 +40,6 @@ export class ConfigApiService {
     navigationItems: NavigationItem[],
     currentConfig: AppConfig
   }> {
-    console.log(`Chargement des configurations depuis l'API${propertyId ? ' pour la propriété ' + propertyId : ''}...`);
     
     // Construire l'URL avec l'ID de propriété si disponible
     const url = !propertyId 
@@ -50,7 +49,6 @@ export class ConfigApiService {
     return this.http.get<Record<string, any>>(url).pipe(
       // Ajouter un délai pour éviter les appels trop rapides et permettre de voir les erreurs
       tap(response => {
-        console.log('Réponse HTTP reçue:', response ? 'OK' : 'Vide');
       }),
       map(appConfig => {
         try {
@@ -74,10 +72,6 @@ export class ConfigApiService {
           if (!languageConfig || !languageConfig.supportedLanguages) {
             throw new Error('Configuration linguistique manquante ou invalide');
           }
-          
-          console.log('Configuration et navigation chargées avec succès:', 
-            Object.keys(configs).length, 'configurations,', 
-            'navigation:', navigationItems ? navigationItems.length : 0, 'items');
           
           // Par défaut, utiliser Apollo comme config courante
           const currentConfig = configs['apollo'] || Object.values(configs)[0];
@@ -137,7 +131,6 @@ export class ConfigApiService {
     languageConfig: LanguageConfig,
     navigationItems: NavigationItem[]
   }> {
-    console.log('Chargement des configurations depuis l\'API (méthode dépréciée)...');
     return this.loadConfigs().pipe(
       map(({ configs, colorVariables, languageConfig, navigationItems }) => ({
         configs,
