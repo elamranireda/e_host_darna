@@ -4,7 +4,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { Router, RouterModule } from '@angular/router';
 import { Location } from '@angular/common';
 import { AppConfigService } from '@app/config/app-config.service';
-import { AppSplashScreenService } from '@app/services/app-splash-screen.service';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
@@ -22,16 +21,12 @@ export class Error404Component implements OnInit {
     private router: Router,
     private location: Location,
     private configService: AppConfigService,
-    private splashScreenService: AppSplashScreenService,
     private translateService: TranslateService
   ) {}
 
   ngOnInit() {
     // Récupérer l'ID de propriété depuis le service de configuration
     this.propertyId = this.configService.propertyId;
-    
-    // Masquer le splash screen
-    this.splashScreenService.hide();
   }
   
   /**

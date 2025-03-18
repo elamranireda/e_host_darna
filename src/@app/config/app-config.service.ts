@@ -10,9 +10,7 @@ import {
 import { BehaviorSubject, Observable, Subject, of } from 'rxjs';
 import { DOCUMENT } from '@angular/common';
 import { DeepPartial } from '../interfaces/deep-partial.type';
-import { mergeDeep } from '../utils/merge-deep';
 import { AppLayoutService } from '../services/app-layout.service';
-import { appConfigs as defaultConfigs } from './app-configs';
 import {
   AppColorScheme,
   AppConfig,
@@ -24,12 +22,11 @@ import {
   filter,
   map,
   take,
-  takeUntil,
-  tap
+  takeUntil
 } from 'rxjs/operators';
 import { APP_CONFIG, APP_THEMES } from './config.token';
 import { AppConfigStore } from './app-config.store';
-import { toObservable, toSignal } from '@angular/core/rxjs-interop';
+import { toObservable } from '@angular/core/rxjs-interop';
 import { LanguageConfig, LanguageInfo } from './language.config';
 import { Router } from '@angular/router';
 import { AppSplashScreenService } from '../services/app-splash-screen.service';
@@ -54,7 +51,6 @@ export class AppConfigService implements OnDestroy {
   private _initialized = false;
   private _loadAttemptFailed = false;
   private _configChangeEffect: ReturnType<typeof effect> | null = null;
-  private readonly splashScreenService = inject(AppSplashScreenService);
   private _propertyId: string | null = null;
 
   constructor(
@@ -120,12 +116,6 @@ export class AppConfigService implements OnDestroy {
         console.log('Configurations déjà initialisées, réutilisation');
         this._loading = false;
 
-        // Cacher le splash screen seulement si pas d'erreur
-        try {
-          this.splashScreenService.hide();
-        } catch (error) {
-          console.warn('Impossible de cacher le splash screen:', error);
-        }
 
         resolve();
         return;
@@ -138,11 +128,7 @@ export class AppConfigService implements OnDestroy {
           console.error('Échec de l\'appel API lors du chargement des configurations:', error);
           
           // Cacher immédiatement le splash screen
-          try {
-            this.splashScreenService.hide();
-          } catch (splashError) {
-            console.warn('Impossible de cacher le splash screen après erreur API:', splashError);
-          }
+         
           
           // Rediriger vers la page d'erreur
           setTimeout(() => {
@@ -173,9 +159,7 @@ export class AppConfigService implements OnDestroy {
                       this._processConfigs();
                       
                       // Cacher le splash screen après chargement réussi
-                      this.splashScreenService.hide();
-                      console.log('Splashscreen masqué après chargement réussi');
-                    } catch (error) {
+                         } catch (error) {
                       console.error('Erreur lors du traitement des configurations:', error);
                       // Ne pas cacher le splashscreen en cas d'erreur, gérer l'erreur
                       this._handleLoadError(error, reject);
@@ -315,21 +299,11 @@ export class AppConfigService implements OnDestroy {
           
           // Masquer le splashscreen seulement après un délai
           // pour éviter un flash de l'UI entre la redirection
-          setTimeout(() => {
-            try {
-              this.splashScreenService.hide();
-            } catch (hideError) {
-              console.warn('Impossible de cacher le splash screen:', hideError);
-            }
-          }, 0);
+        
         } catch (routerError) {
           console.error('Erreur lors de la redirection vers error-500:', routerError);
           // Tentative de masquer le splashscreen en dernier recours
-          try {
-            this.splashScreenService.hide();
-          } catch (hideError) {
-            console.warn('Impossible de cacher le splash screen:', hideError);
-          }
+        
         }
       }, 0);
       

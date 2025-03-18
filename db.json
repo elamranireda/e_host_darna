@@ -48,7 +48,7 @@
               }
             },
             "direction": "ltr",
-            "imgSrc": "assets/img/layouts/apollo.png",
+            "imgSrc": "assets/img/avatars/1.jpg", 
             "layout": "horizontal",
             "boxed": false,
             "sidenav": {
@@ -96,7 +96,7 @@
               }
             },
             "direction": "ltr",
-            "imgSrc": "assets/img/layouts/poseidon.png",
+            "imgSrc": "assets/img/avatars/2.jpg",
             "layout": "horizontal",
             "boxed": false,
             "sidenav": {
@@ -144,7 +144,7 @@
               }
             },
             "direction": "ltr",
-            "imgSrc": "assets/img/layouts/hermes.png",
+            "imgSrc": "assets/img/avatars/3.jpg",
             "layout": "vertical",
             "boxed": true,
             "sidenav": {
@@ -192,7 +192,7 @@
               }
             },
             "direction": "ltr",
-            "imgSrc": "assets/img/layouts/ares.png",
+            "imgSrc": "assets/img/avatars/4.jpg",
             "layout": "horizontal",
             "boxed": false,
             "sidenav": {
@@ -240,7 +240,7 @@
               }
             },
             "direction": "ltr",
-            "imgSrc": "assets/img/layouts/zeus.png",
+            "imgSrc": "assets/img/avatars/5.jpg",
             "layout": "horizontal",
             "boxed": false,
             "sidenav": {
@@ -288,7 +288,7 @@
               }
             },
             "direction": "ltr",
-            "imgSrc": "assets/img/layouts/ikaros.png",
+              "imgSrc": "assets/img/avatars/6.jpg",
             "layout": "vertical",
             "boxed": true,
             "sidenav": {
@@ -613,49 +613,49 @@
       "type": "dropdown",
       "label": "Votre arrivée",
       "icon": "mat:directions_walk",
-      "route": "/:id/arrival",
+      "route": "/:id/:lang/arrival",
       "children": [
         {
           "type": "link",
           "label": "Coordonnées",
           "icon": "mat:mail_outline",
-          "route": "/:id/arrival/contact"
+          "route": "/:id/:lang/arrival/contact"
         },
         {
           "type": "link",
           "icon": "mat:access_time",
           "label": "Tranche horaire",
-          "route": "/:id/arrival/times"
+          "route": "/:id/:lang/arrival/times"
         },
         {
           "type": "link",
           "icon": "mat:directions",
           "label": "Itinéraire et transports",
-          "route": "/:id/arrival/itinerary"
+          "route": "/:id/:lang/arrival/itinerary"
         },
         {
           "type": "link",
           "icon": "mat:local_parking",
           "label": "Parkings",
-          "route": "/:id/arrival/parking"
+          "route": "/:id/:lang/arrival/parking"
         },
         {
           "type": "link",
           "icon": "mat:playlist_add_check",
           "label": "Formalités d'arrivée",
-          "route": "/:id/arrival/checkin"
+          "route": "/:id/:lang/arrival/checkin"
         },
         {
           "type": "link",
           "icon": "mat:alarm",
           "label": "Arrivée tardive",
-          "route": "/:id/arrival/late-arrival"
+          "route": "/:id/:lang/arrival/late-arrival"
         },
         {
           "type": "link",
           "icon": "mat:home",
           "label": "Règles de la maison",
-          "route": "/:id/arrival/rules"
+          "route": "/:id/:lang/arrival/rules"
         }
       ],
       "id": "73d8"
@@ -664,137 +664,137 @@
       "type": "dropdown",
       "label": "Services sur place",
       "icon": "mat:room_service",
-      "route": "/:id/services",
+      "route": "/:id/:lang/services",
       "children": [
         {
           "type": "link",
           "label": "Wi-Fi",
-          "route": "/:id/services/wifi"
+          "route": "/:id/:lang/services/wifi"
         },
         {
           "type": "link",
           "label": "Animaux domestiques",
-          "route": "/:id/services/pets"
+          "route": "/:id/:lang/services/pets"
         },
         {
           "type": "link",
           "label": "Télévision",
-          "route": "/:id/services/television"
+          "route": "/:id/:lang/services/television"
         },
         {
           "type": "link",
           "label": "Boissons",
-          "route": "/:id/services/drinks"
+          "route": "/:id/:lang/services/drinks"
         },
         {
           "type": "link",
           "label": "Accès handicapés",
-          "route": "/:id/services/disabled"
+          "route": "/:id/:lang/services/disabled"
         },
         {
           "type": "link",
           "label": "Petit-déjeuner",
-          "route": "/:id/services/breakfast"
+          "route": "/:id/:lang/services/breakfast"
         },
         {
           "type": "link",
           "label": "Ménage",
-          "route": "/:id/services/cleaning"
+          "route": "/:id/:lang/services/cleaning"
         },
         {
           "type": "link",
           "label": "Blanchisserie",
-          "route": "/:id/services/laundry"
+          "route": "/:id/:lang/services/laundry"
         },
         {
           "type": "link",
           "label": "Linge de toilette",
-          "route": "/:id/services/towels"
+          "route": "/:id/:lang/services/towels"
         },
         {
           "type": "link",
           "label": "Oreillers Supplémentaires",
-          "route": "/:id/services/pillows"
+          "route": "/:id/:lang/services/pillows"
         },
         {
           "type": "link",
           "label": "Climatisation",
-          "route": "/:id/services/air-conditioning"
+          "route": "/:id/:lang/services/air-conditioning"
         },
         {
           "type": "link",
           "label": "Chauffage",
-          "route": "/:id/services/heating"
+          "route": "/:id/:lang/services/heating"
         },
         {
           "type": "link",
           "label": "Sèche-cheveux",
-          "route": "/:id/services/hairdryer"
+          "route": "/:id/:lang/services/hairdryer"
         },
         {
           "type": "link",
           "label": "Fer à repasser",
-          "route": "/:id/services/iron"
+          "route": "/:id/:lang/services/iron"
         },
         {
           "type": "link",
           "label": "Cintres",
-          "route": "/:id/services/hangers"
+          "route": "/:id/:lang/services/hangers"
         },
         {
           "type": "link",
           "label": "Espace de travail",
-          "route": "/:id/services/workspace"
+          "route": "/:id/:lang/services/workspace"
         },
         {
           "type": "link",
           "label": "Cuisine",
-          "route": "/:id/services/kitchen"
+          "route": "/:id/:lang/services/kitchen"
         },
         {
           "type": "link",
           "label": "Piscine",
-          "route": "/:id/services/pool"
+          "route": "/:id/:lang/services/pool"
         },
         {
           "type": "link",
           "label": "Jacuzzi",
-          "route": "/:id/services/jacuzzi"
+          "route": "/:id/:lang/services/jacuzzi"
         },
         {
           "type": "link",
           "label": "Sauna",
-          "route": "/:id/services/sauna"
+          "route": "/:id/:lang/services/sauna"
         },
         {
           "type": "link",
           "label": "Salle de sport",
-          "route": "/:id/services/gym"
+          "route": "/:id/:lang/services/gym"
         },
         {
           "type": "link",
           "label": "Spa",
-          "route": "/:id/services/spa"
+          "route": "/:id/:lang/services/spa"
         },
         {
           "type": "link",
           "label": "Barbecue",
-          "route": "/:id/services/barbecue"
+          "route": "/:id/:lang/services/barbecue"
         },
         {
           "type": "link",
           "label": "Jardin",
-          "route": "/:id/services/garden"
+          "route": "/:id/:lang/services/garden"
         },
         {
           "type": "link",
           "label": "Terrasse",
-          "route": "/:id/services/terrace"
+          "route": "/:id/:lang/services/terrace"
         },
         {
           "type": "link",
           "label": "Balcon",
-          "route": "/:id/services/balcony"
+          "route": "/:id/:lang/services/balcony"
         }
       ],
       "id": "6be2"
@@ -802,7 +802,7 @@
     {
       "type": "link",
       "label": "Tourisme",
-      "route": "/:id/tourisme",
+      "route": "/:id/:lang/tourisme",
       "icon": "mat:explore",
       "routerLinkActiveOptions": {
         "exact": true
@@ -818,25 +818,25 @@
         {
           "type": "link",
           "label": "Culture",
-          "route": "/:id/leisures/culture",
+          "route": "/:id/:lang/leisures/culture",
           "icon": "fa-theater-masks "
         },
         {
           "type": "link",
           "label": "Divertissement",
-          "route": "/:id/leisures/entertainment",
+          "route": "/:id/:lang/leisures/entertainment",
           "icon": "fa-grin-stars"
         },
         {
           "type": "link",
           "label": "Relaxation",
-          "route": "/:id/leisures/relaxation",
+          "route": "/:id/:lang/leisures/relaxation",
           "icon": "fa-grin-stars"
         },
         {
           "type": "link",
           "label": "Sports",
-          "route": "/:id/leisures/sports",
+          "route": "/:id/:lang/leisures/sports",
           "icon": "mat:fitness_center"
         }
       ],
@@ -845,7 +845,7 @@
     {
       "type": "dropdown",
       "label": "Commodités à proximité",
-      "route": "/:id/amenities",
+      "route": "/:id/:lang/amenities",
       "icon": "mat:explore",
       "routerLinkActiveOptions": {
         "exact": true
@@ -854,103 +854,103 @@
         {
           "type": "link",
           "label": "Lieux de culte",
-          "route": "/:id/amenities/worshipplaces",
+          "route": "/:id/:lang/amenities/worshipplaces",
           "icon": "mat:church"
         },
         {
           "type": "link",
           "label": "Alimentation",
-          "route": "/:id/amenities/food",
+          "route": "/:id/:lang/amenities/food",
           "icon": "mat:restaurant"
         },
         {
           "type": "link",
           "label": "Shopping",
-          "route": "/:id/amenities/shopping",
+          "route": "/:id/:lang/amenities/shopping",
           "icon": "mat:shopping_cart"
         },
         {
           "type": "link",
           "label": "Santé",
-          "route": "/:id/amenities/health",
+          "route": "/:id/:lang/amenities/health",
           "icon": "mat:local_hospital"
         },
         {
           "type": "link",
           "label": "Services",
-          "route": "/:id/amenities/services",
+          "route": "/:id/:lang/amenities/services",
           "icon": "mat:build"
         },
         {
           "type": "link",
           "label": "Transports",
-          "route": "/:id/amenities/transports",
+          "route": "/:id/:lang/amenities/transports",
           "icon": "mat:directions_bus"
         },
         {
           "type": "link",
           "label": "Banques",
-          "route": "/:id/amenities/banks",
+          "route": "/:id/:lang/amenities/banks",
           "icon": "mat:account_balance"
         },
         {
           "type": "link",
           "label": "Poste",
-          "route": "/:id/amenities/post",
+          "route": "/:id/:lang/amenities/post",
           "icon": "mat:local_post_office"
         },
         {
           "type": "link",
           "label": "Pharmacies",
-          "route": "/:id/amenities/pharmacies",
+          "route": "/:id/:lang/amenities/pharmacies",
           "icon": "mat:local_pharmacy"
         },
         {
           "type": "link",
           "label": "Médecins",
-          "route": "/:id/amenities/doctors",
+          "route": "/:id/:lang/amenities/doctors",
           "icon": "mat:local_hospital"
         },
         {
           "type": "link",
           "label": "Hôpitaux",
-          "route": "/:id/amenities/hospitals",
+          "route": "/:id/:lang/amenities/hospitals",
           "icon": "mat:local_hospital"
         },
         {
           "type": "link",
           "label": "Dentistes",
-          "route": "/:id/amenities/dentists",
+          "route": "/:id/:lang/amenities/dentists",
           "icon": "mat:local_hospital"
         },
         {
           "type": "link",
           "label": "Opticiens",
-          "route": "/:id/amenities/opticians",
+          "route": "/:id/:lang/amenities/opticians",
           "icon": "mat:local_hospital"
         },
         {
           "type": "link",
           "label": "Vétérinaires",
-          "route": "/:id/amenities/veterinaries",
+          "route": "/:id/:lang/amenities/veterinaries",
           "icon": "mat:local_hospital"
         },
         {
           "type": "link",
           "label": "Salons de coiffure",
-          "route": "/:id/amenities/hairdressers",
+          "route": "/:id/:lang/amenities/hairdressers",
           "icon": "mat:local_hospital"
         },
         {
           "type": "link",
           "label": "Salons de beauté",
-          "route": "/:id/amenities/beauty",
+          "route": "/:id/:lang/amenities/beauty",
           "icon": "mat:local_hospital"
         },
         {
           "type": "link",
           "label": "Salons de massage",
-          "route": "/:id/amenities/massage",
+          "route": "/:id/:lang/amenities/massage",
           "icon": "mat:local_hospital"
         }
       ],
@@ -968,73 +968,73 @@
         {
           "type": "link",
           "label": "Restaurants",
-          "route": "/:id/restaurants",
+          "route": "/:id/:lang/restaurants",
           "icon": "mat:restaurant"
         },
         {
           "type": "link",
           "label": "Fast-food",
-          "route": "/:id/fastfoods",
+          "route": "/:id/:lang/fastfoods",
           "icon": "mat:fastfood"
         },
         {
           "type": "link",
           "label": "Pizzerias",
-          "route": "/:id/pizzerias",
+          "route": "/:id/:lang/pizzerias",
           "icon": "mat:local_pizza"
         },
         {
           "type": "link",
           "label": "Crêperies",
-          "route": "/:id/creperies",
+          "route": "/:id/:lang/creperies",
           "icon": "mat:local_pizza"
         },
         {
           "type": "link",
           "label": "Kebabs",
-          "route": "/:id/kebabs",
+          "route": "/:id/:lang/kebabs",
           "icon": "mat:local_pizza"
         },
         {
           "type": "link",
           "label": "Sandwicheries",
-          "route": "/:id/sandwicheries",
+          "route": "/:id/:lang/sandwicheries",
           "icon": "mat:local_pizza"
         },
         {
           "type": "link",
           "label": "Salons de thé",
-          "route": "/:id/tearooms",
+          "route": "/:id/:lang/tearooms",
           "icon": "mat:local_cafe"
         },
         {
           "type": "link",
           "label": "Bars",
-          "route": "/:id/bars",
+          "route": "/:id/:lang/bars",
           "icon": "mat:local_bar"
         },
         {
           "type": "link",
           "label": "Cafés",
-          "route": "/:id/cafes",
+          "route": "/:id/:lang/cafes",
           "icon": "mat:local_cafe"
         },
         {
           "type": "link",
           "label": "Glaciers",
-          "route": "/:id/icecreams",
+          "route": "/:id/:lang/icecreams",
           "icon": "mat:local_pizza"
         },
         {
           "type": "link",
           "label": "Boulangeries",
-          "route": "/:id/bakeries",
+          "route": "/:id/:lang/bakeries",
           "icon": "mat:local_pizza"
         },
         {
           "type": "link",
           "label": "Pâtisseries",
-          "route": "/:id/pastries",
+          "route": "/:id/:lang/pastries",
           "icon": "mat:local_pizza"
         }
       ],
@@ -1052,49 +1052,49 @@
         {
           "type": "link",
           "label": "Police",
-          "route": "/:id/police",
+          "route": "/:id/:lang/police",
           "icon": "mat:local_police"
         },
         {
           "type": "link",
           "label": "Gendarmerie",
-          "route": "/:id/gendarmerie",
+          "route": "/:id/:lang/gendarmerie",
           "icon": "mat:local_police"
         },
         {
           "type": "link",
           "label": "Pompiers",
-          "route": "/:id/firemen",
+          "route": "/:id/:lang/firemen",
           "icon": "mat:local_fire_department"
         },
         {
           "type": "link",
           "label": "Samu",
-          "route": "/:id/samu",
+          "route": "/:id/:lang/samu",
           "icon": "mat:local_hospital"
         },
         {
           "type": "link",
           "label": "Urgences",
-          "route": "/:id/emergencies",
+          "route": "/:id/:lang/emergencies",
           "icon": "mat:local_hospital"
         },
         {
           "type": "link",
           "label": "Médecins de garde",
-          "route": "/:id/doctors",
+          "route": "/:id/:lang/doctors",
           "icon": "mat:local_hospital"
         },
         {
           "type": "link",
           "label": "Pharmacies de garde",
-          "route": "/:id/pharmacies",
+          "route": "/:id/:lang/pharmacies",
           "icon": "mat:local_pharmacy"
         },
         {
           "type": "link",
           "label": "Vétérinaires de garde",
-          "route": "/:id/veterinaries",
+          "route": "/:id/:lang/veterinaries",
           "icon": "mat:local_hospital"
         }
       ],
@@ -1103,7 +1103,7 @@
     {
       "type": "link",
       "label": "Votre départ",
-      "route": "/apps/help-center/guides",
+      "route": "/:id/:lang/help-center/guides",
       "icon": "mat:explore",
       "routerLinkActiveOptions": {
         "exact": true

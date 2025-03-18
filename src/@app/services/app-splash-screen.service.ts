@@ -1,7 +1,9 @@
 import { Inject, Injectable } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { DOCUMENT } from '@angular/common';
 import { animate, AnimationBuilder, style } from '@angular/animations';
+import { take } from 'rxjs';
+import { filter } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +18,15 @@ export class AppSplashScreenService {
   ) {
     this.splashScreenElem =
       this.document.body.querySelector('#app-splash-screen') ?? undefined;
+
+      if (this.splashScreenElem) {
+        this.router.events
+          .pipe(
+            filter((event: any) => event instanceof NavigationEnd),
+            take(1)
+          )
+          .subscribe(() => this.hide());
+      }
   }
 
   /**
@@ -28,11 +39,6 @@ export class AppSplashScreenService {
       console.warn('Élément splash screen non trouvé');
       return;
     }
-
-    console.log('Masquage du splash screen');
-    
-    // Ajouter une classe au body pour indiquer que le contenu est en cours de révélation
-    this.document.body.classList.add('content-revealing');
     
     const player = this.animationBuilder
       .build([
@@ -50,14 +56,6 @@ export class AppSplashScreenService {
 
     player.onDone(() => {
       this.splashScreenElem?.remove();
-      // Attendre que le contenu principal soit prêt avant de retirer la classe
-      setTimeout(() => {
-        this.document.body.classList.add('content-revealed');
-        setTimeout(() => {
-          this.document.body.classList.remove('content-revealing');
-        }, 100);
-      }, 50);
-      console.log('Splash screen supprimé du DOM');
     });
     
     player.play();
