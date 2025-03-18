@@ -61,6 +61,11 @@ export class LanguageService {
       lang = languageConfig.defaultLanguage;
     }
     
+    // Si c'est déjà la langue actuelle, pas besoin de recharger
+    if (lang === this.translate.currentLang) {
+      return;
+    }
+    
     this.translate.use(lang);
     
     // Mise à jour des attributs HTML pour SEO
@@ -77,24 +82,28 @@ export class LanguageService {
       });
     }
     
-    // Mettre à jour l'URL si demandé
-    if (updateUrl) {
-      this.updateUrlWithLanguage(lang);
-    }
-    
     // Définir un cookie pour persister la préférence de langue
     this.setCookie('NEXT_LOCALE', lang, 365);
+    
+    // Mettre à jour l'URL si demandé
+    if (updateUrl) {
+      // Construire la nouvelle URL
+      const newUrl = this.buildNewUrlWithLanguage(lang);
+      
+      // Utiliser window.location pour forcer un rechargement complet
+      window.location.href = newUrl;
+    }
   }
   
-  // Mettre à jour l'URL avec le préfixe de langue
-  private updateUrlWithLanguage(lang: string): void {
+  // Construire une nouvelle URL avec la langue spécifiée
+  private buildNewUrlWithLanguage(lang: string): string {
     const path = this.location.path();
     const pathParts = path.split('/').filter(part => part);
     
     // S'assurer que nous avons au moins 1 segment (id)
     if (pathParts.length === 0) {
-      // Si pas de segments, on ne peut pas mettre à jour l'URL
-      return;
+      // Si pas de segments, retourner l'URL actuelle
+      return this.document.location.href;
     }
     
     const id = pathParts[0]; // Premier segment est toujours l'ID
@@ -108,8 +117,8 @@ export class LanguageService {
       pathParts.splice(1, 0, lang);
     }
     
-    const newPath = '/' + pathParts.join('/');
-    this.location.go(newPath);
+    // Construire l'URL complète avec l'origine
+    return this.document.location.origin + '/' + pathParts.join('/');
   }
   
   // Mettre à jour l'attribut lang de la balise HTML pour le SEO
