@@ -2,52 +2,50 @@
   *ngIf="isLink(item) && !isFunction(item.route)"
   #rla="routerLinkActive"
   [ngClass]="{
-            'border-primary-600 bg-primary-600/10': rla.isActive,
-            'hover:bg-primary-600': !rla.isActive,
-            'hover:text-white': !rla.isActive
-          }"
+    'border-primary-600 bg-primary-600/10': rla.isActive,
+    'hover:bg-primary-600': !rla.isActive,
+    'hover:text-white': !rla.isActive
+  }"
   [routerLink]="item.route"
-  class=" h-full rounded-lg p-12 text-center p-12( transition duration-400 ease-out-swift cursor-pointer relative text-dark flex flex-col items-center justify-center "
+  class="h-full min-h-[180px] rounded-lg p-12 text-center transition duration-400 ease-out-swift cursor-pointer relative text-dark flex flex-col items-center justify-center"
   matRipple
   routerLinkActive>
   <mat-icon
     [class.text-inherit]="!rla.isActive"
     [class.text-primary-600]="rla.isActive"
     [svgIcon]="item.icon ?? ''"
-    class="transition duration-400 ease-out-swift icon-5xl"></mat-icon>
-  <h5 class="subtitle mb-0 mt-4">{{ item.label }}</h5>
+    class="transition duration-400 ease-out-swift icon-6xl"></mat-icon>
+  <h5 class="subtitle mb-0 mt-4 line-clamp-2 h-12 flex items-center justify-center">{{ item.label }}</h5>
   <span
     *ngIf="item.badge"
     [ngClass]="[item.badge.bgClass, item.badge.textClass]"
     class="app-sidenav-item__badge"
-  >{{ item.badge.value }}</span
-  >
+  >{{ item.badge.value }}</span>
 </a>
 
 <a
   *ngIf="isLink(item) && isFunction(item.route)"
   #rla="routerLinkActive"
   [ngClass]="{
-            'border-primary-600 bg-primary-600/10': rla.isActive,
-            'hover:bg-primary-600': !rla.isActive,
-            'hover:text-white': !rla.isActive
-          }"
+    'border-primary-600 bg-primary-600/10': rla.isActive,
+    'hover:bg-primary-600': !rla.isActive,
+    'hover:text-white': !rla.isActive
+  }"
   [routerLink]="item.route()"
-  class=" h-full rounded-lg p-6 text-center p-12( transition duration-400 ease-out-swift cursor-pointer relative text-dark flex flex-col items-center justify-center "
+  class="h-full min-h-[180px] rounded-lg p-6 text-center transition duration-400 ease-out-swift cursor-pointer relative text-dark flex flex-col items-center justify-center"
   matRipple
   routerLinkActive>
   <mat-icon
     [class.text-inherit]="!rla.isActive"
     [class.text-primary-600]="rla.isActive"
     [svgIcon]="item.icon ?? ''"
-    class="transition duration-400 ease-out-swift icon-5xl"></mat-icon>
-  <h5 class="subtitle mb-0 mt-4">{{ item.label }}</h5>
+    class="transition duration-400 ease-out-swift icon-6xl"></mat-icon>
+  <h5 class="subtitle mb-0 mt-4 line-clamp-2 h-12 flex items-center justify-center">{{ item.label }}</h5>
   <span
     *ngIf="item.badge"
     [ngClass]="[item.badge.bgClass, item.badge.textClass]"
     class="app-sidenav-item__badge"
-  >{{ item.badge.value }}</span
-  >
+  >{{ item.badge.value }}</span>
 </a>
 
 <a
@@ -55,24 +53,23 @@
   [routerLink]="item.route"
   #rla="routerLinkActive"
   [ngClass]="{
-            'border-primary-600 bg-primary-600/10': rla.isActive,
-            'hover:bg-primary-600': !rla.isActive,
-            'hover:text-white': !rla.isActive
-          }"
-  class=" h-full rounded-lg p-6 text-center p-12( transition duration-400 ease-out-swift cursor-pointer relative text-dark flex flex-col items-center justify-center "
+    'border-primary-600 bg-primary-600/10': rla.isActive,
+    'hover:bg-primary-600': !rla.isActive,
+    'hover:text-white': !rla.isActive
+  }"
+  class="h-full min-h-[180px] rounded-lg p-6 text-center transition duration-400 ease-out-swift cursor-pointer relative text-dark flex flex-col items-center justify-center"
   matRipple
   routerLinkActive>
   <mat-icon
     [class.text-inherit]="!rla.isActive"
     [class.text-primary-600]="rla.isActive"
     [svgIcon]="item.icon ?? ''"
-    class="transition duration-400 ease-out-swift icon-5xl"></mat-icon>
-  <h5 class="subtitle mb-0 mt-4">{{ item.label }}</h5>
+    class="transition duration-400 ease-out-swift icon-6xl"></mat-icon>
+  <h5 class="subtitle mb-0 mt-4 line-clamp-2 h-12 flex items-center justify-center">{{ item.label }}</h5>
   <span
     *ngIf="item.badge"
     [ngClass]="[item.badge.bgClass, item.badge.textClass]"
     class="app-sidenav-item__badge"
-  >{{ item.badge.value }}</span
-  >
+  >{{ item.badge.value }}</span>
 </a>
 
