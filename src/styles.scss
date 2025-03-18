@@ -72,3 +72,51 @@ html {
     transform: scale(1);
   }
 }
+
+/* Styles pour le loading spinner */
+.loading-backdrop {
+  background-color: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(2px);
+}
+
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1000;
+  background-color: rgba(255, 255, 255, 0.7);
+}
+
+/* Styles RTL support */
+[dir="rtl"] .spinner-container {
+  left: auto;
+  right: 0;
+}
+
+/* Élément avec la directive loading */
+.loading {
+  position: relative;
+  overflow: hidden;
+  pointer-events: none;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.1);
+    z-index: 999;
+  }
+}
+
+/* Support des conteneurs en position relative */
+.position-relative {
+  position: relative !important;
+}

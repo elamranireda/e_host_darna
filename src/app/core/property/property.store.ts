@@ -10,7 +10,7 @@ import {
 } from '@ngrx/signals';
 import {computed, effect, inject} from "@angular/core";
 import {rxMethod} from "@ngrx/signals/rxjs-interop";
-import {of, pipe, tap, catchError} from "rxjs";
+import {of, pipe, tap, catchError, delay} from "rxjs";
 import {switchMap} from "rxjs/operators";
 import {Property} from "../interfaces/property.interface";
 import {PropertyService} from "./property.service";
@@ -49,22 +49,19 @@ export const PropertyStore = signalStore(
     getPropertyDetails: rxMethod<string>(
       pipe(
         tap(() => {
-          console.log('Démarrage du chargement des détails de propriété');
           patchState(store, {loading: true});
         }),
         switchMap((propertyId) => {
           // Ne pas charger si on a déjà cette propriété et qu'elle est valide
           if (store.property() && store.property()?.id === propertyId) {
-            console.log('Propriété déjà chargée, réutilisation:', propertyId);
             return of(store.property());
           }
           
-          console.log('Récupération des détails de propriété depuis l\'API pour ID:', propertyId);
           return propertyService.getProperty(propertyId).pipe(
+            delay(5000),
             tap({
               next: (item: Property) => {
                 if (item) {
-                  console.log('Propriété chargée avec succès:', item.id);
                   patchState(store, {loading: false, property: item, error: null});
                 } else {
                   console.error('Propriété reçue est nulle ou invalide');

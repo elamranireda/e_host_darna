@@ -20,10 +20,13 @@ import {DefaultImageDirective} from "@app/directives/default-image.directive";
 import {TranslatePipe, TranslateService} from "@ngx-translate/core";
 import {NavigationMenuComponent} from "../../layouts/components/navigation-menu/navigation-menu.component";
 import {FaqComponent} from "../faq/faq.component";
-import {NavigationService} from "../../core/navigation/navigation.service";
 import {LanguageService} from "@app/services/language-service";
 import {ToolbarService} from "../../core/services/toolbar.service";
 import { NavigationLoaderService } from 'src/app/core/navigation/navigation-loader.service';
+import { LoadingDirective } from '../../shared/directives/loading.directive';
+import { LoadingPipe } from '../../shared/pipes/loading.pipe';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { OverlayModule } from '@angular/cdk/overlay';
 
 @Component({
   selector: 'app-home',
@@ -36,7 +39,28 @@ import { NavigationLoaderService } from 'src/app/core/navigation/navigation-load
     scaleFadeIn400ms],
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [MatTabsModule, NgFor, RouterLinkActive, RouterLink, RouterOutlet, CommonModule, MatIconModule, MatButtonModule, SidenavItemComponent, DefaultImageDirective, AppSecondaryToolbarComponent, AppBreadcrumbsComponent, MatExpansionModule, TranslatePipe, NavigationMenuComponent, FaqComponent]
+  imports: [
+    MatTabsModule, 
+    NgFor, 
+    RouterLinkActive, 
+    RouterLink, 
+    RouterOutlet, 
+    CommonModule, 
+    MatIconModule, 
+    MatButtonModule, 
+    SidenavItemComponent, 
+    DefaultImageDirective, 
+    AppSecondaryToolbarComponent, 
+    AppBreadcrumbsComponent, 
+    MatExpansionModule, 
+    TranslatePipe, 
+    NavigationMenuComponent, 
+    FaqComponent,
+    LoadingDirective,
+    LoadingPipe,
+    MatProgressSpinnerModule,
+    OverlayModule
+  ]
 })
 export class HomeComponent implements OnInit {
   readonly propertyStrore = inject(PropertyStore);
@@ -44,26 +68,10 @@ export class HomeComponent implements OnInit {
   readonly languageService = inject(LanguageService);
   readonly toolbarService = inject(ToolbarService);
   readonly translateService = inject(TranslateService);
-  propertyId: string = '';
 
-  constructor(private route: ActivatedRoute) {
-    this.route.data.subscribe(data => {
-      console.log('Route data:', data);
-    });
-    
-    // Récupérer l'ID de la propriété depuis les paramètres de la route
-    this.route.paramMap.subscribe(params => {
-      this.propertyId = params.get('id') || '';
-      console.log('Property ID from route:', this.propertyId);
-      
-      
-    });
-  }
-
-
+  constructor(private route: ActivatedRoute) {}
 
   ngOnInit(): void {
-    console.log('Home component initialized');
     // Définir le titre et les fils d'Ariane pour la page d'accueil
     const welcomeText = this.translateService.instant('WELCOME');
     this.toolbarService.updateToolbar(welcomeText, [welcomeText]);
