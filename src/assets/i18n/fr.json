@@ -33,7 +33,16 @@
     "NAVIGATION_MENU": "Chargement du menu de navigation..."
   },
   "ERROR": {
-    "NO_NAVIGATION_ITEMS": "Aucun élément de navigation n'est disponible."
+    "NO_NAVIGATION_ITEMS": "Aucun élément de navigation n'est disponible.",
+    "NOT_FOUND": {
+      "TITLE": "Page non trouvée",
+      "MESSAGE": "Désolé, la page que vous recherchez n'existe pas ou n'est pas accessible.",
+      "SEARCH_PLACEHOLDER": "Rechercher d'autres pages..."
+    },
+    "SERVER": {
+      "TITLE": "Erreur serveur",
+      "MESSAGE": "Une erreur s'est produite sur le serveur. Veuillez réessayer ultérieurement."
+    }
   },
   "BUTTON": {
     "RETRY": "Réessayer",
@@ -83,7 +92,9 @@
   },
   "NAVIGATION": {
     "PREVIOUS": "Précédent",
-    "NEXT": "Suivant"
+    "NEXT": "Suivant",
+    "BACK": "Retour",
+    "HOME": "Accueil"
   },
   "CHECKIN": {
     "CONTACT_TITLE": "Contact pour le check-in",

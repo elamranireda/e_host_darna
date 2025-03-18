@@ -38,7 +38,9 @@
   "ARRIVAL.TIMES": "Times",
   "NAVIGATION": {
     "PREVIOUS": "Previous",
-    "NEXT": "Next"
+    "NEXT": "Next",
+    "BACK": "Back",
+    "HOME": "Home"
   },
   "CHECKIN": {
     "CONTACT_TITLE": "Contact for check-in",
@@ -374,6 +376,17 @@
       "TITLE": "Late Arrival",
       "DESCRIPTION": "If you arrive outside opening hours, please check our special instructions.",
       "BUTTON": "View Late Arrival Instructions"
+    }
+  },
+  "ERROR": {
+    "NOT_FOUND": {
+      "TITLE": "Page not found",
+      "MESSAGE": "Sorry, the page you are looking for does not exist or is not accessible.",
+      "SEARCH_PLACEHOLDER": "Search for other pages..."
+    },
+    "SERVER": {
+      "TITLE": "Server error",
+      "MESSAGE": "An error occurred on the server. Please try again later."
     }
   }
 }

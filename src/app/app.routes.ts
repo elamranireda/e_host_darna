@@ -36,5 +36,16 @@ export const appRoutes: AppRoutes = [
         loadChildren: () => import('./pages/arrival/arrival.routes')
       }
     ]
+  },
+  // Route d'accueil vide qui redirige vers error-404
+  {
+    path: '',
+    redirectTo: 'error-404',
+    pathMatch: 'full'
+  },
+  // Route wildcard qui capture toutes les routes non définies
+  {
+    path: '**',
+    redirectTo: 'error-404'
   }
 ];

@@ -9,15 +9,19 @@ import {
 import { Observable, catchError, throwError } from 'rxjs';
 import { PropertyStore } from '../property/property.store';
 import { inject } from '@angular/core';
+import { Router } from '@angular/router';
 
 interface ErrorInfo {
   code: number;
   message: string;
+  shouldRedirect?: boolean;
+  redirectPath?: string;
 }
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
   private propertyStore = inject(PropertyStore);
+  private router = inject(Router);
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     return next.handle(request).pipe(
@@ -39,12 +43,34 @@ export class ErrorInterceptor implements HttpInterceptor {
             
             // Mettre à jour le state du PropertyStore directement
             this.propertyStore.setError(errorInfo);
+            
+            // Si la requête concerne une propriété et qu'elle n'existe pas,
+            // on redirige vers la page d'erreur 404
+            errorInfo.shouldRedirect = true;
+            errorInfo.redirectPath = '/error-404';
+            
+            // Effectuer la redirection
+            setTimeout(() => {
+              this.router.navigateByUrl('/error-404');
+            }, 0);
+          } else {
+            // Pour les autres erreurs 404
+            errorInfo.message = `La ressource demandée n'a pas été trouvée: ${request.url}`;
           }
         } else if (error.status === 500) {
           errorInfo.message = 'Une erreur interne du serveur s\'est produite. Veuillez réessayer ultérieurement.';
+          
+          // Pour les erreurs 500, rediriger vers la page d'erreur 500
+          errorInfo.shouldRedirect = true;
+          errorInfo.redirectPath = '/error-500';
+          
+          // Effectuer la redirection
+          setTimeout(() => {
+            this.router.navigateByUrl('/error-500');
+          }, 0);
         }
         
-        console.error('Erreur HTTP interceptée:', error);
+        console.error('Erreur HTTP interceptée:', errorInfo);
         return throwError(() => errorInfo);
       })
     );
