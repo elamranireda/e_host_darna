@@ -31,6 +31,9 @@ export class AppSplashScreenService {
 
     console.log('Masquage du splash screen');
     
+    // Ajouter une classe au body pour indiquer que le contenu est en cours de révélation
+    this.document.body.classList.add('content-revealing');
+    
     const player = this.animationBuilder
       .build([
         style({
@@ -47,6 +50,13 @@ export class AppSplashScreenService {
 
     player.onDone(() => {
       this.splashScreenElem?.remove();
+      // Attendre que le contenu principal soit prêt avant de retirer la classe
+      setTimeout(() => {
+        this.document.body.classList.add('content-revealed');
+        setTimeout(() => {
+          this.document.body.classList.remove('content-revealing');
+        }, 100);
+      }, 50);
       console.log('Splash screen supprimé du DOM');
     });
     

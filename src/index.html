@@ -7,11 +7,14 @@
 
   <meta content="width=device-width, initial-scale=1" name="viewport" />
   <link href="favicon.ico" rel="icon" type="image/x-icon" />
+  
+  <!-- Préchargement des ressources critiques -->
+  <link rel="preload" href="assets/img/logo/logo.svg" as="image" />
 </head>
 <body dir="ltr">
 <style>
   #app-splash-screen {
-    position: absolute;
+    position: fixed; /* Remplacer absolute par fixed pour éviter les problèmes de scroll */
     top: 0;
     left: 0;
     width: 100%;
@@ -24,6 +27,7 @@
     align-items: center;
     justify-content: center;
     gap: 2rem;
+    transition: opacity 0.4s ease-out; /* Ajout d'une transition */
   }
 
   .app-splash-screen-loader {
@@ -49,6 +53,16 @@
     100% {
       inset: 0;
     }
+  }
+  
+  /* Style pour assurer une transition fluide */
+  app-root {
+    opacity: 0;
+    transition: opacity 0.3s ease-in;
+  }
+  
+  .content-revealed app-root {
+    opacity: 1;
   }
 </style>
 

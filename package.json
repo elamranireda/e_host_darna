@@ -8,7 +8,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build --configuration production",
+    "build": "ng build --configuration=production --aot --build-optimizer --optimization --output-hashing=all --vendor-chunk --subresource-integrity",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",

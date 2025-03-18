@@ -3,7 +3,7 @@ import {BrowserModule} from '@angular/platform-browser';
 import {appRoutes} from './app.routes';
 import {provideAnimations} from '@angular/platform-browser/animations';
 import {HttpClient, HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi} from '@angular/common/http';
-import {provideRouter, withInMemoryScrolling} from '@angular/router';
+import {provideRouter, withInMemoryScrolling, withPreloading, PreloadAllModules} from '@angular/router';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatBottomSheetModule} from '@angular/material/bottom-sheet';
 import {MatNativeDateModule} from '@angular/material/core';
@@ -17,6 +17,15 @@ import {TranslateHttpLoader} from "@ngx-translate/http-loader";
 import {TranslateLoader, TranslateModule, TranslateService} from "@ngx-translate/core";
 import { ErrorInterceptor } from './core/interceptors/error-interceptor';
 import { BreadcrumbHistoryService } from './core/services/breadcrumb-history.service';
+import { registerLocaleData } from '@angular/common';
+import localeFr from '@angular/common/locales/fr';
+import localeAr from '@angular/common/locales/ar';
+import localeEn from '@angular/common/locales/en';
+
+// Pré-enregistrer les locales pour améliorer les performances
+registerLocaleData(localeFr);
+registerLocaleData(localeAr);
+registerLocaleData(localeEn);
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -44,7 +53,8 @@ export const appConfig: ApplicationConfig = {
     BreadcrumbHistoryService,
     provideRouter(
       appRoutes,
-      // TODO: Add preloading withPreloading(),
+      // Activer la précharge des modules pour réduire le temps de chargement des routes
+      withPreloading(PreloadAllModules),
       withInMemoryScrolling({
         anchorScrolling: 'enabled',
         scrollPositionRestoration: 'enabled'

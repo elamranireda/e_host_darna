@@ -29,6 +29,25 @@ html {
   // --app-color-warn-contrast: black;
 }
 
+/* Styles pour gérer la transition entre splashscreen et contenu */
+body {
+  &.content-revealing {
+    app-root {
+      opacity: 0;
+    }
+  }
+  
+  app-root {
+    display: block;
+    opacity: 1;
+    transition: opacity 0.3s ease-in;
+  }
+  
+  &.content-revealed app-root {
+    opacity: 1;
+  }
+}
+
 /* Styles pour la directive Clipboard */
 .can-copy {
   position: relative;
