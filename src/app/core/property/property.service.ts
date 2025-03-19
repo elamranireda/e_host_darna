@@ -10,9 +10,7 @@ import {environment} from "../../../environments/environment";
 
 export class PropertyService {
   // URL API pour accéder aux propriétés
-  private baseUrl = environment.production 
-    ? `${environment.jsonUrl}` 
-    : 'http://localhost:3000';
+  private baseUrl =`${environment.apiUrl}`;
   
   private propertiesEndpoint = `${this.baseUrl}/properties`;
 
@@ -21,24 +19,10 @@ export class PropertyService {
 
   // Récupérer une propriété spécifique par son ID
   getProperty(id: string): Observable<Property> {
-    if (environment.production) {
-      // Utiliser le fichier JSON local en production
-      return this.http.get<Property[]>(`${environment.jsonUrl}/properties-data.json`).pipe(
-        map(properties => {
-          const property = properties.find(p => p.id === id);
-          if (!property) {
-            throw new Error(`Property with id ${id} not found`);
-          }
-          return property;
-        }),
-        catchError(this.handleError<Property>('getProperty'))
-      );
-    } else {
-      // Utiliser l'API mock en développement
-      return this.http.get<Property>(`${this.propertiesEndpoint}/${id}`).pipe(
-        catchError(this.handleError<Property>('getProperty'))
-      );
-    }
+    // Utiliser l'API mock en développement
+    return this.http.get<Property>(`${this.propertiesEndpoint}/${id}`).pipe(
+      catchError(this.handleError<Property>('getProperty'))
+    );
   }
 
   // Récupérer toutes les propriétés

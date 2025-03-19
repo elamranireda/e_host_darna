@@ -16,6 +16,7 @@ import {provideQuillConfig} from 'ngx-quill';
 import {TranslateHttpLoader} from "@ngx-translate/http-loader";
 import {TranslateLoader, TranslateModule, TranslateService} from "@ngx-translate/core";
 import { ErrorInterceptor } from './core/interceptors/error-interceptor';
+import { LanguageInterceptor } from './core/interceptors/language-interceptor';
 import { BreadcrumbHistoryService } from './core/services/breadcrumb-history.service';
 import { registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
@@ -61,7 +62,12 @@ export const appConfig: ApplicationConfig = {
       })
     ),
     provideAnimations(),
-    // Fournir notre intercepteur d'erreur
+    // Fournir nos intercepteurs
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: LanguageInterceptor,
+      multi: true
+    },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ErrorInterceptor,

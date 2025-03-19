@@ -42,9 +42,7 @@ export class ConfigApiService {
   }> {
     
     // Construire l'URL avec l'ID de propriété si disponible
-    const url = !propertyId 
-      ? `${API_URL}/properties/${propertyId}/config` 
-      : `${API_URL}/appConfigs`;
+    const url = `${API_URL}/properties/${propertyId}/config`
     
     return this.http.get<Record<string, any>>(url).pipe(
       // Ajouter un délai pour éviter les appels trop rapides et permettre de voir les erreurs
